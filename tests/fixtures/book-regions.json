@@ -1,0 +1,29 @@
+{
+  "regions": [
+    "book/part1-golang/chapter01.md",
+    "book/part1-golang/chapter02.md#basic-types",
+    "book/part1-golang/chapter02.md#strings-runes",
+    "book/part1-golang/chapter02.md#collections",
+    "book/part1-golang/chapter02.md#struct-json",
+    "book/part1-golang/chapter03.md",
+    "book/part1-golang/chapter04.md",
+    "book/part1-golang/chapter05.md",
+    "book/part1-golang/chapter06.md",
+    "book/part1-golang/chapter07.md#reflection",
+    "book/part1-golang/chapter07.md#generics",
+    "book/part1-golang/chapter08.md",
+    "book/part1-golang/chapter09.md",
+    "book/part1-golang/chapter10.md",
+    "book/part1-golang/chapter11.md",
+    "book/part2-backend/chapter12.md",
+    "book/part2-backend/chapter13.md",
+    "book/part2-backend/chapter16.md",
+    "book/part2-backend/chapter17.md",
+    "book/part2-backend/chapter21.md",
+    "book/part3-agent/chapter26.md",
+    "book/part3-agent/chapter28.md",
+    "book/part3-agent/chapter28/rag.md",
+    "book/part3-agent/chapter22.md",
+    "book/part3-agent/chapter23.md"
+  ]
+}

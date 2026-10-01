@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 21
+topic_slug: service-runtime
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://pkg.go.dev/context
+- https://pkg.go.dev/log/slog
+- https://pkg.go.dev/net/http

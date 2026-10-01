@@ -1,0 +1,431 @@
+{
+  "introduction": {
+    "path": "book/introduction.md",
+    "title": "如何使用本书",
+    "part": "开始学习",
+    "order": 0,
+    "description": "准备环境，理解正文、Lab 与练习之间的关系，并建立可重复的学习方式。",
+    "published": true,
+    "prerequisites": [],
+    "labs": [],
+    "capabilities": [
+      "环境准备",
+      "运行与验证"
+    ]
+  },
+  "ch01-first-program": {
+    "path": "book/part1-golang/chapter01.md",
+    "title": "第 1 章：Go 环境与第一个程序",
+    "part": "Part 1 · Go 基础",
+    "order": 1,
+    "description": "安装工具链，跑通第一个程序的 run、test 与 build。",
+    "published": true,
+    "prerequisites": [
+      "introduction"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter01/hello-world"
+    ],
+    "capabilities": [
+      "Go 环境",
+      "go run/test/build"
+    ]
+  },
+  "ch02-data-types": {
+    "path": "book/part1-golang/chapter02.md",
+    "title": "第 2 章：数据类型",
+    "part": "Part 1 · Go 基础",
+    "order": 2,
+    "description": "基础类型、字符串、切片、map、结构体与 JSON 的存储语义和边界。",
+    "published": true,
+    "prerequisites": [
+      "ch01-first-program"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter02/values-variables-constants",
+      "labs/part1-golang/chapter02/strings-runes",
+      "labs/part1-golang/chapter02/arrays-slices",
+      "labs/part1-golang/chapter02/maps",
+      "labs/part1-golang/chapter02/json"
+    ],
+    "capabilities": [
+      "基础类型",
+      "Slice",
+      "Map",
+      "JSON"
+    ]
+  },
+  "ch03-control-flow": {
+    "path": "book/part1-golang/chapter03.md",
+    "title": "第 3 章：控制流与边界分支",
+    "part": "Part 1 · Go 基础",
+    "order": 3,
+    "description": "用分支表达规则、用循环累积结果，边界先行。",
+    "published": true,
+    "prerequisites": [
+      "ch02-data-types"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter03/control-flow"
+    ],
+    "capabilities": [
+      "if/switch",
+      "for-range",
+      "逗号 ok"
+    ]
+  },
+  "ch04-functions": {
+    "path": "book/part1-golang/chapter04.md",
+    "title": "第 4 章：函数",
+    "part": "Part 1 · Go 基础",
+    "order": 4,
+    "description": "签名与值传递、多返回值、递归、函数值、闭包、可变参数与 defer。",
+    "published": true,
+    "prerequisites": [
+      "ch03-control-flow"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter04/defer-panic",
+      "labs/part1-golang/chapter04/function-values"
+    ],
+    "capabilities": [
+      "值传递",
+      "闭包",
+      "defer"
+    ]
+  },
+  "ch05-errors": {
+    "path": "book/part1-golang/chapter05.md",
+    "title": "第 5 章：错误处理与异常",
+    "part": "Part 1 · Go 基础",
+    "order": 5,
+    "description": "错误是值：%w 保链、哨兵错误、panic 与 recover 的边界。",
+    "published": true,
+    "prerequisites": [
+      "ch04-functions"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter05/functions-errors"
+    ],
+    "capabilities": [
+      "error",
+      "panic/recover"
+    ]
+  },
+  "ch06-structs-methods": {
+    "path": "book/part1-golang/chapter06.md",
+    "title": "第 6 章：结构体与方法",
+    "part": "Part 1 · Go 基础",
+    "order": 6,
+    "description": "接收者、方法集与嵌入：给数据定义行为。",
+    "published": true,
+    "prerequisites": [
+      "ch05-errors"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter06/structs-methods-interfaces"
+    ],
+    "capabilities": [
+      "方法集",
+      "嵌入"
+    ]
+  },
+  "ch07-interfaces-generics": {
+    "path": "book/part1-golang/chapter07.md",
+    "title": "第 7 章：接口、泛型与反射",
+    "part": "Part 1 · Go 基础",
+    "order": 7,
+    "description": "接口值的两个组成、类型断言、泛型约束与反射边界。",
+    "published": true,
+    "prerequisites": [
+      "ch06-structs-methods"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter07/reflection-basics",
+      "labs/part1-golang/chapter07/generics-basics"
+    ],
+    "capabilities": [
+      "接口",
+      "泛型",
+      "反射"
+    ]
+  },
+  "ch08-packages-tools": {
+    "path": "book/part1-golang/chapter08.md",
+    "title": "第 8 章：包和工具",
+    "part": "Part 1 · Go 基础",
+    "order": 8,
+    "description": "包声明、导入路径、匿名导入注册机制与 go 工具链。",
+    "published": true,
+    "prerequisites": [
+      "ch07-interfaces-generics"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter08/packages-tools"
+    ],
+    "capabilities": [
+      "包管理",
+      "go 工具链"
+    ]
+  },
+  "ch09-concurrency": {
+    "path": "book/part1-golang/chapter09.md",
+    "title": "第 9 章：并发编程",
+    "part": "Part 1 · Go 基础",
+    "order": 9,
+    "description": "内存模型、channel、sync 原语、context 与 GMP 调度。",
+    "published": true,
+    "prerequisites": [
+      "ch08-packages-tools"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter09/goroutine-channel-select",
+      "labs/part1-golang/chapter09/worker-pools"
+    ],
+    "capabilities": [
+      "goroutine",
+      "channel",
+      "sync",
+      "context"
+    ]
+  },
+  "ch10-web-services": {
+    "path": "book/part1-golang/chapter10.md",
+    "title": "第 10 章：Web 服务",
+    "part": "Part 1 · Go 基础",
+    "order": 10,
+    "description": "HTTP 协议、net/http 运行机制、中间件、客户端边界与 database/sql。",
+    "published": true,
+    "prerequisites": [
+      "ch09-concurrency"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter10/http-server",
+      "labs/part1-golang/chapter10/http-middleware-client"
+    ],
+    "capabilities": [
+      "HTTP",
+      "中间件",
+      "MySQL"
+    ]
+  },
+  "ch11-engineering": {
+    "path": "book/part1-golang/chapter11.md",
+    "title": "第 11 章：工程实践与代码规范",
+    "part": "Part 1 · Go 基础",
+    "order": 11,
+    "description": "目录职责、命名规范、调试与分析工具：把代码交给别人维护。",
+    "published": true,
+    "prerequisites": [
+      "ch10-web-services"
+    ],
+    "labs": [
+      "labs/part1-golang/chapter11/code-review-comments",
+      "labs/part1-golang/chapter11/effective-go",
+      "labs/part1-golang/chapter11/json-api",
+      "labs/part1-golang/chapter11/module-layout",
+      "labs/part1-golang/chapter11/practice-json-api",
+      "labs/part1-golang/chapter11/project-layout",
+      "labs/part1-golang/chapter11/review-cli",
+      "labs/part1-golang/chapter11/uber-errors-wrap",
+      "labs/part1-golang/chapter11/uber-slice-preallocate",
+      "labs/part1-golang/chapter11/uber-string-builder"
+    ],
+    "capabilities": [
+      "项目布局",
+      "代码规范",
+      "pprof"
+    ]
+  },
+  "ch12-mysql-gorm": {
+    "path": "book/part2-backend/chapter12.md",
+    "title": "第 12 章：数据访问与模型配置",
+    "part": "Part 2 · 后端进阶",
+    "order": 12,
+    "description": "模型配置、脱敏 DSN 与 repository 边界。",
+    "published": true,
+    "prerequisites": [
+      "ch11-engineering"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter12/gorm-mysql",
+      "labs/part2-backend/chapter12/repository-pattern"
+    ],
+    "capabilities": [
+      "GORM",
+      "Repository"
+    ]
+  },
+  "ch13-transactions": {
+    "path": "book/part2-backend/chapter13.md",
+    "title": "第 13 章：事务边界与回滚",
+    "part": "Part 2 · 后端进阶",
+    "order": 13,
+    "description": "事务外壳、回滚语义与失败路径验证。",
+    "published": true,
+    "prerequisites": [
+      "ch12-mysql-gorm"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter13/transactions"
+    ],
+    "capabilities": [
+      "事务",
+      "回滚"
+    ]
+  },
+  "ch16-hertz": {
+    "path": "book/part2-backend/chapter16.md",
+    "title": "第 16 章：Hertz 路由与网关",
+    "part": "Part 2 · 后端进阶",
+    "order": 16,
+    "description": "engine、middleware 与 route group 的组合边界。",
+    "published": true,
+    "prerequisites": [
+      "ch13-transactions"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter16/hertz-routing",
+      "labs/part2-backend/chapter16/hertz-kitex-demo",
+      "labs/part2-backend/chapter16/hertz-kitex-real-chain"
+    ],
+    "capabilities": [
+      "Hertz",
+      "网关"
+    ]
+  },
+  "ch17-kitex": {
+    "path": "book/part2-backend/chapter17.md",
+    "title": "第 17 章：Kitex 与 RPC 契约",
+    "part": "Part 2 · 后端进阶",
+    "order": 17,
+    "description": "IDL、代码生成与 optional 字段的契约演进。",
+    "published": true,
+    "prerequisites": [
+      "ch16-hertz"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter17/kitex-idl-handler",
+      "labs/part2-backend/chapter17/kitex-rpc"
+    ],
+    "capabilities": [
+      "Kitex",
+      "IDL",
+      "契约演进"
+    ]
+  },
+  "ch21-service-runtime": {
+    "path": "book/part2-backend/chapter21.md",
+    "title": "第 21 章：配置、日志、探针与优雅关闭",
+    "part": "Part 2 · 后端进阶",
+    "order": 21,
+    "description": "配置加载、结构化日志、探针与协作式关闭。",
+    "published": true,
+    "prerequisites": [
+      "ch17-kitex"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter21/service-runtime"
+    ],
+    "capabilities": [
+      "配置",
+      "日志",
+      "优雅关闭"
+    ]
+  },
+  "ch22-llm-api": {
+    "path": "book/part3-agent/chapter22.md",
+    "title": "第 22 章：LLM API、Message 与结构化输出",
+    "part": "Part 3 · Golang Agent",
+    "order": 22,
+    "description": "消息模型、Provider 适配、token 成本与结构化输出的可见失败。",
+    "published": true,
+    "prerequisites": [
+      "ch21-service-runtime"
+    ],
+    "labs": [
+      "labs/part3-agent/chapter22/hello-llm",
+      "labs/part3-agent/chapter22/structured-output"
+    ],
+    "capabilities": [
+      "Provider",
+      "结构化输出",
+      "token/cost"
+    ]
+  },
+  "ch23-tool-calling": {
+    "path": "book/part3-agent/chapter23.md",
+    "title": "第 23 章：Tool Calling 与最小 Agent Loop",
+    "part": "Part 3 · Golang Agent",
+    "order": 23,
+    "description": "工具注册表、参数校验、最小 agent loop 与会话状态。",
+    "published": true,
+    "prerequisites": [
+      "ch22-llm-api"
+    ],
+    "labs": [
+      "labs/part3-agent/chapter23/tool-calling",
+      "labs/part3-agent/chapter23/minimal-agent-loop"
+    ],
+    "capabilities": [
+      "Tool Calling",
+      "Agent Loop"
+    ]
+  },
+  "ch26-eino-basics": {
+    "path": "book/part3-agent/chapter26.md",
+    "title": "第 26 章：Eino 消息与模型边界",
+    "part": "Part 3 · Golang Agent",
+    "order": 26,
+    "description": "消息构造、Generate/Stream 与 fake 模型对齐接口。",
+    "published": true,
+    "prerequisites": [
+      "ch23-tool-calling"
+    ],
+    "labs": [
+      "labs/part3-agent/chapter26/eino-basics"
+    ],
+    "capabilities": [
+      "Eino",
+      "消息模型"
+    ]
+  },
+  "ch28-vector-retrieval": {
+    "path": "book/part3-agent/chapter28.md",
+    "title": "第 28 章：Embedding 与向量检索",
+    "part": "Part 3 · Golang Agent",
+    "order": 28,
+    "description": "从维度契约、相似度排序、结果完整性和失败传播理解 RAG 的检索边界。",
+    "published": true,
+    "prerequisites": [
+      "ch26-eino-basics"
+    ],
+    "labs": [
+      "labs/part3-agent/chapter28/eino-vector-store",
+      "labs/part3-agent/chapter28/eino-rag-project"
+    ],
+    "capabilities": [
+      "Embedding",
+      "Vector Store",
+      "Retrieval"
+    ]
+  },
+  "ch28-rag-app": {
+    "path": "book/part3-agent/chapter28/rag.md",
+    "title": "用 Eino 组织一个 RAG 应用",
+    "part": "Part 3 · Golang Agent",
+    "order": 29,
+    "description": "问题、检索上下文、消息组装与回答输出的完整组装。",
+    "published": true,
+    "prerequisites": [
+      "ch28-vector-retrieval"
+    ],
+    "labs": [
+      "labs/part3-agent/chapter28/eino-rag-project"
+    ],
+    "capabilities": [
+      "RAG",
+      "检索增强"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+---
+course:
+  part: 1
+  chapter: 7
+topic_slug: generics-basics
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://go.dev/doc/tutorial/generics
+- https://go.dev/blog/intro-generics

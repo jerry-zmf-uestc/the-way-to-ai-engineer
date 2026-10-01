@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import ChapterCard from '../components/ChapterCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pages = (await getCollection('chapters', ({ data }) => data.published))
+  .sort((left, right) => left.data.order - right.data.order);
+const groups = Map.groupBy(pages, (page) => page.data.part);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="The Way to AI Engineer"
+  description="用 Go、后端系统与 Agent Runtime 的可运行实验，建立 AI 全栈工程能力。"
+>
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Golang · Backend · Agent</span>
+        <h1>从能运行的代码，<br />走到能解释的系统。</h1>
+        <p>
+          一条面向 AI 工程实践的学习路径：先掌握 Go，再理解可靠后端，最后构建可测试、可观测、受约束的 Agent。
+        </p>
+        <div class="hero-actions">
+          <a class="primary-button" href={`${base}/chapters/introduction/`}>开始学习</a>
+          <a class="secondary-button" href="https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer">查看 GitHub</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="课程方法">
+        <span>学习闭环</span>
+        <ol>
+          <li><strong>读懂机制</strong><small>明确行为与边界</small></li>
+          <li><strong>运行实验</strong><small>先验证确定性链路</small></li>
+          <li><strong>制造失败</strong><small>观察传播与恢复</small></li>
+          <li><strong>形成判断</strong><small>能解释为什么这样设计</small></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="course-index">
+    <div class="section-intro">
+      <span class="eyebrow">课程内容</span>
+      <h2>正文与实验一起前进</h2>
+      <p>当前只发布已经接入新内容流水线的页面；其余章节完成审校后逐批开放。</p>
+    </div>
+    {[...groups].map(([part, entries]) => (
+      <section class="part-section">
+        <div class="part-heading">
+          <h2>{part}</h2>
+          <span>{entries.length} 篇</span>
+        </div>
+        <div class="chapter-grid">
+          {entries.map((entry) => (
+            <ChapterCard
+              id={entry.id}
+              title={entry.data.title}
+              description={entry.data.description}
+              part={entry.data.part}
+              capabilities={entry.data.capabilities}
+              labs={entry.data.labs}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+  </section>
+</BaseLayout>

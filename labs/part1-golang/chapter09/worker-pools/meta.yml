@@ -1,0 +1,18 @@
+---
+course:
+  part: 1
+  chapter: 9
+topic_slug: worker-pools
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/worker-pools
+- https://pkg.go.dev/sync

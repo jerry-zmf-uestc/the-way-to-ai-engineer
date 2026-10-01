@@ -1,0 +1,24 @@
+name: 教材纠错
+description: 报告讲解、链接、代码摘录或预期输出的问题
+body:
+  - type: markdown
+    attributes:
+      value: 请勿提交密钥、个人数据或安全漏洞细节。漏洞按 SECURITY.md 私密报告。
+  - type: input
+    id: chapter
+    attributes:
+      label: 章节与位置
+      description: 文件路径、标题或链接
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 哪里不准确？
+      description: 给出原表述、你的判断和可核对的依据。
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议如何修改？

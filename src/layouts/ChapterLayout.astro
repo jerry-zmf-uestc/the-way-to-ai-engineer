@@ -1,0 +1,52 @@
+---
+import BackToTop from '../components/BackToTop.astro';
+import ChapterNav from '../components/ChapterNav.astro';
+import ContentsRail from '../components/ContentsRail.astro';
+import LabCard from '../components/LabCard.astro';
+import BaseLayout from './BaseLayout.astro';
+
+interface Heading { depth: number; slug: string; text: string }
+interface Neighbor { id: string; title: string }
+interface Props {
+  title: string;
+  description: string;
+  part: string;
+  source: string;
+  capabilities: string[];
+  labs: string[];
+  headings: Heading[];
+  previous?: Neighbor;
+  next?: Neighbor;
+}
+
+const { title, description, part, source, capabilities, labs, headings, previous, next } = Astro.props;
+const editUrl = `https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/edit/main/${source}`;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="chapter-shell">
+    <article class="chapter-article">
+      <header class="chapter-heading">
+        <span class="eyebrow">{part}</span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+        <div class="chapter-actions">
+          <div class="tag-row">
+            {capabilities.map((capability) => <span class="tag">{capability}</span>)}
+          </div>
+          <a href={editUrl}>在 GitHub 编辑</a>
+        </div>
+      </header>
+
+      <ContentsRail headings={headings} />
+
+      <div class="prose">
+        <slot />
+      </div>
+
+      {labs.map((lab) => <LabCard path={lab} />)}
+      <ChapterNav previous={previous} next={next} />
+    </article>
+  </div>
+  <BackToTop />
+</BaseLayout>

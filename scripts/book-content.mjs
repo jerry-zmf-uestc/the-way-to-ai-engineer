@@ -1,0 +1,226 @@
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
+import { dirname, relative, resolve, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+export const ROOT = resolve(SCRIPT_DIR, '..');
+export const MANIFEST_PATH = resolve(ROOT, 'book/chapters.json');
+export const OUTPUT_DIR = resolve(ROOT, 'src/content/chapters');
+export const SITE_BASE = '/the-way-to-ai-engineer';
+export const REPOSITORY_URL = 'https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer';
+
+const requiredStringFields = ['path', 'title', 'part', 'description'];
+
+export function loadManifest(path = MANIFEST_PATH) {
+  return JSON.parse(readFileSync(path, 'utf8'));
+}
+
+function repoPath(rootDir, absolutePath) {
+  return relative(rootDir, absolutePath).split(sep).join('/');
+}
+
+function encodeRepoPath(path) {
+  return path.split('/').map(encodeURIComponent).join('/');
+}
+
+export function validateManifest(manifest, rootDir = ROOT) {
+  if (!manifest || Array.isArray(manifest) || typeof manifest !== 'object') {
+    throw new Error('book/chapters.json must contain an object keyed by stable page ID');
+  }
+
+  const entries = Object.entries(manifest);
+  if (entries.length === 0) throw new Error('book/chapters.json must not be empty');
+
+  const orders = new Map();
+  const sourcePaths = new Map();
+  for (const [id, meta] of entries) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
+      throw new Error(`${id}: ID must use lowercase kebab-case`);
+    }
+    if (!meta || Array.isArray(meta) || typeof meta !== 'object') {
+      throw new Error(`${id}: metadata must be an object`);
+    }
+    for (const field of requiredStringFields) {
+      if (typeof meta[field] !== 'string' || meta[field].trim() === '') {
+        throw new Error(`${id}: ${field} must be a non-empty string`);
+      }
+    }
+    if (!meta.path.startsWith('book/') || !meta.path.endsWith('.md')) {
+      throw new Error(`${id}: path must point to a Markdown source under book/`);
+    }
+    if (!Number.isInteger(meta.order) || meta.order < 0) {
+      throw new Error(`${id}: order must be a non-negative integer`);
+    }
+    if (orders.has(meta.order)) {
+      throw new Error(`${id}: order ${meta.order} is already used by ${orders.get(meta.order)}`);
+    }
+    orders.set(meta.order, id);
+    if (sourcePaths.has(meta.path)) {
+      throw new Error(`${id}: source path is already used by ${sourcePaths.get(meta.path)}`);
+    }
+    sourcePaths.set(meta.path, id);
+    if (typeof meta.published !== 'boolean') {
+      throw new Error(`${id}: published must be a boolean`);
+    }
+
+    const source = resolve(rootDir, meta.path);
+    if (!existsSync(source)) throw new Error(`${id}: source not found: ${meta.path}`);
+    const firstHeading = readFileSync(source, 'utf8').match(/^#\s+(.+)$/m)?.[1]?.trim();
+    if (firstHeading !== meta.title) {
+      throw new Error(`${id}: manifest title does not match source H1`);
+    }
+
+    for (const field of ['prerequisites', 'labs', 'capabilities']) {
+      if (!Array.isArray(meta[field]) || meta[field].some((item) => typeof item !== 'string')) {
+        throw new Error(`${id}: ${field} must be an array of strings`);
+      }
+    }
+    for (const lab of meta.labs) {
+      if (!lab.startsWith('labs/') || !existsSync(resolve(rootDir, lab))) {
+        throw new Error(`${id}: Lab path not found: ${lab}`);
+      }
+    }
+  }
+
+  for (const [id, meta] of entries) {
+    for (const prerequisite of meta.prerequisites) {
+      if (!manifest[prerequisite]) {
+        throw new Error(`${id}: unknown prerequisite ${prerequisite}`);
+      }
+    }
+  }
+
+  const visiting = new Set();
+  const visited = new Set();
+  function visit(id) {
+    if (visiting.has(id)) throw new Error(`prerequisite cycle detected at ${id}`);
+    if (visited.has(id)) return;
+    visiting.add(id);
+    for (const dependency of manifest[id].prerequisites) visit(dependency);
+    visiting.delete(id);
+    visited.add(id);
+  }
+  for (const [id] of entries) visit(id);
+
+  return entries
+    .map(([id, meta]) => ({ id, ...meta }))
+    .sort((left, right) => left.order - right.order);
+}
+
+function splitTarget(target) {
+  const hashIndex = target.indexOf('#');
+  if (hashIndex === -1) return [target, ''];
+  return [target.slice(0, hashIndex), target.slice(hashIndex)];
+}
+
+function isExternal(target) {
+  return /^(?:[a-z][a-z0-9+.-]*:|#|\/\/)/i.test(target);
+}
+
+function withBase(path) {
+  return `${SITE_BASE}/${path.replace(/^\/+/, '')}`.replace(/\/{2,}/g, '/');
+}
+
+function rewriteTarget(target, sourcePath, manifest, rootDir, image = false) {
+  if (isExternal(target)) return target;
+  const [pathPart, fragment] = splitTarget(target);
+  if (pathPart === '') return target;
+
+  if (pathPart.startsWith('/')) return `${withBase(pathPart)}${fragment}`;
+
+  const sourceAbsolute = resolve(rootDir, sourcePath);
+  const targetAbsolute = resolve(dirname(sourceAbsolute), decodeURI(pathPart));
+  const targetRepoPath = repoPath(rootDir, targetAbsolute);
+  const page = Object.entries(manifest).find(([, meta]) => meta.path === targetRepoPath);
+  if (page && page[1].published) {
+    return `${withBase(`chapters/${page[0]}/`)}${fragment}`;
+  }
+  if (targetRepoPath === 'book/README.md') return `${withBase('')}/${fragment}`.replace(/\/#/, '#');
+
+  const publicIndex = targetRepoPath.indexOf('public/');
+  if (publicIndex >= 0) {
+    return `${withBase(targetRepoPath.slice(publicIndex + 'public/'.length))}${fragment}`;
+  }
+
+  if (!existsSync(targetAbsolute)) {
+    throw new Error(`${sourcePath}: unresolved ${image ? 'image' : 'link'} target ${target}`);
+  }
+  const view = statSync(targetAbsolute).isDirectory() ? 'tree' : 'blob';
+  return `${REPOSITORY_URL}/${view}/main/${encodeRepoPath(targetRepoPath)}${fragment}`;
+}
+
+function rewriteMarkdownLinks(body, sourcePath, manifest, rootDir) {
+  body = body.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_match, alt, target) => {
+    return `![${alt}](${rewriteTarget(target, sourcePath, manifest, rootDir, true)})`;
+  });
+  return body.replace(/(?<!!)\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_match, label, target) => {
+    return `[${label}](${rewriteTarget(target, sourcePath, manifest, rootDir, false)})`;
+  });
+}
+
+function stripSourceOnlyNavigation(body) {
+  const lines = body.trimEnd().split('\n');
+  const last = lines.at(-1)?.trim() ?? '';
+  if (/^\[(?:返回|开始)[^\]]*\]\([^)]+\)(?:\s*·\s*\[[^\]]+\]\([^)]+\))*$/.test(last)) {
+    lines.pop();
+  }
+  return `${lines.join('\n').trimEnd()}\n`;
+}
+
+function frontmatter(id, meta) {
+  const fields = {
+    title: meta.title,
+    chapter: meta.chapter,
+    part: meta.part,
+    order: meta.order,
+    description: meta.description,
+    published: meta.published,
+    source: meta.path,
+    labs: meta.labs,
+    capabilities: meta.capabilities,
+  };
+  const lines = ['---', `pageId: ${JSON.stringify(id)}`];
+  for (const [key, value] of Object.entries(fields)) {
+    if (value !== undefined) lines.push(`${key}: ${JSON.stringify(value)}`);
+  }
+  lines.push('---', '');
+  return lines.join('\n');
+}
+
+export function renderPage(id, meta, manifest, rootDir = ROOT) {
+  let body = readFileSync(resolve(rootDir, meta.path), 'utf8');
+  body = body.replace(/^#\s+.+\r?\n+/, '');
+  body = stripSourceOnlyNavigation(body);
+  // 代码围栏内的内容不是 Markdown 链接，必须跳过（如 Go 泛型调用 F[T](1)）。
+  const segments = body.split(/(^```[^\n]*\n[\s\S]*?^```\s*$)/m);
+  body = segments
+    .map((segment, index) =>
+      index % 2 === 1 ? segment : rewriteMarkdownLinks(segment, meta.path, manifest, rootDir),
+    )
+    .join('');
+  return `${frontmatter(id, meta)}${body.trimStart()}`;
+}
+
+export function prepareBook({ rootDir = ROOT, outputDir = OUTPUT_DIR } = {}) {
+  const manifest = loadManifest(resolve(rootDir, 'book/chapters.json'));
+  const entries = validateManifest(manifest, rootDir);
+  rmSync(outputDir, { recursive: true, force: true });
+  mkdirSync(outputDir, { recursive: true });
+
+  const generated = [];
+  for (const entry of entries) {
+    if (!entry.published) continue;
+    const { id, ...meta } = entry;
+    const outputPath = resolve(outputDir, `${id}.md`);
+    writeFileSync(outputPath, renderPage(id, meta, manifest, rootDir), 'utf8');
+    generated.push(repoPath(rootDir, outputPath));
+  }
+  return generated;
+}

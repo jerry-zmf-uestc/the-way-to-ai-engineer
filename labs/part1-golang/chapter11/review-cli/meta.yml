@@ -1,0 +1,21 @@
+---
+course:
+  part: 1
+  chapter: 11
+topic_slug: review-cli
+run_args:
+- "-item"
+- gofmt=5
+- "-item"
+- errors=4
+kind: original
+status: validated
+entrypoints:
+- cmd
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references: []

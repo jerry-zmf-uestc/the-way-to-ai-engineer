@@ -1,0 +1,26 @@
+name: 示例运行问题
+description: 报告 Lab、测试或检查脚本的可复现问题
+body:
+  - type: markdown
+    attributes:
+      value: 先读对应 Lab README。请脱敏路径、请求与日志，不要粘贴 .env 内容。
+  - type: input
+    id: environment
+    attributes:
+      label: 环境
+      description: 系统、Go 版本、仓库提交；文档检查问题还请给出 Ruby 和 rg 版本。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现命令与工作目录
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 预期与实际结果
+      description: 仅提供脱敏后的必要输出。
+    validations:
+      required: true

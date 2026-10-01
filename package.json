@@ -1,0 +1,23 @@
+{
+  "name": "the-way-to-ai-engineer",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "content:prepare": "node scripts/prep-book.mjs",
+    "content:check": "node scripts/validate-site-content.mjs && node --test scripts/book-content.test.mjs",
+    "predev": "npm run content:prepare",
+    "dev": "astro dev",
+    "prebuild": "npm run content:prepare",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "npm run content:check && npm run build",
+    "audit": "npm audit --audit-level=high --registry=https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "astro": "^7.3.3"
+  }
+}
