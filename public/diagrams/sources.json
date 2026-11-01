@@ -1,0 +1,100 @@
+{
+  "agent-collaboration.py": [
+    "dag-scheduling.svg",
+    "delegation-boundary.svg"
+  ],
+  "agent-loop.py": [
+    "agent-loop.svg"
+  ],
+  "agent-strategies.py": [
+    "planning-revision.svg",
+    "react-feedback.svg"
+  ],
+  "async-tasks.py": [
+    "async-task-sequence.svg",
+    "async-task-state.svg"
+  ],
+  "cost.py": [
+    "cost-per-success.svg",
+    "cost-persistence.svg",
+    "cost-reservation.svg"
+  ],
+  "handoff-state.py": [
+    "handoff-state.svg",
+    "handoff-commit-windows.svg"
+  ],
+  "harness-foundation.py": [
+    "checkpoint-window.svg",
+    "context-selection.svg",
+    "eino-comparison.svg",
+    "eino-react-steps.svg",
+    "eval-pipeline.svg",
+    "harness-overview.svg",
+    "mcp-lifecycle.svg",
+    "model-contract.svg",
+    "retrieval-pipeline.svg",
+    "runtime-lifecycle.svg",
+    "session-version.svg",
+    "skills-loading.svg",
+    "strategy-candidate-selection.svg",
+    "tool-boundary.svg",
+    "trace-recording.svg"
+  ],
+  "hitl.py": [
+    "hitl-sequence.svg",
+    "hitl-state.svg"
+  ],
+  "hyde-query.py": [
+    "hyde-query.svg"
+  ],
+  "information-lifecycle.py": [
+    "memory-lifecycle.svg",
+    "workspace-artifacts.svg",
+    "memory-cache-race.svg"
+  ],
+  "mcp-multi-server.py": [
+    "mcp-multi-server.svg"
+  ],
+  "model-inference.py": [
+    "model-inference.svg"
+  ],
+  "model-posttraining.py": [
+    "model-posttraining.svg"
+  ],
+  "neural-encoding.py": [
+    "neural-encoding.svg"
+  ],
+  "planning-search-width.py": [
+    "planning-search-width.svg"
+  ],
+  "rag-evidence.py": [
+    "rag-evidence.svg"
+  ],
+  "reflexion-feedback.py": [
+    "reflexion-feedback.svg"
+  ],
+  "resource-reservation.py": [
+    "resource-reservation.svg"
+  ],
+  "safety.py": [
+    "safety-boundary.svg",
+    "safety-gate-flow.svg"
+  ],
+  "serving.py": [
+    "serving-boundary.svg",
+    "serving-shutdown.svg"
+  ],
+  "sql-lease-row-wait.py": [
+    "sql-lease-row-wait.svg"
+  ],
+  "strategy-comparison.py": [
+    "strategy-control-comparison.svg"
+  ],
+  "streaming.py": [
+    "streaming-pipeline.svg",
+    "streaming-terminal.svg"
+  ],
+  "vector-filter.py": [
+    "vector-filter.svg"
+  ]
+}

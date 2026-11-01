@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-ruby -e '
+ruby -E UTF-8:UTF-8 -e '
   broken = []
   root = Dir.pwd
   files = Dir.glob("**/*.md", File::FNM_DOTMATCH).reject do |path|

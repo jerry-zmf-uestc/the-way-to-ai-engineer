@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"fmt"
 	"strings"
 	"testing"
 	"time"
@@ -41,6 +42,9 @@ func TestRunCompletesWithToolCall(t *testing.T) {
 	wantRoles := []string{"user", "assistant", "tool", "assistant"}
 	if strings.Join(roles, ",") != strings.Join(wantRoles, ",") {
 		t.Fatalf("message roles = %v, want %v", roles, wantRoles)
+	}
+	if len(model.LastHistory) != 3 || model.LastHistory[2].Role != "tool" || model.LastHistory[2].ToolCallID != "c1" || model.LastHistory[2].Content != "3" {
+		t.Fatalf("second model input = %v, want observation 3 for c1", model.LastHistory)
 	}
 	observation := session.Messages[2]
 	if observation.ToolCallID != "c1" || observation.Content != "3" {
@@ -204,5 +208,84 @@ func TestRunDemoOutput(t *testing.T) {
 		if !strings.Contains(out, want) {
 			t.Fatalf("runDemo() missing %q in %q", want, out)
 		}
+	}
+}
+
+func TestSessionOwnsNestedJSONValues(t *testing.T) {
+	args := map[string]any{"items": []any{map[string]any{"name": "original"}}}
+	calls := []ToolCall{{ID: "c1", Name: "read", Args: args}}
+	s := &Session{}
+	s.Add(Message{Role: "assistant", ToolCalls: calls})
+	args["items"].([]any)[0].(map[string]any)["name"] = "changed input"
+	calls[0].Name = "changed call"
+	h := s.History()
+	h[0].ToolCalls[0].Args["items"].([]any)[0].(map[string]any)["name"] = "changed snapshot"
+	h[0].ToolCalls[0].Name = "changed snapshot call"
+	got := s.History()[0].ToolCalls[0]
+	if got.Name != "read" || got.Args["items"].([]any)[0].(map[string]any)["name"] != "original" {
+		t.Fatalf("shared nested state: %#v", got)
+	}
+}
+
+// 只允许一轮模型调用时，两次工具仍会执行，观察保存后才返回超限。
+func TestMaxStepsCountsModelRoundsAfterToolObservation(t *testing.T) {
+	m := &ScriptedModel{Responses: []Response{{ToolCalls: []ToolCall{{ID: "c1", Name: "read"}, {ID: "c2", Name: "read"}}}}}
+	calls := 0
+	a := Agent{Model: m, MaxSteps: 1, Tools: ToolSet{"read": func(context.Context, map[string]any) (string, error) { calls++; return "evidence", nil }}}
+	s := &Session{}
+	_, err := a.Run(context.Background(), s, "question")
+	if !errors.Is(err, ErrMaxStepsExceeded) || m.Calls != 1 || calls != 2 || len(s.Messages) != 4 || s.Messages[3].ToolCallID != "c2" {
+		t.Fatalf("err=%v model=%d tools=%d history=%v", err, m.Calls, calls, s.Messages)
+	}
+}
+
+// 在模型返回前取消，检查Run拒绝迟到答案，而非仅在下一轮检查取消。
+func TestCanceledFinalResponseIsNotCommitted(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	model := &ScriptedModel{Responses: []Response{{Final: "late answer"}}, Hook: func(int) { cancel() }}
+	session := &Session{}
+	agent := Agent{Model: model, MaxSteps: 1}
+	_, err := agent.Run(ctx, session, "question")
+	if !errors.Is(err, context.Canceled) || len(session.Messages) != 1 {
+		t.Fatalf("err=%v history=%v: canceled answer must not be committed", err, session.Messages)
+	}
+}
+
+// 子请求可以先于外层context超时；包装的context错误也应终止Loop。
+func TestToolCancellationStopsBeforeNextModelTurn(t *testing.T) {
+	for _, terminal := range []error{context.Canceled, context.DeadlineExceeded} {
+		t.Run(terminal.Error(), func(t *testing.T) {
+			model := &ScriptedModel{Responses: []Response{
+				{ToolCalls: []ToolCall{{ID: "c1", Name: "read"}}}, {Final: "unreachable"},
+			}}
+			agent := Agent{Model: model, MaxSteps: 2, Tools: ToolSet{"read": func(context.Context, map[string]any) (string, error) {
+				return "", fmt.Errorf("read: %w", terminal)
+			}}}
+			session := &Session{}
+			_, err := agent.Run(context.Background(), session, "question")
+			if !errors.Is(err, terminal) || model.Calls != 1 || len(session.Messages) != 2 {
+				t.Fatalf("err=%v calls=%d history=%v", err, model.Calls, session.Messages)
+			}
+		})
+	}
+}
+
+func TestEmptyResponseIsProtocolFailure(t *testing.T) {
+	model := &ScriptedModel{Responses: []Response{{}}}
+	session := &Session{}
+	agent := Agent{Model: model, MaxSteps: 2}
+	_, err := agent.Run(context.Background(), session, "question")
+	if !errors.Is(err, ErrEmptyModelReply) || model.Calls != 1 || len(session.Messages) != 1 {
+		t.Fatalf("err=%v calls=%d history=%v", err, model.Calls, session.Messages)
+	}
+}
+
+func TestModelErrorKeepsCause(t *testing.T) {
+	model := &ScriptedModel{} // exhausted script simulates a provider failure
+	agent := Agent{Model: model, MaxSteps: 2}
+	_, err := agent.Run(context.Background(), &Session{}, "question")
+	if err == nil || !strings.Contains(err.Error(), "agent loop: model: scripted model: script exhausted") {
+		t.Fatalf("err=%v", err)
 	}
 }

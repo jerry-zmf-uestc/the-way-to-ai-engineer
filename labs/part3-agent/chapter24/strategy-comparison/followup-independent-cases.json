@@ -1,0 +1,119 @@
+{
+  "version": "followup-independent-v1",
+  "split": "regression",
+  "evaluation_use": "first-unused-test",
+  "source": "original synthetic fixtures",
+  "cases": [
+    {
+      "id": "alias-current-policy",
+      "family": "three-hop-alias-resolution",
+      "question": "What is the request timeout of the service currently operated under alias Lyra by team Celeste?",
+      "seed": "celeste-directory",
+      "corpus": {
+        "celeste-directory": {
+          "id": "celeste-directory",
+          "text": "Celeste operates alias Lyra. Resolve its current service using alias-routing.",
+          "references": [
+            "alias-routing"
+          ]
+        },
+        "alias-routing": {
+          "id": "alias-routing",
+          "text": "Lyra previously referred to Pulse; the current service is Nimbus. Its active policy is nimbus-policy.",
+          "references": [
+            "nimbus-policy"
+          ]
+        },
+        "nimbus-policy": {
+          "id": "nimbus-policy",
+          "text": "Nimbus request timeout is 53 seconds.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "53"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "timeout-field-units",
+      "family": "field-and-unit-disambiguation",
+      "question": "What is Solstice request timeout in seconds? Do not report its connection timeout.",
+      "seed": "solstice-directory",
+      "corpus": {
+        "solstice-directory": {
+          "id": "solstice-directory",
+          "text": "Solstice timeouts are recorded in solstice-config.",
+          "references": [
+            "solstice-config"
+          ]
+        },
+        "solstice-config": {
+          "id": "solstice-config",
+          "text": "Solstice connection timeout is 1200 milliseconds; request timeout is 27 seconds.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "27"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "inactive-fallback-policy",
+      "family": "conditional-policy-selection",
+      "question": "What request timeout applies to Harbor in its current deployment, based on the fallback flag?",
+      "seed": "harbor-deployment",
+      "corpus": {
+        "harbor-deployment": {
+          "id": "harbor-deployment",
+          "text": "Harbor currently has fallback_enabled=false. The branch policy is harbor-timeouts.",
+          "references": [
+            "harbor-timeouts"
+          ]
+        },
+        "harbor-timeouts": {
+          "id": "harbor-timeouts",
+          "text": "Harbor request timeout is 6 seconds when fallback_enabled=true, and 43 seconds when fallback_enabled=false.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "43"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "equally-current-conflict",
+      "family": "conflicting-authoritative-sources",
+      "question": "Read both equally current Tidal policies. What timeout can be concluded? If they conflict, refuse rather than choosing one.",
+      "seed": "tidal-directory",
+      "corpus": {
+        "tidal-directory": {
+          "id": "tidal-directory",
+          "text": "Both tidal-north and tidal-south are current approved Tidal policies with equal authority.",
+          "references": [
+            "tidal-north",
+            "tidal-south"
+          ]
+        },
+        "tidal-north": {
+          "id": "tidal-north",
+          "text": "Current Tidal request timeout is 18 seconds.",
+          "references": []
+        },
+        "tidal-south": {
+          "id": "tidal-south",
+          "text": "Current Tidal request timeout is 44 seconds.",
+          "references": []
+        }
+      },
+      "required_terms": [],
+      "expected_refuse": true,
+      "required_observed_ids": [
+        "tidal-north",
+        "tidal-south"
+      ]
+    }
+  ]
+}

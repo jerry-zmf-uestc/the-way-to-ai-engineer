@@ -1,11 +1,12 @@
 // Command mini-agent-console is a self-contained streaming agent demo: a web
 // page sends a question, a deterministic offline fake model optionally asks
-// for one tool call (calculator or echo), and the answer streams back to the
+// for one tool call (calculator, echo or research), and the answer streams back to the
 // page token by token over SSE. It depends only on the standard library.
 package main
 
 import (
 	"context"
+	"crypto/rand"
 	_ "embed"
 	"encoding/json"
 	"errors"
@@ -52,6 +53,25 @@ func newEvent(name string, payload any) streamEvent {
 	return streamEvent{name: name, data: string(data)}
 }
 
+// wireEvent separates transport identity/order from the typed application payload.
+// IDs are diagnostic only: this Lab does not store/replay events on reconnect.
+type wireEvent struct {
+	RunID   string          `json:"run_id"`
+	Seq     uint64          `json:"seq"`
+	Payload json.RawMessage `json:"payload"`
+}
+
+func writeSSE(w http.ResponseWriter, runID string, seq uint64, ev streamEvent) error {
+	data, err := json.Marshal(wireEvent{RunID: runID, Seq: seq, Payload: json.RawMessage(ev.data)})
+	if err != nil {
+		return err
+	}
+	if _, err = fmt.Fprintf(w, "id: %s:%d\nevent: %s\ndata: %s\n\n", runID, seq, ev.name, data); err != nil {
+		return err
+	}
+	return http.NewResponseController(w).Flush()
+}
+
 func doneEvent(reason string) streamEvent {
 	return newEvent(eventDone, map[string]string{"finish_reason": reason})
 }
@@ -64,6 +84,7 @@ func defaultRegistry() map[string]tool {
 	return map[string]tool{
 		"calculator": calculatorTool,
 		"echo":       echoTool,
+		"research":   researchTool,
 	}
 }
 
@@ -80,6 +101,8 @@ type modelDecision struct {
 func decide(question string) modelDecision {
 	q := strings.TrimSpace(question)
 	switch {
+	case q == "research" || strings.HasPrefix(q, "research "):
+		return modelDecision{toolName: "research", toolArgs: strings.TrimSpace(strings.TrimPrefix(q, "research"))}
 	case strings.HasPrefix(q, "calc "):
 		return modelDecision{toolName: "calculator", toolArgs: strings.TrimSpace(q[len("calc "):])}
 	case strings.HasPrefix(q, "echo "):
@@ -109,13 +132,17 @@ type agentConfig struct {
 // runAgent executes the fake agent loop in a new goroutine and returns a
 // channel of SSE events. The goroutine always closes the channel and exits
 // when the loop finishes or ctx is cancelled, so a disconnected client never
-// leaks it.
+// leaks it. Registered tools must also return promptly; cancellation cannot
+// forcibly interrupt a non-cooperating tool.
 func runAgent(ctx context.Context, registry map[string]tool, question string, cfg agentConfig) <-chan streamEvent {
 	out := make(chan streamEvent)
 	go func() {
 		defer close(out)
 
 		send := func(ev streamEvent) bool {
+			if ctx.Err() != nil {
+				return false
+			}
 			select {
 			case out <- ev:
 				return true
@@ -167,7 +194,13 @@ func runAgent(ctx context.Context, registry map[string]tool, question string, cf
 			send(doneEvent("error"))
 			return
 		}
+		if ctx.Err() != nil {
+			return
+		}
 		result, err := fn(decision.toolArgs)
+		if ctx.Err() != nil {
+			return
+		}
 		if err != nil {
 			send(newEvent(eventAgentError, map[string]string{"message": err.Error()}))
 			send(doneEvent("error"))
@@ -176,7 +209,16 @@ func runAgent(ctx context.Context, registry map[string]tool, question string, cf
 		if !send(newEvent(eventToolResult, map[string]string{"name": decision.toolName, "result": result})) {
 			return
 		}
-		if streamReply(replyAfterTool(decision.toolName, result)) {
+		reply := replyAfterTool(decision.toolName, result)
+		if decision.toolName == "research" {
+			reply, err = researchReply(result)
+			if err != nil {
+				send(newEvent(eventAgentError, map[string]string{"message": err.Error()}))
+				send(doneEvent("error"))
+				return
+			}
+		}
+		if streamReply(reply) {
 			send(doneEvent("stop"))
 		}
 	}()
@@ -228,7 +270,7 @@ func (s *server) chatHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "question too long", http.StatusRequestEntityTooLarge)
 		return
 	}
-	flusher, ok := w.(http.Flusher)
+	_, ok := w.(http.Flusher)
 	if !ok {
 		http.Error(w, "streaming unsupported", http.StatusInternalServerError)
 		return
@@ -241,25 +283,46 @@ func (s *server) chatHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), s.timeout)
 	defer cancel()
 
+	runID := rand.Text()
+	var seq uint64
+	write := func(ev streamEvent) bool {
+		seq++
+		return writeSSE(w, runID, seq, ev) == nil
+	}
+	finishCanceled := func() {
+		reason := "cancelled"
+		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+			reason = "timeout"
+		}
+		write(doneEvent(reason)) // Best effort; a disconnected viewer may never receive this terminal.
+	}
 	events := runAgent(ctx, s.registry, question, s.agent)
 	for {
+		if ctx.Err() != nil {
+			finishCanceled()
+			return
+		}
 		select {
 		case ev, ok := <-events:
+			if ctx.Err() != nil {
+				finishCanceled()
+				return
+			}
 			if !ok {
 				return
 			}
-			fmt.Fprintf(w, "event: %s\ndata: %s\n\n", ev.name, ev.data)
-			flusher.Flush()
-		case <-ctx.Done():
-			reason := "cancelled"
-			if errors.Is(ctx.Err(), context.DeadlineExceeded) {
-				reason = "timeout"
+			if !write(ev) {
+				return
+			} // defer cancel stops a producer blocked on the next send.
+			if ev.name == eventDone {
+				return
 			}
-			fmt.Fprintf(w, "event: %s\ndata: %s\n\n", eventDone, doneEvent(reason).data)
-			flusher.Flush()
+		case <-ctx.Done():
+			finishCanceled()
 			return
 		}
 	}
+
 }
 
 func main() {
@@ -268,7 +331,8 @@ func main() {
 
 	srv := newServer()
 	log.Printf("mini agent console listening on http://%s (Ctrl+C to stop)", *addr)
-	log.Fatal(http.ListenAndServe(*addr, srv.mux()))
+	httpServer := &http.Server{Addr: *addr, Handler: srv.mux(), ReadHeaderTimeout: 5 * time.Second, WriteTimeout: 35 * time.Second}
+	log.Fatal(httpServer.ListenAndServe())
 }
 
 // --- tools ---

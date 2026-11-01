@@ -1,0 +1,71 @@
+[
+  {
+    "case_id": "both-premises",
+    "batch": {
+      "profile": "qwen3",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "prompt_version": "rag-joint-v1",
+      "rows": [
+        {
+          "raw": "```json\n{\"claims\":[{\"text\":\"answer\",\"citations\":[{\"id\":\"deployment\",\"version\":\"1\",\"quote\":\"Harbor fallback_enabled=false.\"},{\"id\":\"policy\",\"version\":\"1\",\"quote\":\"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}\n```",
+          "input_tokens": 193,
+          "output_tokens": 62,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: invalid draft",
+    "rubric_pass": false
+  },
+  {
+    "case_id": "policy-only",
+    "batch": {
+      "profile": "qwen3",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "prompt_version": "rag-joint-v1",
+      "rows": [
+        {
+          "raw": "{\"claims\":[{\"text\":\"answer\",\"citations\":[{\"evidence_id\":\"policy\",\"version\":\"1\",\"quote\":\"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}.",
+          "input_tokens": 170,
+          "output_tokens": 44,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: invalid draft",
+    "rubric_pass": false
+  },
+  {
+    "case_id": "deployment-only",
+    "batch": {
+      "profile": "qwen3",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "prompt_version": "rag-joint-v1",
+      "rows": [
+        {
+          "raw": "{\"claims\":[{\"text\":\"answer\",\"citations\":[{\"evidence_id\":\"deployment\",\"version\":\"1\",\"quote\":\"Harbor fallback_enabled=false.\"}]}]}.",
+          "input_tokens": 159,
+          "output_tokens": 33,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: invalid draft",
+    "rubric_pass": false
+  }
+]

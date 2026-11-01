@@ -1,0 +1,160 @@
+{
+  "Version": "teaching-v1",
+  "Cases": [
+    {
+      "ID": "timeout",
+      "Split": "regression",
+      "Relevant": [
+        "guide-v1"
+      ],
+      "AllowedSources": [
+        "guide-v1"
+      ],
+      "AllowedTools": [
+        "read"
+      ],
+      "RequiredClaims": [
+        "Timeout is 30 seconds."
+      ],
+      "Input": "What is the timeout?"
+    },
+    {
+      "ID": "empty",
+      "Split": "regression",
+      "ExpectAbstain": true,
+      "Input": "What is the memory quota?"
+    },
+    {
+      "ID": "paraphrase",
+      "Split": "development",
+      "Relevant": [
+        "guide-v1"
+      ],
+      "AllowedSources": [
+        "guide-v1"
+      ],
+      "RequiredClaims": [
+        "Requests time out after 30 seconds."
+      ],
+      "Input": "Explain request timeout."
+    }
+  ],
+  "Labels": [
+    {
+      "CaseID": "timeout",
+      "Text": "Timeout is 30 seconds.",
+      "Source": "guide-v1",
+      "Verdict": "supported"
+    },
+    {
+      "CaseID": "paraphrase",
+      "Text": "Requests time out after 30 seconds.",
+      "Source": "guide-v1",
+      "Verdict": "unknown"
+    }
+  ],
+  "Baseline": [
+    {
+      "CaseID": "timeout",
+      "RunID": "b1",
+      "Retrieved": [
+        "guide-v1"
+      ],
+      "Tools": [
+        "read"
+      ],
+      "Claims": [
+        {
+          "Text": "Timeout is 30 seconds.",
+          "Sources": [
+            "guide-v1"
+          ]
+        }
+      ],
+      "Tokens": 20,
+      "TokensKnown": true,
+      "Evidence": [
+        "guide-v1"
+      ]
+    },
+    {
+      "CaseID": "empty",
+      "RunID": "b2",
+      "Abstained": true,
+      "TokensKnown": true,
+      "Evidence": []
+    },
+    {
+      "CaseID": "paraphrase",
+      "RunID": "b3",
+      "Retrieved": [
+        "guide-v1"
+      ],
+      "Claims": [
+        {
+          "Text": "Requests time out after 30 seconds.",
+          "Sources": [
+            "guide-v1"
+          ]
+        }
+      ],
+      "Tokens": 30,
+      "TokensKnown": true,
+      "Evidence": [
+        "guide-v1"
+      ]
+    }
+  ],
+  "Candidate": [
+    {
+      "CaseID": "timeout",
+      "RunID": "n1",
+      "Error": "tool_failed",
+      "Retrieved": [
+        "guide-v1"
+      ],
+      "Tools": [
+        "read"
+      ],
+      "Claims": [
+        {
+          "Text": "Timeout is 30 seconds.",
+          "Sources": [
+            "guide-v1"
+          ]
+        }
+      ],
+      "Tokens": 25,
+      "TokensKnown": true,
+      "Evidence": [
+        "guide-v1"
+      ]
+    },
+    {
+      "CaseID": "empty",
+      "RunID": "n2",
+      "Abstained": true,
+      "TokensKnown": true,
+      "Evidence": []
+    },
+    {
+      "CaseID": "paraphrase",
+      "RunID": "n3",
+      "Retrieved": [
+        "guide-v1"
+      ],
+      "Claims": [
+        {
+          "Text": "Requests time out after 30 seconds.",
+          "Sources": [
+            "guide-v1"
+          ]
+        }
+      ],
+      "TokensKnown": false,
+      "Evidence": [
+        "guide-v1"
+      ]
+    }
+  ]
+}

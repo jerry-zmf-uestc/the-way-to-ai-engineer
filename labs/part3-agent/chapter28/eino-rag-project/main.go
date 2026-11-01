@@ -102,9 +102,9 @@ func NewProject(embedder FakeEmbedder, model FakeAnswerModel) *Project {
 		model:    model,
 		docs: []knowledgeDoc{
 			{
-				ID:     "basics",
-				Source: "labs/part3-agent/chapter26/eino-basics",
-				Text:   "Eino basics define prompt messages, context propagation, and model boundaries.",
+				ID:     "embedding",
+				Source: "labs/part3-agent/chapter28/eino-vector-store",
+				Text:   "Eino embedding adapters define batch input, context propagation, and component boundaries.",
 			},
 			{
 				ID:     "vector",

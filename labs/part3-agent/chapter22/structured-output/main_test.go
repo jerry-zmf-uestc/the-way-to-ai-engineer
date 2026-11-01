@@ -154,3 +154,23 @@ func TestGenerateAnswerProviderErrorNotRetried(t *testing.T) {
 		t.Fatalf("GenerateAnswer() error = %v, want provider error propagated", err)
 	}
 }
+
+type providerFunc func(context.Context, []Message) (string, error)
+
+func (f providerFunc) Generate(ctx context.Context, m []Message) (string, error) { return f(ctx, m) }
+func TestCanceledAndOversizeOutputRejected(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	_, err := GenerateAnswer(ctx, providerFunc(func(context.Context, []Message) (string, error) {
+		cancel()
+		return `{"answer":"late","confidence":1,"sentiment":"neutral","citations":[]}`, nil
+	}), "question")
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("late response accepted: %v", err)
+	}
+	calls := 0
+	_, err = GenerateAnswer(context.Background(), providerFunc(func(context.Context, []Message) (string, error) { calls++; return strings.Repeat("x", (64<<10)+1), nil }), "question")
+	if err == nil || calls != 1 {
+		t.Fatalf("oversize output retried: calls=%d err=%v", calls, err)
+	}
+}

@@ -15,7 +15,7 @@ topics.each do |chapter, ids|
   directory = format('book/part1-golang/chapter%02d', chapter)
   abort "duplicate chapter directory: #{directory}" if File.exist?(directory)
   path = directory + '.md'
-  text = File.read(path)
+  text = File.read(path, encoding: 'UTF-8')
   prose = text.gsub(/```.*?```/m, '')
   abort "#{path}: expected one title" unless prose.scan(/^# /).length == 1
   levels = prose.scan(/^(\#{1,6}) /).flatten.map(&:length)
@@ -29,13 +29,13 @@ topics.each do |chapter, ids|
   numbers = prose.scan(/^\| (?:<a id="[^"]+"><\/a>)?#{chapter}\.(\d+) /).flatten.map(&:to_i)
   abort "#{path}: exercises must be sequential" unless numbers == expected
 end
-mapped = JSON.parse(File.read('tests/fixtures/book-regions.json')).fetch('regions')
+mapped = JSON.parse(File.read('tests/fixtures/book-regions.json', encoding: 'UTF-8')).fetch('regions')
 actual_regions = mapped.select { |location| anchors.key?(File.expand_path(location.split('#', 2).first)) }
 abort 'merged chapter regions are incomplete or repeated' unless actual_regions.sort == regions.sort
 
 links_checked = 0
 Dir.glob('**/*.md').uniq.each do |path|
-  prose = File.read(path).gsub(/```.*?```/m, '')
+  prose = File.read(path, encoding: 'UTF-8').gsub(/```.*?```/m, '')
   prose.scan(/\[[^\]]*\]\(([^)]+)\)/).flatten.each do |link|
     next if link.match?(%r{^(https?://|mailto:)})
     relative, anchor = link.split('#', 2)

@@ -1,0 +1,39 @@
+"""Original editable SVG; Python 3 standard library, rebuild next to this source."""
+from pathlib import Path
+
+SVG = """<svg xmlns="http://www.w3.org/2000/svg" width="900" height="410" viewBox="0 0 900 410" role="img" aria-labelledby="title desc">
+  <title id="title">MCP：同名工具绑定独立会话</title>
+  <desc id="desc">Host把primary和archive别名绑定到不同Client。完整名称选择对应会话，两个Server都使用远端read_doc，但返回不同资料。拒绝、工具失败和断连不会切换目标。</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+  <rect width="900" height="410" rx="16" fill="#f8fafc"/>
+  <g font-family="system-ui,sans-serif" fill="#0f172a">
+    <text x="30" y="40" font-size="24">MCP：同名工具绑定独立会话</text>
+    <text x="30" y="73" font-size="16">别名来自Host配置；发现与批准分别检查，远端工具名可以相同。</text>
+    <rect x="30" y="130" width="220" height="145" rx="10" fill="#ffffff" stroke="#64748b"/>
+    <text x="48" y="163" font-size="20">完整本地名称</text>
+    <text x="48" y="202" font-size="17">primary::read_doc</text>
+    <text x="48" y="240" font-size="17">archive::read_doc</text>
+    <rect x="325" y="110" width="220" height="205" rx="10" fill="#dbeafe" stroke="#64748b"/>
+    <text x="343" y="144" font-size="20">Host路由快照</text>
+    <text x="343" y="184" font-size="17">primary → Client A</text>
+    <text x="343" y="220" font-size="17">archive → Client B</text>
+    <text x="343" y="261" font-size="16">只发布已发现、获准工具</text>
+    <text x="343" y="289" font-size="16">裸名字 / 未知路由：拒绝</text>
+    <rect x="650" y="110" width="220" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+    <text x="669" y="141" font-size="19">Client A → primary</text>
+    <text x="669" y="178" font-size="17">read_doc → 在线资料</text>
+    <rect x="650" y="235" width="220" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+    <text x="669" y="267" font-size="19">Client B → archive</text>
+    <text x="669" y="303" font-size="17">read_doc → 归档资料</text>
+    <g fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M250 200 H325"/>
+      <path d="M545 177 H596 V155 H650"/>
+      <path d="M545 220 H596 V280 H650"/>
+    </g>
+    <text x="30" y="361" font-size="17">每个Client独立持有批准清单与请求ID；响应沿对应会话返回。</text>
+    <text x="30" y="390" font-size="17">工具失败、断连或拒绝不自动换Server；一条连接失效不关闭其他连接。</text>
+  </g>
+</svg>
+"""
+
+Path(__file__).with_suffix(".svg").write_text(SVG, encoding="utf-8")

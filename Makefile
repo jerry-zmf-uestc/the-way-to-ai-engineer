@@ -45,6 +45,22 @@ validate-docs:
 	./scripts/check-privacy-leaks.sh
 
 validate-book:
+	python3 tests/diagrams-test.py
+	python3 scripts/verify-diagrams.py
+	python3 labs/part3-agent/chapter24/strategy-comparison/language_reflection_test.py
+	python3 labs/part3-agent/chapter29/context-builder/compression_model_test.py
+	python3 labs/part3-agent/chapter24/strategy-comparison/self_ask_test.py
+	python3 labs/part3-agent/chapter24/strategy-comparison/model_search_test.py
+	python3 labs/part3-agent/chapter24/strategy-comparison/goal_policy_test.py
+	python3 labs/part3-agent/chapter24/strategy-comparison/bounded_search.py --self-check
+	python3 labs/part3-agent/chapter30/skills-loader/comparison_test.py
+	python3 labs/part3-agent/chapter28/evidence-answer/citation_input_test.py
+	python3 labs/part3-agent/chapter28/evidence-answer/diagnosis_input_test.py
+	python3 labs/part3-agent/chapter28/evidence-answer/accounting_input_test.py
+	python3 labs/part3-agent/chapter33/eval-harness/diagnosis_review_test.py
+	python3 labs/part3-agent/chapter33/eval-harness/case_registry_test.py
+	python3 tests/agent-snippets-test.py
+	python3 scripts/verify-agent-snippets.py
 	ruby tests/privacy-check-test.rb
 	ruby tests/public-links-test.rb
 	ruby tests/release-snapshot-test.rb

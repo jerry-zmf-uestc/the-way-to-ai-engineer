@@ -1,0 +1,369 @@
+{
+  "version": "resource-accounting-development-v1",
+  "family": "resource-accounting",
+  "kind": "model-input",
+  "split": "development",
+  "provenance": "原创合成资源规则与虚构费率，不是生产账单/现实报价；定义先冻结，尚未运行模型或独立校准。",
+  "cases": [
+    {
+      "id": "a01",
+      "split": "development",
+      "scenario": "reservation",
+      "question": "账本还能接纳多少虚构microcredit预留？",
+      "facts": [
+        {
+          "id": "limit",
+          "value": 100
+        },
+        {
+          "id": "used",
+          "value": 20
+        },
+        {
+          "id": "held",
+          "value": 30
+        }
+      ],
+      "expected": {
+        "rule": "available_budget",
+        "known": true,
+        "value": 50,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter46-cost.md",
+        "contract": "剩余接纳额度=Limit-Used-Held，不是Limit-Used。"
+      }
+    },
+    {
+      "id": "a02",
+      "split": "development",
+      "scenario": "unknown-charge",
+      "question": "一次请求可能已经发送，但未取得usage。实际费用是多少？",
+      "facts": [
+        {
+          "id": "reserved",
+          "value": 30
+        }
+      ],
+      "expected": {
+        "rule": "unknown_cost",
+        "known": false,
+        "value": null,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter46-cost.md",
+        "contract": "预留只占额度，缺少usage/账单时实际费用保持未知。"
+      }
+    },
+    {
+      "id": "a03",
+      "split": "development",
+      "scenario": "failed-retry",
+      "question": "三次尝试分别失败、失败、成功，每次已确认计费5。整个任务费用是多少？",
+      "facts": [
+        {
+          "id": "failed_one",
+          "value": 5
+        },
+        {
+          "id": "failed_two",
+          "value": 5
+        },
+        {
+          "id": "success",
+          "value": 5
+        }
+      ],
+      "expected": {
+        "rule": "sum_attempts",
+        "known": true,
+        "value": 15,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter46-cost.md",
+        "contract": "已知失败尝试也计入任务，不仅报告最后成功。"
+      }
+    },
+    {
+      "id": "a04",
+      "split": "development",
+      "scenario": "before-execution",
+      "question": "固定计费规则按实际进入工具次数收费，每次7；已确认取消发生在进入工具之前。已知费用是多少？",
+      "facts": [
+        {
+          "id": "handler_calls",
+          "value": 0
+        },
+        {
+          "id": "rate_per_call",
+          "value": 7
+        }
+      ],
+      "expected": {
+        "rule": "call_product",
+        "known": true,
+        "value": 0,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter39-async-tasks.md",
+        "contract": "本合成规则下零实际调用可确认零费用，不能仅因用户取消就推断其他系统免费。"
+      }
+    },
+    {
+      "id": "a05",
+      "split": "development",
+      "scenario": "shared-ledger",
+      "question": "父账本Used已经包含全部子任务，当前总消耗是多少？不要重复加子任务。",
+      "facts": [
+        {
+          "id": "ledger_used",
+          "value": 49
+        },
+        {
+          "id": "child_a_included",
+          "value": 12
+        },
+        {
+          "id": "child_b_included",
+          "value": 17
+        }
+      ],
+      "expected": {
+        "rule": "shared_total",
+        "known": true,
+        "value": 49,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter46-cost.md",
+        "contract": "总账已含子任务时不再次加总，区分汇总与明细。"
+      }
+    },
+    {
+      "id": "a06",
+      "split": "development",
+      "scenario": "usage-classes",
+      "question": "以下Token类互斥，整数费率均为虚构单Token microcredit。合计费用是多少？",
+      "facts": [
+        {
+          "id": "input",
+          "value": 10
+        },
+        {
+          "id": "cache_read",
+          "value": 8
+        },
+        {
+          "id": "cache_write",
+          "value": 2
+        },
+        {
+          "id": "output",
+          "value": 5
+        },
+        {
+          "id": "input_rate",
+          "value": 3
+        },
+        {
+          "id": "cache_read_rate",
+          "value": 1
+        },
+        {
+          "id": "cache_write_rate",
+          "value": 4
+        },
+        {
+          "id": "output_rate",
+          "value": 7
+        }
+      ],
+      "expected": {
+        "rule": "usage_product",
+        "known": true,
+        "value": 81,
+        "unit": "microcredit"
+      },
+      "source": {
+        "path": "labs/part3-agent/chapter33/cost-ledger/main.go",
+        "contract": "分别按互斥usage计费，费率只属于本合成规则，不是现实报价。"
+      }
+    },
+    {
+      "id": "a07",
+      "split": "development",
+      "scenario": "window-headroom",
+      "question": "上下文窗口8000 Token，输入6500，额外安全余量500。最多给生成留下多少Token？",
+      "facts": [
+        {
+          "id": "window",
+          "value": 8000
+        },
+        {
+          "id": "input",
+          "value": 6500
+        },
+        {
+          "id": "margin",
+          "value": 500
+        }
+      ],
+      "expected": {
+        "rule": "output_headroom",
+        "known": true,
+        "value": 1000,
+        "unit": "token"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter28-context.md",
+        "contract": "输入、输出与安全余量共享窗口，不把整个窗口当输出预算。"
+      }
+    },
+    {
+      "id": "a08",
+      "split": "development",
+      "scenario": "canceling-capacity",
+      "question": "在途上限3，两任务running，一任务canceling但未退出。还能接纳几项？",
+      "facts": [
+        {
+          "id": "limit",
+          "value": 3
+        },
+        {
+          "id": "running",
+          "value": 2
+        },
+        {
+          "id": "canceling_not_exited",
+          "value": 1
+        }
+      ],
+      "expected": {
+        "rule": "active_capacity",
+        "known": true,
+        "value": 0,
+        "unit": "slot"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter39-async-tasks.md",
+        "contract": "canceling继续占物理名额，未退出不提前释放。"
+      }
+    },
+    {
+      "id": "a09",
+      "split": "development",
+      "scenario": "atomic-batch",
+      "question": "队列容量10，已排8，新批次3项必须全部接纳或全部拒绝。这批次接纳几项？",
+      "facts": [
+        {
+          "id": "queue_limit",
+          "value": 10
+        },
+        {
+          "id": "queued",
+          "value": 8
+        },
+        {
+          "id": "batch",
+          "value": 3
+        }
+      ],
+      "expected": {
+        "rule": "all_or_none",
+        "known": true,
+        "value": 0,
+        "unit": "task"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter44-serving.md",
+        "contract": "整体接纳需要足够空间，不能悄悄接受一部分。"
+      }
+    },
+    {
+      "id": "a10",
+      "split": "development",
+      "scenario": "restored-budget",
+      "question": "总工具尝试上限4，持久恢复的Used为3。下一阶段还允许多少新尝试？",
+      "facts": [
+        {
+          "id": "limit",
+          "value": 4
+        },
+        {
+          "id": "restored_used",
+          "value": 3
+        }
+      ],
+      "expected": {
+        "rule": "remaining_attempts",
+        "known": true,
+        "value": 1,
+        "unit": "attempt"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter37-delegation.md",
+        "contract": "重启不清零原消耗，继续使用原总额度。"
+      }
+    },
+    {
+      "id": "a11",
+      "split": "development",
+      "scenario": "critical-path",
+      "question": "假设目录1秒，之后两个独立查询分别2/3秒，汇总再1秒；资源充分且忽略开销。理想完成时间为多少毫秒？",
+      "facts": [
+        {
+          "id": "catalog_ms",
+          "value": 1000
+        },
+        {
+          "id": "query_a_ms",
+          "value": 2000
+        },
+        {
+          "id": "query_b_ms",
+          "value": 3000
+        },
+        {
+          "id": "summary_ms",
+          "value": 1000
+        }
+      ],
+      "expected": {
+        "rule": "critical_path",
+        "known": true,
+        "value": 5000,
+        "unit": "millisecond"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter38-dag.md",
+        "contract": "依赖最长路径限制时间，假设值不是实际服务SLO。"
+      }
+    },
+    {
+      "id": "a12",
+      "split": "development",
+      "scenario": "unknown-tokenization",
+      "question": "字符串界界有6个UTF-8字节，Tokenizer与模型usage未观测。它是多少模型Token？",
+      "facts": [
+        {
+          "id": "utf8_bytes",
+          "value": 6
+        }
+      ],
+      "expected": {
+        "rule": "unknown_tokens",
+        "known": false,
+        "value": null,
+        "unit": "token"
+      },
+      "source": {
+        "path": "book/part3-agent/chapter23-model.md",
+        "contract": "字节数不能推导未观测的Tokenizer计数。"
+      }
+    }
+  ]
+}

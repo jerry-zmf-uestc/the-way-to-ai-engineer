@@ -1,13 +1,17 @@
 ---
 import BackToTop from '../components/BackToTop.astro';
 import ChapterNav from '../components/ChapterNav.astro';
+import CourseNavigation from '../components/CourseNavigation.astro';
 import ContentsRail from '../components/ContentsRail.astro';
 import LabCard from '../components/LabCard.astro';
+import ReadingTools from '../components/ReadingTools.astro';
 import BaseLayout from './BaseLayout.astro';
 
 interface Heading { depth: number; slug: string; text: string }
 interface Neighbor { id: string; title: string }
 interface Props {
+  pageId: string;
+  unitNumber?: number;
   title: string;
   description: string;
   part: string;
@@ -19,15 +23,17 @@ interface Props {
   next?: Neighbor;
 }
 
-const { title, description, part, source, capabilities, labs, headings, previous, next } = Astro.props;
+const { pageId, unitNumber, title, description, part, source, capabilities, labs, headings, previous, next } = Astro.props;
 const editUrl = `https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/edit/main/${source}`;
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="chapter-shell">
+    <CourseNavigation currentId={pageId} />
     <article class="chapter-article">
       <header class="chapter-heading">
         <span class="eyebrow">{part}</span>
+        {unitNumber && part === 'Part 3 · Golang Agent' && <span class="unit-number">第 {unitNumber} 单元</span>}
         <h1>{title}</h1>
         <p>{description}</p>
         <div class="chapter-actions">
@@ -49,4 +55,5 @@ const editUrl = `https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/edit/
     </article>
   </div>
   <BackToTop />
+  <ReadingTools />
 </BaseLayout>

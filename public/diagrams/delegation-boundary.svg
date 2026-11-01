@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc"><title id="title">Delegation：职责、能力与结果归属</title><desc id="desc">实线表示委派与结果流；角色不自动继承所有工具或完整父历史。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs><rect width="1000" height="650" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Delegation：职责、能力与结果归属</text>
+<text x="30" y="74" font-size="16">实线表示委派与结果流；角色不自动继承所有工具或完整父历史。</text>
+<rect x="210" y="106" width="580" height="90" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="228" y="138" font-size="19">主任务：Scope / Parent / expected / 总预算</text>
+<text x="228" y="165" font-size="16">委派前登记子任务ID→角色，并选入必要Context</text>
+<rect x="45" y="265" width="420" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="63" y="297" font-size="19">timeout-reader</text>
+<text x="63" y="324" font-size="16">仅read-timeout，取得超时事实与来源</text>
+<rect x="535" y="265" width="420" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="553" y="297" font-size="19">retry-reader</text>
+<text x="553" y="324" font-size="16">仅read-retry，取得重试事实与来源</text>
+<rect x="210" y="425" width="580" height="90" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="228" y="457" font-size="19">归属与集合检查 → 冲突汇总</text>
+<text x="228" y="484" font-size="16">核对父/子任务、角色与来源；Missing仍由父级验收</text>
+<path d="M350 196 V225 H255 V265" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M650 196 V225 H745 V265" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M255 355 V393 H350 V425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M745 355 V393 H650 V425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="30" y="559" font-size="16">收齐结果不等于目标完成；子调用保留父控制权，Handoff改变活动角色。</text>
+<text x="30" y="587" font-size="16">固定Go角色示例验证分工，不证明真实多LLM效果或并行速度。</text>
+</g></svg>

@@ -182,4 +182,4 @@ go -C labs test ./part2-backend/chapter17/kitex-rpc/... -count=1
 - [接口和动态类型](https://learnku.com/docs/the-way-to-go/1112-interface-and-dynamic-type/3657)
 - [Go 中面向对象的总结](https://learnku.com/docs/the-way-to-go/1113-summary-object-oriented-in-go/3658)
 
-[返回全书目录](../README.md) · [上一篇：Hertz 路由与网关](chapter16.md) · [下一篇：Eino 消息与模型边界](../part3-agent/chapter26.md)
+[返回全书目录](../README.md) · [上一篇：Hertz 路由与网关](chapter16.md) · [下一篇：Agent Runtime / Harness](../part3-agent/building/chapter22-architecture.md#topic-harness-intro)

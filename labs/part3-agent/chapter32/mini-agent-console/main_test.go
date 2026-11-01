@@ -2,6 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -173,5 +176,105 @@ func TestCalculatorTool(t *testing.T) {
 func TestEchoToolRejectsEmptyInput(t *testing.T) {
 	if got, err := echoTool("  "); err == nil {
 		t.Errorf("echoTool(blank) = %q, want error", got)
+	}
+}
+
+func decodeWire(t *testing.T, body string) []wireEvent {
+	t.Helper()
+	events := []wireEvent{}
+	for _, line := range strings.Split(body, "\n") {
+		if !strings.HasPrefix(line, "data: ") {
+			continue
+		}
+		var ev wireEvent
+		if err := json.Unmarshal([]byte(strings.TrimPrefix(line, "data: ")), &ev); err != nil {
+			t.Fatal(err)
+		}
+		events = append(events, ev)
+	}
+	return events
+}
+func TestWireIdentitySequenceAndSingleTerminal(t *testing.T) {
+	srv := newTestServer()
+	first := serveChat(t, srv, "/chat?q=calc+2%2B3")
+	second := serveChat(t, srv, "/chat?q=echo+hello")
+	firstEvents := decodeWire(t, first.Body.String())
+	secondEvents := decodeWire(t, second.Body.String())
+	if len(firstEvents) == 0 || len(secondEvents) == 0 || firstEvents[0].RunID == secondEvents[0].RunID {
+		t.Fatal("missing/distinct run identity")
+	}
+	for _, rec := range []*httptest.ResponseRecorder{first, second} {
+		events := decodeWire(t, rec.Body.String())
+		for i, e := range events {
+			if e.RunID != events[0].RunID || e.Seq != uint64(i+1) {
+				t.Fatal(e)
+			}
+			if !strings.Contains(rec.Body.String(), fmt.Sprintf("id: %s:%d\n", e.RunID, e.Seq)) {
+				t.Fatal("SSE id mismatch")
+			}
+		}
+		if strings.Count(rec.Body.String(), "event: done\n") != 1 {
+			t.Fatal("terminal count")
+		}
+	}
+}
+
+type brokenWriter struct {
+	header       http.Header
+	writes       int
+	flushFailure bool
+}
+
+func (w *brokenWriter) Header() http.Header { return w.header }
+func (w *brokenWriter) WriteHeader(int)     {}
+func (w *brokenWriter) Write(p []byte) (int, error) {
+	w.writes++
+	if !w.flushFailure {
+		return 0, errors.New("disconnected")
+	}
+	return len(p), nil
+}
+func (w *brokenWriter) Flush()            {}
+func (w *brokenWriter) FlushError() error { return errors.New("flush failed") }
+func TestWriteAndFlushFailureStopsHandler(t *testing.T) {
+	for _, flush := range []bool{false, true} {
+		w := &brokenWriter{header: http.Header{}, flushFailure: flush}
+		done := make(chan struct{})
+		go func() { newTestServer().chatHandler(w, httptest.NewRequest("GET", "/chat?q=hello", nil)); close(done) }()
+		select {
+		case <-done:
+		case <-time.After(time.Second):
+			t.Fatal("failed writer blocked handler")
+		}
+		if w.writes != 1 {
+			t.Fatal("continued after write failure", w.writes)
+		}
+	}
+}
+func TestLateToolResultAfterCancelIsNotStreamed(t *testing.T) {
+	entered := make(chan struct{})
+	release := make(chan struct{})
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	registry := map[string]tool{"echo": func(string) (string, error) { close(entered); <-release; return "late", nil }}
+	events := runAgent(ctx, registry, "echo hello", agentConfig{maxTokens: 256})
+	first := <-events
+	if first.name != eventToolCall {
+		t.Fatal(first)
+	}
+	<-entered
+	cancel()
+	close(release)
+	for ev := range events {
+		t.Fatal("late event", ev)
+	}
+}
+func TestOutputBudgetHasOneFailedTerminal(t *testing.T) {
+	srv := newTestServer()
+	srv.agent.maxTokens = 1
+	rec := serveChat(t, srv, "/chat?q=hello")
+	body := rec.Body.String()
+	if strings.Count(body, "event: token\n") != 1 || strings.Count(body, "event: done\n") != 1 || !strings.Contains(body, `"finish_reason":"error"`) {
+		t.Fatal(body)
 	}
 }

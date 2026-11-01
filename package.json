@@ -8,13 +8,12 @@
   },
   "scripts": {
     "content:prepare": "node scripts/prep-book.mjs",
-    "content:check": "node scripts/validate-site-content.mjs && node --test scripts/book-content.test.mjs",
-    "predev": "npm run content:prepare",
-    "dev": "astro dev",
+    "content:check": "node scripts/validate-site-content.mjs && node --test scripts/book-content.test.mjs tests/console-ui-test.mjs tests/reading-tools.test.mjs tests/book-watch.test.mjs",
+    "dev": "node scripts/dev-book.mjs",
     "prebuild": "npm run content:prepare",
     "build": "astro build",
-    "preview": "astro preview",
-    "check": "npm run content:check && npm run build",
+    "preview": "node scripts/preview-book.mjs",
+    "check": "npm run content:check && npm run build && node --test tests/course-navigation.test.mjs",
     "audit": "npm audit --audit-level=high --registry=https://registry.npmjs.org"
   },
   "dependencies": {

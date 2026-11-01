@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="780" viewBox="0 0 900 780" role="img" aria-labelledby="title desc"><title id="title">Harness职责与决策回路</title><desc id="desc">模型响应分为工具提议与最终文本。工具观察回到输入，最终文本返回后仍需业务验收。Runtime管理每轮预算、取消与提交。</desc><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="900" height="780" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Agent Harness：职责与决策回路</text>
+<text x="30" y="72" font-size="16">箭头表示输入、响应与观察的流向；工具提议与最终文本分别处理。</text>
+<rect x="30" y="94" width="840" height="46" rx="10" fill="#eef2ff" stroke="#64748b" stroke-dasharray="6 5"/>
+<text x="48" y="123" font-size="16">Runtime：在每轮边界检查预算、取消与提交；虚线框表示贯穿约束。</text>
+<rect x="110" y="180" width="490" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="128" y="211" font-size="17">Context / Session → Model</text>
+<text x="128" y="238" font-size="17">选择本轮输入；Provider适配与响应检查</text>
+<rect x="110" y="310" width="490" height="80" rx="10" fill="#fff" stroke="#64748b"/>
+<text x="128" y="341" font-size="17">Agent Loop：解释响应分支</text>
+<text x="128" y="368" font-size="17">有工具提议：执行；没有提议：检查Final</text>
+<rect x="650" y="310" width="220" height="80" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="668" y="341" font-size="17">无工具且Final非空</text>
+<text x="668" y="368" font-size="17">返回文本，再验任务</text>
+<rect x="110" y="440" width="490" height="80" rx="10" fill="#fff" stroke="#64748b"/>
+<text x="128" y="471" font-size="17">Tool → Environment</text>
+<text x="128" y="498" font-size="17">查找能力、校验与授权；受控执行</text>
+<rect x="110" y="570" width="490" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="128" y="601" font-size="17">观察回填 → 下一轮输入</text>
+<text x="128" y="628" font-size="17">按调用ID关联结果，保留错误与来源</text>
+<path d="M355 260V310" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<path d="M355 390V440" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="370" y="420" font-size="15">工具提议</text>
+<path d="M355 520V570" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<path d="M600 350H650" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<path d="M110 610H55V220H110" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="110" y="690" font-size="16">观察进入下一轮；取消、协议失败或预算耗尽则终止。</text>
+<text x="30" y="729" font-size="16">最终文本不证明任务完成；授权与事实支持由应用检查。</text>
+<text x="30" y="757" font-size="16">Memory保存授权长期信息，Checkpoint保存执行进度；按需引入。</text>
+</g></svg>

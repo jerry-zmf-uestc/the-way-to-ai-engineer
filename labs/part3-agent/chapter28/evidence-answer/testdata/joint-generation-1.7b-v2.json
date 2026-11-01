@@ -1,0 +1,71 @@
+[
+  {
+    "case_id": "both-premises",
+    "batch": {
+      "profile": "qwen3-1.7b",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "prompt_version": "rag-joint-v2",
+      "rows": [
+        {
+          "raw": "{\"claims\": [{\"text\": \"Harbor current timeout is 43 seconds.\", \"citations\": [{\"id\": \"policy\", \"version\": \"1\", \"quote\": \"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}",
+          "input_tokens": 230,
+          "output_tokens": 58,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: joint draft: rag: invalid draft: json: unknown field \"id\"",
+    "rubric_pass": false
+  },
+  {
+    "case_id": "policy-only",
+    "batch": {
+      "profile": "qwen3-1.7b",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "prompt_version": "rag-joint-v2",
+      "rows": [
+        {
+          "raw": "{\"claims\": [{\"text\": \"Harbor current timeout is 6 seconds when enabled and 43 seconds when disabled.\", \"citations\": [{\"evidence_id\": \"policy\", \"version\": \"1\", \"quote\": \"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}",
+          "input_tokens": 207,
+          "output_tokens": 68,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: support needs review",
+    "rubric_pass": false
+  },
+  {
+    "case_id": "deployment-only",
+    "batch": {
+      "profile": "qwen3-1.7b",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "prompt_version": "rag-joint-v2",
+      "rows": [
+        {
+          "raw": "{\"claims\": [{\"text\": \"Harbor current timeout in seconds is 300 seconds.\", \"citations\": [{\"evidence_id\": \"deployment\", \"version\": \"1\", \"quote\": \"Harbor fallback_enabled=false.\"}]}]}",
+          "input_tokens": 196,
+          "output_tokens": 52,
+          "at_output_limit": false
+        }
+      ]
+    },
+    "answer": {
+      "Claims": null,
+      "Abstained": false,
+      "Reason": ""
+    },
+    "error": "rag: support needs review",
+    "rubric_pass": false
+  }
+]

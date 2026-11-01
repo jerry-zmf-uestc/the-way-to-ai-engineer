@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 	"strings"
@@ -15,6 +16,7 @@ var (
 	ErrInvalidArguments = errors.New("tool calling: invalid arguments")
 	ErrDuplicateTool    = errors.New("tool calling: tool already registered")
 	ErrEmptyToolName    = errors.New("tool calling: tool name is empty")
+	ErrNonFiniteResult  = errors.New("calculator: non-finite result")
 )
 
 // ArgType 是本示例支持的参数类型子集，对齐 JSON Schema 的基本标量。
@@ -41,7 +43,8 @@ type Tool struct {
 	Handler     func(ctx context.Context, args map[string]any) (string, error)
 }
 
-// Registry 是工具权限的唯一强制执行点：模型提议的工具名和参数，
+// Registry 是本实验的工具清单与参数校验入口。先注册，运行期间只读；
+// 不支持并发注册。模型提议的工具名和参数，
 // 必须先通过这里的查找与校验，handler 才有机会运行。
 type Registry struct {
 	tools map[string]Tool
@@ -55,18 +58,41 @@ func (r *Registry) Register(tool Tool) error {
 	if strings.TrimSpace(tool.Name) == "" {
 		return ErrEmptyToolName
 	}
+	if !definitionFits(tool) {
+		return ErrToolInputLimit
+	}
 	if tool.Handler == nil {
 		return fmt.Errorf("tool calling: tool %q: handler is nil", tool.Name)
 	}
 	if _, exists := r.tools[tool.Name]; exists {
 		return fmt.Errorf("%w: %q", ErrDuplicateTool, tool.Name)
 	}
+	// 复制定义，注册以后调用方不能通过共享map悄悄改变参数契约。
+	properties := make(map[string]ArgType, len(tool.Parameters.Properties))
+	for name, kind := range tool.Parameters.Properties {
+		if kind != ArgString && kind != ArgNumber {
+			return fmt.Errorf("%w: unsupported type", ErrInvalidArguments)
+		}
+		properties[name] = kind
+	}
+	for _, name := range tool.Parameters.Required {
+		if _, ok := properties[name]; !ok {
+			return fmt.Errorf("%w: undeclared required argument", ErrInvalidArguments)
+		}
+	}
+	tool.Parameters = Schema{Properties: properties, Required: append([]string(nil), tool.Parameters.Required...)}
 	r.tools[tool.Name] = tool
 	return nil
 }
 
 // Call 是唯一执行入口：未知工具直接拒绝，参数不符合 schema 不执行 handler。
 func (r *Registry) Call(ctx context.Context, name string, args map[string]any) (string, error) {
+	if err := ctx.Err(); err != nil {
+		return "", err
+	}
+	if err := payloadFits(name, args); err != nil {
+		return "", err
+	}
 	tool, ok := r.tools[name]
 	if !ok {
 		return "", fmt.Errorf("%w: %q", ErrUnknownTool, name)
@@ -74,7 +100,20 @@ func (r *Registry) Call(ctx context.Context, name string, args map[string]any) (
 	if err := validateArgs(tool, args); err != nil {
 		return "", err
 	}
-	return tool.Handler(ctx, args)
+	if err := encodedArgsFit(args); err != nil {
+		return "", err
+	}
+	result, err := tool.Handler(ctx, args)
+	if stop := ctx.Err(); stop != nil {
+		return "", stop
+	}
+	if err != nil {
+		return "", err
+	}
+	if !resultFits(result) {
+		return "", ErrToolResult
+	}
+	return result, nil
 }
 
 // Names 返回已注册工具名（排序保证输出稳定），供拼进 system prompt 展示给模型。
@@ -116,8 +155,10 @@ func matchesType(value any, want ArgType) bool {
 		return ok
 	case ArgNumber:
 		// JSON 解码出的数字是 float64；直接构造的调用方可能给 int，都接受。
-		switch value.(type) {
-		case float64, int:
+		switch number := value.(type) {
+		case float64:
+			return !math.IsNaN(number) && !math.IsInf(number, 0)
+		case int:
 			return true
 		}
 		return false
@@ -126,10 +167,15 @@ func matchesType(value any, want ArgType) bool {
 }
 
 func typeName(value any) string {
-	switch value.(type) {
+	switch number := value.(type) {
 	case string:
 		return "string"
-	case float64, int:
+	case float64:
+		if math.IsNaN(number) || math.IsInf(number, 0) {
+			return "non-finite number"
+		}
+		return "number"
+	case int:
 		return "number"
 	case bool:
 		return "boolean"
@@ -153,6 +199,13 @@ func toFloat(value any) float64 {
 	return 0
 }
 
+func formatFinite(value float64) (string, error) {
+	if math.IsNaN(value) || math.IsInf(value, 0) {
+		return "", ErrNonFiniteResult
+	}
+	return strconv.FormatFloat(value, 'g', -1, 64), nil
+}
+
 // calculatorTool 是确定性的四则运算 fake：不依赖网络和模型。
 func calculatorTool() Tool {
 	return Tool{
@@ -172,16 +225,16 @@ func calculatorTool() Tool {
 			// schema 保证参数类型正确，但语义校验（除零、未知运算）仍是 handler 的责任。
 			switch args["op"].(string) {
 			case "add":
-				return strconv.FormatFloat(a+b, 'g', -1, 64), nil
+				return formatFinite(a + b)
 			case "subtract":
-				return strconv.FormatFloat(a-b, 'g', -1, 64), nil
+				return formatFinite(a - b)
 			case "multiply":
-				return strconv.FormatFloat(a*b, 'g', -1, 64), nil
+				return formatFinite(a * b)
 			case "divide":
 				if b == 0 {
 					return "", errors.New("calculator: division by zero")
 				}
-				return strconv.FormatFloat(a/b, 'g', -1, 64), nil
+				return formatFinite(a / b)
 			}
 			return "", fmt.Errorf("calculator: unknown op %q", args["op"])
 		},

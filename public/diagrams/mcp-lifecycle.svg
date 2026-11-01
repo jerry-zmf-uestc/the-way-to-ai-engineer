@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">MCP：协商、发现与授权分开</title><desc id="desc">Host选择可信Server与批准范围；模型不能自己连接任意地址或启动程序。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">MCP：协商、发现与授权分开</text>
+<text x="30" y="72" font-size="16">Host选择可信Server与批准范围；模型不能自己连接任意地址或启动程序。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">stdio建立：可信本地子进程</text>
+<text x="80" y="158" font-size="16">stdin/stdout仅JSON-RPC；日志stderr；请求与响应有界</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">协商：initialize → 版本/能力 → initialized</text>
+<text x="80" y="268" font-size="16">不支持版本或缺tools能力拒绝，准备完成才操作</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">发现：tools/list → Schema检查 → 本地批准</text>
+<text x="80" y="378" font-size="16">新工具不自动授权；namespace是本地适配约定</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">调用：tools/call → RPC或工具结果 → 观察</text>
+<text x="80" y="488" font-size="16">isError不是成功资料；取消结束等待，不保证远端回滚</text>
+<text x="30" y="558" font-size="16">固定协议模式不加载模型；真实路由另验效果，不承诺完整SDK/HTTP/OAuth。</text>
+<text x="30" y="586" font-size="16">协议测试后适配Tool/Loop，再独立评估任务效果与费用。</text>
+</g></svg>

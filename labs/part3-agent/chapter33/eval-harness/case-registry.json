@@ -1,0 +1,357 @@
+{
+  "schema": 2,
+  "version": "course-case-registry-v2",
+  "datasets": [
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/search-cases.json",
+      "sha256": "4f2cac0d2be73d83e37e1472cd8b7ddf742de3befbe771c7f44f5409b5225fa0",
+      "version": "arithmetic-search-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "product",
+        "fractions",
+        "pairing",
+        "low-range"
+      ],
+      "kind": "model-input",
+      "family": "arithmetic",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/self-ask-cases.json",
+      "sha256": "118be54d360d5b70b2276b074542453823bd0352c23702a844d7f95c12efe237",
+      "version": "followup-development-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "team-timeout",
+        "team-retry",
+        "compare",
+        "missing"
+      ],
+      "kind": "model-input",
+      "family": "followup",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/independent-v1.json",
+      "sha256": "f7bca9ff69ed71613c108f1fe373fed760d1697b0117628859c3c5a607b75422",
+      "version": "independent-v1",
+      "version_key": "Version",
+      "cases_key": "Cases",
+      "id_key": "Input.ID",
+      "case_ids": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "kind": "model-input",
+      "family": "strategy",
+      "current_use": "regression",
+      "qualification": "review_pending",
+      "use_evidence": [
+        {
+          "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/local-strategy-v2-independent.json",
+          "sha256": "5b19cc2fcdda0c2e5239e2f65c432d0929ce4ede1a07714aa27b5c4ad273ce73",
+          "id_key": "Rows.CaseID"
+        }
+      ]
+    },
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/holdout-v3.json",
+      "sha256": "6f0bc806a96a6b67ad117029d4ddb807f2a0e04900c1882bd63bc05abacea9b7",
+      "version": "holdout-v3",
+      "version_key": "Version",
+      "cases_key": "Cases",
+      "id_key": "Input.ID",
+      "case_ids": [
+        "holdout-q1",
+        "holdout-q2",
+        "holdout-q3",
+        "holdout-q4",
+        "holdout-q5",
+        "holdout-q6"
+      ],
+      "kind": "model-input",
+      "family": "strategy",
+      "current_use": "regression",
+      "qualification": "review_pending",
+      "use_evidence": [
+        {
+          "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/local-strategy-v3-holdout.json",
+          "sha256": "e1348108fa2013400cae14c75e8218dbc79016261fe8412911e604f91b30d460",
+          "id_key": "Rows.CaseID"
+        }
+      ]
+    },
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/holdout-v4.json",
+      "sha256": "eff613db2460d104405b7fd994e3cf865d1e275d74f4627fa3c58df44f9337fa",
+      "version": "holdout-v4",
+      "version_key": "Version",
+      "cases_key": "Cases",
+      "id_key": "Input.ID",
+      "case_ids": [
+        "new-q1",
+        "new-q2",
+        "new-q3",
+        "new-q4",
+        "new-q5",
+        "new-q6"
+      ],
+      "kind": "model-input",
+      "family": "strategy",
+      "current_use": "regression",
+      "qualification": "review_pending",
+      "use_evidence": [
+        {
+          "path": "labs/part3-agent/chapter24/strategy-comparison/testdata/local-strategy-v4-holdout.json",
+          "sha256": "24d3bf54758b2c00610661e36546c5d1e713300b1fdf3b581ab6920c7600ecc1",
+          "id_key": "Rows.CaseID"
+        }
+      ]
+    },
+    {
+      "path": "labs/part3-agent/chapter28/evidence-answer/testdata/heldout-v1.json",
+      "sha256": "18364c12df3a7bb85b414fbbbb1c2a21429e4a7603811657b80899809a706d37",
+      "version": "rag-heldout-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "lease",
+        "capacity",
+        "permission",
+        "version",
+        "unsupported",
+        "empty"
+      ],
+      "kind": "model-input",
+      "family": "rag",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter28/evidence-answer/testdata/heldout-v2.json",
+      "sha256": "949e825b9316b482f74a90fd8a518d6bb6faf38f994d591a6806f473c5ddfadf",
+      "version": "rag-heldout-v2",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "deadline",
+        "quota",
+        "revoked",
+        "release",
+        "unknown",
+        "empty"
+      ],
+      "kind": "model-input",
+      "family": "rag",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter28/evidence-answer/testdata/heldout-v3.json",
+      "sha256": "bdb84bd250b4ad843d5bd04127387111fa0911fb5ba247375829243dd8de98a3",
+      "version": "rag-heldout-v3",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "poll",
+        "payload",
+        "expired",
+        "revision",
+        "unknown",
+        "empty"
+      ],
+      "kind": "model-input",
+      "family": "rag",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter30/skills-loader/comparison-cases.json",
+      "sha256": "028438f23d7c107f157a8028db099660ff4c5c5cf02af8c8a557a6f5aa112e02",
+      "version": "skills-development-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "diagnosis",
+        "report",
+        "combined",
+        "missing-policy",
+        "no-skill",
+        "overlap"
+      ],
+      "kind": "model-input",
+      "family": "skills",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter30/skills-loader/holdout-cases.json",
+      "sha256": "867f7572aa5e581bb98c13ed56f1044be688c71b603fc4b8b48408f2757ce463",
+      "version": "skills-holdout-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "two-source-diagnosis",
+        "inventory-report",
+        "no-timeout-evidence",
+        "missing-duration",
+        "plain-inventory",
+        "format-with-absent-policy"
+      ],
+      "kind": "model-input",
+      "family": "skills",
+      "current_use": "regression",
+      "qualification": "review_pending",
+      "use_evidence": [
+        {
+          "path": "labs/part3-agent/chapter30/skills-loader/testdata/holdout-prompt-v2-result.json",
+          "sha256": "5b8604f5d4c7b5eaeb68cd42e4c078d4989b5558ad5d595bb82822f6edb1d1dd",
+          "id_key": "rows.case_id"
+        }
+      ]
+    },
+    {
+      "path": "labs/part3-agent/chapter33/eval-harness/fixtures.json",
+      "sha256": "318c1a69221e883ab450cbacdb4debd0a108915d4ce43809299758d1b858f577",
+      "version": "teaching-v1",
+      "version_key": "Version",
+      "cases_key": "Cases",
+      "id_key": "ID",
+      "case_ids": [
+        "timeout",
+        "empty",
+        "paraphrase"
+      ],
+      "kind": "scoring-fixture",
+      "family": "evaluation",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter29/context-builder/compression-case.json",
+      "sha256": "31f2a0bb973909f423e627b767ad81163c7075e1075c3b7ac63d06a829787c16",
+      "version": "compression-development-v1",
+      "version_key": "version",
+      "cases_key": "history",
+      "id_key": null,
+      "case_ids": [
+        "single-history-task"
+      ],
+      "kind": "model-input",
+      "family": "compression",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter24/strategy-comparison/followup-independent-cases.json",
+      "sha256": "335db2cd29a42ac238cd222b6c66e29d0c935f474488690254fd43c02f46a5a7",
+      "version": "followup-independent-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "alias-current-policy",
+        "timeout-field-units",
+        "inactive-fallback-policy",
+        "equally-current-conflict"
+      ],
+      "kind": "model-input",
+      "family": "three-hop alias / field-unit / conditional policy / authority conflict",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter28/hybrid-retrieval/rerank-cases.json",
+      "sha256": "ffff90d0268f36826d383833d5159b71b482c62051f10e3110cb6a0d7f3d36c8",
+      "version": "rerank-candidates-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "request-deadline",
+        "unknown-write",
+        "deleted-memory"
+      ],
+      "kind": "model-input",
+      "family": "candidate-ranking",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter33/eval-harness/diagnosis-cases.json",
+      "sha256": "445b9c3f11a43c644d7b56eaa47d3f6bf90026c0b1b777e83ca86057afa86a12",
+      "version": "runtime-diagnosis-development-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "d01",
+        "d02",
+        "d03",
+        "d04",
+        "d05",
+        "d06",
+        "d07",
+        "d08"
+      ],
+      "kind": "model-input",
+      "family": "runtime-diagnosis",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    },
+    {
+      "path": "labs/part3-agent/chapter33/eval-harness/accounting-cases.json",
+      "sha256": "22d65e44a0d4b2a7ff9dfa6ec0bab531fabc88d1af6099f9c02fb424706eb020",
+      "version": "resource-accounting-development-v1",
+      "version_key": "version",
+      "cases_key": "cases",
+      "id_key": "id",
+      "case_ids": [
+        "a01",
+        "a02",
+        "a03",
+        "a04",
+        "a05",
+        "a06",
+        "a07",
+        "a08",
+        "a09",
+        "a10",
+        "a11",
+        "a12"
+      ],
+      "kind": "model-input",
+      "family": "resource-accounting",
+      "current_use": "review_pending",
+      "qualification": "review_pending",
+      "use_evidence": []
+    }
+  ]
+}

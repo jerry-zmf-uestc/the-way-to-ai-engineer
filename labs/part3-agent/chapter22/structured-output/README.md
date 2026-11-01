@@ -14,7 +14,7 @@ failure semantics).
 
 ## Prerequisites
 
-- Book chapter: `book/part3-agent/chapter22.md`; the `Provider` shape mirrors
+- Book chapter: `book/part3-agent/building/chapter22-architecture.md`; the `Provider` shape mirrors
   `hello-llm` but is deliberately duplicated so labs stay self-contained.
 
 ## Concepts
@@ -39,7 +39,7 @@ gofmt -l labs/part3-agent/chapter22/structured-output
 go -C labs vet ./part3-agent/chapter22/structured-output
 go -C labs test ./part3-agent/chapter22/structured-output -race -count=1
 go -C labs test ./part3-agent/chapter22/structured-output -cover
-go build -o /tmp/structured-output ./labs/part3-agent/chapter22/structured-output
+go -C labs build -o /tmp/structured-output ./part3-agent/chapter22/structured-output
 go -C labs run ./part3-agent/chapter22/structured-output
 ```
 
@@ -67,11 +67,13 @@ citations: go.dev/doc/go1.22
 - Script the fake with two bad outputs and assert `GenerateAnswer` stops
   after exactly two provider calls (no unbounded retry).
 
-## Related Exercises
-
-- [Chapter 22 Exercises](../../../../book/part3-agent/chapter22.md#动手练): the
-  chapter page lists the executable practice tasks with acceptance checks.
 
 ## Sources
 
 Original code for this course, MIT licensed. No third-party code.
+
+## 输出与取消边界
+
+GenerateAnswer最多调用2次，输出超过64 KiB直接失败，取消发生在调用前或返回后都终止。TestCanceledAndOversizeOutputRejected检查迟到结果不被接受、超大输出不进入修复循环。Raw保存的原文仅用于本地固定数据；真实数据反馈或日志需要脱敏与截断。
+
+练习22.2：给Answer增加language枚举（zh/en），同步prompt与parseAnswer；补缺字段、错误枚举与合法输出测试，再验证有限修复。不要直接填入现成答案。

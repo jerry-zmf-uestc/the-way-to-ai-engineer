@@ -1,0 +1,17 @@
+---
+course:
+  part: 3
+  chapter: 33
+topic_slug: safety-gate
+kind: original
+status: validated
+source: null
+license: MIT
+entrypoints:
+  - .
+  - cmd/sandbox-probe
+validation:
+  offline: true
+  race: true
+  e2e_gate: SAFETY_SANDBOX_E2E
+references: []

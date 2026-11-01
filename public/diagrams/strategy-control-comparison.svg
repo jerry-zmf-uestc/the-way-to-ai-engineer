@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 660" role="img" aria-labelledby="title"><title id="title">同条件策略：子问题与有界修复关注不同缺口</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="660" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">同条件策略：追问依赖观察，修复需要具体差距</text>
+<rect x="50" y="110" width="430" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="64" y="140" font-size="17">子问题：timeout资料在哪里？</text>
+<text x="64" y="167" font-size="17">root → router → timeout</text>
+<rect x="620" y="110" width="430" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="634" y="140" font-size="17">初始计划：先读首参考</text>
+<text x="634" y="167" font-size="17">可能无结果、旧版本或缺少阶段</text>
+<rect x="50" y="300" width="430" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="64" y="330" font-size="17">中间答案决定后续问题</text>
+<text x="64" y="357" font-size="17">不直接把router当最终事实</text>
+<rect x="620" y="300" width="430" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="634" y="330" font-size="17">Critique：缺哪些要求 / 版本不符？</text>
+<text x="634" y="357" font-size="17">不读取评估答案</text>
+<path d="M260 200V300" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="285" y="258" font-size="16">最多两跳，共享读预算</text>
+<path d="M835 200V300" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="855" y="258" font-size="16">依据执行证据</text>
+<rect x="50" y="490" width="430" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="64" y="520" font-size="17">观察支持事实 → 独立评分</text>
+<text x="64" y="547" font-size="17">子问题分解也可能失败或遗漏</text>
+<rect x="620" y="490" width="430" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="634" y="520" font-size="17">已观察候选 → 有界尝试 → 再检查</text>
+<text x="634" y="547" font-size="17">保留已完成事实，不重置总预算</text>
+<path d="M260 390V490" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="285" y="444" font-size="16">来源与版本校验</text>
+<path d="M835 390V490" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="855" y="444" font-size="16">一次修复；每缺项最多两候选</text>
+<text x="30" y="627" font-size="17">固定控制器只验证机制；同任务/语料/能力/预算比较，不冒充真实模型收益或论文复现。</text>
+</g></svg>

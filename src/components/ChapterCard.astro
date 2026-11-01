@@ -6,16 +6,20 @@ interface Props {
   part: string;
   capabilities: string[];
   labs: string[];
+  headingLevel?: 3 | 4 | 5;
+  unitNumber?: number;
 }
 
-const { id, title, description, part, capabilities, labs } = Astro.props;
+const { id, title, description, part, capabilities, labs, headingLevel = 3, unitNumber } = Astro.props;
+const Heading = `h${headingLevel}`;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <article class="chapter-card">
   <a class="card-link" href={`${base}/chapters/${id}/`}>
     <span class="card-part">{part}</span>
-    <h3>{title}</h3>
+    {unitNumber && !title.startsWith('第 ') && <span class="unit-number">第 {unitNumber} 单元</span>}
+    <Heading class="card-title">{title}</Heading>
     <p>{description}</p>
     <div class="card-meta">
       {capabilities.map((capability) => <span class="tag">{capability}</span>)}

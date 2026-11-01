@@ -1,0 +1,127 @@
+[
+  {
+    "schema": 1,
+    "case_id": "both-premises",
+    "submitted": [
+      {
+        "question": "What is Harbor current timeout in seconds?",
+        "evidence": [
+          {
+            "id": "deployment",
+            "version": "1",
+            "text": "Harbor fallback_enabled=false."
+          },
+          {
+            "id": "policy",
+            "version": "1",
+            "text": "Harbor timeout is 6 seconds when enabled and 43 seconds when disabled."
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "case_id": "both-premises",
+      "batch": {
+        "input_sha256": "a627313200cc3a6671f7303fcde8071fdfa2587c56292f529eb4fc31f38f8908",
+        "profile": "qwen3-1.7b",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "prompt_version": "rag-joint-v2",
+        "rows": [
+          {
+            "raw": "{\"claims\": [{\"text\": \"Harbor current timeout is 43 seconds.\", \"citations\": [{\"id\": \"policy\", \"version\": \"1\", \"quote\": \"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}",
+            "input_tokens": 230,
+            "output_tokens": 58,
+            "at_output_limit": false
+          }
+        ]
+      },
+      "answer": {
+        "Claims": null,
+        "Abstained": false,
+        "Reason": ""
+      },
+      "error": "rag: joint draft: rag: invalid draft: json: unknown field \"id\"",
+      "rubric_pass": false
+    }
+  },
+  {
+    "schema": 1,
+    "case_id": "policy-only",
+    "submitted": [
+      {
+        "question": "What is Harbor current timeout in seconds?",
+        "evidence": [
+          {
+            "id": "policy",
+            "version": "1",
+            "text": "Harbor timeout is 6 seconds when enabled and 43 seconds when disabled."
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "case_id": "policy-only",
+      "batch": {
+        "input_sha256": "8b1abbb615075a3563e5336ee54965adf4409b72d0d3bd0bb2fd86a327e07c61",
+        "profile": "qwen3-1.7b",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "prompt_version": "rag-joint-v2",
+        "rows": [
+          {
+            "raw": "{\"claims\": [{\"text\": \"Harbor current timeout is 6 seconds when enabled and 43 seconds when disabled.\", \"citations\": [{\"evidence_id\": \"policy\", \"version\": \"1\", \"quote\": \"Harbor timeout is 6 seconds when enabled and 43 seconds when disabled.\"}]}]}",
+            "input_tokens": 207,
+            "output_tokens": 68,
+            "at_output_limit": false
+          }
+        ]
+      },
+      "answer": {
+        "Claims": null,
+        "Abstained": false,
+        "Reason": ""
+      },
+      "error": "rag: support needs review",
+      "rubric_pass": false
+    }
+  },
+  {
+    "schema": 1,
+    "case_id": "deployment-only",
+    "submitted": [
+      {
+        "question": "What is Harbor current timeout in seconds?",
+        "evidence": [
+          {
+            "id": "deployment",
+            "version": "1",
+            "text": "Harbor fallback_enabled=false."
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "case_id": "deployment-only",
+      "batch": {
+        "input_sha256": "25ec38c3aa5e0535df6c633022823a6a74061d6b039786243994e36aeef84288",
+        "profile": "qwen3-1.7b",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+        "prompt_version": "rag-joint-v2",
+        "rows": [
+          {
+            "raw": "{\"claims\": [{\"text\": \"Harbor current timeout in seconds is 300 seconds.\", \"citations\": [{\"evidence_id\": \"deployment\", \"version\": \"1\", \"quote\": \"Harbor fallback_enabled=false.\"}]}]}",
+            "input_tokens": 196,
+            "output_tokens": 52,
+            "at_output_limit": false
+          }
+        ]
+      },
+      "answer": {
+        "Claims": null,
+        "Abstained": false,
+        "Reason": ""
+      },
+      "error": "rag: support needs review",
+      "rubric_pass": false
+    }
+  }
+]

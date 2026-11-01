@@ -54,19 +54,57 @@ func (t ToolSet) Execute(ctx context.Context, call ToolCall) (string, error) {
 	return fn(ctx, call.Args)
 }
 
-// Session 累积一次会话的全部消息。它是 loop 的唯一状态：
-// 保存下来（或序列化）就可以在之后的运行中继续。
+// Session 保存会话消息，支持后续续聊；它不是中断执行的 checkpoint。
+// Messages 由所有者管理，Session 不支持并发读写。
 type Session struct {
 	Messages []Message
 }
 
 func (s *Session) Add(m Message) {
-	s.Messages = append(s.Messages, m)
+	s.Messages = append(s.Messages, cloneMessage(m))
 }
 
-// History 返回副本，外部修改不会写回内部历史。
+// History 复制消息和 JSON 形状的嵌套参数，不共享 map[string]any 或 []any。
 func (s *Session) History() []Message {
-	return append([]Message(nil), s.Messages...)
+	history := make([]Message, len(s.Messages))
+	for i, m := range s.Messages {
+		history[i] = cloneMessage(m)
+	}
+	return history
+}
+
+// 参数限于 JSON 值：标量、map[string]any、[]any；不承诺复制任意 Go 对象。
+func cloneJSON(v any) any {
+	switch x := v.(type) {
+	case map[string]any:
+		copy := make(map[string]any, len(x))
+		for k, v := range x {
+			copy[k] = cloneJSON(v)
+		}
+		return copy
+	case []any:
+		copy := make([]any, len(x))
+		for i, v := range x {
+			copy[i] = cloneJSON(v)
+		}
+		return copy
+	default:
+		return v
+	}
+}
+
+func cloneMessage(m Message) Message {
+	if m.ToolCalls != nil {
+		calls := make([]ToolCall, len(m.ToolCalls))
+		for i, call := range m.ToolCalls {
+			calls[i] = call
+			if call.Args != nil {
+				calls[i].Args = cloneJSON(call.Args).(map[string]any)
+			}
+		}
+		m.ToolCalls = calls
+	}
+	return m
 }
 
 var (
@@ -86,8 +124,10 @@ type Agent struct {
 	MaxSteps int
 }
 
-// Run 是最小 agent loop：model → tool → observation → model，
-// 直到模型给出最终答案，或触达步数上限、超时、取消。
+// Run 推进决策，工具定义与参数校验由执行层负责。
+// 顺序：校验上限 → 记录用户输入 → 检查context → 模型响应分支
+// → 记录提议 → 串行执行并配对观察 → 下一轮或终止。
+// MaxSteps计模型轮次；一轮可执行多个工具，超限不撤销已完成动作。
 func (a *Agent) Run(ctx context.Context, session *Session, userInput string) (Result, error) {
 	if a.MaxSteps <= 0 {
 		return Result{}, ErrInvalidMaxSteps
@@ -104,6 +144,10 @@ func (a *Agent) Run(ctx context.Context, session *Session, userInput string) (Re
 			return Result{}, fmt.Errorf("agent loop: model: %w", err)
 		}
 
+		if err := ctx.Err(); err != nil {
+			return Result{}, err
+		}
+
 		if len(resp.ToolCalls) == 0 {
 			if resp.Final == "" {
 				return Result{}, ErrEmptyModelReply
@@ -118,9 +162,15 @@ func (a *Agent) Run(ctx context.Context, session *Session, userInput string) (Re
 				return Result{}, err
 			}
 			observation, err := a.Tools.Execute(ctx, call)
+			if ctxErr := ctx.Err(); ctxErr != nil {
+				return Result{}, ctxErr
+			}
+			if errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
+				return Result{}, err
+			}
 			content := observation
 			if err != nil {
-				// 工具失败不中断 loop：错误序列化成 observation 回填，
+				// 非取消类工具失败序列化成 observation 回填，
 				// 让模型自己看到失败并决定重试、换工具或放弃。
 				content = "error: " + err.Error()
 			}
@@ -161,6 +211,9 @@ func addTool(_ context.Context, args map[string]any) (string, error) {
 }
 
 func runDemo(ctx context.Context) (string, error) {
+	// 第一轮提出两个调用，第二轮给出预写Final。
+	// 历史共五条：user + assistant提议 + 两条tool观察 + assistant答案。
+	// 固定Final不证明观察回填正确，测试还须断言下一轮的模型输入。
 	model := &ScriptedModel{Responses: []Response{
 		{ToolCalls: []ToolCall{
 			{ID: "c1", Name: "add", Args: map[string]any{"a": 6.0, "b": 7.0}},

@@ -2,6 +2,8 @@ import {
   existsSync,
   mkdirSync,
   readFileSync,
+  readdirSync,
+  renameSync,
   rmSync,
   statSync,
   writeFileSync,
@@ -12,14 +14,44 @@ import { fileURLToPath } from 'node:url';
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 export const ROOT = resolve(SCRIPT_DIR, '..');
 export const MANIFEST_PATH = resolve(ROOT, 'book/chapters.json');
+export const REDIRECTS_PATH = resolve(ROOT, 'book/redirects.json');
 export const OUTPUT_DIR = resolve(ROOT, 'src/content/chapters');
 export const SITE_BASE = '/the-way-to-ai-engineer';
 export const REPOSITORY_URL = 'https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer';
 
 const requiredStringFields = ['path', 'title', 'part', 'description'];
+export const AGENT_NAVIGATION_PATHS = [
+  ['构建篇'],
+  ['运行时'],
+  ['治理篇'],
+];
 
 export function loadManifest(path = MANIFEST_PATH) {
   return JSON.parse(readFileSync(path, 'utf8'));
+}
+
+export function loadRedirects(path = REDIRECTS_PATH) {
+  return existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {};
+}
+
+export function validateRedirects(redirects, manifest, rootDir = ROOT) {
+  if (!redirects || Array.isArray(redirects) || typeof redirects !== 'object') {
+    throw new Error('book/redirects.json must contain an object keyed by retired page ID');
+  }
+  for (const [id, target] of Object.entries(redirects)) {
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) || manifest[id]) {
+      throw new Error(`${id}: invalid redirect ID or collision with a teaching page`);
+    }
+    const page = manifest[target?.pageId];
+    if (!page?.published || typeof target.anchor !== 'string' || !/^[a-z0-9-]+$/.test(target.anchor)) {
+      throw new Error(`${id}: redirect must target a published page and a stable topic anchor`);
+    }
+    const body = readFileSync(resolve(rootDir, page.path), 'utf8');
+    if (!body.includes(`<a id="${target.anchor}"></a>`)) {
+      throw new Error(`${id}: redirect target anchor not found`);
+    }
+  }
+  return Object.entries(redirects).map(([id, target]) => ({ id, ...target }));
 }
 
 function repoPath(rootDir, absolutePath) {
@@ -40,6 +72,8 @@ export function validateManifest(manifest, rootDir = ROOT) {
 
   const orders = new Map();
   const sourcePaths = new Map();
+  const legacyPaths = new Set();
+  const unitNumbers = new Map();
   for (const [id, meta] of entries) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) {
       throw new Error(`${id}: ID must use lowercase kebab-case`);
@@ -66,15 +100,53 @@ export function validateManifest(manifest, rootDir = ROOT) {
       throw new Error(`${id}: source path is already used by ${sourcePaths.get(meta.path)}`);
     }
     sourcePaths.set(meta.path, id);
+    if (meta.legacySources !== undefined) {
+      if (!Array.isArray(meta.legacySources) || new Set(meta.legacySources).size !== meta.legacySources.length || meta.legacySources.some((path) =>
+        typeof path !== 'string' || !/^book\/part3-agent\/chapter\d+-[a-z0-9-]+\.md$/.test(path) || legacyPaths.has(path))) {
+        throw new Error(`${id}: invalid or duplicate legacySources`);
+      }
+      for (const path of meta.legacySources) legacyPaths.add(path);
+    }
     if (typeof meta.published !== 'boolean') {
       throw new Error(`${id}: published must be a boolean`);
     }
+    if (meta.unitNumber !== undefined) {
+      if (!Number.isInteger(meta.unitNumber) || meta.unitNumber < 1 || meta.unitNumber > 37 || unitNumbers.has(meta.unitNumber)) {
+        throw new Error(`${id}: invalid or duplicate unitNumber`);
+      }
+      if (id === 'introduction') {
+        throw new Error(`${id}: unnumbered intro pages do not have a unitNumber`);
+      }
+      const partNumber = meta.unitNumber <= 11 ? 1 : meta.unitNumber <= 21 ? 2 : 3;
+      if (!meta.part.startsWith(`Part ${partNumber} · `)) {
+        throw new Error(`${id}: unitNumber does not match Part`);
+      }
+      unitNumbers.set(meta.unitNumber, id);
+    } else if (/^Part [123] · /.test(meta.part)) {
+      throw new Error(`${id}: teaching page requires unitNumber`);
+    }
+    if (meta.part === 'Part 3 · Golang Agent') {
+      if (!AGENT_NAVIGATION_PATHS.some((path) => JSON.stringify(path) === JSON.stringify(meta.navigationPath))) {
+        throw new Error(`${id}: missing or unknown Agent navigationPath`);
+      }
+      if (meta.navigationPath.length !== 1) {
+        throw new Error(`${id}: Agent navigationPath must use one approved knowledge category`);
+      }
+    } else if (meta.navigationPath !== undefined) {
+      throw new Error(`${id}: navigationPath is reserved for Part 3`);
+    }
 
     const source = resolve(rootDir, meta.path);
-    if (!existsSync(source)) throw new Error(`${id}: source not found: ${meta.path}`);
-    const firstHeading = readFileSync(source, 'utf8').match(/^#\s+(.+)$/m)?.[1]?.trim();
-    if (firstHeading !== meta.title) {
-      throw new Error(`${id}: manifest title does not match source H1`);
+    if (!source.startsWith(`${resolve(rootDir, 'book')}${sep}`)) {
+      throw new Error(`${id}: source escapes book directory`);
+    }
+    if (!existsSync(source)) {
+      if (meta.published) throw new Error(`${id}: source not found: ${meta.path}`);
+    } else {
+      const firstHeading = readFileSync(source, 'utf8').match(/^#\s+(.+)$/m)?.[1]?.trim();
+      if (firstHeading !== meta.title) {
+        throw new Error(`${id}: manifest title does not match source H1`);
+      }
     }
 
     for (const field of ['prerequisites', 'labs', 'capabilities']) {
@@ -138,11 +210,11 @@ function rewriteTarget(target, sourcePath, manifest, rootDir, image = false) {
   const sourceAbsolute = resolve(rootDir, sourcePath);
   const targetAbsolute = resolve(dirname(sourceAbsolute), decodeURI(pathPart));
   const targetRepoPath = repoPath(rootDir, targetAbsolute);
-  const page = Object.entries(manifest).find(([, meta]) => meta.path === targetRepoPath);
+  const page = Object.entries(manifest).find(([, meta]) => meta.path === targetRepoPath || meta.legacySources?.includes(targetRepoPath));
   if (page && page[1].published) {
     return `${withBase(`chapters/${page[0]}/`)}${fragment}`;
   }
-  if (targetRepoPath === 'book/README.md') return `${withBase('')}/${fragment}`.replace(/\/#/, '#');
+  if (targetRepoPath === 'book/README.md') return `${withBase('')}${fragment}`;
 
   const publicIndex = targetRepoPath.indexOf('public/');
   if (publicIndex >= 0) {
@@ -179,6 +251,8 @@ function frontmatter(id, meta) {
     title: meta.title,
     chapter: meta.chapter,
     part: meta.part,
+    unitNumber: meta.unitNumber,
+    navigationPath: meta.navigationPath,
     order: meta.order,
     description: meta.description,
     published: meta.published,
@@ -211,16 +285,28 @@ export function renderPage(id, meta, manifest, rootDir = ROOT) {
 export function prepareBook({ rootDir = ROOT, outputDir = OUTPUT_DIR } = {}) {
   const manifest = loadManifest(resolve(rootDir, 'book/chapters.json'));
   const entries = validateManifest(manifest, rootDir);
-  rmSync(outputDir, { recursive: true, force: true });
-  mkdirSync(outputDir, { recursive: true });
-
-  const generated = [];
+  validateRedirects(loadRedirects(resolve(rootDir, 'book/redirects.json')), manifest, rootDir);
+  // Render before touching the last valid generation; partial editor saves can fail.
+  const desired = new Map();
   for (const entry of entries) {
     if (!entry.published) continue;
     const { id, ...meta } = entry;
-    const outputPath = resolve(outputDir, `${id}.md`);
-    writeFileSync(outputPath, renderPage(id, meta, manifest, rootDir), 'utf8');
+    desired.set(`${id}.md`, renderPage(id, meta, manifest, rootDir));
+  }
+  mkdirSync(outputDir, { recursive: true });
+
+  const generated = [];
+  for (const [name, body] of desired) {
+    const outputPath = resolve(outputDir, name);
+    if (!existsSync(outputPath) || readFileSync(outputPath, 'utf8') !== body) {
+      const temporary = `${outputPath}.${process.pid}.tmp`;
+      try { writeFileSync(temporary, body, 'utf8'); renameSync(temporary, outputPath); }
+      finally { rmSync(temporary, { force: true }); }
+    }
     generated.push(repoPath(rootDir, outputPath));
+  }
+  for (const name of readdirSync(outputDir)) {
+    if (name.endsWith('.md') && !desired.has(name)) rmSync(resolve(outputDir, name));
   }
   return generated;
 }

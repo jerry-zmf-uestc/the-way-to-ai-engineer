@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"errors"
+	"math"
 	"strings"
 	"testing"
 	"time"
@@ -136,6 +137,78 @@ func TestRunDemoOutput(t *testing.T) {
 	for _, want := range []string{"registered=[calculator get_time]", "calculator=42", "get_time=2026-01-01T08:00:00Z", "rejected="} {
 		if !strings.Contains(out, want) {
 			t.Fatalf("runDemo() missing %q in %q", want, out)
+		}
+	}
+}
+
+func TestRegistrationOwnsDefinition(t *testing.T) {
+	r := NewRegistry()
+	tool := Tool{Name: "read", Parameters: Schema{Properties: map[string]ArgType{"query": ArgString}, Required: []string{"query"}}, Handler: func(context.Context, map[string]any) (string, error) { return "ok", nil }}
+	if err := r.Register(tool); err != nil {
+		t.Fatal(err)
+	}
+	tool.Parameters.Properties["query"] = ArgNumber
+	tool.Parameters.Required[0] = "other"
+	if _, err := r.Call(context.Background(), "read", map[string]any{"query": "fixed"}); err != nil {
+		t.Fatalf("definition changed: %v", err)
+	}
+	for _, schema := range []Schema{{Properties: map[string]ArgType{"q": "object"}}, {Properties: map[string]ArgType{}, Required: []string{"missing"}}} {
+		tool.Name = "bad"
+		tool.Parameters = schema
+		if err := r.Register(tool); !errors.Is(err, ErrInvalidArguments) {
+			t.Fatalf("bad schema accepted: %v", err)
+		}
+	}
+}
+func TestCancellationBeforeAndAfterHandler(t *testing.T) {
+	r := NewRegistry()
+	calls := 0
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	if err := r.Register(Tool{Name: "read", Handler: func(context.Context, map[string]any) (string, error) { calls++; cancel(); return "late", nil }}); err != nil {
+		t.Fatal(err)
+	}
+	out, err := r.Call(ctx, "read", nil)
+	if out != "" || !errors.Is(err, context.Canceled) || calls != 1 {
+		t.Fatalf("late output=%q calls=%d err=%v", out, calls, err)
+	}
+	_, err = r.Call(ctx, "read", nil)
+	if !errors.Is(err, context.Canceled) || calls != 1 {
+		t.Fatalf("canceled handler executed: calls=%d err=%v", calls, err)
+	}
+}
+
+func TestNonFiniteNumbersCannotEnterHandler(t *testing.T) {
+	r := NewRegistry()
+	calls := 0
+	if err := r.Register(Tool{Name: "probe", Parameters: Schema{Properties: map[string]ArgType{"n": ArgNumber}, Required: []string{"n"}}, Handler: func(context.Context, map[string]any) (string, error) {
+		calls++
+		return "ran", nil
+	}}); err != nil {
+		t.Fatal(err)
+	}
+	for _, value := range []float64{math.NaN(), math.Inf(1), math.Inf(-1)} {
+		out, err := r.Call(context.Background(), "probe", map[string]any{"n": value})
+		if !errors.Is(err, ErrInvalidArguments) || out != "" || calls != 0 {
+			t.Fatal("nonfinite argument reached handler", value, out, err, calls)
+		}
+	}
+	if out, err := r.Call(context.Background(), "probe", map[string]any{"n": math.MaxFloat64}); err != nil || out != "ran" || calls != 1 {
+		t.Fatal("finite boundary rejected", out, err, calls)
+	}
+}
+
+func TestFiniteArgumentsDoNotMakeOverflowSuccessful(t *testing.T) {
+	r := newTestRegistry(t)
+	for _, args := range []map[string]any{
+		{"op": "multiply", "a": math.MaxFloat64, "b": 2},
+		{"op": "add", "a": math.MaxFloat64, "b": math.MaxFloat64},
+		{"op": "subtract", "a": -math.MaxFloat64, "b": math.MaxFloat64},
+		{"op": "divide", "a": math.MaxFloat64, "b": math.SmallestNonzeroFloat64},
+	} {
+		out, err := r.Call(context.Background(), "calculator", args)
+		if !errors.Is(err, ErrNonFiniteResult) || out != "" {
+			t.Fatal("nonfinite calculation accepted", args, out, err)
 		}
 	}
 }

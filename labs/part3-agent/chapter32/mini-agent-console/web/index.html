@@ -21,7 +21,7 @@
 </head>
 <body>
 <h1>Mini Agent Console</h1>
-<p>提示：<code>calc 2+3*4</code> 触发 calculator 工具，<code>echo hello</code> 触发 echo 工具，<code>tool rocket launch</code> 触发未知工具拒绝，其它输入直接回答。</p>
+<p>提示：<code>calc 2+3*4</code> 触发 calculator 工具，<code>echo hello</code> 触发 echo 工具，<code>tool rocket launch</code> 触发未知工具拒绝，<code>research context</code> 查询固定资料并附来源，其它输入直接回答。</p>
 <div id="log" aria-live="polite"></div>
 <form id="ask">
   <input id="q" autocomplete="off" placeholder="输入问题，例如 calc 2+3*4">
@@ -34,7 +34,6 @@ const form = document.getElementById('ask');
 const input = document.getElementById('q');
 const stopBtn = document.getElementById('stop');
 let source = null;
-let answerLine = null;
 
 function append(text, cls) {
   const span = document.createElement('span');
@@ -56,45 +55,78 @@ form.addEventListener('submit', (e) => {
   if (!q) return;
   stopStream();
   append('> ' + q + '\n', 'user');
-  answerLine = document.createElement('span');
-  logEl.appendChild(answerLine);
+  const answerLine = document.createElement('span');
+  let answerStarted = false;
+  let runID = null;
+  let lastSeq = 0;
+  let hadError = false;
 
-  source = new EventSource('/chat?q=' + encodeURIComponent(q));
+  const connection = new EventSource('/chat?q=' + encodeURIComponent(q));
+  source = connection;
   stopBtn.disabled = false;
 
-  source.addEventListener('token', (e) => {
-    answerLine.textContent += JSON.parse(e.data).token;
-  });
-  source.addEventListener('tool_call', (e) => {
-    const d = JSON.parse(e.data);
-    newline();
-    append(`[tool_call] ${d.name}(${d.args})\n`, 'meta');
-  });
-  source.addEventListener('tool_result', (e) => {
-    const d = JSON.parse(e.data);
-    append(`[tool_result] ${d.name} → ${d.result}\n`, 'meta');
-  });
-  source.addEventListener('agent_error', (e) => {
-    newline();
-    append('[error] ' + JSON.parse(e.data).message + '\n', 'err');
-  });
-  source.addEventListener('done', (e) => {
-    newline();
-    append('[done] finish_reason=' + JSON.parse(e.data).finish_reason + '\n', 'done');
-    stopStream();
-  });
-  source.addEventListener('error', () => {
-    // 网络层错误（非 agent_error 事件）：服务端不可达或连接中断。
-    if (source && source.readyState === EventSource.CLOSED) {
-      append('[connection closed]\n', 'err');
+  function receive(e, apply) {
+    if (source !== connection) return;
+    try {
+      const d = JSON.parse(e.data);
+      if (typeof d.run_id !== 'string' || !d.run_id ||
+          !Number.isSafeInteger(d.seq) || d.seq !== lastSeq + 1 ||
+          (runID !== null && d.run_id !== runID) ||
+          !d.payload || typeof d.payload !== 'object' || Array.isArray(d.payload)) {
+        throw new Error('invalid stream envelope');
+      }
+      // Commit the cursor only after the event-specific payload is accepted.
+      apply(d.payload);
+      runID = d.run_id;
+      lastSeq = d.seq;
+    } catch {
+      append('[invalid stream; completion unknown]\n', 'err');
       stopStream();
     }
+  }
+  function stringField(d, key) {
+    if (typeof d[key] !== 'string') throw new Error('invalid payload');
+    return d[key];
+  }
+  connection.addEventListener('token', (e) => receive(e, (d) => {
+    const token = stringField(d, 'token');
+    if (!answerStarted) { logEl.appendChild(answerLine); answerStarted = true; }
+    answerLine.textContent += token;
+  }));
+  connection.addEventListener('tool_call', (e) => receive(e, (d) => {
+    const name = stringField(d, 'name'), args = stringField(d, 'args');
+    newline();
+    append(`[tool_call] ${name}(${args})\n`, 'meta');
+  }));
+  connection.addEventListener('tool_result', (e) => receive(e, (d) => {
+    const name = stringField(d, 'name'), result = stringField(d, 'result');
+    append(`[tool_result] ${name} → ${result}\n`, 'meta');
+  }));
+  connection.addEventListener('agent_error', (e) => receive(e, (d) => {
+    const message = stringField(d, 'message');
+    hadError = true;
+    newline();
+    append('[error] ' + message + '\n', 'err');
+  }));
+  connection.addEventListener('done', (e) => receive(e, (d) => {
+    const reason = stringField(d, 'finish_reason');
+    if (!['stop', 'error', 'timeout', 'cancelled'].includes(reason) ||
+        (hadError && reason === 'stop')) throw new Error('invalid terminal');
+    newline();
+    append('[done] finish_reason=' + reason + '\n', reason === 'stop' ? 'done' : 'err');
+    stopStream();
+  }));
+  connection.addEventListener('error', () => {
+    if (source !== connection) return;
+    append('[connection interrupted; completion unknown]\n', 'err');
+    // close prevents EventSource automatically starting the run again.
+    stopStream();
   });
 });
 
 stopBtn.addEventListener('click', () => {
   stopStream();
-  append('[stopped by user]\n', 'done');
+  append('[stopped locally; server completion not acknowledged]\n', 'meta');
 });
 </script>
 </body>

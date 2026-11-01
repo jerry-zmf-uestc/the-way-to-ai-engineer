@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import ChapterCard from '../components/ChapterCard.astro';
+import ChapterGrid from '../components/ChapterGrid.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { AGENT_NAVIGATION_PATHS } from '../../scripts/book-content.mjs';
 
 const pages = (await getCollection('chapters', ({ data }) => data.published))
   .sort((left, right) => left.data.order - right.data.order);
@@ -23,6 +24,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         </p>
         <div class="hero-actions">
           <a class="primary-button" href={`${base}/chapters/introduction/`}>开始学习</a>
+          <a class="secondary-button" href="#agent-course">Agent 课程</a>
           <a class="secondary-button" href="https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer">查看 GitHub</a>
         </div>
       </div>
@@ -42,26 +44,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <div class="section-intro">
       <span class="eyebrow">课程内容</span>
       <h2>正文与实验一起前进</h2>
-      <p>当前只发布已经接入新内容流水线的页面；其余章节完成审校后逐批开放。</p>
+      <p>按知识缺口选择章节，再到配套实验验证判断。Agent 部分按构建篇、运行时、治理篇组织；阅读顺序与前置知识见正文。</p>
     </div>
     {[...groups].map(([part, entries]) => (
-      <section class="part-section">
+      <section class="part-section" id={part === 'Part 3 · Golang Agent' ? 'agent-course' : undefined}>
         <div class="part-heading">
           <h2>{part}</h2>
           <span>{entries.length} 篇</span>
         </div>
-        <div class="chapter-grid">
-          {entries.map((entry) => (
-            <ChapterCard
-              id={entry.id}
-              title={entry.data.title}
-              description={entry.data.description}
-              part={entry.data.part}
-              capabilities={entry.data.capabilities}
-              labs={entry.data.labs}
-            />
-          ))}
-        </div>
+        {part === 'Part 3 · Golang Agent' ? (
+          <>
+            {AGENT_NAVIGATION_PATHS.map((path) => (
+              <section class="course-family" data-course-group={path[0]}>
+                <h3>{path[0]}</h3>
+                <ChapterGrid headingLevel={4} pages={entries.filter((page) => page.data.navigationPath?.[0] === path[0])} />
+              </section>
+            ))}
+          </>
+        ) : <ChapterGrid pages={entries} />}
       </section>
     ))}
   </section>

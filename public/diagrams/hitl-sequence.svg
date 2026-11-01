@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" role="img" aria-labelledby="title"><title id="title">HITL：等待无需占着执行者，恢复依赖持久状态</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="680" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">HITL：等待无需占着执行者，恢复依赖持久状态</text>
+<text x="60" y="95" font-size="17">调用方 / Runtime</text>
+<path d="M150 115V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<text x="460" y="95" font-size="17">审批状态存储</text>
+<path d="M550 115V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<text x="860" y="95" font-size="17">人 / 对应角色</text>
+<path d="M950 115V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<path d="M150 155H550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="220" y="143" font-size="16">提交具体Action与范围</text>
+<path d="M550 205H150" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="200" y="193" font-size="16">waiting已保存；请求可结束</text>
+<path d="M950 265H550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="615" y="253" font-size="16">查询并阅读动作 / 版本 / 指纹</text>
+<path d="M950 335H550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="595" y="323" font-size="16">明确approve / reject / modify</text>
+<path d="M150 405H550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="205" y="393" font-size="16">恢复：核对授权 / 期限 / 决定</text>
+<path d="M550 465H150" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="200" y="453" font-size="16">获准Action；先保存executing</text>
+<path d="M150 535H550" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="190" y="523" font-size="16">结果提交（取消或过期不释放）</text>
+<text x="30" y="614" font-size="17">批准/拒绝由Reviewer提交；修改/取消由Owner提交，修改后需要重新审核。</text>
+<text x="30" y="652" font-size="17">业务能力仍由应用注册；人的决定不能替模型新增工具，也不等于结果质量通过。</text>
+</g></svg>

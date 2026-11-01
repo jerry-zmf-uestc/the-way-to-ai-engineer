@@ -63,7 +63,10 @@ type FakeProvider struct{}
 
 var _ Provider = FakeProvider{}
 
-func (FakeProvider) Generate(_ context.Context, messages []Message) (Response, error) {
+func (FakeProvider) Generate(ctx context.Context, messages []Message) (Response, error) {
+	if err := ctx.Err(); err != nil {
+		return Response{}, err
+	}
 	promptTokens := 0
 	lastUser := ""
 	for _, m := range messages {
@@ -126,13 +129,15 @@ type OpenAICompatibleProvider struct {
 var _ Provider = OpenAICompatibleProvider{}
 
 type chatRequest struct {
-	Model    string    `json:"model"`
-	Messages []Message `json:"messages"`
+	Model     string    `json:"model"`
+	Messages  []Message `json:"messages"`
+	MaxTokens int       `json:"max_tokens"`
 }
 
 type chatResponse struct {
 	Choices []struct {
-		Message Message `json:"message"`
+		Message      Message `json:"message"`
+		FinishReason string  `json:"finish_reason"`
 	} `json:"choices"`
 	Usage struct {
 		PromptTokens     int `json:"prompt_tokens"`
@@ -148,11 +153,14 @@ func (p OpenAICompatibleProvider) Generate(ctx context.Context, messages []Messa
 		return Response{}, errors.New("hello-llm: empty messages")
 	}
 
-	body, err := json.Marshal(chatRequest{Model: p.Model, Messages: messages})
+	body, err := json.Marshal(chatRequest{Model: p.Model, Messages: messages, MaxTokens: 256})
 	if err != nil {
 		return Response{}, fmt.Errorf("hello-llm: encode request: %w", err)
 	}
 
+	if len(body) > 64<<10 {
+		return Response{}, errors.New("hello-llm: request exceeds 64 KiB")
+	}
 	url := strings.TrimSuffix(p.BaseURL, "/") + "/chat/completions"
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(body))
 	if err != nil {
@@ -185,21 +193,32 @@ func (p OpenAICompatibleProvider) Generate(ctx context.Context, messages []Messa
 		return Response{}, fmt.Errorf("hello-llm: response exceeds %d bytes", maxBytes)
 	}
 
-	var parsed chatResponse
-	if err := json.Unmarshal(data, &parsed); err != nil {
-		return Response{}, fmt.Errorf("hello-llm: decode response: %w", err)
+	if err := ctx.Err(); err != nil {
+		return Response{}, err
 	}
+	var parsed chatResponse
 	if resp.StatusCode != http.StatusOK {
+		// 网关的错误页未必是JSON；状态分类不依赖错误体能否解析。
+		_ = json.Unmarshal(data, &parsed)
 		msg := http.StatusText(resp.StatusCode)
 		if parsed.Error != nil && parsed.Error.Message != "" {
 			msg = parsed.Error.Message
 		}
 		return Response{}, &HTTPError{StatusCode: resp.StatusCode, Message: msg}
 	}
+	if err := json.Unmarshal(data, &parsed); err != nil {
+		return Response{}, fmt.Errorf("hello-llm: decode response: %w", err)
+	}
 	if len(parsed.Choices) == 0 {
 		return Response{}, errors.New("hello-llm: response has no choices")
 	}
 
+	if parsed.Choices[0].FinishReason == "length" {
+		return Response{}, errors.New("hello-llm: truncated text response")
+	}
+	if strings.TrimSpace(parsed.Choices[0].Message.Content) == "" {
+		return Response{}, errors.New("hello-llm: empty text response")
+	}
 	return Response{
 		Text: parsed.Choices[0].Message.Content,
 		Usage: Usage{

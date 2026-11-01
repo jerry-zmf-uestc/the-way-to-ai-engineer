@@ -1,0 +1,14 @@
+---
+course:
+  part: 3
+  chapter: 32
+topic_slug: task-service
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null
+references: []

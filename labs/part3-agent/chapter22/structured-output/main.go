@@ -169,9 +169,18 @@ func GenerateAnswer(ctx context.Context, p Provider, question string) (Result, e
 	const maxAttempts = 2 // 首次调用 + 一次带反馈的重试
 	var lastErr error
 	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		if err := ctx.Err(); err != nil {
+			return Result{}, err
+		}
 		raw, err := p.Generate(ctx, messages)
 		if err != nil {
 			return Result{}, fmt.Errorf("structured-output: provider call: %w", err)
+		}
+		if err := ctx.Err(); err != nil {
+			return Result{}, err
+		}
+		if len(raw) > 64<<10 {
+			return Result{}, errors.New("structured-output: response exceeds 64 KiB")
 		}
 		answer, err := parseAnswer(raw)
 		if err == nil {

@@ -1,10 +1,15 @@
 #!/bin/sh
 set -eu
 
-ruby -e '
+ruby -E UTF-8:UTF-8 -e '
   path = "docs/designs/project-plan.md"
   text = File.read(path)
-  rows = text.lines.grep(/^\| \d+ \|/).map { |line| line.split("|")[1...-1].map(&:strip) }
+  anchor = %(<a id="chapter-map"></a>)
+  abort "chapter map anchor must occur once" unless text.scan(anchor).length == 1
+  start = text.index(anchor) + anchor.length
+  finish = text.index(/^## 5\./, start)
+  abort "chapter map must end before section 5" unless finish
+  rows = text[start...finish].lines.grep(/^\| \d+ \|/).map { |line| line.split("|")[1...-1].map(&:strip) }
   abort "chapter rows must have 9 columns" unless rows.all? { |row| row.length == 9 }
   numbers = rows.map { |row| Integer(row[0]) }
   expected = (1..33).to_a
@@ -18,13 +23,13 @@ ruby -e '
     end
     number = Integer(row[0])
     part, track = number <= 11 ? [1, "golang"] : number <= 21 ? [2, "backend"] : [3, "agent"]
-    expected_path = format("book/part%d-%s/chapter%02d.md", part, track, number)
-    abort "chapter #{number} has incorrect Book path" unless row[2].delete("`") == expected_path
+    expected_path = row[2].delete("`")
+    abort "chapter #{number} has incorrect Book path" unless expected_path.start_with?(format("book/part%d-%s/", part, track)) && expected_path.end_with?(".md")
     if row[4] == "available" || row[6] == "reviewed"
       abort "chapter #{number} has no book file" unless File.file?(expected_path)
     end
     if row[5] == "passed"
-      row[3].split("、").each do |topic|
+      row[3].split("\u{3001}").each do |topic|
         lab = format("labs/part%d-%s/chapter%02d/%s", part, track, number, topic)
         abort "chapter #{number} has no lab #{topic}" unless File.directory?(lab)
       end
@@ -34,7 +39,7 @@ ruby -e '
       required << "code" if row[5] != "pending"
       required << "content" if row[6] != "pending"
       required << "reader" if row[7] != "pending"
-      abort "chapter #{number} needs implementation evidence" if required.empty? && row[8] == "—"
+      abort "chapter #{number} needs implementation evidence" if required.empty? && row[8] == "\u{2014}"
       required.each do |kind|
         link = row[8][/#{kind}: \[[^\]]+\]\(([^)]+)\)/, 1]
         abort "chapter #{number} missing #{kind} evidence" unless link

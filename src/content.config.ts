@@ -9,6 +9,8 @@ const chapters = defineCollection({
     title: z.string(),
     chapter: z.number().int().positive().optional(),
     part: z.string(),
+    unitNumber: z.number().int().min(1).max(37).optional(),
+    navigationPath: z.array(z.string()).length(1).optional(),
     order: z.number().int().nonnegative(),
     description: z.string(),
     published: z.boolean(),

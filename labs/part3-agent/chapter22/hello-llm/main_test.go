@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -147,7 +148,7 @@ func TestOpenAICompatibleProviderTimeout(t *testing.T) {
 func TestE2ELiveProvider(t *testing.T) {
 	t.Parallel()
 
-	if os.Getenv("E2E_LIVE") == "" {
+	if os.Getenv("E2E_LIVE") != "1" {
 		t.Skip("set E2E_LIVE=1 with LLM_BASE_URL and LLM_API_KEY to run against a real provider")
 	}
 	baseURL := os.Getenv("LLM_BASE_URL")
@@ -165,5 +166,48 @@ func TestE2ELiveProvider(t *testing.T) {
 	}
 	if resp.Text == "" {
 		t.Fatal("Generate() returned empty text")
+	}
+}
+
+func TestProviderResponseBoundaries(t *testing.T) {
+	for _, c := range []struct {
+		name       string
+		status     int
+		body       string
+		limit      int64
+		httpStatus int
+	}{
+		{"non JSON rate limit", 429, "slow down", 0, 429},
+		{"non JSON gateway", 502, "<html>gateway error</html>", 0, 502},
+		{"invalid success JSON", 200, "not json", 0, 0},
+		{"no choices", 200, `{"choices":[]}`, 0, 0},
+		{"truncated", 200, `{"choices":[{"message":{"content":"partial"},"finish_reason":"length"}]}`, 0, 0},
+		{"empty text", 200, `{"choices":[{"message":{"content":" "}}]}`, 0, 0},
+		{"oversize", 200, `{"choices":[{"message":{"content":"large"}}]}`, 4, 0},
+	} {
+		t.Run(c.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) { w.WriteHeader(c.status); fmt.Fprint(w, c.body) }))
+			defer server.Close()
+			_, err := (OpenAICompatibleProvider{BaseURL: server.URL, Model: "fake", MaxBytes: c.limit}).Generate(context.Background(), []Message{{Role: RoleUser, Content: "hi"}})
+			if err == nil {
+				t.Fatal("bad response accepted")
+			}
+			var he *HTTPError
+			if c.httpStatus != 0 {
+				if !errors.As(err, &he) || he.StatusCode != c.httpStatus {
+					t.Fatalf("lost HTTP status: %v", err)
+				}
+			} else if errors.As(err, &he) {
+				t.Fatalf("protocol error became HTTP error: %v", err)
+			}
+		})
+	}
+}
+func TestFakeHonorsCancellation(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	_, err := (FakeProvider{}).Generate(ctx, []Message{{Role: RoleUser, Content: "ping"}})
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("err=%v", err)
 	}
 }
