@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[Memory正文](../../../../book/part3-agent/runtime/chapter30-state.md#topic-agent-memory)、Session、Context与SQL。Go版本与pgx v5.11.0以[labs/go.mod](../../../go.mod)为准；准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Memory正文](../../../../content/book/part3-agent/runtime/chapter30-state.md#topic-agent-memory)、Session、Context与SQL。Go版本与pgx v5.11.0以[labs/go.mod](../../../go.mod)为准；准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Scope、记录、具体值/操作授权、Fake、召回与候选回查。
 - [postgres.go](postgres.go)：真实database/sql驱动、参数化主键范围和条件更新。

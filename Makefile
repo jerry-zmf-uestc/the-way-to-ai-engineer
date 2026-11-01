@@ -1,4 +1,4 @@
-.PHONY: fmt fmt-check vet test test-race coverage build validate-docs validate-book validate-site validate tools-install security security-history release-readiness validate-release
+.PHONY: fmt fmt-check vet test test-race coverage build validate-docs validate-book validate-site validate tools-install security security-history release-readiness validate-release validate-interview
 
 # Prepare the pinned dependency cache with go -C labs mod download before invoking make.
 export GOTOOLCHAIN := local
@@ -33,7 +33,13 @@ build:
 	done < "$$output_dir/packages"; \
 	printf 'build output: %s\n' "$$output_dir"
 
-validate-docs:
+validate-interview:
+	node scripts/interview.mjs validate
+	node scripts/interview.mjs check-navigation
+	node scripts/check-links.mjs content/interview
+	node --test tests/interview/*.test.mjs tests/interview-site-source.test.mjs
+
+validate-docs: validate-interview
 	./scripts/validate-chapter-map.sh
 	./scripts/validate-topics.sh
 	./scripts/check-links.sh
@@ -76,7 +82,7 @@ validate-book:
 	ruby scripts/verify-book-pilots.rb
 
 validate-site:
-	npm run check
+	npm run check:sites
 
 validate: fmt-check vet test-race coverage build validate-docs validate-book validate-site
 

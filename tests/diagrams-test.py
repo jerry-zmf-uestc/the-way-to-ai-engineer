@@ -37,13 +37,13 @@ class DiagramChecks(unittest.TestCase):
                 root = Path(directory)
                 base = root / 'public/diagrams'
                 base.mkdir(parents=True)
-                (root / 'book').mkdir()
+                (root / 'content/book').mkdir(parents=True)
                 source = 'from pathlib import Path\nPath(__file__).with_suffix(".svg").write_text(' + repr(SVG) + ')\n'
                 (base / 'sample.py').write_text(source)
                 (base / 'sample.svg').write_text(SVG)
                 (base / 'sources.json').write_text(json.dumps({'sample.py': ['sample.svg']}))
-                (root / 'book/page.md').write_text('![sample](../public/diagrams/sample.svg)')
-                (root / 'book/chapters.json').write_text(json.dumps({'sample': {'part': 'Part 3 · Golang Agent', 'published': True, 'path': 'book/page.md'}}))
+                (root / 'content/book/page.md').write_text('![sample](../../public/diagrams/sample.svg)')
+                (root / 'content/book/chapters.json').write_text(json.dumps({'sample': {'part': 'Part 3 · Golang Agent', 'published': True, 'path': 'content/book/page.md'}}))
                 if mutation == 'stale':
                     (base / 'sample.svg').write_text(SVG.replace('sample', 'stale'))
                 elif mutation == 'missing-source':
@@ -53,7 +53,7 @@ class DiagramChecks(unittest.TestCase):
                 elif mutation == 'duplicate-output':
                     (base / 'sources.json').write_text(json.dumps({'sample.py': ['sample.svg', 'sample.svg']}))
                 elif mutation == 'missing-alt':
-                    (root / 'book/page.md').write_text('![](../public/diagrams/sample.svg)')
+                    (root / 'content/book/page.md').write_text('![](../../public/diagrams/sample.svg)')
                 if mutation == 'valid':
                     checker.verify(root)
                 else:

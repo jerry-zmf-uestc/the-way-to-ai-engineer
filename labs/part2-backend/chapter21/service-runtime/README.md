@@ -51,12 +51,12 @@ already exists and focuses on what a deployable runtime needs around it.
 
 ## Related Exercises
 
-- [Chapter 21 Exercises](../../../../book/part2-backend/chapter21.md#练习): return to the chapter page for
+- [Chapter 21 Exercises](../../../../content/book/part2-backend/chapter21.md#练习): return to the chapter page for
   executable practice tasks that extend the runtime skeleton with more
   delivery-oriented concerns.
 
 ## Continue
 
-Return to [chapter21/README.md](../../../../book/part2-backend/chapter21.md) for the chapter map, then continue to
-[chapter16](../../../../book/part2-backend/chapter16.md) when you want to move from the basic Go
+Return to [chapter21/README.md](../../../../content/book/part2-backend/chapter21.md) for the chapter map, then continue to
+[chapter16](../../../../content/book/part2-backend/chapter16.md) when you want to move from the basic Go
 capstone into the CloudWeGo framework chapters.

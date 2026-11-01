@@ -4,7 +4,7 @@
 
 ## 前置与入口
 
-阅读[Delegation正文](../../../../book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-delegation)、Tool、Context与Eval。准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Delegation正文](../../../../content/book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-delegation)、Tool、Context与Eval。准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Task/Result、Toolbox、共享Ledger、Dispatcher与固定角色。
 - [main_test.go](main_test.go)：窄能力、上下文复制、伪来源、深度/预算、冲突与迟到结果。

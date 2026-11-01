@@ -8,7 +8,7 @@ ROOT = File.expand_path('..', __dir__)
 ENVIRONMENT = { 'GOTOOLCHAIN' => 'local', 'GOPROXY' => 'off', 'GOSUMDB' => 'off' }.freeze
 blocks = {}
 %w[chapter01 chapter02].each do |chapter|
-  text = File.read(File.join(ROOT, "book/part1-golang/#{chapter}.md"))
+  text = File.read(File.join(ROOT, "content/book/part1-golang/#{chapter}.md"))
   text += File.read(File.join(ROOT, 'tests/fixtures/chapter01-exercises.md')) if chapter == 'chapter01'
   text.scan(/<!-- verify:([\w-]+) -->\s*```go\n(.*?)\n```/m).each do |id, code|
     abort "duplicate block: #{id}" if blocks.key?(id)

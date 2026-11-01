@@ -20,8 +20,8 @@ go -C labs test ./part1-golang/chapter02/maps -race -count=1
 
 ## Exercise
 
-在临时副本中为计数增加大小写归一化，然后合并两个计数结果，保持输入不变。步骤、空输入约定及验收见 [第 2 章练习](../../../../book/part1-golang/chapter02.md#collections-exercises)。
+在临时副本中为计数增加大小写归一化，然后合并两个计数结果，保持输入不变。步骤、空输入约定及验收见 [第 2 章练习](../../../../content/book/part1-golang/chapter02.md#collections-exercises)。
 
 ## Reading
 
-返回 [Chapter 02](../../../../book/part1-golang/chapter02.md)。
+返回 [Chapter 02](../../../../content/book/part1-golang/chapter02.md)。

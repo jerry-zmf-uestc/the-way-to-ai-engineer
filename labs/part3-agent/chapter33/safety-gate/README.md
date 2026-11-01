@@ -2,7 +2,7 @@
 
 默认实验把模型提议直接送入应用Gate，验证拒绝是否发生在Reader执行之前。只有注册资料的只读读取，不访问网络、文件系统或真实模型，不执行Shell和业务写操作。显式容器伴随实验另验证固定进程的隔离，不给Agent新增工具。
 
-前置：[Tool](../../../../book/part3-agent/building/chapter23-actions.md#topic-agent-tool)、[MCP](../../../../book/part3-agent/building/chapter23-actions.md#topic-agent-mcp)、[Serving](../../../../book/part3-agent/runtime/chapter33-serving.md#topic-agent-serving)。
+前置：[Tool](../../../../content/book/part3-agent/building/chapter23-actions.md#topic-agent-tool)、[MCP](../../../../content/book/part3-agent/building/chapter23-actions.md#topic-agent-mcp)、[Serving](../../../../content/book/part3-agent/runtime/chapter33-serving.md#topic-agent-serving)。
 
 ## 机制与边界
 
@@ -17,7 +17,7 @@
 
 ## 从仓库根目录运行
 
-Go与依赖准备见[运行说明](../../../../book/introduction.md#running-examples)。
+Go与依赖准备见[运行说明](../../../../content/book/introduction.md#running-examples)。
 
 ```bash
 go -C labs run ./part3-agent/chapter33/safety-gate

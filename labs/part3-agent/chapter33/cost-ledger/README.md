@@ -1,6 +1,6 @@
 # Cost Ledger：预留、结算与每成功任务成本
 
-用独立标准库账本验证成本契约。前置：[Runtime](../../../../book/part3-agent/runtime/chapter29-execution.md#topic-agent-runtime)、[Eval](../../../../book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)。全部使用固定usage、独立成功标签和虚构microcredit，不调用真实Provider，不给出现实模型价格或收益结论。
+用独立标准库账本验证成本契约。前置：[Runtime](../../../../content/book/part3-agent/runtime/chapter29-execution.md#topic-agent-runtime)、[Eval](../../../../content/book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)。全部使用固定usage、独立成功标签和虚构microcredit，不调用真实Provider，不给出现实模型价格或收益结论。
 
 ## 机制与边界
 
@@ -14,7 +14,7 @@
 
 ## 运行
 
-从仓库根目录执行，Go/依赖准备见[运行说明](../../../../book/introduction.md#running-examples)：
+从仓库根目录执行，Go/依赖准备见[运行说明](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter33/cost-ledger
@@ -247,7 +247,7 @@ Begin返回取消错误时，not_sent与释放预留也需要保存；Settle报�
 
 请求指纹由可信协调者对已批准请求和版本产生；本实现检查规范SHA256与一致性，不从哈希恢复参数，也不认证批准来源。只保持价格相同而请求已经变化，仍需拒绝同一身份复用。旧账本没有映射的条目保留为未绑定记录，不能凭整数ID相同猜出它属于哪次尝试。
 
-这补齐费用侧的幂等准备。[Checkpoint的RunJoint](../../../../book/part3-agent/runtime/chapter29-execution.md#返回证据先落盘恢复才不必重新取数)已将固定动作的尝试身份、费用映射、返回证据与结果提交接起来，并在恢复时查询原映射。模型提议与动态计划仍需扩展原记录；独立账本通过也不代表完整Agent恢复。
+这补齐费用侧的幂等准备。[Checkpoint的RunJoint](../../../../content/book/part3-agent/runtime/chapter29-execution.md#返回证据先落盘恢复才不必重新取数)已将固定动作的尝试身份、费用映射、返回证据与结果提交接起来，并在恢复时查询原映射。模型提议与动态计划仍需扩展原记录；独立账本通过也不代表完整Agent恢复。
 
 前面处理的是“同一次尝试不要重复锁预算”。接下来再把生命周期切得更细：发送前取消、发送后未知、已知usage结算，这三种状态为什么不能混成一个“请求失败”。
 

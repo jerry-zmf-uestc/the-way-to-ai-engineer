@@ -7,9 +7,10 @@
 | 分类 | 内容 | 入口 |
 | --- | --- | --- |
 | Designs | 项目愿景、课程、路线、章节状态、仓库与 Agent 架构 | [项目总体方案](designs/project-plan.md) |
-| Rules | 章节、Lab、安全三份专项规范 | [强制读取规则](../AGENTS.md) |
-| 学习准备 | 工作目录、运行和练习副本；正文归入 book | [如何使用本书](../book/introduction.md#running-examples) |
+| Rules | 章节、Lab、安全、面试内容与图示规范 | [强制读取规则](../AGENTS.md) |
+| 学习准备 | 工作目录、运行和练习副本；正文归入 book | [如何使用本书](../content/book/introduction.md#running-examples) |
 | Templates | 章节与内容审查模板 | [templates/book-chapter.md](templates/book-chapter.md) |
+| 面试合集 | 框架中立的 96 题、分章正文与统一内容生产 | [interview](../content/interview/README.md) / [内容规范](rules/interview-content-contract.md) |
 | Sources | 第三方归属与许可边界 | [第三方说明](../THIRD_PARTY_NOTICES.md) |
 
 ## 真源规则
@@ -30,3 +31,9 @@
 - 复杂变更意图与验收：公开 Issue/PR；本地规格不作为贡献前提。
 - Agent 操作约束：根目录 `AGENTS.md`。
 - 发布前人工与远端检查清单：`release-readiness.json`。
+
+- [面试专项方案](designs/interview-handbook.md)：96题边界、课程关联、编辑数据与迁移验收。
+- [图示规范](rules/diagram-contract.md)：课程与Archify各自的登记、验证及面试配图风格。
+- 面试编辑模板：[文章](templates/interview-article.md)、[研究](templates/interview-research.md)、[审核](templates/interview-review.md)。逐篇研究与审核在仓库外，模板不是审核结果。
+
+- 面试独立站点、website.json可见门槛及共享Pages部署：[面试专项方案](designs/interview-handbook.md#独立面试站点与共享pages托管)。两个站点独立构建，发布包统一组装，不修改课程地址或公众号状态。

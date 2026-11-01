@@ -10,11 +10,11 @@ import { startBookDev } from '../scripts/dev-book.mjs';
 
 function fixture(){
   const root=mkdtempSync(resolve(tmpdir(),'course-watch-'));
-  mkdirSync(resolve(root,'book'));mkdirSync(resolve(root,'labs'));
-  writeFileSync(resolve(root,'book/a.md'),'# A\n\ninitial\n');
-  const manifest={a:{path:'book/a.md',title:'A',part:'Test',order:1,description:'Test',published:true,prerequisites:[],labs:[],capabilities:[]}};
-  writeFileSync(resolve(root,'book/chapters.json'),JSON.stringify(manifest));
-  return {root,manifest,output:resolve(root,'src/content/chapters/a.md')};
+  mkdirSync(resolve(root,'content/book'),{recursive:true});mkdirSync(resolve(root,'labs'));
+  writeFileSync(resolve(root,'content/book/a.md'),'# A\n\ninitial\n');
+  const manifest={a:{path:'content/book/a.md',title:'A',part:'Test',order:1,description:'Test',published:true,prerequisites:[],labs:[],capabilities:[]}};
+  writeFileSync(resolve(root,'content/book/chapters.json'),JSON.stringify(manifest));
+  return {root,manifest,output:resolve(root,'.generated/chapters/a.md')};
 }
 async function until(check){
   const end=Date.now()+4000;
@@ -23,11 +23,11 @@ async function until(check){
 
 test('generation writes only changed pages and preserves last valid data on render error',()=>{
   const f=fixture();try{
-    prepareBook({rootDir:f.root,outputDir:resolve(f.root,'src/content/chapters')});
+    prepareBook({rootDir:f.root,outputDir:resolve(f.root,'.generated/chapters')});
     const before=readFileSync(f.output,'utf8'),mtime=statSync(f.output).mtimeMs;
-    prepareBook({rootDir:f.root,outputDir:resolve(f.root,'src/content/chapters')});assert.equal(statSync(f.output).mtimeMs,mtime);
-    writeFileSync(resolve(f.root,'book/a.md'),'# A\n\n[missing](missing.md)\n');
-    assert.throws(()=>prepareBook({rootDir:f.root,outputDir:resolve(f.root,'src/content/chapters')}),/unresolved/);
+    prepareBook({rootDir:f.root,outputDir:resolve(f.root,'.generated/chapters')});assert.equal(statSync(f.output).mtimeMs,mtime);
+    writeFileSync(resolve(f.root,'content/book/a.md'),'# A\n\n[missing](missing.md)\n');
+    assert.throws(()=>prepareBook({rootDir:f.root,outputDir:resolve(f.root,'.generated/chapters')}),/unresolved/);
     assert.equal(readFileSync(f.output,'utf8'),before);
   }finally{rmSync(f.root,{recursive:true,force:true});}
 });
@@ -36,15 +36,15 @@ test('real watcher updates, deletes unpublished page, surfaces errors, recovers 
   const f=fixture();let refreshed=0;const errors=[];
   const watcher=watchBook({rootDir:f.root,debounceMs:30,onReady:()=>refreshed++,onError:error=>errors.push(error)});
   try{
-    writeFileSync(resolve(f.root,'book/a.md'),'# A\n\nchanged\n');
+    writeFileSync(resolve(f.root,'content/book/a.md'),'# A\n\nchanged\n');
     await until(()=>refreshed>0&&readFileSync(f.output,'utf8').includes('changed'));
-    writeFileSync(resolve(f.root,'book/chapters.json'),'{');await until(()=>errors.length>0);
+    writeFileSync(resolve(f.root,'content/book/chapters.json'),'{');await until(()=>errors.length>0);
     assert.ok(readFileSync(f.output,'utf8').includes('changed'));
-    f.manifest.a.published=false;writeFileSync(resolve(f.root,'book/chapters.json'),JSON.stringify(f.manifest));
+    f.manifest.a.published=false;writeFileSync(resolve(f.root,'content/book/chapters.json'),JSON.stringify(f.manifest));
     await until(()=>!existsSync(f.output));
-    f.manifest.a.published=true;writeFileSync(resolve(f.root,'book/chapters.json'),JSON.stringify(f.manifest));await until(()=>existsSync(f.output));
+    f.manifest.a.published=true;writeFileSync(resolve(f.root,'content/book/chapters.json'),JSON.stringify(f.manifest));await until(()=>existsSync(f.output));
     const previous=refreshed;writeFileSync(resolve(f.root,'labs/meta.yml'),'source: updated\n');await until(()=>refreshed>previous);
-    watcher.close();const stopped=refreshed;writeFileSync(resolve(f.root,'book/a.md'),'# A\n\nclosed\n');
+    watcher.close();const stopped=refreshed;writeFileSync(resolve(f.root,'content/book/a.md'),'# A\n\nclosed\n');
     await new Promise(done=>setTimeout(done,100));assert.equal(refreshed,stopped);
   }finally{watcher.close();rmSync(f.root,{recursive:true,force:true});}
 });
@@ -60,7 +60,7 @@ test('dev supervisor forwards arguments and closes its watcher after owned child
       assert.equal(options.env.ASTRO_DEV_BACKGROUND,'1');
       if(failure)child.emit('error',new Error('startup failed'));else session.stop('SIGTERM');
       const result=await session.done;assert.equal(result.code,failure?1:0);assert.equal(process.listenerCount('SIGINT'),before);
-      const old=readFileSync(f.output,'utf8');writeFileSync(resolve(f.root,'book/a.md'),'# A\n\nno watcher\n');await new Promise(done=>setTimeout(done,100));assert.equal(readFileSync(f.output,'utf8'),old);
+      const old=readFileSync(f.output,'utf8');writeFileSync(resolve(f.root,'content/book/a.md'),'# A\n\nno watcher\n');await new Promise(done=>setTimeout(done,100));assert.equal(readFileSync(f.output,'utf8'),old);
     }finally{rmSync(f.root,{recursive:true,force:true});}
   }
 });

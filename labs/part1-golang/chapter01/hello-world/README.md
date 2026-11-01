@@ -33,8 +33,8 @@ hello, go
 
 ## Exercise
 
-在临时副本中完成欢迎语修改、参数化和测试扩展，步骤与验收见 [第 1 章练习](../../../../book/part1-golang/chapter01.md#练习)。先改预期观察失败，再改实现观察通过。
+在临时副本中完成欢迎语修改、参数化和测试扩展，步骤与验收见 [第 1 章练习](../../../../content/book/part1-golang/chapter01.md#练习)。先改预期观察失败，再改实现观察通过。
 
 ## Reading
 
-返回 [Chapter 01](../../../../book/part1-golang/chapter01.md)。
+返回 [Chapter 01](../../../../content/book/part1-golang/chapter01.md)。

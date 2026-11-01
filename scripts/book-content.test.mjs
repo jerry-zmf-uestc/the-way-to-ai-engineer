@@ -23,7 +23,7 @@ test('current manifest and published pages are valid', () => {
   assert.deepEqual(units.map((entry) => entry.unitNumber).sort((a,b) => a-b), Array.from({ length: 37 }, (_,i) => i+1));
   assert.deepEqual([1,2,3].map((n) => units.filter((entry) => entry.part.startsWith(`Part ${n} · `)).length), [11,10,16]);
   assert.deepEqual(units.filter((entry) => !entry.published).map((entry) => entry.unitNumber), [14,15,18,19,20]);
-  assert.ok(entries.some((entry) => entry.path === "book/part3-agent/runtime/chapter33-serving.md" && entry.published));
+  assert.ok(entries.some((entry) => entry.path === "content/book/part3-agent/runtime/chapter33-serving.md" && entry.published));
 });
 
 test('Agent navigation covers the approved three macro sections', () => {
@@ -88,9 +88,9 @@ test('chapter transform removes duplicate H1 and rewrites repository links', () 
 
 function fixture() {
   const root = mkdtempSync(resolve(tmpdir(), 'book-content-test-'));
-  mkdirSync(resolve(root, 'book'), { recursive: true });
-  writeFileSync(resolve(root, 'book/a.md'), '# A\n', 'utf8');
-  writeFileSync(resolve(root, 'book/b.md'), '# B\n', 'utf8');
+  mkdirSync(resolve(root, 'content/book'), { recursive: true });
+  writeFileSync(resolve(root, 'content/book/a.md'), '# A\n', 'utf8');
+  writeFileSync(resolve(root, 'content/book/b.md'), '# B\n', 'utf8');
   return root;
 }
 
@@ -111,7 +111,7 @@ function page(path, title, order, prerequisites = []) {
 test('duplicate order fails closed', () => {
   const root = fixture();
   assert.throws(
-    () => validateManifest({ a: page('book/a.md', 'A', 1), b: page('book/b.md', 'B', 1) }, root),
+    () => validateManifest({ a: page('content/book/a.md', 'A', 1), b: page('content/book/b.md', 'B', 1) }, root),
     /order 1 is already used/,
   );
 });
@@ -119,13 +119,13 @@ test('duplicate order fails closed', () => {
 test('unknown prerequisite and cycles fail closed', () => {
   const root = fixture();
   assert.throws(
-    () => validateManifest({ a: page('book/a.md', 'A', 1, ['missing']) }, root),
+    () => validateManifest({ a: page('content/book/a.md', 'A', 1, ['missing']) }, root),
     /unknown prerequisite/,
   );
   assert.throws(
     () => validateManifest({
-      a: page('book/a.md', 'A', 1, ['b']),
-      b: page('book/b.md', 'B', 2, ['a']),
+      a: page('content/book/a.md', 'A', 1, ['b']),
+      b: page('content/book/b.md', 'B', 2, ['a']),
     }, root),
     /cycle detected/,
   );
@@ -134,21 +134,21 @@ test('unknown prerequisite and cycles fail closed', () => {
 test('missing source and mismatched title fail closed', () => {
   const root = fixture();
   assert.throws(
-    () => validateManifest({ missing: page('book/missing.md', 'Missing', 1) }, root),
+    () => validateManifest({ missing: page('content/book/missing.md', 'Missing', 1) }, root),
     /source not found/,
   );
   assert.throws(
-    () => validateManifest({ a: page('book/a.md', 'Wrong', 1) }, root),
+    () => validateManifest({ a: page('content/book/a.md', 'Wrong', 1) }, root),
     /does not match source H1/,
   );
 });
 
 test('planned sources may be absent but cannot create a published route', () => {
   const root = fixture();
-  const planned = { ...page('book/planned.md', 'Planned', 1), published: false };
+  const planned = { ...page('content/book/planned.md', 'Planned', 1), published: false };
   assert.equal(validateManifest({ planned }, root)[0].published, false);
   assert.throws(() => validateManifest({ planned: { ...planned, published: true } }, root), /source not found/);
-  assert.throws(() => validateManifest({ planned: { ...planned, path: 'book/../../outside.md' } }, root), /source escapes/);
+  assert.throws(() => validateManifest({ planned: { ...planned, path: 'content/book/../../outside.md' } }, root), /source escapes/);
 });
 
 test('unit numbers reject duplicates, invalid bounds, wrong Parts and numbered entrances', () => {
@@ -181,8 +181,8 @@ test('repository directory and file links retain distinct GitHub targets', () =>
   const root = fixture();
   mkdirSync(resolve(root, 'labs/topic'), { recursive: true });
   writeFileSync(resolve(root, 'labs/topic/README.md'), '# Lab\n', 'utf8');
-  writeFileSync(resolve(root, 'book/a.md'), '# A\n\n[Directory](../labs/topic) [File](../labs/topic/README.md)\n', 'utf8');
-  const manifest = { a: page('book/a.md', 'A', 1) };
+  writeFileSync(resolve(root, 'content/book/a.md'), '# A\n\n[Directory](../../labs/topic) [File](../../labs/topic/README.md)\n', 'utf8');
+  const manifest = { a: page('content/book/a.md', 'A', 1) };
   const output = renderPage('a', manifest.a, manifest, root);
   assert.match(output, /\[Directory\]\(https:\/\/github\.com\/jerry-zmf-uestc\/the-way-to-ai-engineer\/tree\/main\/labs\/topic\)/);
   assert.match(output, /\[File\]\(https:\/\/github\.com\/jerry-zmf-uestc\/the-way-to-ai-engineer\/blob\/main\/labs\/topic\/README\.md\)/);
@@ -190,8 +190,8 @@ test('repository directory and file links retain distinct GitHub targets', () =>
 
 test('book index links preserve the Pages base without introducing a double slash', () => {
   const root = fixture();
-  writeFileSync(resolve(root, 'book/a.md'), '# A\n\n[目录](README.md) [路线](README.md#start)\n');
-  const manifest = { a: page('book/a.md', 'A', 1) };
+  writeFileSync(resolve(root, 'content/book/a.md'), '# A\n\n[目录](README.md) [路线](README.md#start)\n');
+  const manifest = { a: page('content/book/a.md', 'A', 1) };
   const output = renderPage('a', manifest.a, manifest, root);
   assert.ok(output.includes(`[目录](${SITE_BASE}/)`));
   assert.ok(output.includes(`[路线](${SITE_BASE}/#start)`));
@@ -224,8 +224,8 @@ test('frozen source references have unique declared moves without rewriting data
   assert.equal(sources.length, 26);
   assert.equal(new Set(sources).size, 26);
   for (const paths of [
-    ['book/../../outside.md'],
-    ['book/part3-agent/chapter24-tool.md', 'book/part3-agent/chapter24-tool.md'],
+    ['content/book/../../outside.md'],
+    ['content/book/part3-agent/chapter24-tool.md', 'content/book/part3-agent/chapter24-tool.md'],
     manifest['agent-context'].legacySources,
   ]) {
     const broken = structuredClone(manifest);

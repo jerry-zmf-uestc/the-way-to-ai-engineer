@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-先读[Trace与Replay](../../../../book/part3-agent/governance/chapter34-observability.md#topic-agent-trace-replay)、Runtime与Checkpoint，运行准备见[全书约定](../../../../book/introduction.md#running-examples)。
+先读[Trace与Replay](../../../../content/book/part3-agent/governance/chapter34-observability.md#topic-agent-trace-replay)、Runtime与Checkpoint，运行准备见[全书约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Recorder、公共事件、私有档案、严格Load与按顺序Replay。
 - [main_test.go](main_test.go)：相同失败、变更输入、缺记录、未消费、敏感载荷不进Event、取消与协议错误分类。

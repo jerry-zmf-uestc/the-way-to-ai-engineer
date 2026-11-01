@@ -5,7 +5,7 @@ require 'open3'
 root = File.expand_path('..', __dir__)
 checker = File.join(root, 'scripts/validate-chapter-map.sh')
 Dir.mktmpdir('chapter-evidence-test-') do |dir|
-  %w[book labs docs Makefile tests].each { |path| FileUtils.cp_r(File.join(root, path), dir) }
+  %w[content labs docs Makefile tests].each { |path| FileUtils.cp_r(File.join(root, path), dir) }
   path = File.join(dir, 'docs/designs/project-plan.md')
   original = File.read(path)
   out, status = Open3.capture2e('/bin/sh', checker, chdir: dir)

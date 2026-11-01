@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[Retrieval正文](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)与[Context](../../../../book/part3-agent/building/chapter26-context.md#topic-agent-context)。Go准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Retrieval正文](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)与[Context](../../../../content/book/part3-agent/building/chapter26-context.md#topic-agent-context)。Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：码点切分、向量空间检查、只读索引、预过滤、排名融合与评分回调。
 - [main_test.go](main_test.go)：召回互补、租户隔离、版本与复制、非法空间/向量、取消及重排故障。

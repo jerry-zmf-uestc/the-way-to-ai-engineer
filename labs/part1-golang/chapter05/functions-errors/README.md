@@ -34,12 +34,12 @@ The example keeps parse failures wrapped with input context while using sentinel
 
 ## Related Exercises
 
-- [Chapter 5 Exercises](../../../../book/part1-golang/chapter05.md#练习): return to the chapter page for the
+- [Chapter 5 Exercises](../../../../content/book/part1-golang/chapter05.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [chapter5/README.md](../../../../book/part1-golang/chapter05.md) for the chapter index, then continue with
+Return to [chapter5/README.md](../../../../content/book/part1-golang/chapter05.md) for the chapter index, then continue with
 [structs-methods-interfaces](../../chapter06/structs-methods-interfaces) to see
 how functions and errors attach to stateful types.

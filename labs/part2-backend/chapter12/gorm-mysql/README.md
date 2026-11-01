@@ -44,7 +44,7 @@ gorm model=SKU-001 CloudWeGo Hoodie active $89.99 dialect=mysql table=products d
 
 ## Related Exercises
 
-- [Chapter 10 · HTTP Exercises](../../../../book/part1-golang/chapter10.md#练习): return to the chapter page for the
+- [Chapter 10 · HTTP Exercises](../../../../content/book/part1-golang/chapter10.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 

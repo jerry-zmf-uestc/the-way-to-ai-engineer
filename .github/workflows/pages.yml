@@ -1,4 +1,4 @@
-name: Build and deploy course site
+name: Build and deploy course and interview sites
 
 'on':
   pull_request:
@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build Astro site
+    name: Build both Astro sites
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -27,15 +27,22 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: package-lock.json
+      - name: Verify content source layout
+        run: |
+          test -f content/book/chapters.json
+          test -f content/interview/questions.json
+          test ! -d book
+          test ! -d interview
+          test ! -d src/content
       - name: Install locked dependencies
         run: npm ci
       - name: Validate content and build site
-        run: npm run check
+        run: npm run check:sites
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3, resolved 2026-09-20
         with:
-          path: dist
+          path: .pages-dist
 
   deploy:
     name: Deploy GitHub Pages

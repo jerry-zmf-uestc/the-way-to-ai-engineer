@@ -4,7 +4,7 @@
 
 ## 前置与入口
 
-先读[Session正文](../../../../book/part3-agent/building/chapter26-context.md#topic-agent-session)，理解slice复制、Mutex与错误链。Go版本以[labs/go.mod](../../../go.mod)为准，准备见[运行约定](../../../../book/introduction.md#running-examples)。
+先读[Session正文](../../../../content/book/part3-agent/building/chapter26-context.md#topic-agent-session)，理解slice复制、Mutex与错误链。Go版本以[labs/go.mod](../../../go.mod)为准，准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：封闭消息类型、快照复制、历史校验、身份范围与版本提交。
 - [main_test.go](main_test.go)：消息原子拒绝、竞争、过期、嵌套字节复制及Scope隔离。

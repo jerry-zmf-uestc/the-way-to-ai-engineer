@@ -16,10 +16,10 @@ go -C labs run ./part2-backend/chapter16/hertz-kitex-demo/cmd
 
 ## 相关练习
 
-- [第 16 章练习](../../../../../book/part2-backend/chapter16.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
+- [第 16 章练习](../../../../../content/book/part2-backend/chapter16.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
   扩展这个 topic。
 
 ## 继续阅读
 
-- [返回第 16 章索引](../../../../../book/part2-backend/chapter16.md)
+- [返回第 16 章索引](../../../../../content/book/part2-backend/chapter16.md)
 - [查看仓库级结构说明](../../../../../ARCHITECTURE.md)

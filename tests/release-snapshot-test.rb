@@ -12,12 +12,12 @@ Dir.mktmpdir('release-snapshot-test-') do |dir|
     out
   end
   command!(dir, 'git', 'init', '-q')
-  FileUtils.mkdir_p(File.join(dir, 'book'))
+  FileUtils.mkdir_p(File.join(dir, 'content/book'))
   FileUtils.mkdir_p(File.join(dir, 'labs'))
   File.write(File.join(dir, '.gitignore'), ".specs/\n")
   File.write(File.join(dir, 'README.md'), "staged\n")
   File.write(File.join(dir, 'labs/go.mod'), "module fixture/labs\n")
-  File.write(File.join(dir, 'book/README.md'), "# Book\n")
+  File.write(File.join(dir, 'content/book/README.md'), "# Book\n")
   File.write(File.join(dir, 'Makefile'), "validate-docs:\n\t@test ! -e .specs\n\t@test ! -e .git\n\t@test \"$$(cat README.md)\" = staged\n")
   command!(dir, 'git', 'add', '.')
   File.write(File.join(dir, 'README.md'), "unstaged\n")
@@ -38,7 +38,14 @@ Dir.mktmpdir('release-snapshot-test-') do |dir|
   out, status = Open3.capture2e(RbConfig.ruby, checker, '--mode', 'index', '--checks', 'docs', chdir: dir)
   abort "tracked private file must be rejected: #{out}" unless !status.success? && out.include?('private or unsafe candidate')
   puts 'PASS: force-added private files are rejected, not silently omitted'
-  command!(dir, 'git', 'rm', '--cached', '-q', '.specs/private.md', 'labs/go.mod')
+  command!(dir, 'git', 'rm', '--cached', '-q', '.specs/private.md')
+  FileUtils.mkdir_p(File.join(dir, '.generated/chapters'))
+  File.write(File.join(dir, '.generated/chapters/copy.md'), 'generated')
+  command!(dir, 'git', 'add', '-f', '.generated/chapters/copy.md')
+  out, status = Open3.capture2e(RbConfig.ruby, checker, '--mode', 'index', '--checks', 'docs', chdir: dir)
+  abort "generated intermediate must be rejected: #{out}" unless !status.success? && out.include?('private or unsafe candidate')
+  puts 'PASS: generated content cannot enter a release snapshot even if force-added'
+  command!(dir, 'git', 'rm', '--cached', '-q', '.generated/chapters/copy.md', 'labs/go.mod')
   out, status = Open3.capture2e(RbConfig.ruby, checker, '--mode', 'index', '--checks', 'docs', chdir: dir)
   abort "missing required file must fail: #{out}" unless !status.success? && out.include?('missing required file labs/go.mod')
   puts 'PASS: missing module blocks snapshot checks'

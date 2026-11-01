@@ -1,6 +1,6 @@
 # 推理机制：字节分词、因果Attention、KV与采样
 
-以真实数值运算解释接口背后的机制。标准库、固定向量与规则，不下载权重、不调用Provider。前置：Go slice/数学函数，理解向量点积；关联[Model正文](../../../../book/part3-agent/building/chapter22-architecture.md#topic-ch22-llm-api)。
+以真实数值运算解释接口背后的机制。标准库、固定向量与规则，不下载权重、不调用Provider。前置：Go slice/数学函数，理解向量点积；关联[Model正文](../../../../content/book/part3-agent/building/chapter22-architecture.md#topic-ch22-llm-api)。
 
 ## 这几个小实验各证明什么
 
@@ -12,7 +12,7 @@
 
 ## 预测、运行与观察
 
-从仓库根目录执行，准备见[运行约定](../../../../book/introduction.md#running-examples)：
+从仓库根目录执行，准备见[运行约定](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter22/inference-mechanisms

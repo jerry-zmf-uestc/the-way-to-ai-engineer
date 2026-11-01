@@ -46,12 +46,12 @@ Generics are useful for small reusable helpers, typed collections, and algorithm
 
 ## Related Exercises
 
-- [Chapter 7 · Generics Exercises](../../../../book/part1-golang/chapter07.md#generics-exercises): return to the chapter page for the
+- [Chapter 7 · Generics Exercises](../../../../content/book/part1-golang/chapter07.md#generics-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [Chapter 7 · Generics](../../../../book/part1-golang/chapter07.md#generics) for the chapter reading order, then read
+Return to [Chapter 7 · Generics](../../../../content/book/part1-golang/chapter07.md#generics) for the chapter reading order, then read
 [goroutine-channel-select](../../chapter09/goroutine-channel-select) to move
 from type abstraction into concurrency primitives.

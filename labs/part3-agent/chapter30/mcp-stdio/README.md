@@ -8,7 +8,7 @@
 
 ## 前置与入口
 
-阅读[MCP正文](../../../../book/part3-agent/building/chapter23-actions.md#topic-agent-mcp)、Tool与context。准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[MCP正文](../../../../content/book/part3-agent/building/chapter23-actions.md#topic-agent-mcp)、Tool与context。准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：stdio Server、Client、握手、Schema子集、本地namespace和失败分类。
 - [agent.go](agent.go)：有界决策、批准工具调用与按Call ID回填观察。

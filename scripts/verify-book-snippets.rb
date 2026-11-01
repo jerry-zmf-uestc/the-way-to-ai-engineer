@@ -17,7 +17,7 @@ def run_case(name, code, test, should_pass: true, error: nil)
     puts "PASS: #{name}"
   end
 end
-control = File.read('book/part1-golang/chapter03.md')
+control = File.read('content/book/part1-golang/chapter03.md')
 good = control.scan(/```go\n(.*?)```/m).flatten.first(2).join("\n")
 bad = control.split('## 踩坑清单',2).last[/```go\n(.*?)```/m,1]
 control_test = <<~'GO'

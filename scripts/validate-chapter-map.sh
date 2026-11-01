@@ -24,7 +24,7 @@ ruby -E UTF-8:UTF-8 -e '
     number = Integer(row[0])
     part, track = number <= 11 ? [1, "golang"] : number <= 21 ? [2, "backend"] : [3, "agent"]
     expected_path = row[2].delete("`")
-    abort "chapter #{number} has incorrect Book path" unless expected_path.start_with?(format("book/part%d-%s/", part, track)) && expected_path.end_with?(".md")
+    abort "chapter #{number} has incorrect Book path" unless expected_path.start_with?(format("content/book/part%d-%s/", part, track)) && expected_path.end_with?(".md")
     if row[4] == "available" || row[6] == "reviewed"
       abort "chapter #{number} has no book file" unless File.file?(expected_path)
     end

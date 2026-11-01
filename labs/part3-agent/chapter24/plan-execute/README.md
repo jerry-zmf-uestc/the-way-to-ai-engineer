@@ -6,7 +6,7 @@ timeout依赖retry用于固定演示次序；两个固定查询并不使用彼�
 
 ## 前置与入口
 
-阅读[Planning](../../../../book/part3-agent/building/chapter25-planning.md#topic-agent-planning)、ReAct、Runtime与Eval。Go准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Planning](../../../../content/book/part3-agent/building/chapter25-planning.md#topic-agent-planning)、ReAct、Runtime与Eval。Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：计划、依赖校验、就绪选择、状态、版本修订和固定事实评分。
 - [main_test.go](main_test.go)：图错误、已完成项保护、修订和尝试预算、快照、取消与独立目标校验。

@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[Skills正文](../../../../book/part3-agent/building/chapter28-skills.md#topic-agent-skills)、Context与Tool。准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Skills正文](../../../../content/book/part3-agent/building/chapter28-skills.md#topic-agent-skills)、Context与Tool。准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：有界YAML、目录、批准、正文缓存、参考资源与工具政策。
 - [main_test.go](main_test.go)：渐进加载、重复预算、批准不扩张、版本变化、资源篡改、路径与取消。

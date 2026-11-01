@@ -4,9 +4,9 @@
 
 ## 准备一个自己的副本
 
-使用包含当前书稿和实验的仓库副本，按[运行准备](../../../../book/introduction.md#running-examples)核对Go版本。在含book和labs的仓库根目录执行后续命令，不在共同工作区改练习。遇到环境错误先记录卡点；不要把“没有运行起来”直接记成不理解Loop。
+使用包含当前书稿和实验的仓库副本，按[运行准备](../../../../content/book/introduction.md#running-examples)核对Go版本。在含book和labs的仓库根目录执行后续命令，不在共同工作区改练习。遇到环境错误先记录卡点；不要把“没有运行起来”直接记成不理解Loop。
 
-阅读[Agent Loop正文](../../../../book/part3-agent/building/chapter24-decision-loop.md#topic-ch23-tool-calling)，暂时不打开main_test.go，也不让AI给出下面问题的答案。Go语法或环境准备可以求助，记录求助范围即可。
+阅读[Agent Loop正文](../../../../content/book/part3-agent/building/chapter24-decision-loop.md#topic-ch23-tool-calling)，暂时不打开main_test.go，也不让AI给出下面问题的答案。Go语法或环境准备可以求助，记录求助范围即可。
 
 ## 先预测，再观察
 

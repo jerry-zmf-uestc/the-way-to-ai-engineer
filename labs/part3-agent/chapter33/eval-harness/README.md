@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-先读[Eval正文](../../../../book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)与RAG。Go准备见[运行约定](../../../../book/introduction.md#running-examples)。
+先读[Eval正文](../../../../content/book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)与RAG。Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [fixtures.json](fixtures.json)：三个教学Case、独立支持标签、baseline/candidate运行记录。
 - [main.go](main.go)：有界JSON载入、受限Runner、评分、分母保留、支持覆盖、Wilson示意与配对退化。

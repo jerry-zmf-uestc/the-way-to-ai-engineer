@@ -26,5 +26,5 @@ go -C labs test ./part1-golang/chapter03/control-flow -race -count=1
 
 ## Reading
 
-返回 [Chapter 03](../../../../book/part1-golang/chapter03.md)。
+返回 [Chapter 03](../../../../content/book/part1-golang/chapter03.md)。
 

@@ -33,13 +33,13 @@ The example is intentionally small. It is meant to make Effective Go rules visib
 
 ## Related Exercises
 
-- [Chapter 11 · Engineering Exercises](../../../../book/part1-golang/chapter11.md#练习): return to the chapter page for the
+- [Chapter 11 · Engineering Exercises](../../../../content/book/part1-golang/chapter11.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [Chapter 11 · Engineering](../../../../book/part1-golang/chapter11.md) for the engineering-topic index, then
+Return to [Chapter 11 · Engineering](../../../../content/book/part1-golang/chapter11.md) for the engineering-topic index, then
 continue with [code-review-comments](../code-review-comments) or
 [reflection-basics](../../chapter07/reflection-basics) depending on whether you
 want one more style guide topic or the next runtime abstraction topic.

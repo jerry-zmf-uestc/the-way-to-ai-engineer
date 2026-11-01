@@ -4,7 +4,7 @@
 
 ## 先把五种判断分开
 
-阅读[Retrieval](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、[RAG](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app)及[Eval](../../../../book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)中关于证据、支持与任务完整性的段落。运行前为下面每种情况写下：在哪一层失败，还需要什么证据，是否可以交付完整答案。
+阅读[Retrieval](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、[RAG](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app)及[Eval](../../../../content/book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)中关于证据、支持与任务完整性的段落。运行前为下面每种情况写下：在哪一层失败，还需要什么证据，是否可以交付完整答案。
 
 | 情况 | 需要独立判断的问题 |
 | --- | --- |

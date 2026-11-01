@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[Workspace正文](../../../../book/part3-agent/runtime/chapter30-state.md#topic-agent-workspace)、Context与文件基础，准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Workspace正文](../../../../content/book/part3-agent/runtime/chapter30-state.md#topic-agent-workspace)、Context与文件基础，准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：可信Scope、os.Root、应用Publish、ID读取、摘要与Cleanup。
 - [main_test.go](main_test.go)：UTF8行页、跨任务/路径拒绝、内容变化、链接逃逸、期限与墓碑。

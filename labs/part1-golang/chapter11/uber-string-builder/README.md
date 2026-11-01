@@ -41,7 +41,7 @@ go -C labs test ./part1-golang/chapter11/uber-string-builder -race -count=1
 
 ## Related Exercises
 
-- [Chapter 11 · Engineering Exercises](../../../../book/part1-golang/chapter11.md#练习): return to the chapter page for the
+- [Chapter 11 · Engineering Exercises](../../../../content/book/part1-golang/chapter11.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 

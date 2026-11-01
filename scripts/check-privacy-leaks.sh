@@ -10,8 +10,11 @@ scan() {
   --glob '!.tools/**' \
   --glob '!node_modules/**' \
   --glob '!.astro/**' \
-  --glob '!src/content/chapters/**' \
+  --glob '!.generated/**' \
   --glob '!dist/**' \
+  --glob '!dist-interview/**' \
+  --glob '!.astro-interview/**' \
+  --glob '!.pages-dist*/**' \
   --glob '!scripts/check-privacy-leaks.sh' "$@" .
 }
 

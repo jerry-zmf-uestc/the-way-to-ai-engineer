@@ -46,12 +46,12 @@ This topic is the first CloudWeGo building block. Later examples can reuse the s
 
 ## Related Exercises
 
-- [Chapter 16 Exercises](../../../../book/part2-backend/chapter16.md#练习): return to the chapter page for the
+- [Chapter 16 Exercises](../../../../content/book/part2-backend/chapter16.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [chapter16/README.md](../../../../book/part2-backend/chapter16.md) for the chapter map, then continue with
+Return to [chapter16/README.md](../../../../content/book/part2-backend/chapter16.md) for the chapter map, then continue with
 [hertz-kitex-real-chain](../hertz-kitex-real-chain) to see the same HTTP entry
 layer call real Kitex services.

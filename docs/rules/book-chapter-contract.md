@@ -1,6 +1,6 @@
 # 章节写作规范
 
-适用于 `book/` 正文。章节编号、实验和状态以[项目总体方案中的章节地图](../designs/project-plan.md#chapter-map)为准；Lab 入口遵循 [topic 规范](topic-contract.md)。
+适用于 `content/book/` 正文。章节编号、实验和状态以[项目总体方案中的章节地图](../designs/project-plan.md#chapter-map)为准；Lab 入口遵循 [topic 规范](topic-contract.md)。
 
 ## 章节组织
 
@@ -72,7 +72,7 @@
 - 不依赖某次观察到的随机顺序或扩容倍数；说明稳定条件和可变部分。
 - 故意失败的代码使用临时目录或独立副本验证，不破坏正式 Lab。
 - 改函数签名时，说明调用方和测试应怎样同步修改。
-- 公共操作约定集中维护在 [示例与练习说明](../../book/introduction.md#running-examples)。
+- 公共操作约定集中维护在 [示例与练习说明](../../content/book/introduction.md#running-examples)。
 
 Lab操作说明顺序：目的 → 文件位置 → 操作 → 命令 → 预期结果 → 说明（可压缩进代码注释，不单列栏目）。正文围绕知识点解释代码，不因这个操作顺序而组织整章。
 

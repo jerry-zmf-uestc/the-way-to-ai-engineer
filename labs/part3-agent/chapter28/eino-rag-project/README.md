@@ -43,8 +43,8 @@ Answer: Use the retrieved context above as the grounding material.
 ## Continue
 
 This is an independent component-composition experiment. After reading this topic, go
-back to [Retrieval](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval) and
-[RAG](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app) if you want to inspect the
+back to [Retrieval](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval) and
+[RAG](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app) if you want to inspect the
 retrieval and grounded-answer layers separately.
 
 ## 原组装练习

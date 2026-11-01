@@ -51,12 +51,12 @@ showing which operations belong inside one commit boundary.
 
 ## Related Exercises
 
-- [Chapter 13 Exercises](../../../../book/part2-backend/chapter13.md#练习): return to the chapter page for the
+- [Chapter 13 Exercises](../../../../content/book/part2-backend/chapter13.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [chapter13/README.md](../../../../book/part2-backend/chapter13.md) for the chapter map, or continue with
+Return to [chapter13/README.md](../../../../content/book/part2-backend/chapter13.md) for the chapter map, or continue with
 [service-runtime](../../chapter21/service-runtime) to see how the same service
 boundary grows into config, probe, timeout, and shutdown concerns.

@@ -14,9 +14,9 @@ go -C labs run ./part1-golang/chapter01/hello-world
 go -C labs test ./part1-golang/chapter01/hello-world -count=1
 ```
 
-程序输出 `hello, go`，测试应通过。接着阅读[第 1 章](book/part1-golang/chapter01.md)，学习如何构建程序、修改欢迎语和验证不同输入。
+程序输出 `hello, go`，测试应通过。接着阅读[第 1 章](content/book/part1-golang/chapter01.md)，学习如何构建程序、修改欢迎语和验证不同输入。
 
-第一次运行后端或 Agent 示例前，执行 `go -C labs mod download` 准备锁定依赖。单个 Lab 不要求安装文档检查工具；完整环境和练习副本说明见[如何使用本书](book/introduction.md#running-examples)。
+第一次运行后端或 Agent 示例前，执行 `go -C labs mod download` 准备锁定依赖。单个 Lab 不要求安装文档检查工具；完整环境和练习副本说明见[如何使用本书](content/book/introduction.md#running-examples)。
 
 ## 学习路线
 
@@ -26,7 +26,7 @@ go -C labs test ./part1-golang/chapter01/hello-world -count=1
 | Part 2 · 高性能后端 | 12–21 | 数据库、Redis、微服务、分布式、高并发与可观测性 |
 | Part 3 · Go Agent | 22–33 | Agent Harness、RAG、多 Agent 协作、Streaming/Serving 与运行治理 |
 
-[打开全书目录](book/README.md) · [查看项目总体方案](docs/designs/project-plan.md)
+[打开全书目录](content/book/README.md) · [查看项目总体方案](docs/designs/project-plan.md)
 
 ## 当前范围
 
@@ -44,11 +44,14 @@ GoTrip 是后续独立旅行实践，不要求每章增加旅行功能，也不�
 
 | 入口 | 用途 |
 | --- | --- |
-| [book](book/README.md) | 教材与阅读目录 |
+| [interview](content/interview/README.md) | 按十大章节组织的 96 题面试手册（独立于课程章号） |
+| [book](content/book/README.md) | 教材与阅读目录 |
 | labs | 各章独立示例，从正文进入 |
 | [docs](docs/README.md) | 长期设计、规则与模板 |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 当前实现与目标架构边界 |
 | [tests](tests/README.md) | 文档与检查器回归说明 |
+
+面试合集可独立运行 `make validate-interview`，只需 Node；课程与合集共享已有 Lab，不强制面试读者先学习 Go。课程与面试使用独立页面、导航和构建；共享Pages部署，面试入口为 `/the-way-to-ai-engineer/interview/`。
 
 ## 验证与贡献
 
@@ -69,3 +72,5 @@ make validate
 原创代码和原创教学代码块使用 [MIT](LICENSE)；原创教材文字与图示使用 [CC BY 4.0](LICENSE-DOCS)。第三方材料保留自己的许可，具体范围及待核对项见[第三方说明](THIRD_PARTY_NOTICES.md)。版权署名：2026 jerry-zmf-uestc。
 
 漏洞请按[安全政策](SECURITY.md)私密报告，不要在公开 Issue 中贴密钥、真实用户数据或可直接滥用的细节。开源发布前仍须完成第三方核对和远端安全入口验证，不能用本机测试通过代替这些检查。
+
+面试站点独立运行：`npm run dev:interview`（4322），生产预览用 `npm run build:interview`、`npm run preview:interview`（4323）。访问路径为 `/the-way-to-ai-engineer/interview/`。`npm run check:sites` 检查课程与面试两个站点并生成共享Pages部署包；课程原地址保持。网站只展示website.json显式列出的正文，其他题仅作规划目录，不等同于公众号公开发布。

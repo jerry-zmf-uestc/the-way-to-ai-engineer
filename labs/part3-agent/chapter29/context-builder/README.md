@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-先读[Context正文](../../../../book/part3-agent/building/chapter26-context.md#topic-agent-context)及[Session](../../../../book/part3-agent/building/chapter26-context.md#topic-agent-session)。Go准备见[运行约定](../../../../book/introduction.md#running-examples)。
+先读[Context正文](../../../../content/book/part3-agent/building/chapter26-context.md#topic-agent-context)及[Session](../../../../content/book/part3-agent/building/chapter26-context.md#topic-agent-session)。Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：消息配对、整轮分组、Counter与输入选择。
 - [main_test.go](main_test.go)：必要输入不足、完整组、输入所有权、请求封装开销及协议拒绝。

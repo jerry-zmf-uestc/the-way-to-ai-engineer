@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[Checkpoint正文](../../../../book/part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)、Runtime、Session与幂等概念。Go版本以[labs/go.mod](../../../go.mod)为准；os.Root要求对应工具链，准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Checkpoint正文](../../../../content/book/part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)、Runtime、Session与幂等概念。Go版本以[labs/go.mod](../../../go.mod)为准；os.Root要求对应工具链，准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：有界严格载入、文件同步与替换、排他领取、在途记录及结果提交。
 - [main_test.go](main_test.go)：真实子进程硬退出、未知窗口、重复查询、游标继续、身份、预算、锁与取消。

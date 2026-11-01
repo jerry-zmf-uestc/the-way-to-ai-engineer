@@ -4,7 +4,7 @@
 
 ## 前置与入口
 
-先读[ReAct](../../../../book/part3-agent/building/chapter24-decision-loop.md#topic-agent-react)、Loop、Tool与Eval。运行准备见[全书约定](../../../../book/introduction.md#running-examples)。
+先读[ReAct](../../../../content/book/part3-agent/building/chapter24-decision-loop.md#topic-agent-react)、Loop、Tool与Eval。运行准备见[全书约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Action、Observation、Decision、独立预算、重复检测与固定只读环境。
 - [main_test.go](main_test.go)：观察改变动作、评分答案隔离、非法分支、失败反馈、来源与取消。

@@ -32,12 +32,12 @@ Structs model state, methods keep behavior close to that state, and interfaces d
 
 ## Related Exercises
 
-- [Chapter 6 Exercises](../../../../book/part1-golang/chapter06.md#练习): return to the chapter page for the
+- [Chapter 6 Exercises](../../../../content/book/part1-golang/chapter06.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [chapter6/README.md](../../../../book/part1-golang/chapter06.md) for the chapter map, then continue with
+Return to [chapter6/README.md](../../../../content/book/part1-golang/chapter06.md) for the chapter map, then continue with
 [reflection-basics](../../chapter07/reflection-basics) to see how types can be
 inspected and generalized.

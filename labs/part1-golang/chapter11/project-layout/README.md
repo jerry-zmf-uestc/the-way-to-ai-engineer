@@ -29,7 +29,7 @@ go -C labs run ./part1-golang/chapter11/project-layout
 
 ## 相关练习
 
-- [Chapter 11 · Engineering Exercises](../../../../book/part1-golang/chapter11.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
+- [Chapter 11 · Engineering Exercises](../../../../content/book/part1-golang/chapter11.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
   扩展这个 topic。
 
 ## Continue

@@ -13,9 +13,9 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 export const ROOT = resolve(SCRIPT_DIR, '..');
-export const MANIFEST_PATH = resolve(ROOT, 'book/chapters.json');
-export const REDIRECTS_PATH = resolve(ROOT, 'book/redirects.json');
-export const OUTPUT_DIR = resolve(ROOT, 'src/content/chapters');
+export const MANIFEST_PATH = resolve(ROOT, 'content/book/chapters.json');
+export const REDIRECTS_PATH = resolve(ROOT, 'content/book/redirects.json');
+export const OUTPUT_DIR = resolve(ROOT, '.generated/chapters');
 export const SITE_BASE = '/the-way-to-ai-engineer';
 export const REPOSITORY_URL = 'https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer';
 
@@ -36,7 +36,7 @@ export function loadRedirects(path = REDIRECTS_PATH) {
 
 export function validateRedirects(redirects, manifest, rootDir = ROOT) {
   if (!redirects || Array.isArray(redirects) || typeof redirects !== 'object') {
-    throw new Error('book/redirects.json must contain an object keyed by retired page ID');
+    throw new Error('content/book/redirects.json must contain an object keyed by retired page ID');
   }
   for (const [id, target] of Object.entries(redirects)) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id) || manifest[id]) {
@@ -64,11 +64,11 @@ function encodeRepoPath(path) {
 
 export function validateManifest(manifest, rootDir = ROOT) {
   if (!manifest || Array.isArray(manifest) || typeof manifest !== 'object') {
-    throw new Error('book/chapters.json must contain an object keyed by stable page ID');
+    throw new Error('content/book/chapters.json must contain an object keyed by stable page ID');
   }
 
   const entries = Object.entries(manifest);
-  if (entries.length === 0) throw new Error('book/chapters.json must not be empty');
+  if (entries.length === 0) throw new Error('content/book/chapters.json must not be empty');
 
   const orders = new Map();
   const sourcePaths = new Map();
@@ -86,8 +86,8 @@ export function validateManifest(manifest, rootDir = ROOT) {
         throw new Error(`${id}: ${field} must be a non-empty string`);
       }
     }
-    if (!meta.path.startsWith('book/') || !meta.path.endsWith('.md')) {
-      throw new Error(`${id}: path must point to a Markdown source under book/`);
+    if (!meta.path.startsWith('content/book/') || !meta.path.endsWith('.md')) {
+      throw new Error(`${id}: path must point to a Markdown source under content/book/`);
     }
     if (!Number.isInteger(meta.order) || meta.order < 0) {
       throw new Error(`${id}: order must be a non-negative integer`);
@@ -137,7 +137,7 @@ export function validateManifest(manifest, rootDir = ROOT) {
     }
 
     const source = resolve(rootDir, meta.path);
-    if (!source.startsWith(`${resolve(rootDir, 'book')}${sep}`)) {
+    if (!source.startsWith(`${resolve(rootDir, 'content/book')}${sep}`)) {
       throw new Error(`${id}: source escapes book directory`);
     }
     if (!existsSync(source)) {
@@ -214,7 +214,7 @@ function rewriteTarget(target, sourcePath, manifest, rootDir, image = false) {
   if (page && page[1].published) {
     return `${withBase(`chapters/${page[0]}/`)}${fragment}`;
   }
-  if (targetRepoPath === 'book/README.md') return `${withBase('')}${fragment}`;
+  if (targetRepoPath === 'content/book/README.md') return `${withBase('')}${fragment}`;
 
   const publicIndex = targetRepoPath.indexOf('public/');
   if (publicIndex >= 0) {
@@ -283,9 +283,9 @@ export function renderPage(id, meta, manifest, rootDir = ROOT) {
 }
 
 export function prepareBook({ rootDir = ROOT, outputDir = OUTPUT_DIR } = {}) {
-  const manifest = loadManifest(resolve(rootDir, 'book/chapters.json'));
+  const manifest = loadManifest(resolve(rootDir, 'content/book/chapters.json'));
   const entries = validateManifest(manifest, rootDir);
-  validateRedirects(loadRedirects(resolve(rootDir, 'book/redirects.json')), manifest, rootDir);
+  validateRedirects(loadRedirects(resolve(rootDir, 'content/book/redirects.json')), manifest, rootDir);
   // Render before touching the last valid generation; partial editor saves can fail.
   const desired = new Map();
   for (const entry of entries) {

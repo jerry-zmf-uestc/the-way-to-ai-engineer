@@ -12,7 +12,7 @@ topics = {
 anchors = {}
 regions = []
 topics.each do |chapter, ids|
-  directory = format('book/part1-golang/chapter%02d', chapter)
+  directory = format('content/book/part1-golang/chapter%02d', chapter)
   abort "duplicate chapter directory: #{directory}" if File.exist?(directory)
   path = directory + '.md'
   text = File.read(path, encoding: 'UTF-8')

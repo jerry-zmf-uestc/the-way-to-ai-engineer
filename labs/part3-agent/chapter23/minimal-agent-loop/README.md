@@ -1,12 +1,12 @@
 # 配套实验：Agent Loop
 
-本实验验证“模型提议→工具执行→观察回填→下一轮决策”。脚本模型与只读工具使结果确定，不需要模型密钥。正文见[Agent Harness · Agent Loop](../../../../book/part3-agent/building/chapter24-decision-loop.md#topic-ch23-tool-calling)。
+本实验验证“模型提议→工具执行→观察回填→下一轮决策”。脚本模型与只读工具使结果确定，不需要模型密钥。正文见[Agent Harness · Agent Loop](../../../../content/book/part3-agent/building/chapter24-decision-loop.md#topic-ch23-tool-calling)。
 
 不实现真实Provider、Streaming、Checkpoint、完整Schema校验或生产错误分类器。工具执行边界另见[Tool实验](../tool-calling/README.md)。
 
 ## 准备与观察位置
 
-在仓库根目录运行，Go版本以[labs/go.mod](../../../go.mod)为准。先掌握接口、错误链与context；准备步骤见[引言](../../../../book/introduction.md#running-examples)。
+在仓库根目录运行，Go版本以[labs/go.mod](../../../go.mod)为准。先掌握接口、错误链与context；准备步骤见[引言](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Message、Model、ToolSet、Session与Agent.Run。
 - [main_test.go](main_test.go)：正常完成、观察内容、超限、空响应、取消、超时与消息复制。
@@ -70,7 +70,7 @@ go -C labs test ./part3-agent/chapter23/minimal-agent-loop -race -count=1
 
 ### 两轮调用留下五条消息
 
-在仓库根目录执行；Go版本以[labs/go.mod](../../../go.mod)为准，准备方式见[运行示例说明](../../../../book/introduction.md#running-examples)。本实验仅使用标准库和fake，不调用真实模型或网络。
+在仓库根目录执行；Go版本以[labs/go.mod](../../../go.mod)为准，准备方式见[运行示例说明](../../../../content/book/introduction.md#running-examples)。本实验仅使用标准库和fake，不调用真实模型或网络。
 
 ```bash
 go -C labs run ./part3-agent/chapter23/minimal-agent-loop

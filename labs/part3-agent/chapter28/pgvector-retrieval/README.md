@@ -1,6 +1,6 @@
 # pgvector：实际向量存储与HNSW对照
 
-同一固定向量数据比较Go精确扫描、PostgreSQL/pgvector精确查询与真实HNSW。前置：[Retrieval](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、SQL、权限与context。既有pgx驱动，不新增Go依赖。
+同一固定向量数据比较Go精确扫描、PostgreSQL/pgvector精确查询与真实HNSW。前置：[Retrieval](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、SQL、权限与context。既有pgx驱动，不新增Go依赖。
 
 ## 验证范围
 
@@ -14,7 +14,7 @@
 
 ## 默认运行
 
-从仓库根目录执行，依赖准备见[运行约定](../../../../book/introduction.md#running-examples)：
+从仓库根目录执行，依赖准备见[运行约定](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter28/pgvector-retrieval

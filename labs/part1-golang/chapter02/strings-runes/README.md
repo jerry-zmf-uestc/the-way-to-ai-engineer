@@ -30,12 +30,12 @@ Text processing code should be explicit about whether it works with bytes, runes
 
 ## Related Exercises
 
-- [Chapter 2 · Strings and runes Exercises](../../../../book/part1-golang/chapter02.md#strings-runes-exercises): return to the chapter page for the
+- [Chapter 2 · Strings and runes Exercises](../../../../content/book/part1-golang/chapter02.md#strings-runes-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [Chapter 2 · Strings and runes](../../../../book/part1-golang/chapter02.md#strings-runes), then continue with
+Return to [Chapter 2 · Strings and runes](../../../../content/book/part1-golang/chapter02.md#strings-runes), then continue with
 [arrays-slices](../arrays-slices) to see how grouped data builds on these
 basic types.

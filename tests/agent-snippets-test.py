@@ -21,11 +21,11 @@ for name, excerpt, source, expected, *optional in cases:
     language = optional[0] if optional else "go"
     with tempfile.TemporaryDirectory(prefix="agent-snippet-test-") as directory:
         root = Path(directory)
-        (root / "book").mkdir()
+        (root / "content/book").mkdir(parents=True)
         (root / "labs/sample").mkdir(parents=True)
-        (root / "book/page.md").write_text("```" + language + "\n" + excerpt + "\n```\n")
+        (root / "content/book/page.md").write_text("```" + language + "\n" + excerpt + "\n```\n")
         (root / ("labs/sample/main.py" if language=="python" else "labs/sample/main.go")).write_text(source)
-        (root / "book/chapters.json").write_text(json.dumps({"sample": {"part": "Part 3 · Golang Agent", "published": True, "path": "book/page.md", "labs": ["labs/sample"]}}))
+        (root / "content/book/chapters.json").write_text(json.dumps({"sample": {"part": "Part 3 · Golang Agent", "published": True, "path": "content/book/page.md", "labs": ["labs/sample"]}}))
         result = subprocess.run([sys.executable, str(checker), str(root)], text=True, capture_output=True)
         if (result.returncode == 0) != expected:
             raise SystemExit(f"{name}: incorrect result {result.stdout}{result.stderr}")

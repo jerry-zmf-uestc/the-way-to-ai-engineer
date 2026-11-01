@@ -35,8 +35,8 @@ Expected output:
 
 ## Exercise
 
-在临时副本中再添加 `import _ "image/jpeg"` 和 `import _ "image/gif"`，重跑测试观察 `TestJPEGNotRegistered` 等断言失败，然后把 `registeredFormats` 的预期更新为 `[png jpeg gif]` 使测试恢复通过，体会注册机制对全局状态的影响。练习与验收见 [第 8 章](../../../../book/part1-golang/chapter08.md)。
+在临时副本中再添加 `import _ "image/jpeg"` 和 `import _ "image/gif"`，重跑测试观察 `TestJPEGNotRegistered` 等断言失败，然后把 `registeredFormats` 的预期更新为 `[png jpeg gif]` 使测试恢复通过，体会注册机制对全局状态的影响。练习与验收见 [第 8 章](../../../../content/book/part1-golang/chapter08.md)。
 
 ## Reading
 
-返回 [Chapter 8](../../../../book/part1-golang/chapter08.md)。参考 [Go 语言圣经 · 第 10 章 包和工具](https://golang-china.github.io/gopl-zh/ch10/ch10.html)（包声明、导入声明与匿名导入的 jpeg 示例）。License: MIT。
+返回 [Chapter 8](../../../../content/book/part1-golang/chapter08.md)。参考 [Go 语言圣经 · 第 10 章 包和工具](https://golang-china.github.io/gopl-zh/ch10/ch10.html)（包声明、导入声明与匿名导入的 jpeg 示例）。License: MIT。

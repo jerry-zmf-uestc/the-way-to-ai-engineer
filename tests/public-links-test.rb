@@ -15,8 +15,8 @@ Dir.mktmpdir('public-links-test-') do |dir|
   File.write(File.join(dir, '.specs/private.md'), "[missing](missing.md)\n")
   FileUtils.mkdir_p(File.join(dir, 'node_modules/dependency'))
   File.write(File.join(dir, 'node_modules/dependency/README.md'), "[missing](missing.md)\n")
-  FileUtils.mkdir_p(File.join(dir, 'src/content/chapters'))
-  File.write(File.join(dir, 'src/content/chapters/generated.md'), "[deployed](/course/page/)\n")
+  FileUtils.mkdir_p(File.join(dir, '.generated/chapters'))
+  File.write(File.join(dir, '.generated/chapters/generated.md'), "[deployed](/course/page/)\n")
   out, status = Open3.capture2e('/bin/sh', checker, chdir: dir)
   abort "private/generated/dependency files must not affect public checks: #{out}" unless status.success?
   puts 'PASS: private, generated, and dependency files are outside public source validation'

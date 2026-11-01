@@ -6,7 +6,7 @@
 
 ## 前置与代码入口
 
-先读[Runtime正文](../../../../book/part3-agent/runtime/chapter29-execution.md#topic-agent-runtime)，掌握Go错误链、context和基本测试。Go版本以[labs/go.mod](../../../go.mod)为准，准备方式见[运行约定](../../../../book/introduction.md#running-examples)。
+先读[Runtime正文](../../../../content/book/part3-agent/runtime/chapter29-execution.md#topic-agent-runtime)，掌握Go错误链、context和基本测试。Go版本以[labs/go.mod](../../../go.mod)为准，准备方式见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Job、Policy、Report、预算预留、可取消退避与Run。
 - [main_test.go](main_test.go)：重试条件、预算、迟到结果、退避取消、下游deadline与运行隔离。

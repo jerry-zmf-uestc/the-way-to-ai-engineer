@@ -1,6 +1,6 @@
 # 策略对照：子问题、计划与有界证据修复
 
-独立只读资料实验，在同一结构化任务、语料、版本条件和预算下比较五种控制流程。前置：[ReAct](../../../../book/part3-agent/building/chapter24-decision-loop.md#topic-agent-react)、[Planning](../../../../book/part3-agent/building/chapter25-planning.md#topic-agent-planning)、Eval。
+独立只读资料实验，在同一结构化任务、语料、版本条件和预算下比较五种控制流程。前置：[ReAct](../../../../content/book/part3-agent/building/chapter24-decision-loop.md#topic-agent-react)、[Planning](../../../../content/book/part3-agent/building/chapter25-planning.md#topic-agent-planning)、Eval。
 
 默认控制器是固定Go函数，不调用LLM，不复现论文的提示/模型实验；显式伴随实验分别验证本地动作/计划生成、受限候选选择、自然语言追问、语言反思与后续Actor、模型候选搜索。实际生成、条件似然选择与固定控制是不同证据，失败和新增代价分别保留。
 
@@ -20,7 +20,7 @@ Dataset version为fixture-v1，六种情况：直接事实、多目标、需要�
 
 ## 运行
 
-从仓库根目录执行，Go准备见[运行约定](../../../../book/introduction.md#running-examples)：
+从仓库根目录执行，Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter24/strategy-comparison

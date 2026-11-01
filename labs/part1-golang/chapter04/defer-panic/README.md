@@ -42,8 +42,8 @@ exit demo
 
 ## Exercise
 
-在临时副本中把 `ratio` 里除零的运行时 panic 也改成 recover 后返回 error，运行 `TestRatioUnexpectedPanicPropagates` 观察它失败，体会「吞掉未预期 panic」为什么危险：调用方再也区分不出程序 bug 与业务错误。练习与验收见 [第 4 章](../../../../book/part1-golang/chapter04.md)。
+在临时副本中把 `ratio` 里除零的运行时 panic 也改成 recover 后返回 error，运行 `TestRatioUnexpectedPanicPropagates` 观察它失败，体会「吞掉未预期 panic」为什么危险：调用方再也区分不出程序 bug 与业务错误。练习与验收见 [第 4 章](../../../../content/book/part1-golang/chapter04.md)。
 
 ## Reading
 
-返回 [Chapter 04](../../../../book/part1-golang/chapter04.md)。参考 [Go 语言圣经 · 第 5 章 函数](https://golang-china.github.io/gopl-zh/ch5/ch5.html)（defer、panic、recover 与 soleTitle 示例）。License: MIT。
+返回 [Chapter 04](../../../../content/book/part1-golang/chapter04.md)。参考 [Go 语言圣经 · 第 5 章 函数](https://golang-china.github.io/gopl-zh/ch5/ch5.html)（defer、panic、recover 与 soleTitle 示例）。License: MIT。

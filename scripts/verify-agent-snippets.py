@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path(__file__).resolve().parents[1]
-manifest = json.loads((root / "book/chapters.json").read_text())
+manifest = json.loads((root / "content/book/chapters.json").read_text())
 
 def lines(text):
     # Only indentation, blank lines and full-line comments may differ.

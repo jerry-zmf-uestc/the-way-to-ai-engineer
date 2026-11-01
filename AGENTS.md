@@ -2,11 +2,13 @@
 
 ## 项目背景与适用范围
 
-本仓库以 Go 基础、高性能后端、Golang Agent 开发为知识主线，正文在 `book/`，每章配套的独立实验或模板应用在 `labs/`。读者入口见[引言](book/introduction.md)，职业成长目标、24 周路线和仓库架构统一见[项目总体方案](docs/designs/project-plan.md)。
+本仓库以 Go 基础、高性能后端、Golang Agent 开发为知识主线，课程正文在 `content/book/`，每章配套的独立实验或模板应用在 `labs/`。读者入口见[引言](content/book/introduction.md)，职业成长目标、24 周路线和仓库架构统一见[项目总体方案](docs/designs/project-plan.md)。
 
 - GoTrip 是独立旅行实践，普通章节不强制增加旅行功能；暂不设置毕业设计，不实现学习推送、复盘同步或学习记录管理。
 - 本文件适用于整个仓库。修改前检查目标目录及父目录中的局部 AGENTS.md；更近约定仅在对应范围内优先，不能覆盖运行环境的更高优先级指令或用户明确要求。工具的实际加载方式以其文档为准。
 - 已批准设计定义任务范围；本文件与专项规则约束实施。[总体方案中的章节地图](docs/designs/project-plan.md#chapter-map)是章节、Lab 映射及实现/代码/内容/读者状态的唯一人工维护视图。冲突无法由当前任务解决时，先确认，不静默绕过约束。
+
+面试合集位于 `content/interview/`，保持框架中立并独立管理题库、编辑状态和公众号草稿；不进入课程章号或现有 Astro 清单。面试正文遵循 [内容规范](docs/rules/interview-content-contract.md)，课程与面试各自只有一个正文真源。
 
 ## 按任务读取规则与模板
 
@@ -14,18 +16,20 @@
 
 | 工作 | 必读文件 |
 | --- | --- |
+| 面试题、内容生产、题库与公众号草稿 | [面试内容规范](docs/rules/interview-content-contract.md) + [合集方案](docs/designs/interview-handbook.md) + [文章模板](docs/templates/interview-article.md) + [研究模板](docs/templates/interview-research.md) + [审核模板](docs/templates/interview-review.md)，同时遵守全仓安全规范 |
+| 绘制或迁移图示 | [图示规范](docs/rules/diagram-contract.md)，课程图保留现有重建契约 |
 | 所有任务：数据保护与安全 | [security.md](docs/rules/security.md) |
-| 编写、修改、合并或迁移章节 | [章节规范](docs/rules/book-chapter-contract.md) + [章节模板](docs/templates/book-chapter.md) |
-| 审查章节、迁移对照或内容验收 | 章节规范 + [章节审查表](docs/templates/book-chapter-review.md) |
+| 编写、修改、合并或迁移课程章节 | [章节规范](docs/rules/book-chapter-contract.md) + [章节模板](docs/templates/book-chapter.md) |
+| 审查课程章节、迁移对照或内容验收 | 章节规范 + [章节审查表](docs/templates/book-chapter-review.md) |
 | 修改 Lab、其 README、meta.yml 或入口 | [Lab 契约](docs/rules/topic-contract.md) |
-| 修改章节关系、目录、module、课程路线、`book/chapters.json`、课程 Lab、Astro/Pages 站点或能力验收 | [项目总体方案](docs/designs/project-plan.md) |
+| 修改章节关系、目录、module、课程路线、`content/book/chapters.json`、课程 Lab、Astro/Pages 站点或能力验收 | [项目总体方案](docs/designs/project-plan.md) |
 | 修改 Agent 权限、Memory、Provider、外部工具或真实 E2E | [项目总体方案](docs/designs/project-plan.md) + [安全规范](docs/rules/security.md) |
 
 测试遵守下方验证要求；正文与 Agent 测试分别同时遵守章节及安全规范。引用缺失时报告并处理，不跳过规则。规则或模板增删后，同步本表与[文档索引](docs/README.md)。
 
 ## 环境准备与单例运行
 
-在含 `package.json`、`book/` 和 `labs/` 的仓库根目录执行。Go 版本和依赖以 [labs/go.mod](labs/go.mod) 为准；站点使用 Node 22 或更高兼容版本和 `package-lock.json`，其内容验证也运行 Console 页面行为测试；文档检查需要 Ruby、Python 3（Agent摘录校验与反例）、POSIX shell、make 和 ripgrep；race 需要 C 工具链。副本与平台差异见[运行说明](book/introduction.md#running-examples)。npm run dev通过scripts/dev-book.mjs监督书稿扫描与Astro子进程；正文/清单/元数据变化触发去抖生成，失败保留上一版但终端报错。npm run preview通过scripts/preview-book.mjs复用同一子进程监督，仅服务dist、不生成或监听正文。两个入口关闭时清理自己的扫描与子进程，不使用background/ignore-lock，不改系统监听限制；端口占用停止而非开第二个服务。安全工具版本与准备命令见[贡献指南](CONTRIBUTING.md#validation)。
+在含 `package.json`、`content/book/` 和 `labs/` 的仓库根目录执行。Go 版本和依赖以 [labs/go.mod](labs/go.mod) 为准；站点使用 Node 22 或更高兼容版本和 `package-lock.json`，其内容验证也运行 Console 页面行为测试；文档检查需要 Ruby、Python 3（Agent摘录校验与反例）、POSIX shell、make 和 ripgrep；race 需要 C 工具链。副本与平台差异见[运行说明](content/book/introduction.md#running-examples)。npm run dev通过scripts/dev-book.mjs监督书稿扫描与Astro子进程；正文/清单/元数据变化触发去抖生成，失败保留上一版但终端报错。npm run preview通过scripts/preview-book.mjs复用同一子进程监督，仅服务dist、不生成或监听正文。两个入口关闭时清理自己的扫描与子进程，不使用background/ignore-lock，不改系统监听限制；端口占用停止而非开第二个服务。安全工具版本与准备命令见[贡献指南](CONTRIBUTING.md#validation)。
 
 ```bash
 go version
@@ -46,9 +50,10 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 
 | 改动 | 必须执行 |
 | --- | --- |
+| 面试题库、状态、工具与模板 | `make validate-interview`；公共检查不读取私有审核；本地交付另运行 `node scripts/interview.mjs delivery-check AE-ID`。公开文档/引用变化另跑 `make validate-docs`，检查器变化按类型跑反例 |
 | 文档、链接或规则 | `make validate-docs` |
 | 正文代码、操作步骤或文档检查器 | `make validate-docs`、`make validate-book`，并重跑受影响示例 |
-| `book/chapters.json`、内容生成、Astro 组件/样式或 Pages | `make validate-site`；同时按改动类型执行文档或 CI 检查 |
+| `content/book/chapters.json`、内容生成、Astro 组件/样式或 Pages | `make validate-site`；同时按改动类型执行文档或 CI 检查 |
 | Go 代码、topic 或 module 依赖 | `make validate`（格式、vet、race、覆盖率、显式路径构建及文档） |
 | 引入第三方材料 | 在对应检查之外核对许可、来源版本、署名与改动，更新 [第三方说明](THIRD_PARTY_NOTICES.md) |
 | 发布、安全或 CI 检查器 | 对应反例、`make validate`、显式联网的 `make security`（Go、凭据与 npm 依赖）；发布还需 `make validate-release` |
@@ -82,16 +87,17 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 
 ## 目录与代码风格
 
-- 章节默认使用 `book/partN-<track>/chapterNN.md`，示例使用 `labs/partN-<track>/chapterNN/<topic>/`；track 为 golang、backend、agent，补充主题按章节地图组织。Part 3 为了让源码路径与教学单元一致，正文源码使用 `book/part3-agent/{building,runtime,governance}/chapterNN-<topic>.md`；其中 `chapterNN` 表示当前教学单元号22–37，`<topic>` 表示该单元主题，具体映射以 `book/chapters.json` 为准。合并退出的页面ID通过 `book/redirects.json` 跳转至对应原主题锚点，不进入课程导航；修改跳转时核对旧片段与目标可达性。
+- 章节默认使用 `content/book/partN-<track>/chapterNN.md`，示例使用 `labs/partN-<track>/chapterNN/<topic>/`；track 为 golang、backend、agent，补充主题按章节地图组织。Part 3 为了让源码路径与教学单元一致，正文源码使用 `content/book/part3-agent/{building,runtime,governance}/chapterNN-<topic>.md`；其中 `chapterNN` 表示当前教学单元号22–37，`<topic>` 表示该单元主题，具体映射以 `content/book/chapters.json` 为准。合并退出的页面ID通过 `content/book/redirects.json` 跳转至对应原主题锚点，不进入课程导航；修改跳转时核对旧片段与目标可达性。
 - 目录与 topic slug 用小写 kebab-case；Go 包名用简短小写单词，不含下划线。旧章节状态地图继续记录1–33的实现证据；站点单元编号由chapters.json的unitNumber维护1–37，引言不编号，Harness 作为 Part 3 的普通编号单元维护。课程规划为37个教学单元，其中Part 3为16个；公开导航按三大篇组织：构建篇、运行时、治理篇。九类 Agent 知识体系可作为内部蓝图和内容审查维度，不作为 `navigationPath` 真源。主题用语义ID追踪；稳定页面ID、公开分组、教学单元号和旧证据地图分别维护，不用文件名推断已验收状态。变更映射时同步方案、元数据与检查器。
 - 所有 Go Lab 共用 `labs/go.mod`，不在仓库根创建 `go.mod` 或 `go.work`，也不为每个 topic 拆 module。Lab 不依赖其他 topic 的私有实现；仅供 Lab 共享的稳定私有代码放 `labs/internal/`。独立应用在设计批准后拥有自己的 module 和 `internal/`，不借用 Lab 的私有实现。
 - Async Tasks与Serving复用 `labs/internal/tasks` 的同进程任务契约，两个Lab独立启动；核心状态测试随共享包运行，正文摘录链接实现真源，HTTP协议留在Serving Lab。共享包不是持久服务或新的课程平台。
-- 课程站点采用根目录 Astro 工程：`book/` 是唯一正文真源，`book/chapters.json` 管理页面元数据，`src/content/chapters/` 由构建生成且禁止手改；不得再创建独立 `site/`、平行 `course/` 正文或持续演进的课程项目。综合主题仍按章节放进可独立启动的 Lab；不同 Lab 可以复用公开协议和测试方法，但不能依赖上一周工作区状态。`src/` 只负责呈现，不反向保存正文、课程状态或验收结果。
+- 课程站点采用根目录 Astro 工程：`content/book/` 是课程正文唯一真源，`content/book/chapters.json` 管理页面元数据，`.generated/chapters/` 由构建生成且禁止手改；不得再创建独立 `site/`、根目录 `book/`/`interview/` 或平行 `course/` 正文或持续演进的课程项目。综合主题仍按章节放进可独立启动的 Lab；不同 Lab 可以复用公开协议和测试方法，但不能依赖上一周工作区状态。`src/` 只负责呈现，不反向保存正文、课程状态或验收结果。
 - Part 3页面的 `navigationPath` 在章节清单中维护三大公开分组；所有已发布 Part 3 正文（包括 Harness）都归入构建篇、运行时或治理篇。课程导航只显示已发布页面，当前页面与所属分组展开，链接沿用稳定页面ID；公开分组与线性阅读顺序一致，并分别维护，不从标题或文件章号推断。prerequisites只记录真实知识依赖，推荐顺序由order/前后导航表达；按正文与独立Lab需要核对传递依赖，不把上一页自动当硬前置，也不因精简依赖删除主题/练习/效果要求。改变分组时同步清单校验与生成页面验证。未发布规划项可缺正文，但发布项必须有真实源码；未发布项不生成路由、卡片或导航链接，禁止创建空正文补数量。
-- 对修改的 Go 文件执行 gofmt，不用全仓格式化覆盖无关工作。修改正文摘录关联的源码后，先运行`python3 scripts/verify-agent-snippets.py`再执行完整验证；新增函数插入连续摘录区域时，同步正文或保留原区域连续性。构建产物、覆盖率、profile、runtime state 输出到临时或忽略目录，不提交。站点源码位于根目录 `src/`、`public/` 与配置文件；只有 `src/content/chapters/`、`.astro/`、`dist/` 和 `node_modules/` 是生成或本地产物。
+- 对修改的 Go 文件执行 gofmt，不用全仓格式化覆盖无关工作。修改正文摘录关联的源码后，先运行`python3 scripts/verify-agent-snippets.py`再执行完整验证；新增函数插入连续摘录区域时，同步正文或保留原区域连续性。构建产物、覆盖率、profile、runtime state 输出到临时或忽略目录，不提交。站点源码位于根目录 `src/`、`public/` 与配置文件；只有 `.generated/chapters/`、`.astro/`、`dist/` 和 `node_modules/` 是生成或本地产物。
 - Part 3当前Python/SVG图示在`public/diagrams/sources.json`登记源与产物。`validate-book`在临时副本逐源重建，核对字节一致、注册集合、正文替代文字和受限SVG结构；图名/源码/产物变化同时更新登记与反例。检查不证明布局、图与实现的语义或任意SVG安全；未来其他源格式先扩展明确契约，不绕过登记。执行的是仓库受信任生成器，临时目录不是未知代码沙箱。
 - 中文章节按主题知识点组织，用代码和图示解释机制，不写成Lab导读；实验输出、测试命令与操作引导放Lab README及代码注释。复杂主题可增加最佳实践和常见问题排查，主体不套统一模块标题。目标规范固定顶部“配套实验”、文末“小结”和“参考文档”，练习移至Lab；Harness、Model、Loop、Tool、Runtime、Session、Context、Retrieval、RAG、Eval、ReAct、Planning、Checkpoint、Trace、MCP、Skills、Workspace、Memory、Delegation、DAG、Async Tasks、Streaming、Serving、Safety、Cost与HITL正文已同步规则、模板和反例，采用新结构；Part 3整合为16章并覆盖原26主题，HITL归入构建篇的受控行动；其余正文暂时使用旧栏目，按总体方案逐章迁移并同步检查器。按规范标明源码、教学变体与故意失败例并验证。练习保留原任务与边界，不填满答案；合并章不丢各主题练习。维护记录与恢复状态不写入读者正文。
 - Agent章节以最小决策闭环定位机制，解释其输入、状态、动作或控制权变化；按[总体方案](docs/designs/project-plan.md)与[章节规范](docs/rules/book-chapter-contract.md)区分机制正确、任务有效和复杂度收益。四个审查问题不固定为标题，Provider字段或具体调度/通信接口不作为通用架构定义。
+- `content/interview/<大章节>/ae-ID-主题.md` 是面试正文唯一真源；同一篇文章不复制到 book。题库与状态在 `content/interview/`，生产工具与测试统一在根目录 scripts/tests。interview 保存总导航、questions.json、state.json与章节正文；十大章节预建，空目录用零字节 .gitkeep 保留，不放章节 README、局部规则或过程材料。研究、逐篇审核及 interview 的本地预览、图工具运行回执、平台标识与备份保存在仓库外私有工作目录，公开目录不依赖这些材料。
 - docs 只存设计、规则与模板，不放测试代码或夹具，不重建已移除的 guides、records、testing 或学习记录目录。非原创内容保留来源、revision、许可证、行为契约和偏差。
 
 <a id="spec-workflow"></a>
@@ -130,3 +136,7 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 - 报告修改内容、实际验证、未验证事项和设计入口；如有删除，说明恢复方式。不伪造测试、构建、压测、E2E、来源或读者验收。
 - 不自动提交、推送或创建 PR；只有用户明确授权后才执行相应操作。
 - 禁止用 `git stash` 做验证基线（会压平暂存/未暂存状态，并行任务下可能互相破坏）；需要干净基线时用 `git worktree` 或临时目录副本。
+
+## 独立面试站点
+
+面试网页以content/interview为正文真源，website.json显式管理可见题目，不改变编辑/公众号发布状态。独立配置astro.interview.config.mjs读取src/interview-site，缓存.astro-interview、中间副本.generated/interview、输出dist-interview；与课程src/pages、.generated/chapters、dist隔离。复用依赖和公共静态资源，不另建人工正文或Node工程。npm run check:interview验证面试站点，dev:interview/preview:interview分别使用4322/4323，沿用受监督前台进程与失败保留上次有效内容。make validate-site执行npm run check:sites，检查两个站点并组装.pages-dist；Pages只部署合并包，既有课程地址不变，面试位于/the-way-to-ai-engineer/interview/。公开页面不得包含私有研究、审核、回执或凭据；自动检查不等于远端发布验收。

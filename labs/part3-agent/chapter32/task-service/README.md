@@ -2,7 +2,7 @@
 
 将已有任务契约接到HTTP，不重复实现Runtime。服务、任务和请求分别有生命周期；使用标准库和只读fake worker，无真实模型、数据库或外部业务工具。
 
-前置：[Async Tasks](../../../../book/part3-agent/runtime/chapter32-async-tasks.md#topic-agent-async-tasks)、[Streaming](../../../../book/part3-agent/runtime/chapter33-serving.md#topic-ch32-streaming-service)、Go HTTP/context/测试。共享任务状态机在[labs/internal/tasks](../../../internal/tasks/tasks.go)，Async Lab与本Lab独立启动，不依赖彼此状态。
+前置：[Async Tasks](../../../../content/book/part3-agent/runtime/chapter32-async-tasks.md#topic-agent-async-tasks)、[Streaming](../../../../content/book/part3-agent/runtime/chapter33-serving.md#topic-ch32-streaming-service)、Go HTTP/context/测试。共享任务状态机在[labs/internal/tasks](../../../internal/tasks/tasks.go)，Async Lab与本Lab独立启动，不依赖彼此状态。
 
 ## 配置与边界
 
@@ -16,7 +16,7 @@
 
 ## 启动与协议观察
 
-从仓库根目录执行，准备方式见[运行说明](../../../../book/introduction.md#running-examples)：
+从仓库根目录执行，准备方式见[运行说明](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter32/task-service

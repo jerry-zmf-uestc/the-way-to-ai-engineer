@@ -63,7 +63,7 @@ The generated files are checked in so normal `go test` runs do not require code 
 
 ## Related Exercises
 
-- [Chapter 17 Exercises](../../../../book/part2-backend/chapter17.md#练习): return to the chapter page for the
+- [Chapter 17 Exercises](../../../../content/book/part2-backend/chapter17.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
@@ -75,4 +75,4 @@ The generated files are checked in so normal `go test` runs do not require code 
 - Continue with [kitex-idl-handler](../kitex-idl-handler) to see how the same
   Kitex flow changes when the focus shifts from “first RPC” to contract
   evolution and backward compatibility.
-- Return to [chapter17/README.md](../../../../book/part2-backend/chapter17.md) for the chapter reading order.
+- Return to [chapter17/README.md](../../../../content/book/part2-backend/chapter17.md) for the chapter reading order.

@@ -1,6 +1,6 @@
 # Async Tasks：独立任务状态与后台执行
 
-本实验解决请求返回以后，如何继续查、改、停一个后台任务。使用真实goroutine和标准库，不调用模型、网络或业务写工具。前置：[Delegation](../../../../book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-delegation)、[DAG](../../../../book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-dag)、Go context与锁。
+本实验解决请求返回以后，如何继续查、改、停一个后台任务。使用真实goroutine和标准库，不调用模型、网络或业务写工具。前置：[Delegation](../../../../content/book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-delegation)、[DAG](../../../../content/book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-dag)、Go context与锁。
 
 ## 机制与观察点
 
@@ -15,7 +15,7 @@
 
 ## 从仓库根目录运行
 
-Go及依赖准备见[运行说明](../../../../book/introduction.md#running-examples)。
+Go及依赖准备见[运行说明](../../../../content/book/introduction.md#running-examples)。
 
 ```bash
 go -C labs run ./part3-agent/chapter31/async-tasks

@@ -81,7 +81,7 @@ def verify(root):
                 if actual != (stage / output).read_bytes():
                     raise ValueError(f'{output}: source/production artifact differ')
     referenced = set()
-    for entry in json.loads((root / 'book/chapters.json').read_text()).values():
+    for entry in json.loads((root / 'content/book/chapters.json').read_text()).values():
         if entry['part'] != 'Part 3 · Golang Agent' or not entry['published']:
             continue
         page = root / entry['path']

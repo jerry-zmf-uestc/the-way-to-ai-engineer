@@ -1,6 +1,6 @@
 # Human Approval：持久等待与动作绑定
 
-批准一份具体只读动作，程序结束后仍可查询、决定和恢复。先从[工具接入与受控行动](../../../../book/part3-agent/building/chapter23-actions.md#topic-agent-hitl)理解审批契约；实现进阶参考[故障恢复](../../../../book/part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)和[权限治理](../../../../book/part3-agent/governance/chapter36-security.md)。标准库、真实私有文件、固定只读Reader，不调用模型、网络或业务写工具。
+批准一份具体只读动作，程序结束后仍可查询、决定和恢复。先从[工具接入与受控行动](../../../../content/book/part3-agent/building/chapter23-actions.md#topic-agent-hitl)理解审批契约；实现进阶参考[故障恢复](../../../../content/book/part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)和[权限治理](../../../../content/book/part3-agent/governance/chapter36-security.md)。标准库、真实私有文件、固定只读Reader，不调用模型、网络或业务写工具。
 
 ## 契约
 
@@ -17,7 +17,7 @@
 
 ## 实际CLI流程
 
-从仓库根目录执行；工具与依赖见[运行说明](../../../../book/introduction.md#running-examples)。下面使用任务专用变量，目录位于临时空间，不提交状态文件：
+从仓库根目录执行；工具与依赖见[运行说明](../../../../content/book/introduction.md#running-examples)。下面使用任务专用变量，目录位于临时空间，不提交状态文件：
 
 ```bash
 approval_state_dir=$(mktemp -d /tmp/ai-hitl.XXXXXX)

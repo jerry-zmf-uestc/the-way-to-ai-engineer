@@ -32,12 +32,12 @@ JSON is the default data format for many APIs, config files, and CLI pipelines.
 
 ## Related Exercises
 
-- [Chapter 2 · Struct and JSON Exercises](../../../../book/part1-golang/chapter02.md#struct-json-exercises): return to the chapter page for the
+- [Chapter 2 · Struct and JSON Exercises](../../../../content/book/part1-golang/chapter02.md#struct-json-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [Chapter 2 · Struct and JSON](../../../../book/part1-golang/chapter02.md#struct-json), then continue with
+Return to [Chapter 2 · Struct and JSON](../../../../content/book/part1-golang/chapter02.md#struct-json), then continue with
 [project-layout](../../chapter11/project-layout) to see how these basic building
 blocks start to turn into maintainable projects.

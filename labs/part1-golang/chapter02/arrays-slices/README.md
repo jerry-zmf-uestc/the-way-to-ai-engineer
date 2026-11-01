@@ -21,8 +21,8 @@ go -C labs test ./part1-golang/chapter02/arrays-slices -race -count=1
 
 ## Exercise
 
-在临时副本中观察 len/cap、共享窗口和独立副本，并检查非法边界，步骤见 [第 2 章练习](../../../../book/part1-golang/chapter02.md#collections-exercises)。本 Lab 不依赖旅行应用。
+在临时副本中观察 len/cap、共享窗口和独立副本，并检查非法边界，步骤见 [第 2 章练习](../../../../content/book/part1-golang/chapter02.md#collections-exercises)。本 Lab 不依赖旅行应用。
 
 ## Reading
 
-返回 [Chapter 02](../../../../book/part1-golang/chapter02.md)。
+返回 [Chapter 02](../../../../content/book/part1-golang/chapter02.md)。

@@ -7,16 +7,16 @@ require 'json'
 # Unmigrated pages retain legacy exercise and reference sections.
 root = File.expand_path(ARGV.fetch(0, '..'), ARGV.empty? ? __dir__ : Dir.pwd)
 Dir.chdir(root)
-manifest = JSON.parse(File.read('book/chapters.json'))
+manifest = JSON.parse(File.read('content/book/chapters.json'))
 pages = manifest.values.select { |entry| entry['published'] && entry['unitNumber'] }.map { |entry| entry.fetch('path') }.sort
-actual = Dir.glob('book/**/chapter*.md').sort
+actual = Dir.glob('content/book/**/chapter*.md').sort
 abort 'expected 32 teaching pages with matching published sources' unless pages.length == 32 && pages == actual
 total = 0
 pages.each do |path|
   text = File.read(path)
   prose = text.gsub(/^```[^\n]*\n.*?^```\s*$/m, '')
   abort "#{path}: expected one title" unless prose.scan(/^# /).length == 1
-  harness_sample = path.start_with?('book/part3-agent/')
+  harness_sample = path.start_with?('content/book/part3-agent/')
   required = harness_sample ? %w[小结 参考文档] : %w[踩坑清单 动手练 链接]
   required.each do |title|
     abort "#{path}: missing #{title}" unless prose.match?(/^## #{title}$/)

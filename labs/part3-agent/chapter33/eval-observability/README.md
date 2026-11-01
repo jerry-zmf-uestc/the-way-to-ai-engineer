@@ -6,7 +6,7 @@ Go部分仅标准库，默认不连接网络、不加载模型或写业务数据
 
 ## 前置与入口
 
-阅读[Eval](../../../../book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)和[Trace与Replay](../../../../book/part3-agent/governance/chapter34-observability.md#topic-agent-trace-replay)，准备遵循[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[Eval](../../../../content/book/part3-agent/governance/chapter35-evaluation.md#topic-agent-eval)和[Trace与Replay](../../../../content/book/part3-agent/governance/chapter34-observability.md#topic-agent-trace-replay)，准备遵循[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：任务投影、实际只读执行、逐调用归档、严格重放、评分与配置比较。
 - [main_test.go](main_test.go)：关键拒答、关联与错配、取消分母、JSON边界及评分版本。

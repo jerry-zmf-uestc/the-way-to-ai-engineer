@@ -47,12 +47,12 @@ Worker pools are useful when a service needs bounded concurrency: processing que
 
 ## Related Exercises
 
-- [Chapter 9 · Concurrency Exercises](../../../../book/part1-golang/chapter09.md#concurrency-exercises): return to the chapter page for the
+- [Chapter 9 · Concurrency Exercises](../../../../content/book/part1-golang/chapter09.md#concurrency-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [chapter09/README.md](../../../../book/part1-golang/chapter09.md) for the full concurrency chapter, then move
+Return to [chapter09/README.md](../../../../content/book/part1-golang/chapter09.md) for the full concurrency chapter, then move
 to [http-server](../../chapter10/http-server) to see the same goroutine and
 timeout ideas show up in network services.

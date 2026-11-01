@@ -33,7 +33,7 @@ Part 3用最小决策闭环串联知识：先理解模型提议、应用执行�
 
 ## 1. 产品定位
 
-项目以 Go 为核心 Runtime 和后端语言，构建一条从语言基础、高性能后端到 Agent 系统工程的连续学习路径。正文负责解释机制和设计取舍，独立 Lab 负责运行、测试、故障复现和指标观察，Astro 站点负责发布阅读体验。
+项目以 Go 为核心 Runtime 和后端语言，构建一条从语言基础、高性能后端到 Agent 系统工程的连续学习路径。课程正文负责解释机制和设计取舍，独立 Lab 负责运行、测试、故障复现和指标观察；content/interview/ 提供框架中立的 Agent 面试合集及公众号内容生产，Astro 当前只发布课程阅读体验。
 
 第一目标用户是已有 TypeScript/React 经验、希望补齐 Go 后端与 Agent 工程能力、并形成可验证作品证据的前端工程师；其他已有软件工程经验、准备系统进入 Go AI 全栈方向的开发者也适用。TypeScript/React 主要承担 Console、Trace、Replay 和 Eval 界面；首个 Console 采用无构建的原生 JavaScript，先验证协议与生命周期，再逐步扩展浏览器侧可见面。Python 只承担必要的 AI 生态互操作和框架对照，不重复实现 Go Runtime。
 
@@ -50,7 +50,7 @@ Part 3用最小决策闭环串联知识：先理解模型提议、应用执行�
 明确不做：
 
 - 不设置毕业设计，不维护一个跨越全部章节持续演进的平台；
-- 不创建与 `book/` 平行的 `course/` 正文；
+- 不创建与 `content/book/` 平行的 `course/` 正文；
 - 不用前端视觉完成度代替 Runtime、可靠性和评估质量；
 - 不把模型预训练、完整 RL Infra 或 Kubernetes 平台工程设为主线；
 - 不实现学习推送、打卡、自动复盘或个人学习记录管理；
@@ -99,10 +99,10 @@ Go 主线采用自研最小 Runtime：先理解状态、调用和错误语义，
 
 ## 3. 课程与作品结构
 
-课程只有一个正文入口 `book/`，每篇教学正文关联明确的配套实验。机制Lab围绕一个问题独立运行；集成Lab可以被多篇正文引用，不强求正文与Lab严格一对一：
+课程只有一个正文入口 `content/book/`，每篇教学正文关联明确的配套实验。机制Lab围绕一个问题独立运行；集成Lab可以被多篇正文引用，不强求正文与Lab严格一对一：
 
 ```text
-book/                       labs/
+content/book/                       labs/
 连续、自然的技术正文   →   独立运行的机制实验或模板应用
                                   │
                                   ├── unit / integration / race
@@ -176,7 +176,7 @@ Eval/可观测性集成另有Schema4逐调用回报契约：来源区分应用�
 - **原始消耗不消失**：批准只读重做建立新尝试，旧已知/未知费用仍占原Run预算；暂停期间不重置配额，保存确认失败时停止新付费接纳。
 - **联合故障验收**：在意图、预留、关联、发送、返回证据、观察、结算及最终交接各点退出，核对真实工具次数、Call映射、观察去重、Used/Held和最终目标。固定故障先验证协议，再接真实模型/usage，保留未确认与失败。
 
-该设计对应[Checkpoint的联合恢复讲解](../../book/part3-agent/runtime/chapter29-execution.md#执行与费用分开保存时如何对齐)。固定联合样例已经有本地执行证据，但只覆盖单写者、固定只读动作与合成usage；不把它补记为完整推理/恢复作品、真实费用或跨实例验收。
+该设计对应[Checkpoint的联合恢复讲解](../../content/book/part3-agent/runtime/chapter29-execution.md#执行与费用分开保存时如何对齐)。固定联合样例已经有本地执行证据，但只覆盖单写者、固定只读动作与合成usage；不把它补记为完整推理/恢复作品、真实费用或跨实例验收。
 
 #### 用故障场景检验整条链路
 
@@ -443,22 +443,22 @@ Harness从“模型能回答，但任务仍会失败”的案例进入：缺资�
 
 | 单元 | 分类与主题 | 稳定页面ID | 正文 | 原主题归并 |
 | --- | --- | --- | --- | --- |
-| 22 | 构建篇 · Agent 架构与模型接口 | `harness-intro` | [正文](../../book/part3-agent/building/chapter22-architecture.md) | harness-intro、ch22-llm-api |
-| 23 | 构建篇 · 工具接入与受控行动 | `agent-tool` | [正文](../../book/part3-agent/building/chapter23-actions.md) | agent-tool、agent-mcp、agent-hitl |
-| 24 | 构建篇 · Agent 决策循环与 ReAct | `ch23-tool-calling` | [正文](../../book/part3-agent/building/chapter24-decision-loop.md) | ch23-tool-calling、agent-react |
-| 25 | 构建篇 · 任务规划与反馈修订 | `agent-planning` | [正文](../../book/part3-agent/building/chapter25-planning.md) | agent-planning |
-| 26 | 构建篇 · 会话状态与上下文工程 | `agent-context` | [正文](../../book/part3-agent/building/chapter26-context.md) | agent-session、agent-context |
-| 27 | 构建篇 · 检索增强生成与证据验证 | `ch28-rag-app` | [正文](../../book/part3-agent/building/chapter27-rag.md) | ch28-vector-retrieval、ch28-rag-app |
-| 28 | 构建篇 · Skills 与领域能力复用 | `agent-skills` | [正文](../../book/part3-agent/building/chapter28-skills.md) | agent-skills |
-| 29 | 运行时 · 运行控制与故障恢复 | `agent-runtime` | [正文](../../book/part3-agent/runtime/chapter29-execution.md) | agent-runtime、agent-checkpoint |
-| 30 | 运行时 · 持久状态与工作空间 | `agent-memory` | [正文](../../book/part3-agent/runtime/chapter30-state.md) | agent-memory、agent-workspace |
-| 31 | 运行时 · 多 Agent 协作与任务编排 | `agent-delegation` | [正文](../../book/part3-agent/runtime/chapter31-collaboration.md) | agent-delegation、agent-dag |
-| 32 | 运行时 · 异步任务与生命周期管理 | `agent-async-tasks` | [正文](../../book/part3-agent/runtime/chapter32-async-tasks.md) | agent-async-tasks |
-| 33 | 运行时 · 服务接入与流式交互 | `agent-serving` | [正文](../../book/part3-agent/runtime/chapter33-serving.md) | agent-serving、ch32-streaming-service |
-| 34 | 治理篇 · 可观测性与执行重放 | `agent-trace-replay` | [正文](../../book/part3-agent/governance/chapter34-observability.md) | agent-trace-replay |
-| 35 | 治理篇 · 质量评估与持续改进 | `agent-eval` | [正文](../../book/part3-agent/governance/chapter35-evaluation.md) | agent-eval |
-| 36 | 治理篇 · Agent 安全与权限治理 | `agent-safety` | [正文](../../book/part3-agent/governance/chapter36-security.md) | agent-safety |
-| 37 | 治理篇 · 资源预算与成本优化 | `agent-cost` | [正文](../../book/part3-agent/governance/chapter37-cost.md) | agent-cost |
+| 22 | 构建篇 · Agent 架构与模型接口 | `harness-intro` | [正文](../../content/book/part3-agent/building/chapter22-architecture.md) | harness-intro、ch22-llm-api |
+| 23 | 构建篇 · 工具接入与受控行动 | `agent-tool` | [正文](../../content/book/part3-agent/building/chapter23-actions.md) | agent-tool、agent-mcp、agent-hitl |
+| 24 | 构建篇 · Agent 决策循环与 ReAct | `ch23-tool-calling` | [正文](../../content/book/part3-agent/building/chapter24-decision-loop.md) | ch23-tool-calling、agent-react |
+| 25 | 构建篇 · 任务规划与反馈修订 | `agent-planning` | [正文](../../content/book/part3-agent/building/chapter25-planning.md) | agent-planning |
+| 26 | 构建篇 · 会话状态与上下文工程 | `agent-context` | [正文](../../content/book/part3-agent/building/chapter26-context.md) | agent-session、agent-context |
+| 27 | 构建篇 · 检索增强生成与证据验证 | `ch28-rag-app` | [正文](../../content/book/part3-agent/building/chapter27-rag.md) | ch28-vector-retrieval、ch28-rag-app |
+| 28 | 构建篇 · Skills 与领域能力复用 | `agent-skills` | [正文](../../content/book/part3-agent/building/chapter28-skills.md) | agent-skills |
+| 29 | 运行时 · 运行控制与故障恢复 | `agent-runtime` | [正文](../../content/book/part3-agent/runtime/chapter29-execution.md) | agent-runtime、agent-checkpoint |
+| 30 | 运行时 · 持久状态与工作空间 | `agent-memory` | [正文](../../content/book/part3-agent/runtime/chapter30-state.md) | agent-memory、agent-workspace |
+| 31 | 运行时 · 多 Agent 协作与任务编排 | `agent-delegation` | [正文](../../content/book/part3-agent/runtime/chapter31-collaboration.md) | agent-delegation、agent-dag |
+| 32 | 运行时 · 异步任务与生命周期管理 | `agent-async-tasks` | [正文](../../content/book/part3-agent/runtime/chapter32-async-tasks.md) | agent-async-tasks |
+| 33 | 运行时 · 服务接入与流式交互 | `agent-serving` | [正文](../../content/book/part3-agent/runtime/chapter33-serving.md) | agent-serving、ch32-streaming-service |
+| 34 | 治理篇 · 可观测性与执行重放 | `agent-trace-replay` | [正文](../../content/book/part3-agent/governance/chapter34-observability.md) | agent-trace-replay |
+| 35 | 治理篇 · 质量评估与持续改进 | `agent-eval` | [正文](../../content/book/part3-agent/governance/chapter35-evaluation.md) | agent-eval |
+| 36 | 治理篇 · Agent 安全与权限治理 | `agent-safety` | [正文](../../content/book/part3-agent/governance/chapter36-security.md) | agent-safety |
+| 37 | 治理篇 · 资源预算与成本优化 | `agent-cost` | [正文](../../content/book/part3-agent/governance/chapter37-cost.md) | agent-cost |
 
 主页面保留上表稳定ID。chapters.json的legacySources记录26个原始源码路径，供冻结评测来源追踪及链接解析；历史数据集保留原字节，不通过改写原始记录更新哈希。被合并的10个旧页面ID在book/redirects.json指向新章的原主题锚点；跳转页不计教学单元、不进入目录。跳转保留已有片段，目标章保留旧小节锚点。源码路径、内部引用、前后导航与生成页同步迁移。
 
@@ -566,7 +566,7 @@ DAG资源调度另有RunReadyStream：有限Run内运行中接纳就绪任务，
 
 每次学习按“先预测一个行为→读对应机制→运行最小实验→修改条件并制造故障→闭卷解释→迁移到新任务”推进。AI可辅助定位实现、提出反例和解释缺口；关键状态、权限与错误处理由学习者核对，并至少独立完成一次关键修改。正文不要变成AI提示词清单，Lab不要预先填满练习答案。
 
-读者完整实践路线在[Harness正文](../../book/part3-agent/building/chapter22-architecture.md#从部件理解到完整实践)维护八阶段，覆盖全部26主题；公开导航归属由构建篇、运行时、治理篇表达，推荐阅读与真实知识前置分开。每阶段关联现实问题、核心正文、失败判断和迁移证据；8–12小时是每周机制学习预算，不承诺一阶段一周。固定契约、显式真实效果与真人反馈分别验收，八阶段表不是另一份章节目录或完成状态地图。 Eval在这条路线中分次阅读：第二阶段建立Case/Run、Runner和固定评分；RAG之后回读证据支持与评分校准；Planning之后深入等条件对照与门禁。回读完整覆盖原章，不将首次入门视为完整Eval或作品验收；具体入口随Harness正文维护。
+读者完整实践路线在[Harness正文](../../content/book/part3-agent/building/chapter22-architecture.md#从部件理解到完整实践)维护八阶段，覆盖全部26主题；公开导航归属由构建篇、运行时、治理篇表达，推荐阅读与真实知识前置分开。每阶段关联现实问题、核心正文、失败判断和迁移证据；8–12小时是每周机制学习预算，不承诺一阶段一周。固定契约、显式真实效果与真人反馈分别验收，八阶段表不是另一份章节目录或完成状态地图。 Eval在这条路线中分次阅读：第二阶段建立Case/Run、Runner和固定评分；RAG之后回读证据支持与评分校准；Planning之后深入等条件对照与门禁。回读完整覆盖原章，不将首次入门视为完整Eval或作品验收；具体入口随Harness正文维护。
 
 ### 内容构建批次与交付验收
 
@@ -629,7 +629,7 @@ GoTrip只作为可选旅行助手案例，不承担课程主线、毕业设计�
 
 ## 4. 现有章节地图与真实状态
 
-下表是迁移前现有33章的章号、代表路径、Lab和四维状态的唯一人工维护视图。目标37个教学单元及九类Agent知识结构见第3节；它们已映射到稳定页面ID与发布清单，Part 3的具体正文源码使用当前教学单元号。此表继续记录源码归属与真实证据，不把单元编号迁移当成正文、效果或读者验收。`book/chapters.json` 只管理站点页面元数据、阅读关系和发布状态，不重复维护实现、代码、内容与读者验证状态。
+下表是迁移前现有33章的章号、代表路径、Lab和四维状态的唯一人工维护视图。目标37个教学单元及九类Agent知识结构见第3节；它们已映射到稳定页面ID与发布清单，Part 3的具体正文源码使用当前教学单元号。此表继续记录源码归属与真实证据，不把单元编号迁移当成正文、效果或读者验收。`content/book/chapters.json` 只管理站点页面元数据、阅读关系和发布状态，不重复维护实现、代码、内容与读者验证状态。
 
 状态含义：
 
@@ -642,49 +642,49 @@ GoTrip只作为可选旅行助手案例，不承担课程主线、毕业设计�
 
 | Ch | Title | Book | Core labs | implementation_status | code_status | content_status | reader_validation_status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Go 环境与第一个程序 | `book/part1-golang/chapter01.md` | hello-world | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 2 | 数据类型 | `book/part1-golang/chapter02.md` | values-variables-constants、strings-runes、arrays-slices、maps、json | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 3 | 控制流与边界分支 | `book/part1-golang/chapter03.md` | control-flow | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 4 | 函数 | `book/part1-golang/chapter04.md` | defer-panic、function-values | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 5 | 错误处理与异常 | `book/part1-golang/chapter05.md` | functions-errors | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 6 | 结构体与方法 | `book/part1-golang/chapter06.md` | structs-methods-interfaces | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 7 | 接口、泛型与反射 | `book/part1-golang/chapter07.md` | reflection-basics、generics-basics | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 8 | 包和工具 | `book/part1-golang/chapter08.md` | packages-tools | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 9 | 并发编程 | `book/part1-golang/chapter09.md` | goroutine-channel-select、worker-pools | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 10 | Web 服务 | `book/part1-golang/chapter10.md` | http-middleware-client、http-server | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 11 | 工程实践与代码规范 | `book/part1-golang/chapter11.md` | code-review-comments、effective-go、json-api、module-layout、practice-json-api、project-layout、review-cli、uber-errors-wrap、uber-slice-preallocate、uber-string-builder | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 1 | Go 环境与第一个程序 | `content/book/part1-golang/chapter01.md` | hello-world | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 2 | 数据类型 | `content/book/part1-golang/chapter02.md` | values-variables-constants、strings-runes、arrays-slices、maps、json | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 3 | 控制流与边界分支 | `content/book/part1-golang/chapter03.md` | control-flow | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 4 | 函数 | `content/book/part1-golang/chapter04.md` | defer-panic、function-values | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 5 | 错误处理与异常 | `content/book/part1-golang/chapter05.md` | functions-errors | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 6 | 结构体与方法 | `content/book/part1-golang/chapter06.md` | structs-methods-interfaces | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 7 | 接口、泛型与反射 | `content/book/part1-golang/chapter07.md` | reflection-basics、generics-basics | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 8 | 包和工具 | `content/book/part1-golang/chapter08.md` | packages-tools | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 9 | 并发编程 | `content/book/part1-golang/chapter09.md` | goroutine-channel-select、worker-pools | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 10 | Web 服务 | `content/book/part1-golang/chapter10.md` | http-middleware-client、http-server | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 11 | 工程实践与代码规范 | `content/book/part1-golang/chapter11.md` | code-review-comments、effective-go、json-api、module-layout、practice-json-api、project-layout、review-cli、uber-errors-wrap、uber-slice-preallocate、uber-string-builder | available | passed | pending | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
 
 ### Part 2 · 后端进阶
 
 | Ch | Title | Book | Core labs | implementation_status | code_status | content_status | reader_validation_status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 12 | MySQL、SQL、索引与 GORM | `book/part2-backend/chapter12.md` | gorm-mysql、repository-pattern | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 13 | 事务、隔离级别与锁 | `book/part2-backend/chapter13.md` | transactions | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 14 | Redis 缓存、限流与分布式锁 | `book/part2-backend/chapter14.md` | cache、rate-limit、distributed-lock | planned | pending | pending | pending | — |
-| 15 | 消息队列与异步任务 | `book/part2-backend/chapter15.md` | queue、outbox、worker | planned | pending | pending | pending | — |
-| 16 | Hertz API 工程 | `book/part2-backend/chapter16.md` | hertz-kitex-demo、hertz-kitex-real-chain、hertz-routing | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 17 | Kitex RPC 与契约演进 | `book/part2-backend/chapter17.md` | kitex-idl-handler、kitex-rpc | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 18 | 服务发现、配置与微服务边界 | `book/part2-backend/chapter18.md` | discovery、config | planned | pending | pending | pending | — |
-| 19 | 幂等、重试、超时、熔断与降级 | `book/part2-backend/chapter19.md` | idempotency、retry、circuit-breaker | planned | pending | pending | pending | — |
-| 20 | 高并发、pprof、背压与压测 | `book/part2-backend/chapter20.md` | pprof、load-test、backpressure | planned | pending | pending | pending | — |
-| 21 | 日志、指标与分布式追踪 | `book/part2-backend/chapter21.md` | service-runtime | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 12 | MySQL、SQL、索引与 GORM | `content/book/part2-backend/chapter12.md` | gorm-mysql、repository-pattern | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 13 | 事务、隔离级别与锁 | `content/book/part2-backend/chapter13.md` | transactions | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 14 | Redis 缓存、限流与分布式锁 | `content/book/part2-backend/chapter14.md` | cache、rate-limit、distributed-lock | planned | pending | pending | pending | — |
+| 15 | 消息队列与异步任务 | `content/book/part2-backend/chapter15.md` | queue、outbox、worker | planned | pending | pending | pending | — |
+| 16 | Hertz API 工程 | `content/book/part2-backend/chapter16.md` | hertz-kitex-demo、hertz-kitex-real-chain、hertz-routing | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 17 | Kitex RPC 与契约演进 | `content/book/part2-backend/chapter17.md` | kitex-idl-handler、kitex-rpc | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 18 | 服务发现、配置与微服务边界 | `content/book/part2-backend/chapter18.md` | discovery、config | planned | pending | pending | pending | — |
+| 19 | 幂等、重试、超时、熔断与降级 | `content/book/part2-backend/chapter19.md` | idempotency、retry、circuit-breaker | planned | pending | pending | pending | — |
+| 20 | 高并发、pprof、背压与压测 | `content/book/part2-backend/chapter20.md` | pprof、load-test、backpressure | planned | pending | pending | pending | — |
+| 21 | 日志、指标与分布式追踪 | `content/book/part2-backend/chapter21.md` | service-runtime | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
 
 ### Part 3 · Agent 开发
 
 | Ch | Title | Book | Core labs | implementation_status | code_status | content_status | reader_validation_status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 22 | Agent Harness · Model | `book/part3-agent/building/chapter22-architecture.md` | hello-llm、structured-output、inference-mechanisms | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 23 | Agent Harness · Agent Loop与Tool独立正文 | `book/part3-agent/building/chapter24-decision-loop.md` | tool-calling、minimal-agent-loop | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 24 | Agent Harness · ReAct与Planning独立正文 | `book/part3-agent/building/chapter24-decision-loop.md` | react、plan-execute、strategy-comparison | available | passed | needs-revision | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 25 | Agent Harness · Runtime与Checkpoint独立正文 | `book/part3-agent/runtime/chapter29-execution.md` | runner、checkpoint | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 26 | 框架对照参考（已移出课程主线） | `book/part3-agent/chapter26-framework-reference.md` | — | planned | pending | pending | pending | — |
-| 27 | Agent Harness · Session与Memory独立正文 | `book/part3-agent/building/chapter26-context.md` | session-history、user-memory | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 28 | Agent Harness · Retrieval与RAG独立正文 | `book/part3-agent/building/chapter27-rag.md` | hybrid-retrieval、pgvector-retrieval、neural-retrieval、evidence-answer、eino-rag-project、eino-vector-store | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 29 | Agent Harness · Context | `book/part3-agent/building/chapter26-context.md` | context-builder | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 30 | Agent Harness · MCP、Skills与Workspace独立正文 | `book/part3-agent/building/chapter23-actions.md` | mcp-stdio、skills-loader、workspace | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 31 | Agent Harness · Delegation、DAG与Async独立正文 | `book/part3-agent/runtime/chapter31-collaboration.md` | delegation、dag-scheduler、async-tasks | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 32 | Agent治理 · Streaming与Serving独立正文 | `book/part3-agent/runtime/chapter33-serving.md` | mini-agent-console、task-service | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [slice-review](project-plan.md#slice-review) |
-| 33 | Agent治理 · Eval、Trace、Safety、Cost与HITL独立正文 | `book/part3-agent/governance/chapter35-evaluation.md` | eval-harness、trace-replay、safety-gate、cost-ledger、human-approval、eval-observability | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 22 | Agent Harness · Model | `content/book/part3-agent/building/chapter22-architecture.md` | hello-llm、structured-output、inference-mechanisms | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 23 | Agent Harness · Agent Loop与Tool独立正文 | `content/book/part3-agent/building/chapter24-decision-loop.md` | tool-calling、minimal-agent-loop | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 24 | Agent Harness · ReAct与Planning独立正文 | `content/book/part3-agent/building/chapter24-decision-loop.md` | react、plan-execute、strategy-comparison | available | passed | needs-revision | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 25 | Agent Harness · Runtime与Checkpoint独立正文 | `content/book/part3-agent/runtime/chapter29-execution.md` | runner、checkpoint | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 26 | 框架对照参考（已移出课程主线） | `content/book/part3-agent/chapter26-framework-reference.md` | — | planned | pending | pending | pending | — |
+| 27 | Agent Harness · Session与Memory独立正文 | `content/book/part3-agent/building/chapter26-context.md` | session-history、user-memory | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 28 | Agent Harness · Retrieval与RAG独立正文 | `content/book/part3-agent/building/chapter27-rag.md` | hybrid-retrieval、pgvector-retrieval、neural-retrieval、evidence-answer、eino-rag-project、eino-vector-store | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 29 | Agent Harness · Context | `content/book/part3-agent/building/chapter26-context.md` | context-builder | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 30 | Agent Harness · MCP、Skills与Workspace独立正文 | `content/book/part3-agent/building/chapter23-actions.md` | mcp-stdio、skills-loader、workspace | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 31 | Agent Harness · Delegation、DAG与Async独立正文 | `content/book/part3-agent/runtime/chapter31-collaboration.md` | delegation、dag-scheduler、async-tasks | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 32 | Agent治理 · Streaming与Serving独立正文 | `content/book/part3-agent/runtime/chapter33-serving.md` | mini-agent-console、task-service | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [slice-review](project-plan.md#slice-review) |
+| 33 | Agent治理 · Eval、Trace、Safety、Cost与HITL独立正文 | `content/book/part3-agent/governance/chapter35-evaluation.md` | eval-harness、trace-replay、safety-gate、cost-ledger、human-approval、eval-observability | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
 
 planned 行中的路径表示正式规划位置，不声称文件已经存在。代码 `passed` 时核心 Lab 必须存在；`available` 或 `reviewed` 时正文必须存在。章节、Lab 或状态变化必须同步本表。
 
@@ -770,7 +770,7 @@ Context蓝图中的布局与缓存取舍已补为主题正文：区分输入视�
 
 自动检查只证明结构、链接、代码和部分行为，不证明内容足够清晰，也不证明学习者已经掌握。`content_status` 只能由作者按章节审查表确认；`reader_validation_status` 只能记录真实读者从干净环境完成后的反馈。目前所有章节的读者验证均为 pending。
 
-第12、13、21章标为partial：仍需深化真实数据库/锁、完整观测、框架进阶对照和持久化服务恢复。Harness、Model、Tool、Loop与Runtime按各自基础契约完成正文；available表示该机制可独立学习，不表示覆盖所有Provider功能或生产运行场景。决策循环样章按Loop职责、状态与响应、受控动作、观察反馈、终止策略展开，关键源码片段与架构/流程图支撑机制讲解，补充最佳实践及常见问题排查；实验输出、测试导读迁入Lab README与代码注释。Tool正文位于 `book/part3-agent/building/chapter23-actions.md`，原Lab与练习保持原路径；Runtime与Checkpoint教学正文位于第29章，证据仍按旧Lab章号记录，runner实验独立。Harness正文位于 `book/part3-agent/building/chapter22-architecture.md`，作为第22单元承担 Part 3 主线建立作用。轮次预算、历史复制与续聊边界已明确；第33章统一服务入口、事件呈现、SSE与取消边界，证据问答保留在独立Console；Serving以独立task-service承接HTTP任务入口；持久恢复仍需补作品证据。第28章新增独立融合和证据实验，解释两路排序、RRF、重排与引用/支持边界；HashEmbedder、手工向量与固定Judge不证明真实语义效果，真实Embedding/向量库/生成与HyDE已有上述局部结果，尚待独立任务效果、真实重排、通用支持Judge及人工校准，不由基础融合实验继承。
+第12、13、21章标为partial：仍需深化真实数据库/锁、完整观测、框架进阶对照和持久化服务恢复。Harness、Model、Tool、Loop与Runtime按各自基础契约完成正文；available表示该机制可独立学习，不表示覆盖所有Provider功能或生产运行场景。决策循环样章按Loop职责、状态与响应、受控动作、观察反馈、终止策略展开，关键源码片段与架构/流程图支撑机制讲解，补充最佳实践及常见问题排查；实验输出、测试导读迁入Lab README与代码注释。Tool正文位于 `content/book/part3-agent/building/chapter23-actions.md`，原Lab与练习保持原路径；Runtime与Checkpoint教学正文位于第29章，证据仍按旧Lab章号记录，runner实验独立。Harness正文位于 `content/book/part3-agent/building/chapter22-architecture.md`，作为第22单元承担 Part 3 主线建立作用。轮次预算、历史复制与续聊边界已明确；第33章统一服务入口、事件呈现、SSE与取消边界，证据问答保留在独立Console；Serving以独立task-service承接HTTP任务入口；持久恢复仍需补作品证据。第28章新增独立融合和证据实验，解释两路排序、RRF、重排与引用/支持边界；HashEmbedder、手工向量与固定Judge不证明真实语义效果，真实Embedding/向量库/生成与HyDE已有上述局部结果，尚待独立任务效果、真实重排、通用支持Judge及人工校准，不由基础融合实验继承。
 
 <a id="slice-review"></a>
 
@@ -860,16 +860,14 @@ MCP同名工具路由已补独立实验与图示：两个固定Server进程返�
 
 ```text
 the-way-to-ai-engineer/
-├── book/                         # 唯一正文真源
-│   ├── chapters.json             # 页面元数据、顺序、发布状态与 Lab 映射
-│   ├── part1-*/chapterNN.md
-│   ├── part2-*/chapterNN.md
-│   └── part3-agent/{building,runtime,governance}/chapterNN-<topic>.md
-├── labs/                         # 独立机制实验和模板应用
-│   ├── go.mod                    # 全部 Go Lab 的 module 边界
+├── content/                      # 人工维护的知识内容
+│   ├── book/                     # 课程正文与章节清单
+│   └── interview/                # 总导航、题库、状态与十大章节正文
+├── labs/                         # 独立机制实验，原Go模块与路径保持
+│   ├── go.mod
 │   ├── go.sum
-│   ├── internal/                 # 稳定共享契约；tasks已被两个Lab使用
 │   └── partN-*/chapterNN/<topic>/
+├── .generated/chapters/          # 自动转换副本，不提交
 ├── public/                       # 原样发布的静态资源
 ├── src/                          # Astro 展示层
 │   ├── content/chapters/         # 构建生成，禁止手改
@@ -893,8 +891,9 @@ the-way-to-ai-engineer/
 
 | From | May depend on | Must not depend on |
 | --- | --- | --- |
+| `interview` | 仓库相对链接、公开 Lab 接口、单题正文；元数据由 interview 管理 | 复制课程正文、依赖 labs/internal、把草稿等同公开发布 |
 | `book` | Lab 的仓库相对链接、`public` 资源 | 生成内容、本机绝对路径、私有规格 |
-| `scripts/prep-book.mjs` | `book/chapters.json`、正文、Lab 元数据 | 改写或润色教学内容、联网抓取正文 |
+| `scripts/prep-book.mjs` | `content/book/chapters.json`、正文、Lab 元数据 | 改写或润色教学内容、联网抓取正文 |
 | `src` | 生成 collection、公开元数据、`public` | 成为正文或课程状态的真源 |
 | `labs` | 标准库、`labs/go.mod` 依赖、稳定 `labs/internal` | 其他 topic 的私有实现、上一章运行状态 |
 | 独立应用 | 自己的 domain、ports 和 adapters | `labs/internal`、模型驱动的领域规则 |
@@ -908,19 +907,31 @@ the-way-to-ai-engineer/
 ### 单一真源
 
 ```text
-book/chapters.json ─┐
-book/**/*.md ───────┼─> scripts/prep-book.mjs ─> src/content/chapters/ ─> Astro ─> dist/
+content/book/chapters.json ─┐
+content/book/**/*.md ───────┼─> scripts/prep-book.mjs ─> .generated/chapters/ ─> Astro ─> dist/
 labs/**/meta.yml ───┘
 public/**/* ──────────────────────────────────────────────────────────────┘
 ```
 
-- `book/**/*.md` 是正文真源；
-- `book/chapters.json` 管理页面 ID、路径、标题、Part、顺序、描述、发布状态、前置页面和关联 Lab；Part 3用 `navigationPath` 表达构建篇、运行时、治理篇三大公开分组；
+- `content/book/**/*.md` 是正文真源；
+- `content/book/chapters.json` 管理页面 ID、路径、标题、Part、顺序、描述、发布状态、前置页面和关联 Lab；Part 3用 `navigationPath` 表达构建篇、运行时、治理篇三大公开分组；
 - 本文档的章节地图管理课程实现和审校状态；
 - `labs/**/meta.yml` 管理实验来源、入口、行为和验证命令；
-- `src/content/chapters/`、`.astro/`、`dist/` 和 `node_modules/` 是生成或本地产物，不提交。
+- `.generated/chapters/`、`.astro/`、`dist/` 和 `node_modules/` 是生成或本地产物，不提交。
 
 生成器只做可预测转换：校验清单和路径、移除布局重复渲染的首个 H1、重写 Pages base 下的资源路径、注入 schema frontmatter。它不得润色、重排或删除普通段落。只有 `published: true` 的页面生成 route。
+
+### 面试合集与课程的边界
+
+`content/interview/` 是按问题复习的独立合集，不是课程 Part 4，不进入课程章节地图、教学单元编号、content/book/chapters.json 或现有 Astro collection。课程仍以 Go 为主，面试题保持框架中立；相互引用已经存在的正文和 Lab，不复制两套正文，不要求面试读者先安装 Go 或站点依赖。
+
+面试范围见[面试专项方案](interview-handbook.md)，正文规则见[面试内容规范](../rules/interview-content-contract.md)。题库、课程/Lab关联和编辑状态统一在 interview；questions.json是96题定义真源，总导航由工具生成，P-题序、AE-ID与发布顺序分开，封存ID不复用。
+
+interview保留总README、questions.json、state.json和大章节下单题Markdown；十大章节预先建齐，空目录用零字节.gitkeep保留，不设置章节README，不创建空白题目正文。研究、逐篇审核、候选稿、平台回执和预览保存在仓库外私有工作目录；通用模板归入docs/templates，工具和测试归入根scripts/tests，正式图源和配图在public/diagrams/interview。课程与面试正文各有唯一真源，共用已有Lab，不建设另一套面试实验工程。
+
+课程四维状态、面试编辑状态、网站展示和公众号公开发布分别管理。make validate-interview检查公共结构与关联并纳入validate-docs，不读取私有过程记录；本地delivery-check和进入ready/published时另核对研究、审核、正文摘要及证据门槛。公共通过不证明审核或效果通过。
+
+公众号操作只限用户确认具体内容后的保存/更新草稿，需备份与回读，严禁Codex线上发布、群发或定时发布。本次改造保留首篇正文和已确认图示，仅迁移图片路径；不操作远端草稿。面试独立站点按专项方案接入，课程清单与URL保持；Pages合并两个构建产物后一次部署。
 
 ### 正文组织：固定覆盖要求，不固定主体标题
 
@@ -1111,7 +1122,7 @@ Agent Loop样章确定的是讲解深度与审查标准。后续章节先拆解�
 
 实验链接位于正文顶部，站点可用卡片增强但不能制造重复内容；适用版本和前置知识就近说明。增加代码复制、图示放大、输出与提示样式、主题切换、前后导航和关联实验。未实施章节不进入可阅读导航，缺视频/PDF时不放占位入口；搜索与多媒体后续按需要增加。
 
-现有首页、代码高亮、本页目录、主题与Lab卡片已经存在。章节页已接入课程导航：Part 3按构建篇、运行时、治理篇分组；当前页高亮并展开所属类别，桌面宽屏显示左侧课程、中间正文与右侧本页目录，小屏以原生折叠入口呈现。分组来自 `navigationPath`，页面ID、URL与线性阅读顺序保持稳定；未发布页面不进入导航。生成页面检查逐页核对全部入口、当前页和类别展开，清单检查核对分组归属。首页也按相同清单展示三大篇，提供Agent课程直达入口；所有已发布章节各出现一次，标题层级随分组递进。37单元元数据映射与展示编号已接入。章节代码块已提供复制按钮与可读完成/失败状态，保留原文空白；本站SVG可通过键盘或点击打开原尺寸新页面，已有链接与外部图片不重写。功能只在呈现层增强，不改正文；无脚本时原代码与图片仍可阅读。复制权限受浏览器能力约束，拒绝时提供手动选择路径。当前预览的Clipboard工具读回为空，不能把API完成反馈写成系统剪贴板逐字验收；默认行为测试另行验证复制文本与失败分支。正文监听与开发子进程监督已接入，具体运行边界见下节。book/chapters.json管理规划与发布页面元数据，完成度继续在第4节维护。
+现有首页、代码高亮、本页目录、主题与Lab卡片已经存在。章节页已接入课程导航：Part 3按构建篇、运行时、治理篇分组；当前页高亮并展开所属类别，桌面宽屏显示左侧课程、中间正文与右侧本页目录，小屏以原生折叠入口呈现。分组来自 `navigationPath`，页面ID、URL与线性阅读顺序保持稳定；未发布页面不进入导航。生成页面检查逐页核对全部入口、当前页和类别展开，清单检查核对分组归属。首页也按相同清单展示三大篇，提供Agent课程直达入口；所有已发布章节各出现一次，标题层级随分组递进。37单元元数据映射与展示编号已接入。章节代码块已提供复制按钮与可读完成/失败状态，保留原文空白；本站SVG可通过键盘或点击打开原尺寸新页面，已有链接与外部图片不重写。功能只在呈现层增强，不改正文；无脚本时原代码与图片仍可阅读。复制权限受浏览器能力约束，拒绝时提供手动选择路径。当前预览的Clipboard工具读回为空，不能把API完成反馈写成系统剪贴板逐字验收；默认行为测试另行验证复制文本与失败分支。正文监听与开发子进程监督已接入，具体运行边界见下节。content/book/chapters.json管理规划与发布页面元数据，完成度继续在第4节维护。
 
 ### 本地启动、调试与生产预览
 
@@ -1131,7 +1142,7 @@ npm run preview -- --host 127.0.0.1
 
 开发服务用于源码调试，preview读取上次构建产物。npm run preview经scripts/preview-book.mjs复用开发入口的子进程监督，使用锁定CLI的preview子进程标记避免自动脱离；不准备正文、不启动监听，退出只清理自己的服务。修改书稿后检查生产预览，先执行npm run check重新生成与构建，再刷新现有页面；刷新不能代替重新构建。沿用已有预览实例，不因页面仍显示旧文案就开启第二个服务。
 
-Node版本遵守package.json，Go版本遵守labs/go.mod，锁文件准备依赖后默认验证离线运行。npm run dev由Node监督程序启动：先生成并跟踪book正文/chapters.json及labs元数据，再启动受监督Astro子进程。当前采用250ms文件元信息扫描与120ms去抖，避开本机原生监听EMFILE；Vite同样使用轮询。目录外符号链接与生成目录不扫描，只有相关源变化才重建。所有正文先验证/渲染，再逐文件原子替换变化产物，删除撤销页面；未变文件保留时间戳。语法、清单或断链错误可见并保留上一版有效产物，不能把旧页面当作本次保存成功。Lab元数据字段当前未直接呈现，变化触发重新检查章节清单/引用，不制造无意义内容hash。
+Node版本遵守package.json，Go版本遵守labs/go.mod，锁文件准备依赖后默认验证离线运行。npm run dev由Node监督程序启动：先生成并跟踪content/book正文/chapters.json及labs元数据，再启动受监督Astro子进程。当前采用250ms文件元信息扫描与120ms去抖，避开本机原生监听EMFILE；Vite同样使用轮询。目录外符号链接与生成目录不扫描，只有相关源变化才重建。所有正文先验证/渲染，再逐文件原子替换变化产物，删除撤销页面；未变文件保留时间戳。语法、清单或断链错误可见并保留上一版有效产物，不能把旧页面当作本次保存成功。Lab元数据字段当前未直接呈现，变化触发重新检查章节清单/引用，不制造无意义内容hash。
 
 监督程序转发SIGINT/SIGTERM、关闭扫描与去抖，给自己的子进程最多5秒退出后再强制结束；禁止background/ignore-lock，端口占用报错而非静默开第二个课程服务。锁定Astro在代理环境可能自动后台化，监督程序使用已核对的子进程环境标记保持受控生命周期；升级CLI必须重新验证。真实临时工程已验证源修改进入HTTP页面、非法清单保留旧页、撤销404与恢复200，以及退出清理。文件元信息轮询不保证检测故意保留inode/mtime/size的内容改写，也不是生产文件事务；此时手动content:prepare检查。
 
@@ -1216,6 +1227,7 @@ RAG必要前提另外按已复核的证据组检查候选与实际输入。Eval�
 | 层级 | 自动验证 | 人工验证 |
 | --- | --- | --- |
 | Chapters manifest | schema、ID、顺序、路径、依赖 DAG | 标题、描述、学习顺序 |
+| Interview | 题库/方案一致性、ID与状态、依赖顺序、公开结构与链接；本地交付另核对私有审核摘要 | 技术判断、证据与口述可用性；公众号仅保存草稿 |
 | Book | 链接、代码摘录、命令、导航 | 叙事、深度、认知负荷、自然表达 |
 | Lab | build、unit、race、失败路径 | 是否揭示目标机制 |
 | Complex Lab | unit、integration、E2E、migration | 架构边界、隔离性、可运行性 |
@@ -1301,3 +1313,11 @@ RAG必要前提另外按已复核的证据组检查候选与实际输入。Eval�
 以下变化必须同步本文档：产品范围、正式章节、课程路线、目录/module 边界、单一真源、发布架构、Agent 权限、完成定义或长期能力目标。专项写作、Lab 元数据、安全变量和日常命令分别留在对应 rules、templates、源码和 AGENTS，不在本文复制第二份实现细节。
 
 进度、临时排查、一次性迁移步骤和验收输出写入 Issue/PR 或私有 `.specs`，不追加到长期方案。新设计内容应合并进合适章节并删除失效表述，不通过继续拆分设计文件来记录历史。
+
+### 内容目录收敛
+
+课程和面试正文分别迁入content/book与content/interview，labs保持根目录与原Go模块。网站源码src只负责呈现；课程中间副本迁至.generated/chapters并忽略提交。迁移同步引用、监听、CI与检查器，稳定页面ID、网站URL和跳转保持；首题只调整必要图片路径并核对导出一致，远端公众号草稿不操作。历史冻结评测载荷保留原字节，legacySources继续解析其原路径。
+
+### 两个阅读站点的构建与共享托管
+
+课程继续使用astro.config.mjs、src/pages与dist。面试使用astro.interview.config.mjs、src/interview-site与dist-interview，website.json独立声明可见正文。二者复用Node依赖和公共静态素材，导航、首页、内容集合、生成目录及缓存隔离。npm run check:sites检查两个站点，再组装.pages-dist；现有Pages工作流只上传此合并包，课程根路径与全部旧跳转保持，面试位于/the-way-to-ai-engineer/interview/。它们共享域名和一次部署，不能分别设置Pages域名；未提交、未推送时不能声称已线上可用。详见面试专项方案。

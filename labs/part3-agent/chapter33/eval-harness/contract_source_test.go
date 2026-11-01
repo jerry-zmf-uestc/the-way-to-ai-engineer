@@ -14,7 +14,7 @@ func assertContractSource(t *testing.T, root, source string) {
 	if _, err := os.Stat(filepath.Join(root, source)); err == nil {
 		return
 	}
-	raw, err := os.ReadFile(filepath.Join(root, "book", "chapters.json"))
+	raw, err := os.ReadFile(filepath.Join(root, "content", "book", "chapters.json"))
 	if err != nil {
 		t.Fatal(err)
 	}

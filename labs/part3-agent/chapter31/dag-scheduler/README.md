@@ -6,7 +6,7 @@
 
 ## 前置与入口
 
-阅读[DAG正文](../../../../book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-dag)、Planning、Delegation、Go并发和context。准备见[运行约定](../../../../book/introduction.md#running-examples)。
+阅读[DAG正文](../../../../content/book/part3-agent/runtime/chapter31-collaboration.md#topic-agent-dag)、Planning、Delegation、Go并发和context。准备见[运行约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：图校验、就绪/阻断、有限派发、单写者提交及取消收齐。
 - [main_test.go](main_test.go)：受控并发、结果复制、失败传播、队列拒绝与取消。

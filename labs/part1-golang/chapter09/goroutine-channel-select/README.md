@@ -38,12 +38,12 @@ This pattern appears when a program races a fast cache against a slower source, 
 
 ## Related Exercises
 
-- [Chapter 9 · Concurrency Exercises](../../../../book/part1-golang/chapter09.md#concurrency-exercises): return to the chapter page for the
+- [Chapter 9 · Concurrency Exercises](../../../../content/book/part1-golang/chapter09.md#concurrency-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Stay in [chapter09/README.md](../../../../book/part1-golang/chapter09.md) to compare this one-worker example with
+Stay in [chapter09/README.md](../../../../content/book/part1-golang/chapter09.md) to compare this one-worker example with
 [worker-pools](../worker-pools), where the same channel ideas are extended to
 bounded parallelism.

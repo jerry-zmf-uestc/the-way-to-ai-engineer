@@ -4,10 +4,10 @@ import { pathToFileURL } from 'node:url';
 import { ROOT } from './book-content.mjs';
 import { watchBook } from './watch-book.mjs';
 
-export function startBookDev({rootDir=ROOT,args=process.argv.slice(2),spawnChild=spawn,shutdownMs=5000,command='dev'}={}){
+export function startBookDev({rootDir=ROOT,args=process.argv.slice(2),spawnChild=spawn,shutdownMs=5000,command='dev',watcherFactory=watchBook}={}){
   if(!['dev','preview'].includes(command))throw new Error('unsupported book server command');
   if(args.includes('--background')||args.includes('--ignore-lock'))throw new Error('book server keeps one owned foreground server; background/ignore-lock are unsupported');
-  const watcher=command==='dev'?watchBook({rootDir,onReady:pages=>process.stdout.write(`book watch: ${pages.length} pages refreshed\n`)}):{close(){}};
+  const watcher=command==='dev'?watcherFactory({rootDir,onReady:pages=>process.stdout.write(`book watch: ${pages.length} pages refreshed\n`)}):{close(){}};
   let child,stopping=false,timer;
   const cleanup=()=>{watcher.close();clearTimeout(timer);process.off('SIGINT',interrupt);process.off('SIGTERM',terminate);};
   const stop=signal=>{

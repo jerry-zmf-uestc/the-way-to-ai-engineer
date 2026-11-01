@@ -56,15 +56,15 @@ abort 'snapshot: no selected files; select an explicit candidate before publishi
 
 entries.each_key do |path|
   parts = path.split('/')
-  forbidden = parts.any? { |p| %w[.git .specs .tools .DS_Store].include?(p) || p.start_with?('._') }
-  forbidden ||= path.start_with?('site/', 'dist/') || (File.basename(path).start_with?('.env') && File.basename(path) != '.env.example')
+  forbidden = parts.any? { |p| %w[.git .specs .tools .generated .DS_Store].include?(p) || p.start_with?('._') }
+  forbidden ||= path.start_with?('site/', 'dist/', 'dist-interview/', '.astro-interview/', '.pages-dist') || (File.basename(path).start_with?('.env') && File.basename(path) != '.env.example')
   abort "snapshot: private or unsafe candidate path: #{path}" if forbidden || path.start_with?('/') || parts.include?('..')
   if options[:mode] == 'working'
     parts.each_index { |i| abort "snapshot: symlink forbidden: #{path}" if File.symlink?(parts[0..i].join('/')) }
     abort "snapshot: not a regular file: #{path}" unless File.file?(path)
   end
 end
-%w[README.md Makefile labs/go.mod book/README.md].each do |path|
+%w[README.md Makefile labs/go.mod content/book/README.md].each do |path|
   abort "snapshot: missing required file #{path}" unless entries.key?(path)
 end
 %w[go.mod go.sum go.work].each do |path|

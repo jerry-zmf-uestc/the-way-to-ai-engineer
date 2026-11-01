@@ -1,6 +1,6 @@
 # 第 1 章练习代码夹具
 
-以下代码块是 book/part1-golang/chapter01.md 三道动手练的任务起点，供 scripts/verify-book-pilots.rb 提取验证；正文只保留表格描述。
+以下代码块是 content/book/part1-golang/chapter01.md 三道动手练的任务起点，供 scripts/verify-book-pilots.rb 提取验证；正文只保留表格描述。
 
 <!-- verify:exercise-hello-1 -->
 ```go

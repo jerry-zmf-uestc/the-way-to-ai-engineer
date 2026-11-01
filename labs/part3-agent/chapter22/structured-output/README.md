@@ -14,7 +14,7 @@ failure semantics).
 
 ## Prerequisites
 
-- Book chapter: `book/part3-agent/building/chapter22-architecture.md`; the `Provider` shape mirrors
+- Book chapter: `content/book/part3-agent/building/chapter22-architecture.md`; the `Provider` shape mirrors
   `hello-llm` but is deliberately duplicated so labs stay self-contained.
 
 ## Concepts

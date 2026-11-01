@@ -98,12 +98,12 @@ core — is the key takeaway.
 
 ## Related Exercises
 
-- [Chapter 7 · Reflection Exercises](../../../../book/part1-golang/chapter07.md#reflection-exercises): return to the chapter page for the
+- [Chapter 7 · Reflection Exercises](../../../../content/book/part1-golang/chapter07.md#reflection-exercises): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-Return to [Chapter 7 · Reflection](../../../../book/part1-golang/chapter07.md#reflection) for the chapter index, then continue with
+Return to [Chapter 7 · Reflection](../../../../content/book/part1-golang/chapter07.md#reflection) for the chapter index, then continue with
 [generics-basics](../generics-basics) to compare reflection's
 runtime flexibility with generics' compile-time type safety.

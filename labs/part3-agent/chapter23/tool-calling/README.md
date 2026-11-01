@@ -185,7 +185,7 @@ a := args["a"].(float64)
 
 Call在执行前后检查context。TestCancellationBeforeAndAfterHandler检查开始前不执行与返回后丢弃迟到结果；取消不能撤销动作。Schema只支持string/number，不是完整JSON Schema。Registry限制单次参数/结果体积，Runtime限制总调用与费用，下游读取仍要控制响应大小。
 
-正文入口：[Tool：受控执行模型提议](../../../../book/part3-agent/building/chapter23-actions.md#topic-agent-tool)。
+正文入口：[Tool：受控执行模型提议](../../../../content/book/part3-agent/building/chapter23-actions.md#topic-agent-tool)。
 
 <a id="book-agent-tool-最佳实践"></a>
 

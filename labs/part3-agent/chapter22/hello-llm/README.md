@@ -13,7 +13,7 @@ later chapters.
 
 ## Prerequisites
 
-- Book chapter: `book/part3-agent/building/chapter22-architecture.md`.
+- Book chapter: `content/book/part3-agent/building/chapter22-architecture.md`.
 - Go toolchain per `labs/go.mod`; all labs share that single module.
 
 ## Concepts

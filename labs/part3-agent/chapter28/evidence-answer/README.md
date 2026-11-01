@@ -10,7 +10,7 @@
 
 ## 前置与入口
 
-阅读[RAG正文](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app)、Retrieval、Context和Model。运行准备见[全书约定](../../../../book/introduction.md#running-examples)。
+阅读[RAG正文](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-rag-app)、Retrieval、Context和Model。运行准备见[全书约定](../../../../content/book/introduction.md#running-examples)。
 
 - [main.go](main.go)：Evidence、结构化Claim、严格Parse、支持校验与单一成功出口。
 - [main_test.go](main_test.go)：伪来源、旧版本、改写摘录、错误释义、unknown、Judge失败、无证据、冲突与取消。
@@ -435,7 +435,7 @@ Validate在调用前已经核对ID、版本和Quote归属。这个Judge只比较
 
 必要组覆盖与Recall、排序指标回答不同问题：前者检查一项任务是否凑齐全部前提，后两者检查标注资料的命中与顺序。覆盖全部组仍不能证明资料真实或生成正确，也不应强迫自由任务必须采取唯一检索路径。
 
-[Eval的集合评分契约](../../chapter33/eval-harness/evidence_coverage.go)已实现给定标注下的覆盖检查。每组命中一个复核后的替代来源才取得该前提；都未命中记为缺组，核心代码和分母解释见[Eval的必要证据评分](../../../../book/part3-agent/governance/chapter35-evaluation.md#必要证据组怎样评分)。
+[Eval的集合评分契约](../../chapter33/eval-harness/evidence_coverage.go)已实现给定标注下的覆盖检查。每组命中一个复核后的替代来源才取得该前提；都未命中记为缺组，核心代码和分母解释见[Eval的必要证据评分](../../../../content/book/part3-agent/governance/chapter35-evaluation.md#必要证据组怎样评分)。
 
 集合评分不决定两个来源是否语义等价，也不从SourceID推断当前授权。入口先核对标注版本、Case/Run身份和允许来源，再分别检查候选与输入。缺失运行与未观测阶段保留在已标注任务分母，只有明确观测的空结果才列出全部缺组。通用任务标注、真实执行记录和替代证据的人工依据仍需补齐。
 

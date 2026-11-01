@@ -1,6 +1,6 @@
 # 本地真实Embedding：同任务检索对照
 
-用固定预训练编码器产生真实384维向量，对照同一英文语料中的简单词重合与精确dense排序。前置：[Retrieval](../../../../book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、Go JSON/子进程、Python虚拟环境。原有Go module不新增依赖；Python仅为固定本地编码器伴随程序。
+用固定预训练编码器产生真实384维向量，对照同一英文语料中的简单词重合与精确dense排序。前置：[Retrieval](../../../../content/book/part3-agent/building/chapter27-rag.md#topic-ch28-vector-retrieval)、Go JSON/子进程、Python虚拟环境。原有Go module不新增依赖；Python仅为固定本地编码器伴随程序。
 
 ## 来源与复现身份
 
@@ -12,7 +12,7 @@
 
 ## 默认验证与真实执行
 
-从仓库根目录，Go准备见[运行约定](../../../../book/introduction.md#running-examples)：
+从仓库根目录，Go准备见[运行约定](../../../../content/book/introduction.md#running-examples)：
 
 ```bash
 go -C labs run ./part3-agent/chapter28/neural-retrieval

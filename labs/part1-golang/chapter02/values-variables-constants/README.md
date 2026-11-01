@@ -30,5 +30,5 @@ Go example v1 is stable
 
 ## Reading
 
-返回 [Chapter 02](../../../../book/part1-golang/chapter02.md)。
+返回 [Chapter 02](../../../../content/book/part1-golang/chapter02.md)。
 

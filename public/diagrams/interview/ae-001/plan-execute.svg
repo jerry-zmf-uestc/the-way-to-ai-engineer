@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="808.0" height="458.0" viewBox="0 0 808 458"><rect width="100%" height="100%" fill="#ffffff"/><text x="24" y="34" fill="#203247" font-family="Hiragino Sans GB, Arial, sans-serif" font-size="22" font-weight="600">Plan-and-Execute：规划、执行与重规划</text><svg viewBox="28 40 760 376" data-reader-fit="width-first" data-layout-contract="readable-v2" role="img" lang="zh-CN" aria-labelledby="archify-diagram-title archify-diagram-description" data-animation="trace" data-preset="classic" data-quality-profile="showcase" data-node-ui="" data-theme="light" style="font-family:Hiragino Sans GB, Arial, sans-serif" x="24" y="58" width="760.0" height="376.0">
+        <title id="archify-diagram-title" style="font-family:Hiragino Sans GB, Arial, sans-serif">Plan-and-Execute：规划、执行与重规划</title>
+        <desc id="archify-diagram-description" style="font-family:Hiragino Sans GB, Arial, sans-serif">由 Archify 生成的工作流图。</desc>
+        <!-- Definitions -->
+        <defs style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-default" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#64748b"/>
+          </marker>
+          <marker id="arrowhead-emphasis" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-emphasis" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#059669"/>
+          </marker>
+          <marker id="arrowhead-security" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-security" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#e11d48"/>
+          </marker>
+          <marker id="arrowhead-dashed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+            <polygon points="0 0, 10 3.5, 0 7" class="m-dashed" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#7c3aed"/>
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+            <path d="M 40 0 L 0 0 0 40" class="c-grid" stroke-width="0.5" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#e9edf2;fill:none"/>
+          </pattern>
+        </defs>
+        <!-- Background Grid -->
+        <!-- Swimlanes -->
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-0" x="40" y="52" width="736" height="104" rx="10" class="c-lane" stroke-width="1" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(248, 250, 252, 0.65);stroke:#cbd5e1;stroke-dasharray:none"/>
+        <text x="54" y="74" class="t-muted" font-size="10" font-weight="600" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">01 / 高层规划与验收</text>
+
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-1" x="40" y="176" width="736" height="104" rx="10" class="c-lane" stroke-width="1" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(248, 250, 252, 0.65);stroke:#cbd5e1;stroke-dasharray:none"/>
+        <text x="54" y="198" class="t-muted" font-size="10" font-weight="600" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">02 / 步骤执行</text>
+
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="lane" data-composition-frame-id="lane-2" x="40" y="300" width="736" height="104" rx="10" class="c-lane" stroke-width="1" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(248, 250, 252, 0.65);stroke:#cbd5e1;stroke-dasharray:none"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="exception-lane" data-composition-frame-id="lane-2-exception" x="46" y="306" width="724" height="92" rx="8" class="c-security-group" stroke-width="1" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:transparent;stroke-dasharray:4 3"/>
+        <text x="54" y="322" class="t-security" font-size="10" font-weight="600" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#e11d48">EX / 受控退出</text>
+
+        <!-- Phase headers -->
+
+
+        <!-- Workflow groups -->
+
+
+        <!-- Edge paths -->
+        <path data-edge-from="check" data-edge-to="done" data-edge-label="通过" data-edge-key="0" data-edge-id="accepted" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="524,119;672,119" d="M 524 119 L 672 119" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="planner" data-edge-to="executor" data-edge-label="分配" data-edge-key="1" data-edge-id="assign" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="218,145;218,217" d="M 218 145 L 218 217" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="guard" data-edge-to="stop" data-edge-label="拒绝或超限" data-edge-key="2" data-edge-id="blocked" data-composition-routing="workflow-v2-auto" data-edge-role="error" data-composition-points="348,269;348,367;432,367" d="M 348 269 L 348 359 Q 348 367 356 367 L 432 367" class="a-security" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#e11d48;fill:none;stroke-dasharray:5,5" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="guard" data-edge-to="tool" data-edge-label="允许" data-edge-key="3" data-edge-id="execute" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="394,243;432,243" d="M 394 243 L 432 243" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="check" data-edge-to="stop" data-edge-label="无法补足" data-edge-key="4" data-edge-id="exhausted" data-composition-routing="workflow-v2-auto" data-edge-role="error" data-composition-points="502,145;502,204;540,204;540,367;524,367" d="M 502 145 L 502 196 Q 502 204 510 204 L 532 204 Q 540 204 540 212 L 540 359 Q 540 367 532 367 L 524 367" class="a-security" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#e11d48;fill:none;stroke-dasharray:5,5" stroke-width="1.4" marker-end="url(#arrowhead-security)"/>
+        <path data-edge-from="goal" data-edge-to="planner" data-edge-key="5" data-edge-id="intake" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="140,119;172,119" d="M 140 119 L 172 119" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="check" data-edge-to="executor" data-edge-label="继续" data-edge-key="6" data-edge-id="next-step" data-composition-routing="workflow-v2-auto" data-edge-role="return" data-composition-points="454,145;454,166;242,166;242,217" d="M 454 145 L 454 158 Q 454 166 446 166 L 250 166 Q 242 166 242 174 L 242 217" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="check" data-edge-to="planner" data-edge-label="重规划" data-edge-key="7" data-edge-id="replan" data-edge-role="return" data-composition-points="478,93;478,65;218,65;218,93" d="M 478 93 L 478 73 Q 478 65 470 65 L 226 65 Q 218 65 218 73 L 218 93" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="executor" data-edge-to="guard" data-edge-label="动作" data-edge-key="8" data-edge-id="request" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="264,243;302,243" d="M 264 243 L 302 243" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="tool" data-edge-to="check" data-edge-label="返回" data-edge-key="9" data-edge-id="return-result" data-composition-routing="workflow-v2-auto" data-edge-role="main" data-composition-points="478,217;478,145" d="M 478 217 L 478 145" class="a-default" data-animate="edge" style="font-family:Hiragino Sans GB, Arial, sans-serif;stroke:#64748b;fill:none" stroke-width="1.4" marker-end="url(#arrowhead)"/>
+
+        <!-- Nodes -->
+        <g id="node-goal" data-node-id="goal" data-node-label="报告目标" tabindex="0" role="button" aria-label="聚焦报告目标，产品 / 维度 / 来源, 高层规划与验收" aria-pressed="false" data-node-kind="external" data-node-sublabel="产品 / 维度 / 来源" data-node-context="高层规划与验收" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">报告目标 · 产品 / 维度 / 来源 · 高层规划与验收</title>
+          <rect x="48" y="93" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="48" y="93" width="92" height="52" rx="8" class="c-external" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(148, 163, 184, 0.18);stroke:#64748b;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="94" y="114" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">报告目标</text>
+          <text data-detail="context" x="94" y="131" class="t-muted" font-size="7.7" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">产品 / 维度 / 来源</text>
+        </g>
+
+        <g id="node-planner" data-node-id="planner" data-node-label="Planner 规划" tabindex="0" role="button" aria-label="聚焦Planner 规划，步骤与交付条件, 高层规划与验收" aria-pressed="false" data-node-kind="backend" data-node-sublabel="步骤与交付条件" data-node-context="高层规划与验收" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">Planner 规划 · 步骤与交付条件 · 高层规划与验收</title>
+          <rect x="172" y="93" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="172" y="93" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(52, 211, 153, 0.18);stroke:#059669;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="218" y="125.2" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">Planner 规划</text>
+          <text data-detail="context" x="218" y="140.1" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">步骤与交付条件</text>
+        </g>
+
+        <g id="node-check" data-node-id="check" data-node-label="检查执行结果" tabindex="0" role="button" aria-label="聚焦检查执行结果，目标、计划与预算, 高层规划与验收" aria-pressed="false" data-node-kind="backend" data-node-sublabel="目标、计划与预算" data-node-context="高层规划与验收" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">检查执行结果 · 目标、计划与预算 · 高层规划与验收</title>
+          <rect x="432" y="93" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="432" y="93" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(52, 211, 153, 0.18);stroke:#059669;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="478" y="125.2" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">检查执行结果</text>
+          <text data-detail="context" x="478" y="140.1" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">目标、计划与预算</text>
+        </g>
+
+        <g id="node-done" data-node-id="done" data-node-label="交付报告" tabindex="0" role="button" aria-label="聚焦交付报告，完成条件满足, 高层规划与验收" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="完成条件满足" data-node-context="高层规划与验收" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">交付报告 · 完成条件满足 · 高层规划与验收</title>
+          <rect x="672" y="93" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="672" y="93" width="92" height="52" rx="8" class="c-frontend" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(34, 211, 238, 0.15);stroke:#0891b2;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="718" y="114" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">交付报告</text>
+          <text data-detail="context" x="718" y="131" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">完成条件满足</text>
+        </g>
+
+        <g id="node-executor" data-node-id="executor" data-node-label="Executor 执行" tabindex="0" role="button" aria-label="聚焦Executor 执行，步骤内可用 ReAct, 步骤执行" aria-pressed="false" data-node-kind="backend" data-node-sublabel="步骤内可用 ReAct" data-node-context="步骤执行" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">Executor 执行 · 步骤内可用 ReAct · 步骤执行</title>
+          <rect x="172" y="217" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="172" y="217" width="92" height="52" rx="8" class="c-backend" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(52, 211, 153, 0.18);stroke:#059669;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="218" y="248.9" class="t-primary" font-size="10.7" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">Executor 执行</text>
+          <text data-detail="context" x="218" y="263.8" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">步骤内可用 ReAct</text>
+        </g>
+
+        <g id="node-guard" data-node-id="guard" data-node-label="执行前检查" tabindex="0" role="button" aria-label="聚焦执行前检查，参数 / 权限 / 预算, 步骤执行" aria-pressed="false" data-node-kind="security" data-node-sublabel="参数 / 权限 / 预算" data-node-context="步骤执行" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">执行前检查 · 参数 / 权限 / 预算 · 步骤执行</title>
+          <rect x="302" y="217" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="302" y="217" width="92" height="52" rx="8" class="c-security" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(251, 113, 133, 0.15);stroke:#e11d48;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="354" y="238" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">执行前检查</text>
+          <text data-detail="context" x="348" y="255" class="t-muted" font-size="7.7" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">参数 / 权限 / 预算</text>
+        </g>
+
+        <g id="node-tool" data-node-id="tool" data-node-label="工具与步骤结果" tabindex="0" role="button" aria-label="聚焦工具与步骤结果，事实 / 缺失 / 错误, 步骤执行" aria-pressed="false" data-node-kind="messagebus" data-node-sublabel="事实 / 缺失 / 错误" data-node-context="步骤执行" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">工具与步骤结果 · 事实 / 缺失 / 错误 · 步骤执行</title>
+          <rect x="432" y="217" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="432" y="217" width="92" height="52" rx="8" class="c-messagebus" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(251, 146, 60, 0.15);stroke:#ea580c;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="478" y="248" class="t-primary" font-size="10" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">工具与步骤结果</text>
+          <text data-detail="context" x="478" y="262.3" class="t-muted" font-size="7.7" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">事实 / 缺失 / 错误</text>
+        </g>
+
+        <g id="node-stop" data-node-id="stop" data-node-label="停止并说明" tabindex="0" role="button" aria-label="聚焦停止并说明，保留已验证结果, 受控退出" aria-pressed="false" data-node-kind="security" data-node-sublabel="保留已验证结果" data-node-context="受控退出" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <title style="font-family:Hiragino Sans GB, Arial, sans-serif">停止并说明 · 保留已验证结果 · 受控退出</title>
+          <rect x="432" y="341" width="92" height="52" rx="8" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:none;fill-opacity:1"/>
+          <rect x="432" y="341" width="92" height="52" rx="8" class="c-security" data-animate="node" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:rgba(251, 113, 133, 0.15);stroke:#e11d48;stroke-width:1.25px" stroke-width="1.5"/>
+          
+          <text data-node-label="" data-detail-anchor="" x="484" y="362" class="t-primary" font-size="11" font-weight="600" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#111827">停止并说明</text>
+          <text data-detail="context" x="478" y="379" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">保留已验证结果</text>
+        </g>
+
+        <!-- Edge labels -->
+        <g data-detail="context" data-edge-from="check" data-edge-to="done" data-edge-label="通过" data-edge-key="0" data-edge-id="accepted" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="583" y="99" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="598" y="109" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">通过</text>
+        </g>
+        <g data-detail="context" data-edge-from="planner" data-edge-to="executor" data-edge-label="分配" data-edge-key="1" data-edge-id="assign" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="203" y="171" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="218" y="181" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">分配</text>
+        </g>
+        <g data-detail="context" data-edge-from="guard" data-edge-to="stop" data-edge-label="拒绝或超限" data-edge-key="2" data-edge-id="blocked" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="361" y="347" width="58" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="390" y="357" class="t-edge-security" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#e11d48">拒绝或超限</text>
+        </g>
+        <g data-detail="context" data-edge-from="guard" data-edge-to="tool" data-edge-label="允许" data-edge-key="3" data-edge-id="execute" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="398" y="223" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="413" y="233" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">允许</text>
+        </g>
+        <g data-detail="context" data-edge-from="check" data-edge-to="stop" data-edge-label="无法补足" data-edge-key="4" data-edge-id="exhausted" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="496.8" y="184" width="48.4" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="521" y="194" class="t-edge-security" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#e11d48">无法补足</text>
+        </g>
+
+        <g data-detail="context" data-edge-from="check" data-edge-to="executor" data-edge-label="继续" data-edge-key="6" data-edge-id="next-step" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="333" y="146" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="348" y="156" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">继续</text>
+        </g>
+        <g data-detail="context" data-edge-from="check" data-edge-to="planner" data-edge-label="重规划" data-edge-key="7" data-edge-id="replan" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="328.6" y="45" width="38.8" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="348" y="55" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">重规划</text>
+        </g>
+        <g data-detail="context" data-edge-from="executor" data-edge-to="guard" data-edge-label="动作" data-edge-key="8" data-edge-id="request" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="268" y="223" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="283" y="233" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">动作</text>
+        </g>
+        <g data-detail="context" data-edge-from="tool" data-edge-to="check" data-edge-label="返回" data-edge-key="9" data-edge-id="return-result" style="font-family:Hiragino Sans GB, Arial, sans-serif">
+          <rect x="463" y="171" width="30" height="14" rx="3" class="c-mask" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#ffffff;stroke:#cbd5e1;stroke-width:.75px"/>
+          <text x="478" y="181" class="t-muted" font-size="8" text-anchor="middle" style="font-family:Hiragino Sans GB, Arial, sans-serif;fill:#5b6474">返回</text>
+        </g>
+
+        <!-- Legend -->
+
+      </svg></svg>

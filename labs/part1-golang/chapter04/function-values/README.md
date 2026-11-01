@@ -39,8 +39,8 @@ factorial(-1) = -1
 
 ## Exercise
 
-在临时副本中把 `factorial` 的递归终止条件 `n == 0` 删掉，运行 `TestFactorial` 观察栈溢出（runtime stack overflow），体会递归为什么必须有明确的终止条件。练习与验收见 [第 4 章](../../../../book/part1-golang/chapter04.md)。
+在临时副本中把 `factorial` 的递归终止条件 `n == 0` 删掉，运行 `TestFactorial` 观察栈溢出（runtime stack overflow），体会递归为什么必须有明确的终止条件。练习与验收见 [第 4 章](../../../../content/book/part1-golang/chapter04.md)。
 
 ## Reading
 
-返回 [Chapter 04](../../../../book/part1-golang/chapter04.md)。参考 [Go 语言圣经 · 第 5 章 函数](https://golang-china.github.io/gopl-zh/ch5/ch5.html)（函数值、匿名函数、可变参数与递归示例）。License: MIT。
+返回 [Chapter 04](../../../../content/book/part1-golang/chapter04.md)。参考 [Go 语言圣经 · 第 5 章 函数](https://golang-china.github.io/gopl-zh/ch5/ch5.html)（函数值、匿名函数、可变参数与递归示例）。License: MIT。

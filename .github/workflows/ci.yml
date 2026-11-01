@@ -49,6 +49,13 @@ jobs:
             command -v rg || brew install ripgrep
             xcode-select -p
           fi
+      - name: Verify content source layout
+        run: |
+          test -f content/book/chapters.json
+          test -f content/interview/questions.json
+          test ! -d book
+          test ! -d interview
+          test ! -d src/content
       - name: Prepare pinned dependencies
         run: |
           go -C labs mod download

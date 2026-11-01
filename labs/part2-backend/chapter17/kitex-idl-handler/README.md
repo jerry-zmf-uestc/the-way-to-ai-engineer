@@ -222,13 +222,13 @@ that omits the optional fields (falls back to `USD`), a v2 caller that sets
 
 ## Related Exercises
 
-- [Chapter 17 Exercises](../../../../book/part2-backend/chapter17.md#练习): return to the chapter page for the
+- [Chapter 17 Exercises](../../../../content/book/part2-backend/chapter17.md#练习): return to the chapter page for the
   executable practice tasks that extend this topic with step-by-step
   guidance and acceptance checks.
 
 ## Continue
 
-- Return to [chapter17/README.md](../../../../book/part2-backend/chapter17.md) for the chapter index and reading order.
+- Return to [chapter17/README.md](../../../../content/book/part2-backend/chapter17.md) for the chapter index and reading order.
 - Read [kitex-rpc](../kitex-rpc) first if you want the smaller “first service”
   version before the contract-evolution discussion.
 - Continue to [transactions](../../chapter13/transactions) for the next

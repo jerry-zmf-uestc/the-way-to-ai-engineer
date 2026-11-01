@@ -113,12 +113,12 @@ go install github.com/cloudwego/thriftgo@v0.4.5
 
 ## 相关练习
 
-- [第 16 章练习](../../../../book/part2-backend/chapter16.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
+- [第 16 章练习](../../../../content/book/part2-backend/chapter16.md#练习)：回到正文里的练习区，按伪代码和验收标准继续
   扩展这个 topic。
 
 ## Continue
 
-- 返回 [chapter16/README.md](../../../../book/part2-backend/chapter16.md) 看本章其余 Hertz / CloudWeGo 主题。
+- 返回 [chapter16/README.md](../../../../content/book/part2-backend/chapter16.md) 看本章其余 Hertz / CloudWeGo 主题。
 - 先读 [hertz-routing](../hertz-routing) 回到最小 HTTP 入口，再回来理解完整调用链。
 - 再读 [kitex-idl-handler](../../chapter17/kitex-idl-handler) 看下一章如何把“服务能跑”推进到“契约可演进”。
 
