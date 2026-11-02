@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 13
+topic_slug: transactions
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://go.dev/doc/database/execute-transactions
+- https://gorm.io/docs/transactions.html
+- https://pkg.go.dev/context

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="562" viewBox="0 0 900 562" role="img" aria-labelledby="title desc">
+<title id="title">Eino ReAct：图步骤与模型轮次</title><desc id="desc">一次只读工具调用：三个图步骤包含两次模型调用，END不另算模型轮次。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="562" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Eino ReAct：图步骤与模型轮次</text>
+<text x="30" y="72" font-size="16">一次只读工具调用：三个图步骤包含两次模型调用，END不另算模型轮次。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">图步骤 1：chat / 模型轮次 1</text>
+<text x="80" y="158" font-size="16">assistant提议lookup(c1)；有工具调用时分支进入tools</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">图步骤 2：tools / 应用执行</text>
+<text x="80" y="268" font-size="16">校验与授权 → 读取原文 → tool(c1)观察回填</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">图步骤 3：chat / 模型轮次 2</text>
+<text x="80" y="378" font-size="16">模型收到配对观察 → 非工具响应 → END → 应用检查交付</text>
+<text x="30" y="448" font-size="16">MaxStep=2会阻止第三个图步骤，不能撤销第二步的读取。</text>
+<text x="30" y="476" font-size="16">这里是固定响应夹具；框架真实执行不证明模型推理效果。</text>
+<text x="30" y="504" font-size="16">Handler返回错误时默认图中断，错误反馈与修复由应用选择。</text>
+</g></svg>

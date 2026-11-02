@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Session：快照、竞争与生命周期</title><desc id="desc">读取和提交都使用可信身份范围；模型与工具调用发生在锁外。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Session：快照、竞争与生命周期</text>
+<text x="30" y="72" font-size="16">读取和提交都使用可信身份范围；模型与工具调用发生在锁外。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">读取：两个请求获得版本 v</text>
+<text x="80" y="158" font-size="16">每个调用方持有独立消息与参数快照</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">计算：基于同一版本产生追加批次</text>
+<text x="80" y="268" font-size="16">结果可能过时；版本检查不能防止重复外部执行</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">原子提交：检查 expected == current</text>
+<text x="80" y="378" font-size="16">一个批次更新为新修订号；另一批次收到冲突</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="475" y="421" font-size="14">版本冲突</text>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">冲突处理：重新读取，再判断适用性</text>
+<text x="80" y="488" font-size="16">提交、重规划或终止；不能盲目重做工具</text>
+<text x="30" y="558" font-size="16">过期后同ID重建必须使用新代次或修订号，旧请求不能重新有效。</text>
+<text x="30" y="586" font-size="16">内存Store不提供跨进程持久化或Checkpoint。</text>
+</g></svg>

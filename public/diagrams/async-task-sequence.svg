@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" role="img" aria-labelledby="title desc"><title id="title">Async Tasks：请求、任务记录与worker各自的生命周期</title><desc id="desc">纵向表示时间；Start返回后后台继续，查询读取任务记录。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="680" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">Async Tasks：请求、任务记录与worker各自的生命周期</text>
+<text x="50" y="90" font-size="17">主请求 / 用户</text>
+<path d="M140 110V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<text x="450" y="90" font-size="17">Task Store / Manager</text>
+<path d="M540 110V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<text x="840" y="90" font-size="17">Worker</text>
+<path d="M930 110V590" stroke="#94a3b8" stroke-dasharray="5 5"/>
+<path d="M140 145H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="170" y="135" font-size="16">Start(scope,key,input)</text>
+<path d="M540 180H930" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="600" y="169" font-size="16">登记与排程v1，不等于回调已进入</text>
+<path d="M540 215H140" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="180" y="204" font-size="16">返回Task ID；主请求可结束</text>
+<path d="M140 280H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="180" y="269" font-size="16">Check / List → 当前状态</text>
+<path d="M140 340H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="165" y="329" font-size="16">Update(expected=1,input) → v2</text>
+<path d="M540 380H930" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="615" y="368" font-size="16">取消旧attempt；状态updating</text>
+<path d="M930 425H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="610" y="414" font-size="16">旧版本未调用或退出；旧结果不提交</text>
+<path d="M540 470H930" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="600" y="459" font-size="16">调用v2（同一名额，Attempt另计）</text>
+<path d="M930 515H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="625" y="504" font-size="16">提交当前版本结果与终态</text>
+<path d="M140 560H540" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="170" y="549" font-size="16">Check → completed + output</text>
+<text x="30" y="642" font-size="17">Wait超时只结束等待；任务Cancel、总时限与应用Close另行管理执行。</text>
+</g></svg>

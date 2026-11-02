@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">Cost：在途预留与实际结算分开</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">Cost：在途预留与实际结算分开</text>
+<rect x="30" y="120" width="270" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="150" font-size="17">reserved：锁定价格与上界</text>
+<text x="44" y="177" font-size="17">Held增加，Used不变</text>
+<rect x="415" y="120" width="270" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="429" y="150" font-size="17">sent：跨过发送边界</text>
+<text x="429" y="177" font-size="17">取消不证明零消耗</text>
+<rect x="800" y="120" width="270" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="814" y="150" font-size="17">settled：已知实际usage</text>
+<text x="814" y="177" font-size="17">Held释放，Used增加</text>
+<path d="M300 160H415" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="319" y="145" font-size="16">Begin通过</text>
+<path d="M685 160H800" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="721" y="145" font-size="16">Settle</text>
+<rect x="30" y="370" width="270" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="44" y="400" font-size="17">not_sent：发送前取消</text>
+<text x="44" y="427" font-size="17">释放Held，实际为零</text>
+<rect x="415" y="370" width="270" height="90" rx="9" fill="#fef3c7" stroke="#64748b"/>
+<text x="429" y="400" font-size="17">unknown：等待对账</text>
+<text x="429" y="427" font-size="17">保留Held，不写零费用</text>
+<rect x="800" y="370" width="270" height="90" rx="9" fill="#fee2e2" stroke="#64748b"/>
+<text x="814" y="400" font-size="17">overrun：记下实际费用</text>
+<text x="814" y="427" font-size="17">冻结新接纳，不截账单</text>
+<path d="M155 210V370" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="171" y="292" font-size="16">Begin时取消</text>
+<path d="M540 210V370" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="365" y="292" font-size="16">缺少可信usage → 对账</text>
+<path d="M685 405H740V250H875V210" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="755" y="322" font-size="16">后来得到usage</text>
+<path d="M635 210V285H950V370" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="810" y="272" font-size="16">结算超界</text>
+<path d="M685 425H800" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="710" y="413" font-size="16">对账超界</text>
+<text x="30" y="566" font-size="17">可接纳额度 = Limit − Used − Held；重复相同usage不再次收费，不同重报拒绝。</text>
+<text x="30" y="605" font-size="17">调用失败也可能有已知usage；本地账本控制后续接纳，Provider费用另行对账。</text>
+</g></svg>

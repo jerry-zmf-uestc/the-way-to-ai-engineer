@@ -1,0 +1,16 @@
+---
+course:
+  part: 3
+  chapter: 25
+topic_slug: runner
+kind: original
+status: validated
+entrypoints:
+- "."
+source: null
+validation:
+  offline: true
+  race: true
+  e2e_gate: null
+license: MIT
+references: []

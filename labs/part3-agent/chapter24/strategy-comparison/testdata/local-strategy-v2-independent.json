@@ -1,0 +1,379 @@
+{
+  "Version": "local-strategy-v1",
+  "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "PromptVersion": "strategy-decisions-v2",
+  "Rows": [
+    {
+      "CaseID": "q1",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "a0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"a0\"\n}\n```",
+          "InputTokens": 202,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1911
+        }
+      ]
+    },
+    {
+      "CaseID": "q2",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "b0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"b0\"\n}\n```",
+          "InputTokens": 216,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1594
+        }
+      ]
+    },
+    {
+      "CaseID": "q3",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "c0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"c0\"\n}\n```",
+          "InputTokens": 202,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1712
+        }
+      ]
+    },
+    {
+      "CaseID": "q4",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "d0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"d0\"\n}\n```",
+          "InputTokens": 212,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1708
+        }
+      ]
+    },
+    {
+      "CaseID": "q5",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "e0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"e0\"\n}\n```",
+          "InputTokens": 210,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1729
+        }
+      ]
+    },
+    {
+      "CaseID": "q6",
+      "Strategy": "react-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "f0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"action\": \"read\",\n  \"document\": \"f0\"\n}\n```",
+          "InputTokens": 204,
+          "OutputTokens": 22,
+          "AtOutputLimit": false,
+          "Millis": 1621
+        }
+      ]
+    },
+    {
+      "CaseID": "q1",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "a0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"documents\": [\"a1\"]\n}\n```",
+          "InputTokens": 179,
+          "OutputTokens": 15,
+          "AtOutputLimit": false,
+          "Millis": 1259
+        }
+      ]
+    },
+    {
+      "CaseID": "q2",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "b0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"documents\": [\"b0\", \"b1\", \"b2\"]\n}\n```",
+          "InputTokens": 193,
+          "OutputTokens": 23,
+          "AtOutputLimit": false,
+          "Millis": 1676
+        }
+      ]
+    },
+    {
+      "CaseID": "q3",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "c0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\n  \"documents\": [\"c0\", \"c1\"]\n}\n```",
+          "InputTokens": 179,
+          "OutputTokens": 19,
+          "AtOutputLimit": false,
+          "Millis": 1558
+        }
+      ]
+    },
+    {
+      "CaseID": "q4",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "d0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\"documents\": [\"d0\", \"d2\"]}\n```",
+          "InputTokens": 189,
+          "OutputTokens": 16,
+          "AtOutputLimit": false,
+          "Millis": 1582
+        }
+      ]
+    },
+    {
+      "CaseID": "q5",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "e0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\"documents\": [\"e0\", \"e2\"]}\n```",
+          "InputTokens": 187,
+          "OutputTokens": 16,
+          "AtOutputLimit": false,
+          "Millis": 1378
+        }
+      ]
+    },
+    {
+      "CaseID": "q6",
+      "Strategy": "plan-local",
+      "Error": "invalid_decision_json",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "f0",
+            "Code": ""
+          }
+        ],
+        "Reads": 1,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Raw": "```json\n{\"documents\": [\"f0\"]}\n```",
+          "InputTokens": 181,
+          "OutputTokens": 12,
+          "AtOutputLimit": false,
+          "Millis": 1046
+        }
+      ]
+    }
+  ]
+}

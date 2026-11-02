@@ -1,0 +1,16 @@
+---
+course:
+  part: 1
+  chapter: 11
+topic_slug: json-api
+kind: original
+status: validated
+entrypoints:
+- cmd
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references: []

@@ -1,0 +1,72 @@
+{
+  "revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+  "runtime": {
+    "device": "cpu",
+    "threads": 1,
+    "dtype": "torch.float32"
+  },
+  "rows": [
+    {
+      "scores": [
+        {
+          "id": "a-glossary",
+          "score": 5.910336494445801,
+          "tokens": 30
+        },
+        {
+          "id": "b-retry",
+          "score": -4.02210807800293,
+          "tokens": 22
+        },
+        {
+          "id": "c-policy",
+          "score": 6.231714248657227,
+          "tokens": 28
+        }
+      ],
+      "seconds": 0.01600179192610085
+    },
+    {
+      "scores": [
+        {
+          "id": "a-general",
+          "score": -10.586593627929688,
+          "tokens": 41
+        },
+        {
+          "id": "b-log",
+          "score": -10.141115188598633,
+          "tokens": 35
+        },
+        {
+          "id": "c-policy",
+          "score": 7.968633651733398,
+          "tokens": 52
+        }
+      ],
+      "seconds": 0.013835291028954089
+    },
+    {
+      "scores": [
+        {
+          "id": "a-vector",
+          "score": -2.5671112537384033,
+          "tokens": 31
+        },
+        {
+          "id": "b-speed",
+          "score": -6.946523666381836,
+          "tokens": 30
+        },
+        {
+          "id": "c-policy",
+          "score": -3.411904811859131,
+          "tokens": 44
+        }
+      ],
+      "seconds": 0.01407766598276794
+    }
+  ],
+  "case_version": "rerank-candidates-v1",
+  "case_sha256": "ffff90d0268f36826d383833d5159b71b482c62051f10e3110cb6a0d7f3d36c8"
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "generator": "Archify 3.2.0; frozen approved delivery; rerender requires explicit local tool environment",
+  "diagrams": [
+    {
+      "format": "archify-workflow-v2",
+      "source": "public/diagrams/interview/ae-001/sources/react.workflow.json",
+      "outputs": [
+        "public/diagrams/interview/ae-001/react.svg",
+        "public/diagrams/interview/ae-001/react.png"
+      ]
+    },
+    {
+      "format": "archify-workflow-v2",
+      "source": "public/diagrams/interview/ae-001/sources/plan-execute.workflow.json",
+      "outputs": [
+        "public/diagrams/interview/ae-001/plan-execute.svg",
+        "public/diagrams/interview/ae-001/plan-execute.png"
+      ]
+    }
+  ],
+  "sha256": {
+    "public/diagrams/interview/ae-001/sources/react.workflow.json": "86a4196903a9bac30b27e894e2453f7ba752aae9f18f6ba555d3fd7dae535aed",
+    "public/diagrams/interview/ae-001/react.svg": "dfd44b7fd8269c64e4245219917b46bc63962ac5d2d0ef4cae6c7af554cc0ffc",
+    "public/diagrams/interview/ae-001/react.png": "3d07f504dc22f02f359ea1fa5bc471c4eee10c9364ccac11c5f53facaeba5787",
+    "public/diagrams/interview/ae-001/sources/plan-execute.workflow.json": "20fe513d3cdce09a8e354e6260ff8dca64313e3837f9e2bc049e14cddf355ac7",
+    "public/diagrams/interview/ae-001/plan-execute.svg": "8a81263963835bfa8abaaf22759fc704e26b9894e514a6e3e28d4e6796d2d7e6",
+    "public/diagrams/interview/ae-001/plan-execute.png": "38789d1de1a7520f8de29344d68b7dafa22a85351a437c46e12142f1a765c055"
+  }
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Eval：执行事实与评分判断分开</title><desc id="desc">未知、失败与缺失保留在报告中，不能绕过验收。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Eval：执行事实与评分判断分开</text>
+<text x="30" y="72" font-size="16">未知、失败与缺失保留在报告中，不能绕过验收。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">任务与环境：版本化Case、资料和权限</text>
+<text x="80" y="158" font-size="16">development / regression / adversarial / production-like分别组织用途</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">Runner：身份、截止时间与执行记录</text>
+<text x="80" y="268" font-size="16">工具失败、取消和usage不由模型自报；全部Case保留</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">Scorer：规则 + 独立支持标签或Judge</text>
+<text x="80" y="378" font-size="16">passed / failed / review分开；评分器也需要反例和校准</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">报告与比较：分母、覆盖、配对退化与消耗</text>
+<text x="80" y="488" font-size="16">同任务与可比配置比较；新增复杂度需要收益证据</text>
+<text x="30" y="558" font-size="16">合成夹具验证评分管道，不是模型质量基准。</text>
+<text x="30" y="586" font-size="16">真实效果仍需真实任务、重复试验及真人校准，少量成功不能证明稳定提升。</text>
+</g></svg>

@@ -1,0 +1,87 @@
+{
+  "version": "compression-development-v1",
+  "split": "development",
+  "snapshot_version": "task-v2",
+  "history": [
+    {
+      "id": "user-request-1",
+      "role": "user",
+      "content": "Compare two options. My total budget is at most 5000 CNY. Offline support is mandatory."
+    },
+    {
+      "id": "background-0",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-1",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-2",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-3",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-4",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-5",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-6",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "background-7",
+      "role": "assistant",
+      "content": "Background only: the options have different colors and packaging. Appearance is unrelated to the mandatory constraints. No new user preference or product evidence was obtained."
+    },
+    {
+      "id": "user-update-2",
+      "role": "user",
+      "content": "Increase my total budget to 6000 CNY. The offline requirement remains unchanged."
+    },
+    {
+      "id": "research-gap-1",
+      "role": "tool_observation",
+      "content": "Option B offline capability has not been documented. Its support is unknown; do not infer support from missing documentation."
+    },
+    {
+      "id": "chat-0",
+      "role": "assistant",
+      "content": "We are still collecting product documentation. No new budget or offline requirement was confirmed."
+    },
+    {
+      "id": "chat-1",
+      "role": "assistant",
+      "content": "We are still collecting product documentation. No new budget or offline requirement was confirmed."
+    },
+    {
+      "id": "chat-2",
+      "role": "assistant",
+      "content": "We are still collecting product documentation. No new budget or offline requirement was confirmed."
+    },
+    {
+      "id": "chat-3",
+      "role": "assistant",
+      "content": "We are still collecting product documentation. No new budget or offline requirement was confirmed."
+    },
+    {
+      "id": "user-current-3",
+      "role": "user",
+      "content": "Continue comparing A and B using my current constraints and state what is still unknown."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+---
+course:
+  part: 3
+  chapter: 33
+topic_slug: trace-replay
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null
+references: []

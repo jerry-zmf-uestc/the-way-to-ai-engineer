@@ -1,0 +1,30 @@
+---
+import '../styles/handbook.css';
+import {loadInterview,INTERVIEW_BASE} from '../../../scripts/interview-site.mjs';
+interface Props {title:string; description?:string; currentId?:string;}
+const {title,description='Agent工程师面试手册：机制、工程取舍与失败边界。',currentId}=Astro.props;
+const data=loadInterview(process.cwd());
+const labels=['推理与规划','工具调用','上下文与记忆','检索增强生成','评估与可观测性','运行时与 Harness','多 Agent 协作','MCP 与外部工具','生产工程','系统设计'];
+const canonical=new URL(Astro.url.pathname,Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content={description}/><link rel="canonical" href={canonical}/>
+<title>{title} · Agent 工程师面试手册</title>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-header"><a class="brand" href={`${INTERVIEW_BASE}/`}>Agent 工程师面试手册</a><a href={`${INTERVIEW_BASE}/#catalogue`}>全部问题 <span>{data.questions.length}</span></a></header>
+<div class:list={['shell',{'reading':!!currentId}]}>
+{currentId&&<aside class="sidebar"><details open><summary>问题导航</summary><nav aria-label="面试手册目录">{data.modules.map((module,i)=><section><a class="module-link" href={`${INTERVIEW_BASE}/#${module.directory}`}>{labels[i]}</a><ul>{data.visible.filter(q=>q.module===module.id).map(q=><li><a aria-current={q.id===currentId?'page':undefined} href={`${INTERVIEW_BASE}/questions/${q.id.toLowerCase()}/`}>{q.title}</a></li>)}</ul></section>)}</nav></details></aside>}
+<main id="main"><slot/></main>
+</div>
+<footer class="site-footer"><p>理解机制，也追问它的适用条件。</p><a href="https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/tree/main/content/interview">阅读源码与参与修订</a></footer>
+</body>
+</html>
+<script>
+const sidebar=document.querySelector<HTMLDetailsElement>('.sidebar details');
+if(sidebar&&matchMedia('(max-width:900px)').matches)sidebar.open=false;
+</script>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">持久费用账本：确认保存以后，才进入下一步</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">持久费用账本：确认保存以后，才进入下一步</text>
+<rect x="40" y="75" width="280" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="54" y="105" font-size="17">应用 / adapter</text>
+<text x="54" y="132" font-size="17">调用方绑定Run与Call</text>
+<rect x="420" y="75" width="280" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="105" font-size="17">私有账本文件</text>
+<text x="434" y="132" font-size="17">单写者、同步与替换</text>
+<rect x="800" y="75" width="270" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="814" y="105" font-size="17">外部服务 / 受控替身</text>
+<text x="814" y="132" font-size="17">执行与usage另有窗口</text>
+<path d="M180 170V535" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+<path d="M560 170V535" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+<path d="M935 170V535" stroke="#cbd5e1" stroke-width="2" fill="none"/>
+<path d="M180 200H560" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="192" y="188" font-size="16">Reserve：保存reserved / Held50</text>
+<path d="M560 240H180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="300" y="228" font-size="16">提交确认</text>
+<path d="M180 280H560" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="192" y="268" font-size="16">Begin：保存sent意图</text>
+<path d="M560 320H180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="224" y="308" font-size="16">提交确认后才允许调用</text>
+<path d="M180 380H935" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="192" y="368" font-size="16">执行只读调用</text>
+<path d="M935 430H180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="588" y="418" font-size="16">返回可信usage（本实验为合成值）</text>
+<path d="M180 480H560" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="192" y="468" font-size="16">Settle：保存Actual并释放Held</text>
+<path d="M560 520H180" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="300" y="508" font-size="16">提交确认</text>
+<rect x="590" y="338" width="440" height="30" rx="5" fill="#fef3c7"/>
+<text x="604" y="359" font-size="16">退出①：sent已保存，调用尚未开始</text>
+<rect x="590" y="438" width="440" height="30" rx="5" fill="#fef3c7"/>
+<text x="604" y="459" font-size="16">退出②：调用已发生，结算尚未提交</text>
+<rect x="590" y="533" width="440" height="30" rx="5" fill="#dcfce7"/>
+<text x="604" y="554" font-size="16">退出③：已结算，继续之前退出</text>
+<text x="30" y="591" font-size="16">①②恢复unknown / Held50，不重发原Call；③保留settled / Used40 / Held0。</text>
+<text x="30" y="624" font-size="16">单Call合成示例：预留50、调用后消费40；费用文件恢复不代替执行Checkpoint。</text>
+</g></svg>
