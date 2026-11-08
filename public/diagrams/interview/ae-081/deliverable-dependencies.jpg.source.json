@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "任务拆解与依赖",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "b6761e7245585dc512ba8443be02ef17a8becc61eb8b9feab38bec8dea98730f",
+  "rebuildable": false
+}

@@ -1,0 +1,16 @@
+---
+course:
+  part: 3
+  chapter: 22
+topic_slug: hello-llm
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: E2E_LIVE
+license: MIT
+references: []

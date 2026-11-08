@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" role="img" aria-labelledby="title"><title id="title">真实编码：相同处理空间与独立任务标签</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="640" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">真实编码：权重和处理固定，效果在运行外评估</text>
+<rect x="30" y="125" width="250" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="155" font-size="17">公开合成资料 / 当前查询</text>
+<text x="44" y="182" font-size="17">权重与处理链固定</text>
+<rect x="425" y="125" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="439" y="155" font-size="17">分词器 + ONNX CPU</text>
+<text x="439" y="182" font-size="17">mask / 截断 / 隐藏向量</text>
+<rect x="820" y="125" width="250" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="834" y="155" font-size="17">mask mean + L2</text>
+<text x="834" y="182" font-size="17">384维 / Space身份</text>
+<path d="M280 170H425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="330" y="153" font-size="16">输入</text>
+<path d="M685 170H820" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="733" y="153" font-size="16">处理</text>
+<rect x="60" y="395" width="400" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="74" y="425" font-size="17">合法语料中的dense精确排序</text>
+<text x="74" y="452" font-size="17">与同任务词法基线比较</text>
+<rect x="645" y="395" width="400" height="90" rx="9" fill="#fef3c7" stroke="#64748b"/>
+<text x="659" y="425" font-size="17">Scorer：独立标签 + 实际排名</text>
+<text x="659" y="452" font-size="17">保留失败 / 无资料 / 未定义指标</text>
+<path d="M940 215V295H260V395" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="487" y="281" font-size="16">编码身份与向量</text>
+<path d="M460 440H645" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="474" y="423" font-size="16">命中ID与顺序</text>
+<text x="30" y="550" font-size="17">标签来自独立任务定义，不由编码器、检索得分或最终答案生成。</text>
+<text x="30" y="584" font-size="16">默认合成对照在排名时限范围；真实导出路径在编码前过滤，身份授权仍须另核对。</text>
+<text x="30" y="615" font-size="16">近邻存在不代表有依据，小语料不证明普遍优势或回答质量。</text>
+</g></svg>

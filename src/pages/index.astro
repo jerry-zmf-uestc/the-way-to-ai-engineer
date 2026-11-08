@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import ChapterGrid from '../components/ChapterGrid.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AGENT_NAVIGATION_PATHS } from '../../scripts/book-content.mjs';
+
+const pages = (await getCollection('chapters', ({ data }) => data.published))
+  .sort((left, right) => left.data.order - right.data.order);
+const groups = Map.groupBy(pages, (page) => page.data.part);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="The Way to AI Engineer"
+  description="用 Go、后端系统与 Agent Runtime 的可运行实验，建立 AI 全栈工程能力。"
+>
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Golang · Backend · Agent</span>
+        <h1>从能运行的代码，<br />走到能解释的系统。</h1>
+        <p>
+          一条面向 AI 工程实践的学习路径：先掌握 Go，再理解可靠后端，最后构建可测试、可观测、受约束的 Agent。
+        </p>
+        <div class="hero-actions">
+          <a class="primary-button" href={`${base}/chapters/introduction/`}>开始学习</a>
+          <a class="secondary-button" href="#agent-course">Agent 课程</a>
+          <a class="secondary-button" href="https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer">查看 GitHub</a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="课程方法">
+        <span>学习闭环</span>
+        <ol>
+          <li><strong>读懂机制</strong><small>明确行为与边界</small></li>
+          <li><strong>运行实验</strong><small>先验证确定性链路</small></li>
+          <li><strong>制造失败</strong><small>观察传播与恢复</small></li>
+          <li><strong>形成判断</strong><small>能解释为什么这样设计</small></li>
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="course-index">
+    <div class="section-intro">
+      <span class="eyebrow">课程内容</span>
+      <h2>正文与实验一起前进</h2>
+      <p>按知识缺口选择章节，再到配套实验验证判断。Agent 部分按构建篇、运行时、治理篇组织；阅读顺序与前置知识见正文。</p>
+    </div>
+    {[...groups].map(([part, entries]) => (
+      <section class="part-section" id={part === 'Part 3 · Golang Agent' ? 'agent-course' : part === 'Part 2 · 后端进阶' ? 'backend-roadmap' : undefined}>
+        <div class="part-heading">
+          <h2>{part}</h2>
+          <span>{entries.length} 篇</span>
+        </div>
+        {part === 'Part 3 · Golang Agent' ? (
+          <>
+            {AGENT_NAVIGATION_PATHS.map((path) => (
+              <section class="course-family" data-course-group={path[0]}>
+                <h3>{path[0]}</h3>
+                {path[0] === '治理篇' && (
+                  <p>
+                    可观测性、安全、能力资产管理、行为验证与质量评估、资源与成本共同构成治理。
+                    <a href={`${base}/chapters/agent-trace-replay/#governance-overview`}>阅读治理篇导读</a>，按当前问题选择专题。
+                  </p>
+                )}
+                <ChapterGrid headingLevel={4} pages={entries.filter((page) => page.data.navigationPath?.[0] === path[0])} />
+              </section>
+            ))}
+          </>
+        ) : <ChapterGrid pages={entries} />}
+      </section>
+    ))}
+  </section>
+</BaseLayout>

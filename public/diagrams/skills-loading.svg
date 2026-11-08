@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Skills：发现、激活与资源分开</title><desc id="desc">能力包提供知识，不自动新增Handler、文件根或工具批准。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Skills：发现、激活与资源分开</text>
+<text x="30" y="72" font-size="16">能力包提供知识，不自动新增Handler、文件根或工具批准。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">目录元信息：名称、描述、版本</text>
+<text x="80" y="158" font-size="16">有界解析与格式检查；发现不等于激活</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">任务选择：规则或模型 → 本地批准</text>
+<text x="80" y="268" font-size="16">教学词重合只验证路由边界，不证明真实语义效果</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">激活正文：快照、摘要与加载预算</text>
+<text x="80" y="378" font-size="16">失败不提交半份指令；重复激活不重复扣预算</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">按需资源：登记路径与内容摘要</text>
+<text x="80" y="488" font-size="16">已激活包的references内读取；不递归执行脚本</text>
+<text x="30" y="558" font-size="16">工具权限由应用清单强制执行，正文和allowed-tools不能扩大能力。</text>
+<text x="30" y="586" font-size="16">版本、资源、输入预算与任务效果分别检查。</text>
+</g></svg>

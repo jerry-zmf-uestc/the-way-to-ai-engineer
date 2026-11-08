@@ -1,0 +1,101 @@
+name: CI
+
+'on':
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-14]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, resolved 2026-09-06
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5, resolved 2026-09-06
+        with:
+          go-version-file: labs/go.mod
+          cache: true
+          cache-dependency-path: labs/go.sum
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # resolved 2026-09-06
+        with:
+          ruby-version: '3.3'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4, resolved 2026-09-20
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Install document prerequisites
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            sudo apt-get update
+            sudo apt-get install -y ripgrep build-essential
+          else
+            command -v rg || brew install ripgrep
+            xcode-select -p
+          fi
+      - name: Verify content source layout
+        run: |
+          test -f content/book/chapters.json
+          test -f content/interview/questions.json
+          test ! -d book
+          test ! -d interview
+          test ! -d src/content
+      - name: Prepare pinned dependencies
+        run: |
+          go -C labs mod download
+          npm ci
+      - name: Validate exact checkout in isolated snapshot
+        run: ruby scripts/validate-release.rb --mode revision --ref HEAD --checks validate
+
+  security:
+    name: Security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version-file: labs/go.mod
+          cache: true
+          cache-dependency-path: labs/go.sum
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b
+        with:
+          ruby-version: '3.3'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4, resolved 2026-09-20
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Prepare dependencies and fixed security tools
+        run: |
+          go -C labs mod download
+          npm ci
+          make tools-install
+      - name: Scan directory and Go vulnerabilities
+        run: |
+          export PATH="$PWD/.tools/bin:$PATH"
+          make security
+      - name: Scan available Git history
+        if: ${{ !cancelled() }}
+        run: |
+          export PATH="$PWD/.tools/bin:$PATH"
+          make security-history

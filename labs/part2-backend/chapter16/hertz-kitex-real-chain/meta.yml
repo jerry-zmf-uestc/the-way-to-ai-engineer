@@ -1,0 +1,20 @@
+---
+course:
+  part: 2
+  chapter: 16
+topic_slug: hertz-kitex-real-chain
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://www.cloudwego.io/docs/hertz/getting-started/
+- https://www.cloudwego.io/docs/kitex/getting-started/
+- https://www.cloudwego.io/docs/kitex/tutorials/service-governance/timeout/
+- https://www.cloudwego.io/docs/kitex/tutorials/service-governance/retry/

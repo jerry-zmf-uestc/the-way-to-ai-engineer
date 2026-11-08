@@ -1,0 +1,27 @@
+{
+  "name": "the-way-to-ai-engineer",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "content:prepare": "node scripts/prep-book.mjs",
+    "content:check": "node scripts/validate-site-content.mjs && node --test scripts/book-content.test.mjs tests/console-ui-test.mjs tests/reading-tools.test.mjs tests/book-watch.test.mjs",
+    "dev": "node scripts/dev-book.mjs",
+    "prebuild": "npm run content:prepare",
+    "build": "astro build",
+    "preview": "node scripts/preview-book.mjs",
+    "check": "npm run content:check && npm run build && node --test tests/course-navigation.test.mjs",
+    "audit": "npm audit --audit-level=high --registry=https://registry.npmjs.org",
+    "dev:interview": "node scripts/interview-site-server.mjs dev",
+    "build:interview": "node scripts/interview-site.mjs && astro build --config astro.interview.config.mjs",
+    "preview:interview": "node scripts/interview-site-server.mjs preview",
+    "check:interview": "node --test tests/interview-site-source.test.mjs && npm run build:interview && node --test tests/interview-site-build.test.mjs",
+    "check:sites": "npm run check && npm run check:interview && node scripts/assemble-pages.mjs && node --test tests/pages-bundle.test.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.3"
+  }
+}

@@ -1,0 +1,16 @@
+---
+course:
+  part: 2
+  chapter: 16
+topic_slug: hertz-kitex-demo
+kind: original
+status: validated
+entrypoints:
+- cmd
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references: []

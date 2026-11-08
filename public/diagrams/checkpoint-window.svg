@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Checkpoint：外部动作与本地提交窗口</title><desc id="desc">in_flight只说明准备调用；中断后可能不知道外部动作是否已经完成。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Checkpoint：外部动作与本地提交窗口</text>
+<text x="30" y="72" font-size="16">in_flight只说明准备调用；中断后可能不知道外部动作是否已经完成。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">先校验请求并领取；再校验存储状态与指纹</text>
+<text x="80" y="158" font-size="16">已有锁不自动偷取；预算来自持久状态</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">持久记录：Attempts + in_flight</text>
+<text x="80" y="268" font-size="16">此处退出可能尚未发出工具请求</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">外部动作返回：结果还在内存</text>
+<text x="80" y="378" font-size="16">此处退出留下结果未知窗口；只读重做也会重复调用</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">原子提交：结果 + 新游标</text>
+<text x="80" y="488" font-size="16">提交后退出从下一项继续；同步错误需按未知结果处理</text>
+<text x="30" y="558" font-size="16">本实验验证进程硬退出，不承诺断电或分布式exactly-once。</text>
+<text x="30" y="586" font-size="16">Session保存历史，Checkpoint保存恢复位置，Trace帮助调查，职责分开。</text>
+</g></svg>

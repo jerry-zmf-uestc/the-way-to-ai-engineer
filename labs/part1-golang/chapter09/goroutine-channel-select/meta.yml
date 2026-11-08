@@ -1,0 +1,19 @@
+---
+course:
+  part: 1
+  chapter: 9
+topic_slug: goroutine-channel-select
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/goroutines
+- https://gobyexample.com/channels
+- https://gobyexample.com/select

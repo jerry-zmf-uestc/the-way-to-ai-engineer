@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">虚构数据：单任务便宜，不一定每成功任务便宜</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">虚构数据：单任务便宜，不一定每成功任务便宜</text>
+<rect x="60" y="120" width="440" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="74" y="150" font-size="17">cheap：2个任务，各60单位</text>
+<text x="74" y="177" font-size="17">1成功 + 1失败，总费用120</text>
+<rect x="600" y="120" width="440" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="614" y="150" font-size="17">strong：2个任务，各90单位</text>
+<text x="614" y="177" font-size="17">2成功，总费用180</text>
+<rect x="60" y="320" width="440" height="90" rx="9" fill="#fef3c7" stroke="#64748b"/>
+<text x="74" y="350" font-size="17">每成功任务 = 120 / 1 = 120</text>
+<text x="74" y="377" font-size="17">失败费用不能从分子删除</text>
+<rect x="600" y="320" width="440" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="614" y="350" font-size="17">每成功任务 = 180 / 2 = 90</text>
+<text x="614" y="377" font-size="17">高单次费用仍可能更低总成本</text>
+<path d="M280 210V320" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="292" y="275" font-size="16">全部尝试 / 成功数</text>
+<path d="M820 210V320" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="832" y="275" font-size="16">全部尝试 / 成功数</text>
+<text x="30" y="495" font-size="17">比较必须使用相同任务集、单位与独立成功标签，并满足质量和延迟条件。</text>
+<text x="30" y="535" font-size="17">费用未知 → 报告覆盖率；成功为零 → 指标未定义，不显示零成本。</text>
+<text x="30" y="585" font-size="17">这里只演示计算关系，不是现实模型、路由、缓存或价格的效果结论。</text>
+</g></svg>

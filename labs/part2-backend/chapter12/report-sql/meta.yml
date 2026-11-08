@@ -1,0 +1,13 @@
+---
+course:
+  part: 2
+  chapter: 12
+topic_slug: report-sql
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null

@@ -1,0 +1,19 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href={`${base}/`} aria-label="返回课程首页">
+      <span class="brand-mark" aria-hidden="true">{'{ }'}</span>
+      <span>The Way to AI Engineer</span>
+    </a>
+    <nav class="header-nav" aria-label="全站导航">
+      <a href={`${base}/chapters/introduction/`}>开始学习</a>
+      <a href="https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer">GitHub</a>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>

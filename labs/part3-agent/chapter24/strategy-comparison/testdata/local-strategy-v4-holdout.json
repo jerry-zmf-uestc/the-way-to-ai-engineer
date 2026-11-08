@@ -1,0 +1,1612 @@
+{
+  "Version": "local-strategy-v1",
+  "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "PromptVersion": "strategy-decisions-v4",
+  "Rows": [
+    {
+      "CaseID": "new-q1",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "latency": {
+            "Value": "31",
+            "Source": "p1",
+            "Version": "s9"
+          },
+          "quota": {
+            "Value": "12",
+            "Source": "p0",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 2,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"p1\"}",
+          "InputTokens": 237,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1110,
+          "ForwardTokens": 493,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"p1\"}",
+              "MeanLogProb": -1.754538893699646,
+              "InputTokens": 247,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.292978525161743,
+              "InputTokens": 246,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 296,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1002,
+          "ForwardTokens": 609,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.6531105041503906,
+              "InputTokens": 304,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.137728452682495,
+              "InputTokens": 305,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q2",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "ttl": {
+            "Value": "270",
+            "Source": "t3",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t1",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t2",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t3",
+            "Code": ""
+          }
+        ],
+        "Reads": 4,
+        "Decisions": 4,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"t1\"}",
+          "InputTokens": 202,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 685,
+          "ForwardTokens": 423,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"t1\"}",
+              "MeanLogProb": -1.3902661800384521,
+              "InputTokens": 212,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.416489362716675,
+              "InputTokens": 211,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"t2\"}",
+          "InputTokens": 239,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 777,
+          "ForwardTokens": 497,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"t2\"}",
+              "MeanLogProb": -1.5645583868026733,
+              "InputTokens": 249,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.2453665733337402,
+              "InputTokens": 248,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"t3\"}",
+          "InputTokens": 276,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 864,
+          "ForwardTokens": 571,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"t3\"}",
+              "MeanLogProb": -1.5559722185134888,
+              "InputTokens": 286,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.0149335861206055,
+              "InputTokens": 285,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 335,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1101,
+          "ForwardTokens": 687,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.5959134101867676,
+              "InputTokens": 343,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.007157564163208,
+              "InputTokens": 344,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q3",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "left": {
+            "Value": "5",
+            "Source": "x0",
+            "Version": "s9"
+          },
+          "right": {
+            "Value": "7",
+            "Source": "x1",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 2,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": [
+          "left"
+        ]
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"x1\"}",
+          "InputTokens": 233,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 778,
+          "ForwardTokens": 485,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"x1\"}",
+              "MeanLogProb": -2.009312152862549,
+              "InputTokens": 243,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.394840955734253,
+              "InputTokens": 242,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 294,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 946,
+          "ForwardTokens": 605,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.7602412700653076,
+              "InputTokens": 302,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.1675784587860107,
+              "InputTokens": 303,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q4",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "14",
+            "Source": "v2",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v2",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"v1\"}",
+          "InputTokens": 210,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 997,
+          "ForwardTokens": 659,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"v1\"}",
+              "MeanLogProb": -1.5879483222961426,
+              "InputTokens": 220,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"v2\"}",
+              "MeanLogProb": -1.8393573760986328,
+              "InputTokens": 220,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.366708755493164,
+              "InputTokens": 219,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"v2\"}",
+          "InputTokens": 242,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 767,
+          "ForwardTokens": 503,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"v2\"}",
+              "MeanLogProb": -1.69291090965271,
+              "InputTokens": 252,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.236987829208374,
+              "InputTokens": 251,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 299,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 946,
+          "ForwardTokens": 615,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.7195143699645996,
+              "InputTokens": 307,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.125737190246582,
+              "InputTokens": 308,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q5",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "window": {
+            "Value": "67",
+            "Source": "m2",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m-absent",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m1",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m2",
+            "Code": ""
+          }
+        ],
+        "Reads": 4,
+        "Decisions": 4,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"m-absent\"}",
+          "InputTokens": 212,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1008,
+          "ForwardTokens": 666,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"m-absent\"}",
+              "MeanLogProb": -1.4845067262649536,
+              "InputTokens": 223,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"m1\"}",
+              "MeanLogProb": -1.5597175359725952,
+              "InputTokens": 222,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.3382725715637207,
+              "InputTokens": 221,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"m1\"}",
+          "InputTokens": 217,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 718,
+          "ForwardTokens": 453,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"m1\"}",
+              "MeanLogProb": -1.546448826789856,
+              "InputTokens": 227,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.292386054992676,
+              "InputTokens": 226,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"m2\"}",
+          "InputTokens": 254,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 824,
+          "ForwardTokens": 527,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"m2\"}",
+              "MeanLogProb": -1.5603196620941162,
+              "InputTokens": 264,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.094165563583374,
+              "InputTokens": 263,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 311,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 963,
+          "ForwardTokens": 639,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.574253797531128,
+              "InputTokens": 319,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.1090002059936523,
+              "InputTokens": 320,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q6",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-1",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-2",
+            "Code": "missing"
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"n-absent-1\"}",
+          "InputTokens": 222,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1117,
+          "ForwardTokens": 701,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"n-absent-1\"}",
+              "MeanLogProb": -1.2708007097244263,
+              "InputTokens": 235,
+              "ChoiceTokens": 13
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"n-absent-2\"}",
+              "MeanLogProb": -1.4828909635543823,
+              "InputTokens": 235,
+              "ChoiceTokens": 13
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.306037664413452,
+              "InputTokens": 231,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"n-absent-2\"}",
+          "InputTokens": 229,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 743,
+          "ForwardTokens": 480,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"n-absent-2\"}",
+              "MeanLogProb": -1.3217155933380127,
+              "InputTokens": 242,
+              "ChoiceTokens": 13
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.188056468963623,
+              "InputTokens": 238,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 236,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 372,
+          "ForwardTokens": 245,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.1063411235809326,
+              "InputTokens": 245,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q1",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "latency": {
+            "Value": "31",
+            "Source": "p1",
+            "Version": "s9"
+          },
+          "quota": {
+            "Value": "12",
+            "Source": "p0",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"p1\"]}",
+          "InputTokens": 214,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 667,
+          "ForwardTokens": 438,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"p1\"]}",
+              "MeanLogProb": -4.079492092132568,
+              "InputTokens": 220,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.944189071655273,
+              "InputTokens": 218,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q2",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"t1\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 577,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"t1\"]}",
+              "MeanLogProb": -1.9781373739242554,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.132663726806641,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q3",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "left": {
+            "Value": "5",
+            "Source": "x0",
+            "Version": "s9"
+          },
+          "right": {
+            "Value": "7",
+            "Source": "x1",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": [
+          "left"
+        ]
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"x1\"]}",
+          "InputTokens": 210,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 659,
+          "ForwardTokens": 430,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"x1\"]}",
+              "MeanLogProb": -4.067325115203857,
+              "InputTokens": 216,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -5.07827091217041,
+              "InputTokens": 214,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q4",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "14",
+            "Source": "v2",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v2",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"v1\",\"v2\"]}",
+          "InputTokens": 187,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1236,
+          "ForwardTokens": 773,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"v1\",\"v2\"]}",
+              "MeanLogProb": -1.8683147430419922,
+              "InputTokens": 196,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"v1\"]}",
+              "MeanLogProb": -4.434652328491211,
+              "InputTokens": 193,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[\"v2\"]}",
+              "MeanLogProb": -3.7945988178253174,
+              "InputTokens": 193,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.984844207763672,
+              "InputTokens": 191,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q5",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m-absent",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m1",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"m-absent\",\"m1\"]}",
+          "InputTokens": 189,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1267,
+          "ForwardTokens": 783,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"m-absent\",\"m1\"]}",
+              "MeanLogProb": -2.0502169132232666,
+              "InputTokens": 199,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"documents\":[\"m-absent\"]}",
+              "MeanLogProb": -3.546468734741211,
+              "InputTokens": 196,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[\"m1\"]}",
+              "MeanLogProb": -3.12878155708313,
+              "InputTokens": 195,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.2284369468688965,
+              "InputTokens": 193,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q6",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-1",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-2",
+            "Code": "missing"
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"n-absent-1\",\"n-absent-2\"]}",
+          "InputTokens": 199,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1297,
+          "ForwardTokens": 833,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"n-absent-1\",\"n-absent-2\"]}",
+              "MeanLogProb": -1.0632845163345337,
+              "InputTokens": 214,
+              "ChoiceTokens": 15
+            },
+            {
+              "Raw": "{\"documents\":[\"n-absent-1\"]}",
+              "MeanLogProb": -3.1401891708374023,
+              "InputTokens": 208,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"n-absent-2\"]}",
+              "MeanLogProb": -2.5458755493164062,
+              "InputTokens": 208,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.47370719909668,
+              "InputTokens": 203,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q1",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "latency": {
+            "Value": "31",
+            "Source": "p1",
+            "Version": "s9"
+          },
+          "quota": {
+            "Value": "12",
+            "Source": "p0",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "p1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"p1\"]}",
+          "InputTokens": 214,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 661,
+          "ForwardTokens": 438,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"p1\"]}",
+              "MeanLogProb": -4.079492092132568,
+              "InputTokens": 220,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.944189071655273,
+              "InputTokens": 218,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q2",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t1",
+            "Code": ""
+          },
+          {
+            "Kind": "critique",
+            "Goal": "ttl",
+            "Document": "",
+            "Code": "missing_evidence"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "t2",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 2,
+        "Repairs": 1,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"t1\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 576,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"t1\"]}",
+              "MeanLogProb": -1.9781373739242554,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.132663726806641,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"t2\"]}",
+          "InputTokens": 232,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 731,
+          "ForwardTokens": 474,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"t2\"]}",
+              "MeanLogProb": -3.5196845531463623,
+              "InputTokens": 238,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.0182695388793945,
+              "InputTokens": 236,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q3",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "left": {
+            "Value": "5",
+            "Source": "x0",
+            "Version": "s9"
+          },
+          "right": {
+            "Value": "7",
+            "Source": "x1",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "x1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": [
+          "left"
+        ]
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"x1\"]}",
+          "InputTokens": 210,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 656,
+          "ForwardTokens": 430,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"x1\"]}",
+              "MeanLogProb": -4.067325115203857,
+              "InputTokens": 216,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -5.07827091217041,
+              "InputTokens": 214,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q4",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "14",
+            "Source": "v2",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "v1",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "v2",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"v1\",\"v2\"]}",
+          "InputTokens": 187,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1240,
+          "ForwardTokens": 773,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"v1\",\"v2\"]}",
+              "MeanLogProb": -1.8683147430419922,
+              "InputTokens": 196,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"v1\"]}",
+              "MeanLogProb": -4.434652328491211,
+              "InputTokens": 193,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[\"v2\"]}",
+              "MeanLogProb": -3.7945988178253174,
+              "InputTokens": 193,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.984844207763672,
+              "InputTokens": 191,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q5",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "window": {
+            "Value": "67",
+            "Source": "m2",
+            "Version": "s9"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m-absent",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m1",
+            "Code": ""
+          },
+          {
+            "Kind": "critique",
+            "Goal": "window",
+            "Document": "",
+            "Code": "missing_evidence"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "m2",
+            "Code": ""
+          }
+        ],
+        "Reads": 4,
+        "Decisions": 2,
+        "Repairs": 1,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"m-absent\",\"m1\"]}",
+          "InputTokens": 189,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1268,
+          "ForwardTokens": 783,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"m-absent\",\"m1\"]}",
+              "MeanLogProb": -2.0502169132232666,
+              "InputTokens": 199,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"documents\":[\"m-absent\"]}",
+              "MeanLogProb": -3.546468734741211,
+              "InputTokens": 196,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[\"m1\"]}",
+              "MeanLogProb": -3.12878155708313,
+              "InputTokens": 195,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.2284369468688965,
+              "InputTokens": 193,
+              "ChoiceTokens": 4
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"m2\"]}",
+          "InputTokens": 247,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 757,
+          "ForwardTokens": 504,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"m2\"]}",
+              "MeanLogProb": -3.3422813415527344,
+              "InputTokens": 253,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.5987958908081055,
+              "InputTokens": 251,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "new-q6",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-1",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "n-absent-2",
+            "Code": "missing"
+          },
+          {
+            "Kind": "critique",
+            "Goal": "cap",
+            "Document": "",
+            "Code": "missing_evidence"
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 2,
+        "Repairs": 1,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"n-absent-1\",\"n-absent-2\"]}",
+          "InputTokens": 199,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1309,
+          "ForwardTokens": 833,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"n-absent-1\",\"n-absent-2\"]}",
+              "MeanLogProb": -1.0632845163345337,
+              "InputTokens": 214,
+              "ChoiceTokens": 15
+            },
+            {
+              "Raw": "{\"documents\":[\"n-absent-1\"]}",
+              "MeanLogProb": -3.1401891708374023,
+              "InputTokens": 208,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"n-absent-2\"]}",
+              "MeanLogProb": -2.5458755493164062,
+              "InputTokens": 208,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.47370719909668,
+              "InputTokens": 203,
+              "ChoiceTokens": 4
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[]}",
+          "InputTokens": 229,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 362,
+          "ForwardTokens": 233,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.951767921447754,
+              "InputTokens": 233,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

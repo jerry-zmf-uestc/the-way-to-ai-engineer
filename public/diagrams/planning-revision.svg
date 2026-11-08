@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 670" role="img" aria-labelledby="title desc"><title id="title">Planning：修订未完成工作</title><desc id="desc">计划v1失败后形成候选v2；完成项的定义和证据不能静默改写。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs><rect width="1000" height="670" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Planning：修订未完成工作</text>
+<text x="30" y="74" font-size="16">计划v1失败后形成候选v2；完成项的定义和证据不能静默改写。</text>
+<rect x="40" y="106" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="58" y="136" font-size="20">计划v1：查retry → 查timeout</text>
+<text x="58" y="166" font-size="16">演示顺序，非参数数据依赖</text>
+<path d="M250 189 V219" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="225" width="420" height="83" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="58" y="255" font-size="20">retry：completed</text>
+<text x="58" y="285" font-size="16">保留事实2与guide@v1来源</text>
+<path d="M250 308 V338" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="344" width="420" height="83" rx="10" fill="#fee2e2" stroke="#64748b"/>
+<text x="58" y="374" font-size="20">timeout：failed</text>
+<text x="58" y="404" font-size="16">查询E42没有取得事实</text>
+<path d="M250 427 V457" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="463" width="420" height="83" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="58" y="493" font-size="20">反馈：缺少timeout证据</text>
+<text x="58" y="523" font-size="16">提出新计划，不清空已有结果</text>
+<text x="40" y="602" font-size="16">未修订流程：失败后停止。</text>
+<rect x="540" y="106" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="558" y="136" font-size="20">候选v2：校验版本与依赖</text>
+<text x="558" y="166" font-size="16">非法图或改写完成项就拒绝</text>
+<path d="M750 189 V219" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="225" width="420" height="83" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="558" y="255" font-size="20">retry：沿用completed</text>
+<text x="558" y="285" font-size="16">定义不变，结果保持</text>
+<path d="M750 308 V338" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="344" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="558" y="374" font-size="20">timeout：pending → 执行</text>
+<text x="558" y="404" font-size="16">查询改为timeout，再核对来源</text>
+<path d="M750 427 V457" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="463" width="420" height="83" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="558" y="493" font-size="20">节点完成 → 任务评分</text>
+<text x="558" y="523" font-size="16">全completed不替代目标正确性</text>
+<text x="540" y="602" font-size="16">总尝试与修订次数分别有上限。</text>
+<text x="30" y="642" font-size="16">任务与执行记录独立评分；教学策略与固定事实不证明真实LLM效果。</text>
+</g></svg>

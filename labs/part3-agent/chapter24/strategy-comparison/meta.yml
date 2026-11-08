@@ -1,0 +1,14 @@
+---
+course:
+  part: 3
+  chapter: 24
+topic_slug: strategy-comparison
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: LOCAL_STRATEGY_E2E=1
+references: []

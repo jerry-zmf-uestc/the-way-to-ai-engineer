@@ -1,0 +1,15 @@
+---
+course:
+  part: 2
+  chapter: 14
+topic_slug: report-cache
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: REPORT_REDIS_E2E
+references:
+- https://redis.io/docs/latest/commands/get/

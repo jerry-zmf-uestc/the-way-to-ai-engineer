@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "Function Calling 循环",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "a2089ab4061192f9fac1adab6f005a2c13b677de38cec157a1c5baa7961ec138",
+  "rebuildable": false
+}

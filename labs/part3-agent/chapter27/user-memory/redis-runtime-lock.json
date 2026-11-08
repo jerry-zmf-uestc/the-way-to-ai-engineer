@@ -1,0 +1,15 @@
+{
+  "version": "7.2.11",
+  "source_url": "https://download.redis.io/releases/redis-7.2.11.tar.gz",
+  "sha256": "2f9886eca68d30114ad6a01da65631f8007d802fd3e6c9fac711251e6390323d",
+  "hash_source": "https://github.com/redis/redis-hashes/blob/master/README",
+  "license": "BSD-3-Clause",
+  "build": [
+    "make",
+    "-j2",
+    "MALLOC=libc",
+    "BUILD_TLS=no",
+    "redis-server",
+    "redis-cli"
+  ]
+}

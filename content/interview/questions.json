@@ -1,0 +1,4193 @@
+{
+  "schema_version": 3,
+  "plan_source": "docs/designs/interview-handbook.md",
+  "modules": [
+    {
+      "id": "reasoning",
+      "name": "Reasoning & Planning",
+      "count": 5,
+      "directory": "reasoning-planning"
+    },
+    {
+      "id": "tool-calling",
+      "name": "Tool Calling",
+      "count": 4,
+      "directory": "tool-calling"
+    },
+    {
+      "id": "memory",
+      "name": "Context & Memory",
+      "count": 4,
+      "directory": "context-memory"
+    },
+    {
+      "id": "rag",
+      "name": "RAG",
+      "count": 6,
+      "directory": "rag"
+    },
+    {
+      "id": "eval",
+      "name": "Eval & Observability",
+      "count": 4,
+      "directory": "evaluation-observability"
+    },
+    {
+      "id": "runtime",
+      "name": "Agent Runtime / Harness",
+      "count": 5,
+      "directory": "runtime-harness"
+    },
+    {
+      "id": "multi-agent",
+      "name": "Multi-Agent",
+      "count": 3,
+      "directory": "multi-agent"
+    },
+    {
+      "id": "mcp",
+      "name": "MCP / External Tools",
+      "count": 5,
+      "directory": "mcp-external-tools"
+    },
+    {
+      "id": "production",
+      "name": "Production Engineering",
+      "count": 6,
+      "directory": "production-engineering"
+    },
+    {
+      "id": "system-design",
+      "name": "Agent System Design",
+      "count": 8,
+      "directory": "system-design"
+    }
+  ],
+  "questions": [
+    {
+      "id": "AE-001",
+      "order": 1,
+      "proposal_id": "P-001",
+      "proposal_title": "ReAct 和 Plan-and-Execute 有什么区别？",
+      "title": "ReAct 和 Plan-and-Execute 有什么区别，业务里怎么选？",
+      "module": "reasoning",
+      "difficulty": "basic",
+      "focus": "比较决策时机、反馈与重规划边界",
+      "prerequisites": [],
+      "article": "content/interview/reasoning-planning/ae-001-react-vs-plan-execute.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "给定资料缺失时解释补查与重规划的区别",
+      "course_refs": [
+        "ch23-tool-calling",
+        "agent-planning"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter24/plan-execute"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“比较决策时机、反馈与重规划边界”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-081",
+      "order": 2,
+      "proposal_id": "P-002",
+      "proposal_title": "Agent 为什么需要 Planning？如何设计一个可靠的 Planner？",
+      "title": "Agent 为什么需要 Planning？如何设计一个可靠的 Planner？",
+      "module": "reasoning",
+      "difficulty": "advanced",
+      "focus": "围绕同一任务解释规划适用条件、带验收与依赖的任务拆解、静态/滚动/分层规划、反馈修订和收益验证；区分重试、重规划与停止",
+      "prerequisites": [
+        "AE-001"
+      ],
+      "article": "content/interview/reasoning-planning/ae-081-planner-design.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "固定资料研究任务与普通工作流基线对照；为子任务定义输入/输出/依赖/验收；注入只读超时、缺失与矛盾资料，验证有限重试、局部Replan和预算停止；记录完成率、额外调用及耗时，允许规划收益为零或负",
+      "course_refs": [
+        "agent-planning"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/plan-execute",
+        "labs/part3-agent/chapter24/strategy-comparison"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "复用任务规划课程与plan-execute/strategy-comparison实验；仍需完成统一案例的任务拆解、静态与动态规划对照、故障后局部修订及最低measured证据。首题AE-001保留策略区别/选型，本题深入Planner设计，不重复展开首题。"
+      },
+      "supplemental_topics": [
+        "树搜索相比单路径推理有哪些工程代价？：比较分支预算、剪枝与延迟",
+        "如何在规划中处理工具结果互相矛盾？：保留来源并设计冲突解决策略"
+      ]
+    },
+    {
+      "id": "AE-100",
+      "order": 3,
+      "proposal_id": "P-003",
+      "proposal_title": "Chain-of-Thought、ReAct、Planning 分别解决什么问题？",
+      "title": "复杂任务的 Agent 设计：提示工程、工作流编排与自主智能体",
+      "module": "reasoning",
+      "difficulty": "basic",
+      "focus": "围绕同一任务比较单次推理、固定流程和由运行反馈驱动的自主决策",
+      "prerequisites": [
+        "AE-001",
+        "AE-081"
+      ],
+      "article": "content/interview/reasoning-planning/ae-100-reasoning-strategies.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-100 区分推理提示、交互循环与规划职责，不要求隐藏思维链；AE-101 固定 Prompt 无法独自完成需要外部写入的任务；AE-011 固定流程与开放任务各给一个反例",
+      "course_refs": [
+        "ch23-tool-calling",
+        "agent-planning",
+        "harness-intro",
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter24/plan-execute",
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-100、AE-101、AE-011 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“比较推理提示、交互反馈和高层规划，不将隐藏思维链当日志”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "复杂任务为什么不能只靠 Prompt？（AE-101）",
+        "Workflow 和 Autonomous Agent 应该如何选择？（AE-011）"
+      ]
+    },
+    {
+      "id": "AE-031",
+      "order": 4,
+      "proposal_id": "P-008",
+      "proposal_title": "Reflection 有什么价值？",
+      "title": "Reflection 有什么价值？",
+      "module": "reasoning",
+      "difficulty": "advanced",
+      "focus": "同预算反思与无反思对照",
+      "prerequisites": [
+        "AE-001"
+      ],
+      "article": "content/interview/reasoning-planning/ae-031-reflection.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "同预算反思与无反思对照",
+      "course_refs": [
+        "agent-planning"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/plan-execute",
+        "labs/part3-agent/chapter24/strategy-comparison"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“同预算反思与无反思对照”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-051",
+      "order": 5,
+      "proposal_id": "P-009",
+      "proposal_title": "如何避免 Agent 推理循环和死循环？",
+      "title": "Agent 为什么会反复推理或调用工具，怎样停止？",
+      "module": "reasoning",
+      "difficulty": "intermediate",
+      "focus": "用无信息增量的循环解释重复检测、预算、终态与交付检查",
+      "prerequisites": [
+        "AE-001",
+        "AE-002",
+        "AE-089"
+      ],
+      "article": "content/interview/reasoning-planning/ae-051-loop-termination.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-051 重复无信息增量动作终止，保留停止原因；AE-103 达到工具预算后硬停止，不接受模型继续调用",
+      "course_refs": [
+        "ch23-tool-calling",
+        "agent-runtime",
+        "agent-cost"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter33/cost-ledger"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-051、AE-103 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“区分信息增量停止、硬预算和最终交付检查”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "如何避免 Agent 无限调用 Tool？（AE-103）"
+      ]
+    },
+    {
+      "id": "AE-002",
+      "order": 6,
+      "proposal_id": "P-011",
+      "proposal_title": "Function Calling 和模型直接输出 JSON 有什么区别？",
+      "title": "Function Calling 和模型直接输出 JSON 有什么区别？",
+      "module": "tool-calling",
+      "difficulty": "basic",
+      "focus": "合法 JSON 不等于已执行工具，验证参数和执行分离",
+      "prerequisites": [],
+      "article": "content/interview/tool-calling/ae-002-function-calling-vs-json.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "合法 JSON 不等于已执行工具，验证参数和执行分离",
+      "course_refs": [
+        "harness-intro",
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“合法 JSON 不等于已执行工具，验证参数和执行分离”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-012",
+      "order": 7,
+      "proposal_id": "P-012",
+      "proposal_title": "一个好的 Tool Schema 应该怎么设计？",
+      "title": "相似工具太多，怎样让 Agent 选对、填对？",
+      "module": "tool-calling",
+      "difficulty": "intermediate",
+      "focus": "用相似工具对照测量描述、参数 Schema 与候选集合对选择和参数的影响",
+      "prerequisites": [
+        "AE-002"
+      ],
+      "article": "content/interview/tool-calling/ae-012-tool-schema.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-012 缺必填字段、错误枚举和危险参数被拒绝；AE-022 相似工具固定测试集区分选择错误与参数错误；AE-102 同 Schema 改描述，观察选择结果；不得凭一个样例断言提升",
+      "course_refs": [
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-012、AE-022、AE-102 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“缺必填字段、错误枚举和危险参数被拒绝”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "多个相似 Tool 时模型如何正确选择？（AE-022）",
+        "Tool Description 为什么如此重要？（AE-102）",
+        "工具数量很多时如何做动态检索与选择？：评估召回遗漏与额外延迟"
+      ]
+    },
+    {
+      "id": "AE-062",
+      "order": 8,
+      "proposal_id": "P-019",
+      "proposal_title": "Tool 权限模型应该如何设计？",
+      "title": "高风险工具怎样做注册、授权和人工确认？",
+      "module": "tool-calling",
+      "difficulty": "intermediate",
+      "focus": "沿一次高风险动作核对注册、参数校验、权限、确认和执行绑定",
+      "prerequisites": [
+        "AE-002",
+        "AE-055",
+        "AE-015",
+        "AE-012",
+        "AE-052"
+      ],
+      "article": "content/interview/tool-calling/ae-062-tool-permissions.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-062 恶意输入不能绕过工具层拒绝；跨租户拒绝；AE-075 审批后参数变化、审批过期、重复恢复均被处理；AE-072 未知工具、旧版本和非法参数不绕过接口契约",
+      "course_refs": [
+        "agent-tool",
+        "agent-safety"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter33/safety-gate",
+        "labs/part3-agent/chapter33/human-approval"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-062、AE-075、AE-072 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“恶意输入不能绕过工具层拒绝；跨租户拒绝”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "高风险 Tool 如何进行人工确认？（AE-075）",
+        "Agent Runtime 如何管理 Tool？（AE-072）",
+        "一次模型响应包含多个工具调用时如何调度？：识别依赖、并行与结果关联"
+      ]
+    },
+    {
+      "id": "AE-052",
+      "order": 9,
+      "proposal_id": "P-020",
+      "proposal_title": "Tool Result 应该如何反馈给模型？",
+      "title": "工具结果怎样回传，失败后何时重试或回退？",
+      "module": "tool-calling",
+      "difficulty": "intermediate",
+      "focus": "沿一次工具失败解释结果结构、模型可见反馈、动作级超时、重试和回退",
+      "prerequisites": [
+        "AE-002"
+      ],
+      "article": "content/interview/tool-calling/ae-052-tool-observations.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-052 错误、空结果、部分成功可判别且不会被当指令；AE-042 结果未知时先查询，重复写入被幂等控制；AE-040 重试预算、超时、降级和取消传播均有用例",
+      "supplemental_topics": [
+        "Tool Calling 失败后如何 Retry？（AE-042）",
+        "Timeout、Retry、Fallback 如何设计？（AE-040）",
+        "MCP Server 返回的内容为何仍不可信？：隔离工具描述和检索内容中的指令"
+      ],
+      "course_refs": [
+        "agent-tool",
+        "ch23-tool-calling",
+        "agent-runtime",
+        "agent-cost"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter33/cost-ledger"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-052、AE-042、AE-040 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“错误、空结果、部分成功可判别且不会被当指令”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-013",
+      "order": 10,
+      "proposal_id": "P-021",
+      "proposal_title": "Context 和 Memory 有什么区别？",
+      "title": "Context、Memory 与 Prompt 在一次请求中怎样配合？",
+      "module": "memory",
+      "difficulty": "basic",
+      "focus": "沿一次请求解释输入组装、短期与长期记忆和提示设计的职责",
+      "prerequisites": [],
+      "article": "content/interview/context-memory/ae-013-context-vs-memory.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-013 同一信息在上下文、运行状态、记忆中的生命周期对比；AE-023 临时任务状态与经授权持久偏好分开；AE-108 按预算组装系统约束、任务状态、工具和检索内容",
+      "course_refs": [
+        "agent-context",
+        "agent-memory"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder",
+        "labs/part3-agent/chapter27/user-memory",
+        "labs/part3-agent/chapter30/workspace"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-013、AE-023、AE-108 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“同一信息在上下文、运行状态、记忆中的生命周期对比”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Short-term Memory 和 Long-term Memory 有什么区别？（AE-023）",
+        "Context Engineering 和 Prompt Engineering 有什么区别？（AE-108）"
+      ]
+    },
+    {
+      "id": "AE-003",
+      "order": 11,
+      "proposal_id": "P-022",
+      "proposal_title": "为什么不能把所有历史对话都放进 Context？",
+      "title": "长对话怎样保留近期消息、摘要和必要历史？",
+      "module": "memory",
+      "difficulty": "intermediate",
+      "focus": "用多轮对话比较完整历史、窗口、摘要与按需取回，测量保真和成本",
+      "prerequisites": [
+        "AE-013",
+        "AE-104",
+        "AE-025"
+      ],
+      "article": "content/interview/context-memory/ae-003-history-budget.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-003 相同任务在不同历史长度下检查关键约束与预算；AE-105 会话隔离、排序、重连恢复和摘要来源可查；AE-106 压缩后保留约束、未完成任务与来源，列失败例；AE-033 摘要或截断后的事实遗漏可检测",
+      "course_refs": [
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-003、AE-105、AE-106、AE-033 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“相同任务在不同历史长度下检查关键约束与预算”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Conversation Memory 应该如何实现？（AE-105）",
+        "Summary Memory 有哪些优缺点？（AE-106）",
+        "Context Compression 应该怎么做？（AE-033）"
+      ]
+    },
+    {
+      "id": "AE-104",
+      "order": 12,
+      "proposal_id": "P-023",
+      "proposal_title": "Agent State 应该存哪些内容？",
+      "title": "Agent State 应该存哪些内容？",
+      "module": "memory",
+      "difficulty": "intermediate",
+      "focus": "任务状态的内容字段；运行实体标识与生命周期见 P-052/053",
+      "prerequisites": [
+        "AE-013",
+        "AE-005"
+      ],
+      "article": "content/interview/context-memory/ae-104-agent-state.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "Run/Step/工具结果/待审批状态归属可追踪",
+      "course_refs": [
+        "agent-runtime",
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“任务状态的内容字段；运行实体标识与生命周期见 P-052/053”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-053",
+      "order": 13,
+      "proposal_id": "P-028",
+      "proposal_title": "Agent 如何实现用户长期记忆？",
+      "title": "长期记忆怎样写入、检索、更新和删除？",
+      "module": "memory",
+      "difficulty": "advanced",
+      "focus": "用同一用户的长期记忆解释语义和情景信息、写入和撤回",
+      "prerequisites": [
+        "AE-013",
+        "AE-062"
+      ],
+      "article": "content/interview/context-memory/ae-053-user-memory.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-053 授权写入、检索、纠正和删除缓存的闭环；AE-107 同一事实与一次任务经历分别建模，说明重叠边界",
+      "supplemental_topics": [
+        "Semantic Memory 和 Episodic Memory 有什么区别？（AE-107）",
+        "如何选择应该注入当前上下文的记忆？：设计相关性、时间和可信度策略",
+        "用户修正偏好后如何消除旧记忆影响？：实现版本、删除和缓存失效",
+        "多租户 Memory 如何隔离与审计？：验证检索、存储与导出权限",
+        "如何评估 Memory 的收益而非仅看召回率？：测量任务质量与错误记忆影响",
+        "如何防止恶意内容污染长期记忆？：追踪来源与撤销传播"
+      ],
+      "course_refs": [
+        "agent-memory"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter27/user-memory",
+        "labs/part3-agent/chapter30/workspace"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-053、AE-107 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“覆盖写入授权、检索选择、事实纠正、租户隔离、删除传播、污染防护与收益评估”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-109",
+      "order": 14,
+      "proposal_id": "P-031",
+      "proposal_title": "RAG 解决的核心问题是什么？",
+      "title": "一个 RAG 请求怎样从文档走到有引用的答案？",
+      "module": "rag",
+      "difficulty": "basic",
+      "focus": "用一条端到端管线解释索引、检索、证据、生成与引用",
+      "prerequisites": [],
+      "article": "content/interview/rag/ae-109-rag-purpose.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-109 无检索基线、相关证据和缺证据输入分别说明；AE-110 从文档索引到查询、检索、上下文、回答和引用逐步追踪",
+      "course_refs": [
+        "ch28-rag-app"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-109、AE-110 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“无检索基线、相关证据和缺证据输入分别说明”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "RAG 的完整 Pipeline 是什么？（AE-110）",
+        "知识库更新如何处理索引版本与删除？：保证新鲜度、撤销与一致性"
+      ]
+    },
+    {
+      "id": "AE-014",
+      "order": 15,
+      "proposal_id": "P-033",
+      "proposal_title": "Chunk Size 应该如何选择？",
+      "title": "Chunk 和 Embedding 怎样共同影响召回？",
+      "module": "rag",
+      "difficulty": "intermediate",
+      "focus": "固定文档和查询，分别控制切分和向量模型，比较召回和代价",
+      "prerequisites": [
+        "AE-109"
+      ],
+      "article": "content/interview/rag/ae-014-chunk-size.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-014 固定问题集比较切块边界、重叠与召回差异；AE-111 领域/语言任务集比较召回、延迟、成本和索引兼容",
+      "course_refs": [
+        "ch28-rag-app",
+        "harness-intro"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer",
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-014、AE-111 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有检索分块入口；缺少分块尺寸的等预算质量对照。"
+      },
+      "supplemental_topics": [
+        "Embedding 模型应该如何选择？（AE-111）",
+        "Embedding 相似度高为什么不等于答案正确？：区分语义相近、事实和证据"
+      ]
+    },
+    {
+      "id": "AE-034",
+      "order": 16,
+      "proposal_id": "P-035",
+      "proposal_title": "Vector Search 和 Keyword Search 如何组合？",
+      "title": "怎样用 Query Rewrite、混合检索和 Rerank 改善难查询？",
+      "module": "rag",
+      "difficulty": "intermediate",
+      "focus": "在同一批难查询上逐步消融三项改动并记录召回、排序和开销",
+      "prerequisites": [
+        "AE-109",
+        "AE-014"
+      ],
+      "article": "content/interview/rag/ae-034-hybrid-search.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-034 纯关键词、纯向量和融合检索同集比较；AE-054 原查询与改写查询对照，核对原始约束；AE-044 增益、延迟与成本同口径比较",
+      "course_refs": [
+        "ch28-rag-app"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-034、AE-054、AE-044 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“纯关键词、纯向量和融合检索同集比较”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Query Rewrite 有什么价值？（AE-054）",
+        "Rerank 为什么重要？（AE-044）"
+      ]
+    },
+    {
+      "id": "AE-004",
+      "order": 17,
+      "proposal_id": "P-038",
+      "proposal_title": "Agentic RAG 和传统 RAG 有什么区别？",
+      "title": "Agentic RAG 和传统 RAG 有什么区别？",
+      "module": "rag",
+      "difficulty": "basic",
+      "focus": "查询不需要循环与需要补查各举例",
+      "prerequisites": [
+        "AE-109",
+        "AE-015"
+      ],
+      "article": "content/interview/rag/ae-004-agentic-rag.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "查询不需要循环与需要补查各举例",
+      "course_refs": [
+        "ch28-rag-app",
+        "ch23-tool-calling"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer",
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“查询不需要循环与需要补查各举例”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-084",
+      "order": 18,
+      "proposal_id": "P-039",
+      "proposal_title": "Graph RAG 适合什么场景？",
+      "title": "Graph RAG 适合什么场景？",
+      "module": "rag",
+      "difficulty": "advanced",
+      "focus": "关系任务与简单检索任务同预算对照",
+      "prerequisites": [
+        "AE-034"
+      ],
+      "article": "content/interview/rag/ae-084-graph-rag.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "关系任务与简单检索任务同预算对照",
+      "course_refs": [
+        "ch28-rag-app"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer"
+      ],
+      "coverage": {
+        "status": "gap",
+        "notes": "当前RAG覆盖普通检索；缺少图构建、图检索和Graph RAG收益实验。"
+      }
+    },
+    {
+      "id": "AE-058",
+      "order": 19,
+      "proposal_id": "P-040",
+      "proposal_title": "RAG 系统如何进行效果评估？",
+      "title": "RAG 系统如何进行效果评估？",
+      "module": "rag",
+      "difficulty": "intermediate",
+      "focus": "分别记录检索召回、回答忠实性与引用有效性",
+      "prerequisites": [
+        "AE-109",
+        "AE-112",
+        "AE-038"
+      ],
+      "article": "content/interview/rag/ae-058-rag-evaluation.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "分别记录检索召回、回答忠实性与引用有效性",
+      "supplemental_topics": [
+        "如何让生成答案中的引用真正可验证？：建立主张到证据片段映射"
+      ],
+      "course_refs": [
+        "ch28-rag-app",
+        "agent-eval"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer",
+        "labs/part3-agent/chapter33/eval-harness"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“分别记录检索召回、回答忠实性与引用有效性”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-112",
+      "order": 20,
+      "proposal_id": "P-041",
+      "proposal_title": "Agent 为什么比普通应用更需要 Eval？",
+      "title": "Agent 上线前后怎样评估？",
+      "module": "eval",
+      "difficulty": "intermediate",
+      "focus": "用同一任务族串起离线验证、在线监测和任务、轨迹、成本指标",
+      "prerequisites": [],
+      "article": "content/interview/evaluation-observability/ae-112-eval-purpose.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-112 同题多次运行，区分任务失败和表达变化；AE-008 明确任务成功分母、部分成功、延迟和费用口径；AE-028 固定回归集与线上抽样口径不同，不混用数据",
+      "course_refs": [
+        "agent-eval"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/eval-harness"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-112、AE-008、AE-028 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“同题多次运行，区分任务失败和表达变化”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent Eval 应该评估哪些指标？（AE-008）",
+        "Offline Eval 和 Online Eval 有什么区别？（AE-028）",
+        "模型或 Prompt 升级如何灰度与回滚？：固定版本、比较指标和恢复策略",
+        "怎样设计阻止质量倒退的发布门禁？：联合质量、安全、成本与样本规模"
+      ]
+    },
+    {
+      "id": "AE-038",
+      "order": 21,
+      "proposal_id": "P-043",
+      "proposal_title": "LLM-as-a-Judge 是否可靠？",
+      "title": "LLM-as-a-Judge 是否可靠？",
+      "module": "eval",
+      "difficulty": "advanced",
+      "focus": "人工标签对照，测量位置/风格偏差和一致性",
+      "prerequisites": [
+        "AE-112"
+      ],
+      "article": "content/interview/evaluation-observability/ae-038-llm-judge.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "人工标签对照，测量位置/风格偏差和一致性",
+      "course_refs": [
+        "agent-eval"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/eval-harness"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有评分与校准边界；独立Judge校准仍待完成。"
+      }
+    },
+    {
+      "id": "AE-018",
+      "order": 22,
+      "proposal_id": "P-045",
+      "proposal_title": "Agent Trace 应该记录哪些信息？",
+      "title": "怎样用 Trace 和可观测性排查不稳定的 Agent？",
+      "module": "eval",
+      "difficulty": "intermediate",
+      "focus": "从异常结果反查模型、工具和状态，验证链路关联、脱敏和复现",
+      "prerequisites": [
+        "AE-005",
+        "AE-112"
+      ],
+      "article": "content/interview/evaluation-observability/ae-018-trace-fields.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-018 模型/工具/状态 span 可关联且敏感字段脱敏；AE-068 以同一失败样本关联重跑、Trace 与故障注入；AE-078 单个失败 Run 能定位到模型/工具事件，脱敏和保留生效",
+      "course_refs": [
+        "agent-trace-replay",
+        "agent-eval",
+        "agent-serving"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/trace-replay",
+        "labs/part3-agent/chapter33/eval-observability",
+        "labs/part3-agent/chapter33/eval-harness",
+        "labs/part3-agent/chapter32/task-service"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-018、AE-068、AE-078 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“模型/工具/状态 span 可关联且敏感字段脱敏”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "如何 Debug 一个表现不稳定的 Agent？（AE-068）",
+        "如何建立 Agent Observability 系统？（AE-078）",
+        "如何做 Agent 故障注入与恢复评估？：覆盖超时、坏参数、崩溃和重复响应"
+      ]
+    },
+    {
+      "id": "AE-048",
+      "order": 23,
+      "proposal_id": "P-047",
+      "proposal_title": "如何评估 Tool Calling 的正确率？",
+      "title": "如何评估 Tool Calling 的正确率？",
+      "module": "eval",
+      "difficulty": "intermediate",
+      "focus": "工具选择、参数正确、执行成功与任务成功分开计量",
+      "prerequisites": [
+        "AE-112",
+        "AE-002"
+      ],
+      "article": "content/interview/evaluation-observability/ae-048-tool-calling-evaluation.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "工具选择、参数正确、执行成功与任务成功分开计量",
+      "course_refs": [
+        "agent-eval",
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/eval-harness",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“工具选择、参数正确、执行成功与任务成功分开计量”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-005",
+      "order": 24,
+      "proposal_id": "P-049",
+      "proposal_title": "什么是 Agent Runtime？",
+      "title": "Agent Runtime、Harness 和 Framework 各负责什么？",
+      "module": "runtime",
+      "difficulty": "basic",
+      "focus": "沿一次模型请求和工具执行区分 Model、Runtime、Harness 与 Framework",
+      "prerequisites": [],
+      "article": "content/interview/runtime-harness/ae-005-runtime.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-005 职责图能区分模型、状态、工具与循环控制；AE-113 同一框架可提供部分 Runtime 能力，避免绝对二分；AE-115 模型提出命令与 Harness 执行/限制职责分开；AE-116 替换模型不改变安全执行边界，说明术语适用范围",
+      "course_refs": [
+        "agent-runtime",
+        "harness-intro"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-005、AE-113、AE-115、AE-116 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“职责图能区分模型、状态、工具与循环控制”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent Runtime 和 Agent Framework 有什么区别？（AE-113）",
+        "Agent Harness 是什么？（AE-115）",
+        "Runtime、Harness、Model 三者是什么关系？（AE-116）"
+      ]
+    },
+    {
+      "id": "AE-015",
+      "order": 25,
+      "proposal_id": "P-051",
+      "proposal_title": "一个 Agent Loop 是如何运行的？",
+      "title": "怎样实现一个最小 Agent Loop？",
+      "module": "runtime",
+      "difficulty": "intermediate",
+      "focus": "用可运行闭环串联动作解析、执行、观察、预算和终止",
+      "prerequisites": [
+        "AE-005",
+        "AE-002",
+        "AE-025",
+        "AE-055",
+        "AE-089"
+      ],
+      "article": "content/interview/runtime-harness/ae-015-agent-loop.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-015 成功、失败、预算耗尽三种终止可区分；AE-095 可控模型替身+只读工具+预算+取消+状态闭环通过",
+      "course_refs": [
+        "ch23-tool-calling",
+        "harness-intro",
+        "agent-runtime",
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/react",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output",
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-015、AE-095 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“成功、失败、预算耗尽三种终止可区分”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "如何设计一个最小可用 Agent Runtime？（AE-095）"
+      ]
+    },
+    {
+      "id": "AE-025",
+      "order": 26,
+      "proposal_id": "P-052",
+      "proposal_title": "Agent Runtime 应该管理哪些状态？",
+      "title": "Runtime State 和 Session 各存什么？",
+      "module": "runtime",
+      "difficulty": "intermediate",
+      "focus": "比较运行内状态、跨轮 Session 的读写和隔离",
+      "prerequisites": [
+        "AE-005",
+        "AE-104"
+      ],
+      "article": "content/interview/runtime-harness/ae-025-runtime-state.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-025 状态迁移与持久化点一一对应，外部副作用单列；AE-114 同 Session 并发请求隔离、过期会话恢复策略清楚",
+      "course_refs": [
+        "agent-runtime",
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-025、AE-114 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“状态迁移与持久化点一一对应，外部副作用单列”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Session 应该如何设计？（AE-114）"
+      ]
+    },
+    {
+      "id": "AE-055",
+      "order": 27,
+      "proposal_id": "P-055",
+      "proposal_title": "Agent 如何处理中断和恢复？",
+      "title": "Agent 中断后怎样用 Checkpoint 安全恢复？",
+      "module": "runtime",
+      "difficulty": "intermediate",
+      "focus": "在同一次中断中检查快照、外部副作用和安全恢复",
+      "prerequisites": [
+        "AE-025",
+        "AE-035"
+      ],
+      "article": "content/interview/runtime-harness/ae-055-interruption-recovery.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-055 崩溃恢复不重复副作用，输出续传与审批恢复区分；AE-045 Checkpoint 一致性、恢复和结果未知路径可复现",
+      "supplemental_topics": [
+        "Agent Runtime 如何实现 Checkpoint？（AE-045）",
+        "为什么事件重放不等于重新执行工具？：分离记录回放与副作用重跑"
+      ],
+      "course_refs": [
+        "agent-runtime"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-055、AE-045 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“区分任务恢复、流式输出续传、事件重放与副作用重新执行”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-065",
+      "order": 28,
+      "proposal_id": "P-059",
+      "proposal_title": "Coding Agent 为什么需要 Sandbox？",
+      "title": "Coding Agent 为什么需要 Sandbox？",
+      "module": "runtime",
+      "difficulty": "advanced",
+      "focus": "越界文件、网络和进程资源访问被拒绝",
+      "prerequisites": [
+        "AE-005",
+        "AE-062"
+      ],
+      "article": "content/interview/runtime-harness/ae-065-sandbox.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "越界文件、网络和进程资源访问被拒绝",
+      "course_refs": [
+        "agent-safety",
+        "agent-memory"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/safety-gate",
+        "labs/part3-agent/chapter27/user-memory",
+        "labs/part3-agent/chapter30/workspace"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“越界文件、网络和进程资源访问被拒绝”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-009",
+      "order": 29,
+      "proposal_id": "P-061",
+      "proposal_title": "单 Agent 和 Multi-Agent 应该怎么选？",
+      "title": "单 Agent 还是多 Agent，增加角色何时有收益？",
+      "module": "multi-agent",
+      "difficulty": "basic",
+      "focus": "在同一任务和预算下比较单 Agent 与不同角色数的效果",
+      "prerequisites": [
+        "AE-112"
+      ],
+      "article": "content/interview/multi-agent/ae-009-single-vs-multi-agent.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-009 单 Agent 足够与需要并行分工各给一例；AE-098 固定总预算比较不同数量，记录协调开销；AE-119 协调开销或信息污染导致回退的失败样本",
+      "course_refs": [
+        "agent-delegation",
+        "agent-cost",
+        "agent-eval"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter31/delegation",
+        "labs/part3-agent/chapter31/dag-scheduler",
+        "labs/part3-agent/chapter33/cost-ledger",
+        "labs/part3-agent/chapter33/eval-harness"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-009、AE-098、AE-119 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“单 Agent 足够与需要并行分工各给一例”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent 数量是不是越多越好？（AE-098）",
+        "什么情况下 Multi-Agent 反而会降低系统效果？（AE-119）"
+      ]
+    },
+    {
+      "id": "AE-039",
+      "order": 30,
+      "proposal_id": "P-063",
+      "proposal_title": "Multi-Agent 有哪些典型架构？",
+      "title": "多 Agent 怎样分配控制权？",
+      "module": "multi-agent",
+      "difficulty": "basic",
+      "focus": "用同一任务对照 Supervisor、Handoff 和 Tool Call 的控制权变化",
+      "prerequisites": [
+        "AE-009",
+        "AE-002"
+      ],
+      "article": "content/interview/multi-agent/ae-039-collaboration-patterns.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-039 同任务比较集中调度、交接和依赖图的控制权；AE-019 Supervisor 分配、收集结果、失败后决定下一步；AE-117 父调用返回与控制权转交的轨迹有区别",
+      "course_refs": [
+        "agent-delegation"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter31/delegation",
+        "labs/part3-agent/chapter31/dag-scheduler"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-039、AE-019、AE-117 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“区分控制权拓扑与任务 DAG，不能仅罗列架构名”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Supervisor 模式是如何工作的？（AE-019）",
+        "Handoff 和 Tool Call 有什么区别？（AE-117）"
+      ]
+    },
+    {
+      "id": "AE-118",
+      "order": 31,
+      "proposal_id": "P-066",
+      "proposal_title": "多 Agent 之间如何通信？",
+      "title": "多 Agent 怎样通信、共享状态和避免重复工作？",
+      "module": "multi-agent",
+      "difficulty": "intermediate",
+      "focus": "用并行任务讲消息、状态可见性、任务认领和重复执行",
+      "prerequisites": [
+        "AE-039",
+        "AE-013",
+        "AE-050"
+      ],
+      "article": "content/interview/multi-agent/ae-118-communication.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-118 重复、乱序与超时消息不会造成重复结论或悬挂任务；AE-029 共享摘要版本和并发状态更新冲突可检测；AE-049 同一任务重复委派只产生一次可接受提交",
+      "course_refs": [
+        "agent-delegation",
+        "agent-async-tasks",
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter31/delegation",
+        "labs/part3-agent/chapter31/dag-scheduler",
+        "labs/part3-agent/chapter31/async-tasks",
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-118、AE-029、AE-049 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“消息契约、相关 ID、重复/乱序/超时和会话隔离”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "多 Agent 如何共享 Context 和 State？（AE-029）",
+        "多 Agent 如何避免重复工作？（AE-049）",
+        "如何处理子任务失败、超时与取消？：设计局部重试和整体收敛",
+        "如何防止 Agent 相互委派形成循环？：检测循环并设置层级与预算",
+        "多 Agent 结论冲突时如何仲裁？：基于证据而非简单多数票"
+      ]
+    },
+    {
+      "id": "AE-006",
+      "order": 32,
+      "proposal_id": "P-070",
+      "proposal_title": "MCP 到底解决了什么问题？",
+      "title": "接入一个 MCP Server 时，各角色和三类原语怎样协作？",
+      "module": "mcp",
+      "difficulty": "basic",
+      "focus": "以一次服务接入解释 Host、Client、Server、Tools、Resources、Prompts 和 REST 的分工",
+      "prerequisites": [],
+      "article": "content/interview/mcp-external-tools/ae-006-mcp-purpose.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-006 业务 API 与模型工具接入分别说明职责；AE-026 Host/Client/Server 的连接和授权边界清楚；AE-016 Tool、Resource、Prompt 的用途和信任边界分别举例；AE-121 现有 REST 服务经适配暴露为工具，不混淆层次",
+      "course_refs": [
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-006、AE-026、AE-016、AE-121 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“业务 API 与模型工具接入分别说明职责”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "MCP Server 和 MCP Client 分别是什么？（AE-026）",
+        "MCP Tools、Resources、Prompts 有什么区别？（AE-016）",
+        "MCP 和传统 REST API 有什么区别？（AE-121）"
+      ]
+    },
+    {
+      "id": "AE-120",
+      "order": 33,
+      "proposal_id": "P-071",
+      "proposal_title": "MCP 和 Function Calling 有什么区别？",
+      "title": "MCP 和 Function Calling 有什么区别？",
+      "module": "mcp",
+      "difficulty": "basic",
+      "focus": "同一 Tool Call 可由不同接入适配执行",
+      "prerequisites": [
+        "AE-006",
+        "AE-002"
+      ],
+      "article": "content/interview/mcp-external-tools/ae-120-mcp-vs-function-calling.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "同一 Tool Call 可由不同接入适配执行",
+      "course_refs": [
+        "agent-tool",
+        "harness-intro"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“同一 Tool Call 可由不同接入适配执行”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-036",
+      "order": 34,
+      "proposal_id": "P-074",
+      "proposal_title": "MCP 的 Transport 层是如何工作的？",
+      "title": "MCP 的 Transport 层是如何工作的？",
+      "module": "mcp",
+      "difficulty": "intermediate",
+      "focus": "固定规范版本并验证能力发现、重连、降级和协议升级兼容",
+      "prerequisites": [
+        "AE-006"
+      ],
+      "article": "content/interview/mcp-external-tools/ae-036-mcp-transport.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "本地/远程建立、断开、重连和不兼容路径可测",
+      "supplemental_topics": [
+        "工具发现与能力协商失败时如何降级？：处理能力变化、缓存和连接恢复",
+        "MCP 协议升级如何做兼容性验证？：锁定规范版本并建立契约测试"
+      ],
+      "course_refs": [
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有stdio生命周期；缺少其他Transport的兼容和断线恢复对照。"
+      }
+    },
+    {
+      "id": "AE-056",
+      "order": 35,
+      "proposal_id": "P-075",
+      "proposal_title": "MCP Server 应该如何进行权限控制？",
+      "title": "MCP Server 应该如何进行权限控制？",
+      "module": "mcp",
+      "difficulty": "advanced",
+      "focus": "认证不替代资源授权，防止凭据透传和任意网络访问",
+      "prerequisites": [
+        "AE-036",
+        "AE-062",
+        "AE-060"
+      ],
+      "article": "content/interview/mcp-external-tools/ae-056-mcp-permissions.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "合法身份访问未授权资源仍被拒绝",
+      "supplemental_topics": [
+        "怎样控制外部工具的凭据与网络访问？：防止凭据透传和任意目标访问"
+      ],
+      "course_refs": [
+        "agent-tool",
+        "agent-safety"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter33/safety-gate"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“认证不替代资源授权，防止凭据透传和任意网络访问”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-096",
+      "order": 36,
+      "proposal_id": "P-077",
+      "proposal_title": "MCP、A2A、Tool Calling 三者是什么关系？",
+      "title": "MCP、A2A、Tool Calling 三者是什么关系？",
+      "module": "mcp",
+      "difficulty": "advanced",
+      "focus": "工具表达、工具接入与任务委派；规范语义须研究固定版本",
+      "prerequisites": [
+        "AE-120",
+        "AE-118"
+      ],
+      "article": "content/interview/mcp-external-tools/ae-096-mcp-a2a-tool-calling.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "工具调用、工具接入、任务委派各举一条消息链",
+      "course_refs": [
+        "agent-tool",
+        "agent-delegation"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter31/delegation",
+        "labs/part3-agent/chapter31/dag-scheduler"
+      ],
+      "coverage": {
+        "status": "gap",
+        "notes": "已有MCP和协作机制；缺少A2A协议实现与三者互操作实验。"
+      }
+    },
+    {
+      "id": "AE-010",
+      "order": 37,
+      "proposal_id": "P-078",
+      "proposal_title": "Demo Agent 和 Production Agent 最大区别是什么？",
+      "title": "Demo Agent 和 Production Agent 最大区别是什么？",
+      "module": "production",
+      "difficulty": "basic",
+      "focus": "可靠性/权限/观测/费用各给一个服务化缺口",
+      "prerequisites": [],
+      "article": "content/interview/production-engineering/ae-010-production-readiness.md",
+      "minimum_evidence": "design",
+      "acceptance_case": "可靠性/权限/观测/费用各给一个服务化缺口",
+      "supplemental_topics": [
+        "如何为 Agent 服务设定 SLO？：区分成功率、延迟与外部依赖"
+      ],
+      "course_refs": [
+        "agent-runtime",
+        "agent-safety",
+        "agent-eval"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter33/safety-gate",
+        "labs/part3-agent/chapter33/eval-harness"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“可靠性/权限/观测/费用各给一个服务化缺口”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-035",
+      "order": 38,
+      "proposal_id": "P-079",
+      "proposal_title": "Agent 如何设计 Timeout？",
+      "title": "依赖抖动时怎样设超时、重试、熔断和降级？",
+      "module": "production",
+      "difficulty": "intermediate",
+      "focus": "沿同一依赖的慢响应、连续超时和持续故障解释服务级恢复",
+      "prerequisites": [
+        "AE-010",
+        "AE-005",
+        "AE-052"
+      ],
+      "article": "content/interview/production-engineering/ae-035-timeouts.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-035 请求超时后底层工具停止或明确结果未知；AE-122 退避上限、重试放大与未知结果均有用例；AE-123 关闭/打开/半开及探测失败迁移正确；AE-094 依赖不可用时降级不伪造完整结果",
+      "course_refs": [
+        "agent-runtime",
+        "agent-serving",
+        "agent-cost"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter32/task-service",
+        "labs/part3-agent/chapter33/cost-ledger"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-035、AE-122、AE-123、AE-094 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“请求超时后底层工具停止或明确结果未知”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent 如何设计 Retry？（AE-122）",
+        "Agent 如何实现 Circuit Breaker？（AE-123）",
+        "Agent 如何实现 Graceful Degradation？（AE-094）"
+      ]
+    },
+    {
+      "id": "AE-060",
+      "order": 39,
+      "proposal_id": "P-083",
+      "proposal_title": "Agent 如何进行权限控制？",
+      "title": "怎样把 Agent 权限控制和安全审计串起来？",
+      "module": "production",
+      "difficulty": "intermediate",
+      "focus": "沿一次跨权限操作追踪决策、执行和可归责审计事件",
+      "prerequisites": [
+        "AE-062",
+        "AE-010",
+        "AE-018"
+      ],
+      "article": "content/interview/production-engineering/ae-060-authorization.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-060 跨租户、越权工具和凭据边界均有拒绝路径；AE-080 谁在何时批准何动作可追溯，敏感凭据不可见",
+      "course_refs": [
+        "agent-safety",
+        "agent-serving",
+        "agent-trace-replay"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/safety-gate",
+        "labs/part3-agent/chapter32/task-service",
+        "labs/part3-agent/chapter33/trace-replay",
+        "labs/part3-agent/chapter33/eval-observability"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-060、AE-080 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“跨租户授权贯通接口、工具、记忆与日志”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent 如何进行安全审计？（AE-080）",
+        "线上 Agent 事故如何止损并复盘？：暂停副作用、保存证据和验证恢复"
+      ]
+    },
+    {
+      "id": "AE-089",
+      "order": 40,
+      "proposal_id": "P-084",
+      "proposal_title": "Agent 如何进行成本控制？",
+      "title": "怎样管理 Agent 的 Token 和任务成本预算？",
+      "module": "production",
+      "difficulty": "intermediate",
+      "focus": "用单次任务演示 Token 估算、费用预算、预留和停止",
+      "prerequisites": [
+        "AE-010",
+        "AE-003"
+      ],
+      "article": "content/interview/production-engineering/ae-089-cost-control.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-089 预算耗尽停止，Trace 可核对费用组成；AE-030 上下文增长、输出上限和成本硬预算不矛盾",
+      "course_refs": [
+        "agent-cost",
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/cost-ledger",
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-089、AE-030 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“全局/租户费用配额、公平调度与成本归因；Token 计量引用 P-085”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent 如何控制 Token 使用？（AE-030）"
+      ]
+    },
+    {
+      "id": "AE-090",
+      "order": 41,
+      "proposal_id": "P-086",
+      "proposal_title": "Agent 如何处理高并发？",
+      "title": "Agent 如何处理高并发？",
+      "module": "production",
+      "difficulty": "advanced",
+      "focus": "排队/背压/外部依赖饱和可识别",
+      "prerequisites": [
+        "AE-035",
+        "AE-089"
+      ],
+      "article": "content/interview/production-engineering/ae-090-concurrency.md",
+      "minimum_evidence": "measured",
+      "acceptance_case": "排队/背压/外部依赖饱和可识别",
+      "course_refs": [
+        "agent-serving",
+        "agent-async-tasks"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter32/task-service",
+        "labs/part3-agent/chapter31/async-tasks"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“排队/背压/外部依赖饱和可识别”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-050",
+      "order": 42,
+      "proposal_id": "P-087",
+      "proposal_title": "Agent 如何设计异步任务？",
+      "title": "Agent 异步任务怎样处理取消、重试和幂等？",
+      "module": "production",
+      "difficulty": "advanced",
+      "focus": "用同一异步任务验证取消、重投、结果未知和幂等约束",
+      "prerequisites": [
+        "AE-025",
+        "AE-035",
+        "AE-002"
+      ],
+      "article": "content/interview/production-engineering/ae-050-async-tasks.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-050 重复投递、worker崩溃、取消和查询结果一致；AE-092 单工具幂等、队列去重和补偿失败分别可复现",
+      "course_refs": [
+        "agent-async-tasks",
+        "agent-serving",
+        "agent-runtime"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter31/async-tasks",
+        "labs/part3-agent/chapter32/task-service",
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-050、AE-092 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“队列、租约、取消与查询一致性，处理重复投递”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "Agent 如何保证幂等性？（AE-092）"
+      ]
+    },
+    {
+      "id": "AE-007",
+      "order": 43,
+      "proposal_id": "P-090",
+      "proposal_title": "如何设计一个 Deep Research Agent？",
+      "title": "Deep Research Agent 怎样从单 Agent 演进到多 Agent？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "从单研究循环扩展到并行子任务，保留证据合并、预算、恢复和收益对照",
+      "prerequisites": [
+        "AE-015",
+        "AE-109",
+        "AE-058",
+        "AE-089",
+        "AE-118",
+        "AE-009"
+      ],
+      "article": "content/interview/system-design/ae-007-deep-research-agent.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-007 固定资料多轮补查、冲突保留、来源和预算可验收；AE-067 任务DAG、去重、冲突合并与预算可演示",
+      "course_refs": [
+        "agent-planning",
+        "ch28-rag-app",
+        "agent-eval",
+        "agent-delegation"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter24/plan-execute",
+        "labs/part3-agent/chapter24/strategy-comparison",
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer",
+        "labs/part3-agent/chapter33/eval-harness",
+        "labs/part3-agent/chapter31/delegation",
+        "labs/part3-agent/chapter31/dag-scheduler"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-007、AE-067 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“固定资料多轮补查、冲突保留、来源和预算可验收”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "如何设计一个 Multi-Agent Research System？（AE-067）"
+      ]
+    },
+    {
+      "id": "AE-124",
+      "order": 44,
+      "proposal_id": "P-091",
+      "proposal_title": "如何设计一个 Coding Agent？",
+      "title": "怎样设计一个能安全改代码的 Coding Agent？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "用一次仓库修改解释工作区、工具权限、计划、测试反馈、恢复和人工审查",
+      "prerequisites": [
+        "AE-015",
+        "AE-065",
+        "AE-050",
+        "AE-055",
+        "AE-056",
+        "AE-060"
+      ],
+      "article": "content/interview/system-design/ae-124-coding-agent.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "围绕同一案例完成以下检查：AE-124 隔离编辑/测试/审阅流程，失败后保留可恢复变更；AE-047 隔离、审批、恢复、重放边界逐项验证，并列未实现能力",
+      "course_refs": [
+        "harness-intro",
+        "agent-tool",
+        "agent-memory",
+        "agent-safety",
+        "agent-skills"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter22/hello-llm",
+        "labs/part3-agent/chapter22/structured-output",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter27/user-memory",
+        "labs/part3-agent/chapter30/workspace",
+        "labs/part3-agent/chapter33/safety-gate",
+        "labs/part3-agent/chapter30/skills-loader"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "合并原题 AE-124、AE-047 的关联。各项原覆盖说明见封存记录或原主问题来源；按合并验收逐项复核。主问题原覆盖：已有相关机制与独立Lab；本题聚焦“基础只读/隔离编辑/测试闭环；进阶多会话恢复与完整 Harness 见 P-099”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      },
+      "supplemental_topics": [
+        "如何设计一个类似 Claude Code / Codex 的 Coding Agent？（AE-047）"
+      ]
+    },
+    {
+      "id": "AE-037",
+      "order": 45,
+      "proposal_id": "P-092",
+      "proposal_title": "如何设计一个 Browser Agent？",
+      "title": "如何设计一个 Browser Agent？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "网页恶意指令、审批过期、动作失败可恢复",
+      "prerequisites": [
+        "AE-055",
+        "AE-062"
+      ],
+      "article": "content/interview/system-design/ae-037-browser-agent.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "网页恶意指令、审批过期、动作失败可恢复",
+      "course_refs": [
+        "agent-tool",
+        "agent-safety"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter33/safety-gate"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“网页恶意指令、审批过期、动作失败可恢复”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-017",
+      "order": 46,
+      "proposal_id": "P-093",
+      "proposal_title": "如何设计一个企业知识库 Agent？",
+      "title": "如何设计一个企业知识库 Agent？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "跨租户检索被阻断，引用与拒答可检查",
+      "prerequisites": [
+        "AE-109",
+        "AE-058",
+        "AE-060"
+      ],
+      "article": "content/interview/system-design/ae-017-enterprise-knowledge-agent.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "跨租户检索被阻断，引用与拒答可检查",
+      "course_refs": [
+        "ch28-rag-app",
+        "agent-safety"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter28/hybrid-retrieval",
+        "labs/part3-agent/chapter28/evidence-answer",
+        "labs/part3-agent/chapter33/safety-gate"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“跨租户检索被阻断，引用与拒答可检查”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-027",
+      "order": 47,
+      "proposal_id": "P-094",
+      "proposal_title": "如何设计一个 Data Analyst Agent？",
+      "title": "如何设计一个 Data Analyst Agent？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "只读查询、资源上限、结果核验和权限失败均可演示",
+      "prerequisites": [
+        "AE-062",
+        "AE-112",
+        "AE-089"
+      ],
+      "article": "content/interview/system-design/ae-027-data-analyst-agent.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "只读查询、资源上限、结果核验和权限失败均可演示",
+      "course_refs": [
+        "agent-tool",
+        "agent-eval",
+        "agent-safety"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio",
+        "labs/part3-agent/chapter33/eval-harness",
+        "labs/part3-agent/chapter33/safety-gate"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“只读查询、资源上限、结果核验和权限失败均可演示”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-077",
+      "order": 48,
+      "proposal_id": "P-095",
+      "proposal_title": "如何设计一个 Agent Memory System？",
+      "title": "如何设计一个 Agent Memory System？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "写入、检索、撤销、索引删除传播闭环",
+      "prerequisites": [
+        "AE-053",
+        "AE-055",
+        "AE-060"
+      ],
+      "article": "content/interview/system-design/ae-077-memory-system.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "写入、检索、撤销、索引删除传播闭环",
+      "course_refs": [
+        "agent-memory",
+        "agent-context"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter27/user-memory",
+        "labs/part3-agent/chapter30/workspace",
+        "labs/part3-agent/chapter27/session-history",
+        "labs/part3-agent/chapter29/context-builder"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“写入、检索、撤销、索引删除传播闭环”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-087",
+      "order": 49,
+      "proposal_id": "P-097",
+      "proposal_title": "如何设计一个 Agent Eval Platform？",
+      "title": "如何设计一个 Agent Eval Platform？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "版本回归失败阻断，灰度异常可回滚",
+      "prerequisites": [
+        "AE-112",
+        "AE-018",
+        "AE-060"
+      ],
+      "article": "content/interview/system-design/ae-087-eval-platform.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "版本回归失败阻断，灰度异常可回滚",
+      "course_refs": [
+        "agent-eval",
+        "agent-trace-replay"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter33/eval-harness",
+        "labs/part3-agent/chapter33/trace-replay",
+        "labs/part3-agent/chapter33/eval-observability"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“版本回归失败阻断，灰度异常可回滚”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    },
+    {
+      "id": "AE-057",
+      "order": 50,
+      "proposal_id": "P-098",
+      "proposal_title": "如何设计一个支持 MCP 的 Agent Runtime？",
+      "title": "如何设计一个支持 MCP 的 Agent Runtime？",
+      "module": "system-design",
+      "difficulty": "system-design",
+      "focus": "发现/适配/授权/调用和不兼容降级通过",
+      "prerequisites": [
+        "AE-015",
+        "AE-036",
+        "AE-056"
+      ],
+      "article": "content/interview/system-design/ae-057-mcp-runtime.md",
+      "minimum_evidence": "runnable",
+      "acceptance_case": "发现/适配/授权/调用和不兼容降级通过",
+      "course_refs": [
+        "agent-runtime",
+        "agent-tool"
+      ],
+      "lab_refs": [
+        "labs/part3-agent/chapter25/runner",
+        "labs/part3-agent/chapter25/checkpoint",
+        "labs/part3-agent/chapter23/tool-calling",
+        "labs/part3-agent/chapter30/mcp-stdio"
+      ],
+      "coverage": {
+        "status": "partial",
+        "notes": "已有相关机制与独立Lab；本题聚焦“发现/适配/授权/调用和不兼容降级通过”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+      }
+    }
+  ],
+  "retired_questions": [
+    {
+      "question": {
+        "id": "AE-020",
+        "title": "如何为 Agent 服务设定 SLO？",
+        "module": "production",
+        "difficulty": "basic",
+        "focus": "区分成功率、延迟与外部依赖",
+        "prerequisites": [
+          "AE-010"
+        ],
+        "article": "articles/ae-020.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-010",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-024",
+        "title": "Embedding 相似度高为什么不等于答案正确？",
+        "module": "rag",
+        "difficulty": "basic",
+        "focus": "区分语义相近、事实和证据",
+        "prerequisites": [
+          "AE-014"
+        ],
+        "article": "articles/ae-024.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-014",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-032",
+        "title": "一次模型响应包含多个工具调用时如何调度？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "识别依赖、并行与结果关联",
+        "prerequisites": [
+          "AE-022"
+        ],
+        "article": "articles/ae-032.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-062",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-043",
+        "title": "如何选择应该注入当前上下文的记忆？",
+        "module": "memory",
+        "difficulty": "intermediate",
+        "focus": "设计相关性、时间和可信度策略",
+        "prerequisites": [
+          "AE-033"
+        ],
+        "article": "articles/ae-043.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-046",
+        "title": "工具发现与能力协商失败时如何降级？",
+        "module": "mcp",
+        "difficulty": "intermediate",
+        "focus": "处理能力变化、缓存和连接恢复",
+        "prerequisites": [
+          "AE-036"
+        ],
+        "article": "articles/ae-046.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-036",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-059",
+        "title": "如何处理子任务失败、超时与取消？",
+        "module": "multi-agent",
+        "difficulty": "intermediate",
+        "focus": "设计局部重试和整体收敛",
+        "prerequisites": [
+          "AE-049"
+        ],
+        "article": "articles/ae-059.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-118",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-061",
+        "title": "如何在规划中处理工具结果互相矛盾？",
+        "module": "reasoning",
+        "difficulty": "intermediate",
+        "focus": "保留来源并设计冲突解决策略",
+        "prerequisites": [
+          "AE-051"
+        ],
+        "article": "articles/ae-061.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-081",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-063",
+        "title": "用户修正偏好后如何消除旧记忆影响？",
+        "module": "memory",
+        "difficulty": "intermediate",
+        "focus": "实现版本、删除和缓存失效",
+        "prerequisites": [
+          "AE-053"
+        ],
+        "article": "articles/ae-063.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-064",
+        "title": "如何让生成答案中的引用真正可验证？",
+        "module": "rag",
+        "difficulty": "intermediate",
+        "focus": "建立主张到证据片段映射",
+        "prerequisites": [
+          "AE-054"
+        ],
+        "article": "articles/ae-064.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-058",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-066",
+        "title": "MCP Server 返回的内容为何仍不可信？",
+        "module": "mcp",
+        "difficulty": "intermediate",
+        "focus": "隔离工具描述和检索内容中的指令",
+        "prerequisites": [
+          "AE-056"
+        ],
+        "article": "articles/ae-066.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-052",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-069",
+        "title": "如何防止 Agent 相互委派形成循环？",
+        "module": "multi-agent",
+        "difficulty": "intermediate",
+        "focus": "检测循环并设置层级与预算",
+        "prerequisites": [
+          "AE-059"
+        ],
+        "article": "articles/ae-069.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-118",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-070",
+        "title": "模型或 Prompt 升级如何灰度与回滚？",
+        "module": "production",
+        "difficulty": "intermediate",
+        "focus": "固定版本、比较指标和恢复策略",
+        "prerequisites": [
+          "AE-060"
+        ],
+        "article": "articles/ae-070.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-112",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-071",
+        "title": "树搜索相比单路径推理有哪些工程代价？",
+        "module": "reasoning",
+        "difficulty": "advanced",
+        "focus": "比较分支预算、剪枝与延迟",
+        "prerequisites": [
+          "AE-061"
+        ],
+        "article": "articles/ae-071.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-081",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-073",
+        "title": "多租户 Memory 如何隔离与审计？",
+        "module": "memory",
+        "difficulty": "advanced",
+        "focus": "验证检索、存储与导出权限",
+        "prerequisites": [
+          "AE-063"
+        ],
+        "article": "articles/ae-073.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-074",
+        "title": "知识库更新如何处理索引版本与删除？",
+        "module": "rag",
+        "difficulty": "advanced",
+        "focus": "保证新鲜度、撤销与一致性",
+        "prerequisites": [
+          "AE-064"
+        ],
+        "article": "articles/ae-074.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-109",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-076",
+        "title": "怎样控制外部工具的凭据与网络访问？",
+        "module": "mcp",
+        "difficulty": "advanced",
+        "focus": "防止凭据透传和任意目标访问",
+        "prerequisites": [
+          "AE-066"
+        ],
+        "article": "articles/ae-076.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-056",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-079",
+        "title": "多 Agent 结论冲突时如何仲裁？",
+        "module": "multi-agent",
+        "difficulty": "advanced",
+        "focus": "基于证据而非简单多数票",
+        "prerequisites": [
+          "AE-069"
+        ],
+        "article": "articles/ae-079.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-118",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-082",
+        "title": "工具数量很多时如何做动态检索与选择？",
+        "module": "tool-calling",
+        "difficulty": "advanced",
+        "focus": "评估召回遗漏与额外延迟",
+        "prerequisites": [
+          "AE-072"
+        ],
+        "article": "articles/ae-082.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-012",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-083",
+        "title": "如何评估 Memory 的收益而非仅看召回率？",
+        "module": "memory",
+        "difficulty": "advanced",
+        "focus": "测量任务质量与错误记忆影响",
+        "prerequisites": [
+          "AE-073"
+        ],
+        "article": "articles/ae-083.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-085",
+        "title": "为什么事件重放不等于重新执行工具？",
+        "module": "runtime",
+        "difficulty": "advanced",
+        "focus": "分离记录回放与副作用重跑",
+        "prerequisites": [
+          "AE-075"
+        ],
+        "article": "articles/ae-085.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-055",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-086",
+        "title": "MCP 协议升级如何做兼容性验证？",
+        "module": "mcp",
+        "difficulty": "advanced",
+        "focus": "锁定规范版本并建立契约测试",
+        "prerequisites": [
+          "AE-076"
+        ],
+        "article": "articles/ae-086.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-036",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-088",
+        "title": "如何做 Agent 故障注入与恢复评估？",
+        "module": "eval",
+        "difficulty": "advanced",
+        "focus": "覆盖超时、坏参数、崩溃和重复响应",
+        "prerequisites": [
+          "AE-078"
+        ],
+        "article": "articles/ae-088.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-018",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-093",
+        "title": "如何防止恶意内容污染长期记忆？",
+        "module": "memory",
+        "difficulty": "advanced",
+        "focus": "追踪来源与撤销传播",
+        "prerequisites": [
+          "AE-083"
+        ],
+        "article": "articles/ae-093.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-097",
+        "title": "怎样设计阻止质量倒退的发布门禁？",
+        "module": "eval",
+        "difficulty": "advanced",
+        "focus": "联合质量、安全、成本与样本规模",
+        "prerequisites": [
+          "AE-088"
+        ],
+        "article": "articles/ae-097.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-112",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-099",
+        "title": "线上 Agent 事故如何止损并复盘？",
+        "module": "production",
+        "difficulty": "advanced",
+        "focus": "暂停副作用、保存证据和验证恢复",
+        "prerequisites": [
+          "AE-090"
+        ],
+        "article": "articles/ae-099.md"
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-060",
+      "reason": "最终方案未单列为独立题；保留为相关题目的工程补充，旧ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-021",
+        "order": 5,
+        "proposal_id": "P-005",
+        "proposal_title": "Agent 如何进行任务拆解？",
+        "title": "Agent 如何进行任务拆解？",
+        "module": "reasoning",
+        "difficulty": "basic",
+        "focus": "拆出带输入、输出、依赖和验收的子任务",
+        "prerequisites": [
+          "AE-081"
+        ],
+        "article": "content/interview/reasoning-planning/ae-021-work-breakdown.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "拆出带输入、输出、依赖和验收的子任务",
+        "course_refs": [
+          "agent-planning"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter24/plan-execute",
+          "labs/part3-agent/chapter24/strategy-comparison"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“拆出带输入、输出、依赖和验收的子任务”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-081",
+      "reason": "2026-11-02 用户确认将规划动机、任务拆解、静态/动态规划和Replan合并为Planner设计一题；原ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-091",
+        "order": 6,
+        "proposal_id": "P-006",
+        "proposal_title": "Planner 应该一次生成完整计划还是动态规划？",
+        "title": "Planner 应该一次生成完整计划还是动态规划？",
+        "module": "reasoning",
+        "difficulty": "advanced",
+        "focus": "比较静态/滚动/分层规划，保留树搜索预算与代价作为进阶边界",
+        "prerequisites": [
+          "AE-021"
+        ],
+        "article": "content/interview/reasoning-planning/ae-091-static-vs-dynamic-planning.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "局部失败只重排受影响子图，记录额外成本",
+        "supplemental_topics": [
+          "树搜索相比单路径推理有哪些工程代价？：比较分支预算、剪枝与延迟"
+        ],
+        "course_refs": [
+          "agent-planning"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter24/plan-execute",
+          "labs/part3-agent/chapter24/strategy-comparison"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“比较静态/滚动/分层规划，保留树搜索预算与代价作为进阶边界”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-081",
+      "reason": "2026-11-02 用户确认将规划动机、任务拆解、静态/动态规划和Replan合并为Planner设计一题；原ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-041",
+        "order": 7,
+        "proposal_id": "P-007",
+        "proposal_title": "Agent 执行失败后如何 Replan？",
+        "title": "Agent 执行失败后如何 Replan？",
+        "module": "reasoning",
+        "difficulty": "intermediate",
+        "focus": "超时与假设失效分别进入不同路径",
+        "prerequisites": [
+          "AE-091"
+        ],
+        "article": "content/interview/reasoning-planning/ae-041-replanning.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "超时与假设失效分别进入不同路径",
+        "supplemental_topics": [
+          "如何在规划中处理工具结果互相矛盾？：保留来源并设计冲突解决策略"
+        ],
+        "course_refs": [
+          "agent-planning"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter24/plan-execute",
+          "labs/part3-agent/chapter24/strategy-comparison"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“超时与假设失效分别进入不同路径”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-081",
+      "reason": "2026-11-02 用户确认将规划动机、任务拆解、静态/动态规划和Replan合并为Planner设计一题；原ID封存不复用"
+    },
+    {
+      "question": {
+        "id": "AE-101",
+        "order": 4,
+        "proposal_id": "P-004",
+        "proposal_title": "复杂任务为什么不能只靠 Prompt？",
+        "title": "复杂任务为什么不能只靠 Prompt？",
+        "module": "reasoning",
+        "difficulty": "basic",
+        "focus": "区分语言指令与状态、工具及执行控制；给出不需要 Agent 的反例",
+        "prerequisites": [
+          "AE-001"
+        ],
+        "article": "content/interview/reasoning-planning/ae-101-prompt-boundaries.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "固定 Prompt 无法独自完成需要外部写入的任务",
+        "course_refs": [
+          "harness-intro",
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output",
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“区分语言指令与状态、工具及执行控制；给出不需要 Agent 的反例”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-100",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-011",
+        "order": 7,
+        "proposal_id": "P-010",
+        "proposal_title": "Workflow 和 Autonomous Agent 应该如何选择？",
+        "title": "Workflow 和 Autonomous Agent 应该如何选择？",
+        "module": "reasoning",
+        "difficulty": "basic",
+        "focus": "固定流程与开放任务各给一个反例",
+        "prerequisites": [
+          "AE-101"
+        ],
+        "article": "content/interview/reasoning-planning/ae-011-workflow-vs-agent.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "固定流程与开放任务各给一个反例",
+        "course_refs": [
+          "harness-intro"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“固定流程与开放任务各给一个反例”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-100",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-103",
+        "order": 14,
+        "proposal_id": "P-017",
+        "proposal_title": "如何避免 Agent 无限调用 Tool？",
+        "title": "如何避免 Agent 无限调用 Tool？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "工具调用次数的执行层硬限制；通用任务停止见 P-009，Token 预算见 P-085",
+        "prerequisites": [
+          "AE-002",
+          "AE-051",
+          "AE-030"
+        ],
+        "article": "content/interview/tool-calling/ae-103-tool-budgets.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "达到工具预算后硬停止，不接受模型继续调用",
+        "course_refs": [
+          "ch23-tool-calling",
+          "agent-cost"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter24/react",
+          "labs/part3-agent/chapter24/strategy-comparison",
+          "labs/part3-agent/chapter33/cost-ledger"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“工具调用次数的执行层硬限制；通用任务停止见 P-009，Token 预算见 P-085”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-051",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-113",
+        "order": 47,
+        "proposal_id": "P-050",
+        "proposal_title": "Agent Runtime 和 Agent Framework 有什么区别？",
+        "title": "Agent Runtime 和 Agent Framework 有什么区别？",
+        "module": "runtime",
+        "difficulty": "basic",
+        "focus": "同一框架可提供部分 Runtime 能力，避免绝对二分",
+        "prerequisites": [
+          "AE-005"
+        ],
+        "article": "content/interview/runtime-harness/ae-113-runtime-vs-framework.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "同一框架可提供部分 Runtime 能力，避免绝对二分",
+        "course_refs": [
+          "harness-intro",
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output",
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“同一框架可提供部分 Runtime 能力，避免绝对二分”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-005",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-115",
+        "order": 54,
+        "proposal_id": "P-057",
+        "proposal_title": "Agent Harness 是什么？",
+        "title": "Agent Harness 是什么？",
+        "module": "runtime",
+        "difficulty": "basic",
+        "focus": "模型提出命令与 Harness 执行/限制职责分开",
+        "prerequisites": [
+          "AE-005"
+        ],
+        "article": "content/interview/runtime-harness/ae-115-harness.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "模型提出命令与 Harness 执行/限制职责分开",
+        "course_refs": [
+          "harness-intro"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“模型提出命令与 Harness 执行/限制职责分开”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-005",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-116",
+        "order": 55,
+        "proposal_id": "P-058",
+        "proposal_title": "Runtime、Harness、Model 三者是什么关系？",
+        "title": "Runtime、Harness、Model 三者是什么关系？",
+        "module": "runtime",
+        "difficulty": "basic",
+        "focus": "替换模型不改变安全执行边界，说明术语适用范围",
+        "prerequisites": [
+          "AE-113",
+          "AE-115"
+        ],
+        "article": "content/interview/runtime-harness/ae-116-runtime-harness-model.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "替换模型不改变安全执行边界，说明术语适用范围",
+        "course_refs": [
+          "harness-intro",
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output",
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“替换模型不改变安全执行边界，说明术语适用范围”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-005",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-095",
+        "order": 57,
+        "proposal_id": "P-060",
+        "proposal_title": "如何设计一个最小可用 Agent Runtime？",
+        "title": "如何设计一个最小可用 Agent Runtime？",
+        "module": "runtime",
+        "difficulty": "advanced",
+        "focus": "最小替身/只读闭环，验证预算、取消和失败；协议适配扩展见 P-098",
+        "prerequisites": [
+          "AE-015",
+          "AE-025",
+          "AE-072",
+          "AE-045",
+          "AE-030"
+        ],
+        "article": "content/interview/runtime-harness/ae-095-minimal-runtime.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "可控模型替身+只读工具+预算+取消+状态闭环通过",
+        "course_refs": [
+          "harness-intro",
+          "agent-runtime",
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output",
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint",
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“最小替身/只读闭环，验证预算、取消和失败；协议适配扩展见 P-098”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-015",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-114",
+        "order": 50,
+        "proposal_id": "P-053",
+        "proposal_title": "Session 应该如何设计？",
+        "title": "Session 应该如何设计？",
+        "module": "runtime",
+        "difficulty": "intermediate",
+        "focus": "同 Session 并发请求隔离、过期会话恢复策略清楚",
+        "prerequisites": [
+          "AE-025"
+        ],
+        "article": "content/interview/runtime-harness/ae-114-session-design.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "同 Session 并发请求隔离、过期会话恢复策略清楚",
+        "course_refs": [
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“同 Session 并发请求隔离、过期会话恢复策略清楚”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-025",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-045",
+        "order": 53,
+        "proposal_id": "P-056",
+        "proposal_title": "Agent Runtime 如何实现 Checkpoint？",
+        "title": "Agent Runtime 如何实现 Checkpoint？",
+        "module": "runtime",
+        "difficulty": "advanced",
+        "focus": "Checkpoint 一致性、恢复和结果未知路径可复现",
+        "prerequisites": [
+          "AE-055"
+        ],
+        "article": "content/interview/runtime-harness/ae-045-checkpoint.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "Checkpoint 一致性、恢复和结果未知路径可复现",
+        "course_refs": [
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“Checkpoint 一致性、恢复和结果未知路径可复现”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-055",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-022",
+        "order": 10,
+        "proposal_id": "P-013",
+        "proposal_title": "多个相似 Tool 时模型如何正确选择？",
+        "title": "多个相似 Tool 时模型如何正确选择？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "相似工具固定测试集区分选择错误与参数错误",
+        "prerequisites": [
+          "AE-012"
+        ],
+        "article": "content/interview/tool-calling/ae-022-tool-selection.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "相似工具固定测试集区分选择错误与参数错误",
+        "supplemental_topics": [
+          "工具数量很多时如何做动态检索与选择？：评估召回遗漏与额外延迟"
+        ],
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有注册与Schema示例；缺少相似工具选择的独立任务集及选择质量对照。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-012",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-102",
+        "order": 11,
+        "proposal_id": "P-014",
+        "proposal_title": "Tool Description 为什么如此重要？",
+        "title": "Tool Description 为什么如此重要？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "通过对照说明描述影响，不预设每次改写都有效",
+        "prerequisites": [
+          "AE-012"
+        ],
+        "article": "content/interview/tool-calling/ae-102-tool-description.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "同 Schema 改描述，观察选择结果；不得凭一个样例断言提升",
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有工具描述入口；缺少描述措辞变化的受控模型实验。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-012",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-042",
+        "order": 12,
+        "proposal_id": "P-015",
+        "proposal_title": "Tool Calling 失败后如何 Retry？",
+        "title": "Tool Calling 失败后如何 Retry？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "结果未知时先查询，重复写入被幂等控制",
+        "prerequisites": [
+          "AE-002",
+          "AE-092"
+        ],
+        "article": "content/interview/tool-calling/ae-042-tool-retry.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "结果未知时先查询，重复写入被幂等控制",
+        "course_refs": [
+          "agent-tool",
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio",
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“结果未知时先查询，重复写入被幂等控制”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-052",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-040",
+        "order": 13,
+        "proposal_id": "P-016",
+        "proposal_title": "Timeout、Retry、Fallback 如何设计？",
+        "title": "Timeout、Retry、Fallback 如何设计？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "依赖层治理总览；动作是否安全重试见 P-015，熔断/降级实现见 P-081/082",
+        "prerequisites": [
+          "AE-035",
+          "AE-122",
+          "AE-094"
+        ],
+        "article": "content/interview/tool-calling/ae-040-timeout-retry-fallback.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "重试预算、超时、降级和取消传播均有用例",
+        "course_refs": [
+          "agent-runtime",
+          "agent-cost"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint",
+          "labs/part3-agent/chapter33/cost-ledger"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“依赖层治理总览；动作是否安全重试见 P-015，熔断/降级实现见 P-081/082”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-052",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-075",
+        "order": 15,
+        "proposal_id": "P-018",
+        "proposal_title": "高风险 Tool 如何进行人工确认？",
+        "title": "高风险 Tool 如何进行人工确认？",
+        "module": "tool-calling",
+        "difficulty": "intermediate",
+        "focus": "参数绑定、审批过期和暂停恢复，拒绝绕过授权",
+        "prerequisites": [
+          "AE-062",
+          "AE-055"
+        ],
+        "article": "content/interview/tool-calling/ae-075-human-approval.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "审批后参数变化、审批过期、重复恢复均被处理",
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/human-approval"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“参数绑定、审批过期和暂停恢复，拒绝绕过授权”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-062",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-072",
+        "order": 51,
+        "proposal_id": "P-054",
+        "proposal_title": "Agent Runtime 如何管理 Tool？",
+        "title": "Agent Runtime 如何管理 Tool？",
+        "module": "runtime",
+        "difficulty": "intermediate",
+        "focus": "工具注册、适配接口、并行调度和历史版本兼容",
+        "prerequisites": [
+          "AE-015",
+          "AE-012",
+          "AE-052"
+        ],
+        "article": "content/interview/runtime-harness/ae-072-runtime-tools.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "未知工具、旧版本和非法参数不绕过接口契约",
+        "supplemental_topics": [
+          "一次模型响应包含多个工具调用时如何调度？：识别依赖、并行与结果关联"
+        ],
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“工具注册、适配接口、并行调度和历史版本兼容”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-062",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-026",
+        "order": 69,
+        "proposal_id": "P-072",
+        "proposal_title": "MCP Server 和 MCP Client 分别是什么？",
+        "title": "MCP Server 和 MCP Client 分别是什么？",
+        "module": "mcp",
+        "difficulty": "basic",
+        "focus": "Host/Client/Server 的连接和授权边界清楚",
+        "prerequisites": [
+          "AE-006"
+        ],
+        "article": "content/interview/mcp-external-tools/ae-026-mcp-client-server.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "Host/Client/Server 的连接和授权边界清楚",
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“Host/Client/Server 的连接和授权边界清楚”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-006",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-016",
+        "order": 70,
+        "proposal_id": "P-073",
+        "proposal_title": "MCP Tools、Resources、Prompts 有什么区别？",
+        "title": "MCP Tools、Resources、Prompts 有什么区别？",
+        "module": "mcp",
+        "difficulty": "basic",
+        "focus": "Tool、Resource、Prompt 的用途和信任边界分别举例",
+        "prerequisites": [
+          "AE-026"
+        ],
+        "article": "content/interview/mcp-external-tools/ae-016-mcp-primitives.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "Tool、Resource、Prompt 的用途和信任边界分别举例",
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“Tool、Resource、Prompt 的用途和信任边界分别举例”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-006",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-121",
+        "order": 73,
+        "proposal_id": "P-076",
+        "proposal_title": "MCP 和传统 REST API 有什么区别？",
+        "title": "MCP 和传统 REST API 有什么区别？",
+        "module": "mcp",
+        "difficulty": "basic",
+        "focus": "比较业务 API 与工具协议层；MCP 价值引用 P-070",
+        "prerequisites": [
+          "AE-006",
+          "AE-120"
+        ],
+        "article": "content/interview/mcp-external-tools/ae-121-mcp-vs-rest.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "现有 REST 服务经适配暴露为工具，不混淆层次",
+        "course_refs": [
+          "agent-tool"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter23/tool-calling",
+          "labs/part3-agent/chapter30/mcp-stdio"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“比较业务 API 与工具协议层；MCP 价值引用 P-070”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-006",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-023",
+        "order": 21,
+        "proposal_id": "P-024",
+        "proposal_title": "Short-term Memory 和 Long-term Memory 有什么区别？",
+        "title": "Short-term Memory 和 Long-term Memory 有什么区别？",
+        "module": "memory",
+        "difficulty": "basic",
+        "focus": "临时任务状态与经授权持久偏好分开",
+        "prerequisites": [
+          "AE-013"
+        ],
+        "article": "content/interview/context-memory/ae-023-short-vs-long-term-memory.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "临时任务状态与经授权持久偏好分开",
+        "course_refs": [
+          "agent-context",
+          "agent-memory"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder",
+          "labs/part3-agent/chapter27/user-memory",
+          "labs/part3-agent/chapter30/workspace"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“临时任务状态与经授权持久偏好分开”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-013",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-108",
+        "order": 27,
+        "proposal_id": "P-030",
+        "proposal_title": "Context Engineering 和 Prompt Engineering 有什么区别？",
+        "title": "Context Engineering 和 Prompt Engineering 有什么区别？",
+        "module": "memory",
+        "difficulty": "basic",
+        "focus": "按预算组装系统约束、任务状态、工具和检索内容",
+        "prerequisites": [
+          "AE-013",
+          "AE-003",
+          "AE-052"
+        ],
+        "article": "content/interview/context-memory/ae-108-context-engineering.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "按预算组装系统约束、任务状态、工具和检索内容",
+        "course_refs": [
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“按预算组装系统约束、任务状态、工具和检索内容”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-013",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-105",
+        "order": 22,
+        "proposal_id": "P-025",
+        "proposal_title": "Conversation Memory 应该如何实现？",
+        "title": "Conversation Memory 应该如何实现？",
+        "module": "memory",
+        "difficulty": "intermediate",
+        "focus": "会话消息的顺序和内容视图；运行会话实体见 P-053",
+        "prerequisites": [
+          "AE-104",
+          "AE-114"
+        ],
+        "article": "content/interview/context-memory/ae-105-conversation-memory.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "会话隔离、排序、重连恢复和摘要来源可查",
+        "course_refs": [
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“会话消息的顺序和内容视图；运行会话实体见 P-053”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-003",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-106",
+        "order": 23,
+        "proposal_id": "P-026",
+        "proposal_title": "Summary Memory 有哪些优缺点？",
+        "title": "Summary Memory 有哪些优缺点？",
+        "module": "memory",
+        "difficulty": "intermediate",
+        "focus": "摘要作为压缩的一种方法，比较来源追踪和事实丢失",
+        "prerequisites": [
+          "AE-003",
+          "AE-105"
+        ],
+        "article": "content/interview/context-memory/ae-106-summary-memory.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "压缩后保留约束、未完成任务与来源，列失败例",
+        "course_refs": [
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“摘要作为压缩的一种方法，比较来源追踪和事实丢失”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-003",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-033",
+        "order": 26,
+        "proposal_id": "P-029",
+        "proposal_title": "Context Compression 应该怎么做？",
+        "title": "Context Compression 应该怎么做？",
+        "module": "memory",
+        "difficulty": "intermediate",
+        "focus": "整体压缩策略与约束保真；摘要方法引用 P-026，不重复整章",
+        "prerequisites": [
+          "AE-003",
+          "AE-106"
+        ],
+        "article": "content/interview/context-memory/ae-033-context-compression.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "摘要或截断后的事实遗漏可检测",
+        "course_refs": [
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“整体压缩策略与约束保真；摘要方法引用 P-026，不重复整章”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-003",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-107",
+        "order": 24,
+        "proposal_id": "P-027",
+        "proposal_title": "Semantic Memory 和 Episodic Memory 有什么区别？",
+        "title": "Semantic Memory 和 Episodic Memory 有什么区别？",
+        "module": "memory",
+        "difficulty": "basic",
+        "focus": "同一事实与一次任务经历分别建模，说明重叠边界",
+        "prerequisites": [
+          "AE-023"
+        ],
+        "article": "content/interview/context-memory/ae-107-semantic-vs-episodic-memory.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "同一事实与一次任务经历分别建模，说明重叠边界",
+        "course_refs": [
+          "agent-memory"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/user-memory",
+          "labs/part3-agent/chapter30/workspace"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有用户事实持久化；缺少语义/情景记忆分类及独立实现对照。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-053",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-110",
+        "order": 29,
+        "proposal_id": "P-032",
+        "proposal_title": "RAG 的完整 Pipeline 是什么？",
+        "title": "RAG 的完整 Pipeline 是什么？",
+        "module": "rag",
+        "difficulty": "intermediate",
+        "focus": "纳入访问过滤、索引版本、新鲜度和删除一致性",
+        "prerequisites": [
+          "AE-109"
+        ],
+        "article": "content/interview/rag/ae-110-rag-pipeline.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "从文档索引到查询、检索、上下文、回答和引用逐步追踪",
+        "supplemental_topics": [
+          "知识库更新如何处理索引版本与删除？：保证新鲜度、撤销与一致性"
+        ],
+        "course_refs": [
+          "ch28-rag-app"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter28/hybrid-retrieval",
+          "labs/part3-agent/chapter28/evidence-answer"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“纳入访问过滤、索引版本、新鲜度和删除一致性”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-109",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-111",
+        "order": 31,
+        "proposal_id": "P-034",
+        "proposal_title": "Embedding 模型应该如何选择？",
+        "title": "Embedding 模型应该如何选择？",
+        "module": "rag",
+        "difficulty": "intermediate",
+        "focus": "模型选型同时保留相似度不等于事实正确的反例",
+        "prerequisites": [
+          "AE-110"
+        ],
+        "article": "content/interview/rag/ae-111-embedding-selection.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "领域/语言任务集比较召回、延迟、成本和索引兼容",
+        "supplemental_topics": [
+          "Embedding 相似度高为什么不等于答案正确？：区分语义相近、事实和证据"
+        ],
+        "course_refs": [
+          "ch28-rag-app",
+          "harness-intro"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter28/hybrid-retrieval",
+          "labs/part3-agent/chapter28/evidence-answer",
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有锁定本地Embedding机制；缺少多模型选型任务与质量/成本比较。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-014",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-054",
+        "order": 34,
+        "proposal_id": "P-037",
+        "proposal_title": "Query Rewrite 有什么价值？",
+        "title": "Query Rewrite 有什么价值？",
+        "module": "rag",
+        "difficulty": "intermediate",
+        "focus": "原查询与改写查询对照，核对原始约束",
+        "prerequisites": [
+          "AE-110"
+        ],
+        "article": "content/interview/rag/ae-054-query-rewrite.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "原查询与改写查询对照，核对原始约束",
+        "course_refs": [
+          "ch28-rag-app"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter28/hybrid-retrieval",
+          "labs/part3-agent/chapter28/evidence-answer"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“原查询与改写查询对照，核对原始约束”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-034",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-044",
+        "order": 33,
+        "proposal_id": "P-036",
+        "proposal_title": "Rerank 为什么重要？",
+        "title": "Rerank 为什么重要？",
+        "module": "rag",
+        "difficulty": "intermediate",
+        "focus": "增益、延迟与成本同口径比较",
+        "prerequisites": [
+          "AE-034"
+        ],
+        "article": "content/interview/rag/ae-044-reranking.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "增益、延迟与成本同口径比较",
+        "course_refs": [
+          "ch28-rag-app"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter28/hybrid-retrieval",
+          "labs/part3-agent/chapter28/evidence-answer"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“增益、延迟与成本同口径比较”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-034",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-098",
+        "order": 59,
+        "proposal_id": "P-062",
+        "proposal_title": "Agent 数量是不是越多越好？",
+        "title": "Agent 数量是不是越多越好？",
+        "module": "multi-agent",
+        "difficulty": "advanced",
+        "focus": "固定总预算比较 Agent 数量，记录协调和信息污染成本",
+        "prerequisites": [
+          "AE-009",
+          "AE-008"
+        ],
+        "article": "content/interview/multi-agent/ae-098-agent-count.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "固定总预算比较不同数量，记录协调开销",
+        "course_refs": [
+          "agent-delegation",
+          "agent-cost"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler",
+          "labs/part3-agent/chapter33/cost-ledger"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“固定总预算比较 Agent 数量，记录协调和信息污染成本”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-009",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-119",
+        "order": 66,
+        "proposal_id": "P-069",
+        "proposal_title": "什么情况下 Multi-Agent 反而会降低系统效果？",
+        "title": "什么情况下 Multi-Agent 反而会降低系统效果？",
+        "module": "multi-agent",
+        "difficulty": "advanced",
+        "focus": "以同预算失败样本检验边界，不重复 P-061 的选型定义",
+        "prerequisites": [
+          "AE-098",
+          "AE-049"
+        ],
+        "article": "content/interview/multi-agent/ae-119-collaboration-overhead.md",
+        "minimum_evidence": "measured",
+        "acceptance_case": "协调开销或信息污染导致回退的失败样本",
+        "course_refs": [
+          "agent-delegation",
+          "agent-eval"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler",
+          "labs/part3-agent/chapter33/eval-harness"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“以同预算失败样本检验边界，不重复 P-061 的选型定义”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-009",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-019",
+        "order": 61,
+        "proposal_id": "P-064",
+        "proposal_title": "Supervisor 模式是如何工作的？",
+        "title": "Supervisor 模式是如何工作的？",
+        "module": "multi-agent",
+        "difficulty": "basic",
+        "focus": "Supervisor 分配、收集结果、失败后决定下一步",
+        "prerequisites": [
+          "AE-039"
+        ],
+        "article": "content/interview/multi-agent/ae-019-supervisor.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "Supervisor 分配、收集结果、失败后决定下一步",
+        "course_refs": [
+          "agent-delegation"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“Supervisor 分配、收集结果、失败后决定下一步”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-039",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-117",
+        "order": 62,
+        "proposal_id": "P-065",
+        "proposal_title": "Handoff 和 Tool Call 有什么区别？",
+        "title": "Handoff 和 Tool Call 有什么区别？",
+        "module": "multi-agent",
+        "difficulty": "basic",
+        "focus": "区分把 Agent 当工具与转交控制权，保留结果责任",
+        "prerequisites": [
+          "AE-019",
+          "AE-002"
+        ],
+        "article": "content/interview/multi-agent/ae-117-handoff-vs-tool-call.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "父调用返回与控制权转交的轨迹有区别",
+        "course_refs": [
+          "agent-delegation"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“区分把 Agent 当工具与转交控制权，保留结果责任”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-039",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-029",
+        "order": 64,
+        "proposal_id": "P-067",
+        "proposal_title": "多 Agent 如何共享 Context 和 State？",
+        "title": "多 Agent 如何共享 Context 和 State？",
+        "module": "multi-agent",
+        "difficulty": "intermediate",
+        "focus": "共享摘要版本和并发状态更新冲突可检测",
+        "prerequisites": [
+          "AE-118",
+          "AE-013"
+        ],
+        "article": "content/interview/multi-agent/ae-029-shared-state.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "共享摘要版本和并发状态更新冲突可检测",
+        "course_refs": [
+          "agent-delegation",
+          "agent-context"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler",
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“共享摘要版本和并发状态更新冲突可检测”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-118",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-049",
+        "order": 65,
+        "proposal_id": "P-068",
+        "proposal_title": "多 Agent 如何避免重复工作？",
+        "title": "多 Agent 如何避免重复工作？",
+        "module": "multi-agent",
+        "difficulty": "advanced",
+        "focus": "包括任务去重、工作区冲突、证据仲裁、失败收敛与循环委派",
+        "prerequisites": [
+          "AE-118",
+          "AE-029",
+          "AE-092"
+        ],
+        "article": "content/interview/multi-agent/ae-049-duplicate-work.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "同一任务重复委派只产生一次可接受提交",
+        "supplemental_topics": [
+          "如何处理子任务失败、超时与取消？：设计局部重试和整体收敛",
+          "如何防止 Agent 相互委派形成循环？：检测循环并设置层级与预算",
+          "多 Agent 结论冲突时如何仲裁？：基于证据而非简单多数票"
+        ],
+        "course_refs": [
+          "agent-delegation"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“包括任务去重、工作区冲突、证据仲裁、失败收敛与循环委派”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-118",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-008",
+        "order": 39,
+        "proposal_id": "P-042",
+        "proposal_title": "Agent Eval 应该评估哪些指标？",
+        "title": "Agent Eval 应该评估哪些指标？",
+        "module": "eval",
+        "difficulty": "basic",
+        "focus": "明确任务成功分母、部分成功、延迟和费用口径",
+        "prerequisites": [
+          "AE-112"
+        ],
+        "article": "content/interview/evaluation-observability/ae-008-eval-metrics.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "明确任务成功分母、部分成功、延迟和费用口径",
+        "course_refs": [
+          "agent-eval"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/eval-harness"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“明确任务成功分母、部分成功、延迟和费用口径”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-112",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-028",
+        "order": 41,
+        "proposal_id": "P-044",
+        "proposal_title": "Offline Eval 和 Online Eval 有什么区别？",
+        "title": "Offline Eval 和 Online Eval 有什么区别？",
+        "module": "eval",
+        "difficulty": "basic",
+        "focus": "开发/回归/对抗数据隔离、在线抽样、灰度门禁与回滚；不得伪造样本",
+        "prerequisites": [
+          "AE-008"
+        ],
+        "article": "content/interview/evaluation-observability/ae-028-offline-vs-online-eval.md",
+        "minimum_evidence": "design",
+        "acceptance_case": "固定回归集与线上抽样口径不同，不混用数据",
+        "supplemental_topics": [
+          "模型或 Prompt 升级如何灰度与回滚？：固定版本、比较指标和恢复策略",
+          "怎样设计阻止质量倒退的发布门禁？：联合质量、安全、成本与样本规模"
+        ],
+        "course_refs": [
+          "agent-eval"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/eval-harness"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有离线评估；缺少真实在线实验与反馈治理证据。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-112",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-068",
+        "order": 43,
+        "proposal_id": "P-046",
+        "proposal_title": "如何 Debug 一个表现不稳定的 Agent？",
+        "title": "如何 Debug 一个表现不稳定的 Agent？",
+        "module": "eval",
+        "difficulty": "intermediate",
+        "focus": "结合重复运行、故障注入、质量失败与长尾延迟排错",
+        "prerequisites": [
+          "AE-018",
+          "AE-008"
+        ],
+        "article": "content/interview/evaluation-observability/ae-068-debugging.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "以同一失败样本关联重跑、Trace 与故障注入",
+        "supplemental_topics": [
+          "如何做 Agent 故障注入与恢复评估？：覆盖超时、坏参数、崩溃和重复响应"
+        ],
+        "course_refs": [
+          "agent-trace-replay",
+          "agent-eval"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/trace-replay",
+          "labs/part3-agent/chapter33/eval-observability",
+          "labs/part3-agent/chapter33/eval-harness"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“结合重复运行、故障注入、质量失败与长尾延迟排错”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-018",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-078",
+        "order": 45,
+        "proposal_id": "P-048",
+        "proposal_title": "如何建立 Agent Observability 系统？",
+        "title": "如何建立 Agent Observability 系统？",
+        "module": "eval",
+        "difficulty": "advanced",
+        "focus": "最小观测采集/关联/查询与成本归因，隐私保留见 P-089",
+        "prerequisites": [
+          "AE-018",
+          "AE-068"
+        ],
+        "article": "content/interview/evaluation-observability/ae-078-observability.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "单个失败 Run 能定位到模型/工具事件，脱敏和保留生效",
+        "course_refs": [
+          "agent-trace-replay",
+          "agent-serving"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/trace-replay",
+          "labs/part3-agent/chapter33/eval-observability",
+          "labs/part3-agent/chapter32/task-service"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“最小观测采集/关联/查询与成本归因，隐私保留见 P-089”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-018",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-122",
+        "order": 77,
+        "proposal_id": "P-080",
+        "proposal_title": "Agent 如何设计 Retry？",
+        "title": "Agent 如何设计 Retry？",
+        "module": "production",
+        "difficulty": "intermediate",
+        "focus": "服务级重试策略与放大；未知结果的动作级处理引用 P-015",
+        "prerequisites": [
+          "AE-042",
+          "AE-035"
+        ],
+        "article": "content/interview/production-engineering/ae-122-service-retries.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "退避上限、重试放大与未知结果均有用例",
+        "course_refs": [
+          "agent-runtime",
+          "agent-serving"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint",
+          "labs/part3-agent/chapter32/task-service"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“服务级重试策略与放大；未知结果的动作级处理引用 P-015”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-035",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-123",
+        "order": 78,
+        "proposal_id": "P-081",
+        "proposal_title": "Agent 如何实现 Circuit Breaker？",
+        "title": "Agent 如何实现 Circuit Breaker？",
+        "module": "production",
+        "difficulty": "advanced",
+        "focus": "熔断状态、半开探测与恢复条件",
+        "prerequisites": [
+          "AE-122"
+        ],
+        "article": "content/interview/production-engineering/ae-123-circuit-breaker.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "关闭/打开/半开及探测失败迁移正确",
+        "course_refs": [
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "gap",
+          "notes": "已有运行预算与有限重试；缺少独立熔断状态机及半开并发验证。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-035",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-094",
+        "order": 79,
+        "proposal_id": "P-082",
+        "proposal_title": "Agent 如何实现 Graceful Degradation？",
+        "title": "Agent 如何实现 Graceful Degradation？",
+        "module": "production",
+        "difficulty": "intermediate",
+        "focus": "依赖故障与证据不足的语义降级，保留未知项与拒答依据",
+        "prerequisites": [
+          "AE-010",
+          "AE-035"
+        ],
+        "article": "content/interview/production-engineering/ae-094-graceful-degradation.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "依赖不可用时降级不伪造完整结果",
+        "course_refs": [
+          "agent-cost"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/cost-ledger"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“依赖故障与证据不足的语义降级，保留未知项与拒答依据”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-035",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-080",
+        "order": 86,
+        "proposal_id": "P-089",
+        "proposal_title": "Agent 如何进行安全审计？",
+        "title": "Agent 如何进行安全审计？",
+        "module": "production",
+        "difficulty": "advanced",
+        "focus": "授权审计、Trace脱敏与保留、凭据保护，以及事故暂停、证据保存和恢复复核",
+        "prerequisites": [
+          "AE-060",
+          "AE-018"
+        ],
+        "article": "content/interview/production-engineering/ae-080-security-audit.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "谁在何时批准何动作可追溯，敏感凭据不可见",
+        "supplemental_topics": [
+          "线上 Agent 事故如何止损并复盘？：暂停副作用、保存证据和验证恢复"
+        ],
+        "course_refs": [
+          "agent-safety",
+          "agent-trace-replay"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter33/safety-gate",
+          "labs/part3-agent/chapter33/trace-replay",
+          "labs/part3-agent/chapter33/eval-observability"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“授权审计、Trace脱敏与保留、凭据保护，以及事故暂停、证据保存和恢复复核”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-060",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-030",
+        "order": 82,
+        "proposal_id": "P-085",
+        "proposal_title": "Agent 如何控制 Token 使用？",
+        "title": "Agent 如何控制 Token 使用？",
+        "module": "production",
+        "difficulty": "intermediate",
+        "focus": "上下文增长、输出上限和成本硬预算不矛盾",
+        "prerequisites": [
+          "AE-089",
+          "AE-003"
+        ],
+        "article": "content/interview/production-engineering/ae-030-token-budget.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "上下文增长、输出上限和成本硬预算不矛盾",
+        "course_refs": [
+          "agent-context",
+          "agent-cost"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter27/session-history",
+          "labs/part3-agent/chapter29/context-builder",
+          "labs/part3-agent/chapter33/cost-ledger"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“上下文增长、输出上限和成本硬预算不矛盾”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-089",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-092",
+        "order": 85,
+        "proposal_id": "P-088",
+        "proposal_title": "Agent 如何保证幂等性？",
+        "title": "Agent 如何保证幂等性？",
+        "module": "production",
+        "difficulty": "advanced",
+        "focus": "单工具幂等、队列去重、跨工具补偿与补偿失败分层",
+        "prerequisites": [
+          "AE-002"
+        ],
+        "article": "content/interview/production-engineering/ae-092-idempotency.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "单工具幂等、队列去重和补偿失败分别可复现",
+        "course_refs": [
+          "agent-serving",
+          "agent-runtime"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter32/task-service",
+          "labs/part3-agent/chapter25/runner",
+          "labs/part3-agent/chapter25/checkpoint"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“单工具幂等、队列去重、跨工具补偿与补偿失败分层”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-050",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-067",
+        "order": 93,
+        "proposal_id": "P-096",
+        "proposal_title": "如何设计一个 Multi-Agent Research System？",
+        "title": "如何设计一个 Multi-Agent Research System？",
+        "module": "system-design",
+        "difficulty": "system-design",
+        "focus": "任务DAG、去重、冲突合并与预算可演示",
+        "prerequisites": [
+          "AE-007",
+          "AE-049",
+          "AE-119"
+        ],
+        "article": "content/interview/system-design/ae-067-research-system.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "任务DAG、去重、冲突合并与预算可演示",
+        "course_refs": [
+          "agent-delegation",
+          "ch28-rag-app"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter31/delegation",
+          "labs/part3-agent/chapter31/dag-scheduler",
+          "labs/part3-agent/chapter28/hybrid-retrieval",
+          "labs/part3-agent/chapter28/evidence-answer"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“任务DAG、去重、冲突合并与预算可演示”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-007",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    },
+    {
+      "question": {
+        "id": "AE-047",
+        "order": 96,
+        "proposal_id": "P-099",
+        "proposal_title": "如何设计一个类似 Claude Code / Codex 的 Coding Agent？",
+        "title": "如何设计一个类似 Claude Code / Codex 的 Coding Agent？",
+        "module": "system-design",
+        "difficulty": "system-design",
+        "focus": "在 P-091 基线上扩展审批、恢复、会话、工具与变更审阅，不宣称复刻闭源内部",
+        "prerequisites": [
+          "AE-124",
+          "AE-045",
+          "AE-056",
+          "AE-080"
+        ],
+        "article": "content/interview/system-design/ae-047-coding-harness.md",
+        "minimum_evidence": "runnable",
+        "acceptance_case": "隔离、审批、恢复、重放边界逐项验证，并列未实现能力",
+        "course_refs": [
+          "harness-intro",
+          "agent-skills",
+          "agent-memory",
+          "agent-safety"
+        ],
+        "lab_refs": [
+          "labs/part3-agent/chapter22/hello-llm",
+          "labs/part3-agent/chapter22/structured-output",
+          "labs/part3-agent/chapter30/skills-loader",
+          "labs/part3-agent/chapter27/user-memory",
+          "labs/part3-agent/chapter30/workspace",
+          "labs/part3-agent/chapter33/safety-gate"
+        ],
+        "coverage": {
+          "status": "partial",
+          "notes": "已有相关机制与独立Lab；本题聚焦“在 P-091 基线上扩展审批、恢复、会话、工具与变更审阅，不宣称复刻闭源内部”。仍需按验收用例补齐题目解释、反例和最低证据，关联不代表题目已完成。"
+        }
+      },
+      "last_state": {
+        "status": "planned",
+        "history": [],
+        "published_at": null,
+        "published_url": null
+      },
+      "covered_by": "AE-124",
+      "reason": "2026-11-04 公众号同篇合并，保留原题、验收与状态。"
+    }
+  ]
+}

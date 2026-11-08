@@ -1,0 +1,234 @@
+{
+  "Version": "holdout-v3",
+  "Cases": [
+    {
+      "Input": {
+        "ID": "holdout-q1",
+        "Root": "h0",
+        "Version": "z4",
+        "Required": [
+          "lease"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "lease": "31"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "holdout-q2",
+        "Root": "h2",
+        "Version": "z4",
+        "Required": [
+          "lease",
+          "tries"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "lease": "43",
+          "tries": "6"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "holdout-q3",
+        "Root": "h5",
+        "Version": "z4",
+        "Required": [
+          "ttl"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "ttl": "127"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "holdout-q4",
+        "Root": "h8",
+        "Version": "z4",
+        "Required": [
+          "window"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "window": "59"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "holdout-q5",
+        "Root": "h11",
+        "Version": "z4",
+        "Required": [
+          "limit"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "limit": "11"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "holdout-q6",
+        "Root": "h13",
+        "Version": "z4",
+        "Required": [
+          "cap"
+        ]
+      },
+      "Labels": {
+        "Values": {},
+        "Refuse": true
+      }
+    }
+  ],
+  "Corpus": {
+    "h0": {
+      "ID": "h0",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "lease": [
+          "h1"
+        ]
+      }
+    },
+    "h1": {
+      "ID": "h1",
+      "Version": "z4",
+      "Values": {
+        "lease": "31"
+      },
+      "Links": {}
+    },
+    "h2": {
+      "ID": "h2",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "lease": [
+          "h3"
+        ],
+        "tries": [
+          "h4"
+        ]
+      }
+    },
+    "h3": {
+      "ID": "h3",
+      "Version": "z4",
+      "Values": {
+        "lease": "43"
+      },
+      "Links": {}
+    },
+    "h4": {
+      "ID": "h4",
+      "Version": "z4",
+      "Values": {
+        "tries": "6"
+      },
+      "Links": {}
+    },
+    "h5": {
+      "ID": "h5",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "h6"
+        ]
+      }
+    },
+    "h6": {
+      "ID": "h6",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "h7"
+        ]
+      }
+    },
+    "h7": {
+      "ID": "h7",
+      "Version": "z4",
+      "Values": {
+        "ttl": "127"
+      },
+      "Links": {}
+    },
+    "h8": {
+      "ID": "h8",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "window": [
+          "absent-d-missing",
+          "h9"
+        ]
+      }
+    },
+    "h9": {
+      "ID": "h9",
+      "Version": "z4",
+      "Values": {
+        "window": "59"
+      },
+      "Links": {}
+    },
+    "h11": {
+      "ID": "h11",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "limit": [
+          "h10",
+          "h12"
+        ]
+      }
+    },
+    "h10": {
+      "ID": "h10",
+      "Version": "z3",
+      "Values": {
+        "limit": "3"
+      },
+      "Links": {}
+    },
+    "h12": {
+      "ID": "h12",
+      "Version": "z4",
+      "Values": {
+        "limit": "11"
+      },
+      "Links": {}
+    },
+    "h13": {
+      "ID": "h13",
+      "Version": "z4",
+      "Values": {},
+      "Links": {
+        "cap": [
+          "absent-f-missing"
+        ]
+      }
+    }
+  }
+}

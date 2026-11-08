@@ -1,0 +1,17 @@
+---
+course:
+  part: 1
+  chapter: 8
+topic_slug: packages-tools
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://golang-china.github.io/gopl-zh/ch10/ch10.html

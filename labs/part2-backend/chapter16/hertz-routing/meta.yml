@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 16
+topic_slug: hertz-routing
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://www.cloudwego.io/docs/hertz/
+- https://pkg.go.dev/github.com/cloudwego/hertz/pkg/app/server
+- https://pkg.go.dev/github.com/cloudwego/hertz/pkg/common/ut

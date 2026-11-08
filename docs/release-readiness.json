@@ -1,0 +1,10 @@
+{
+  "checks": [
+    {"id": "licensing", "status": "confirmed", "evidence": ["LICENSE", "LICENSE-DOCS"], "note": "维护者确认原创内容授权和账号署名；第三方内容另行核对。"},
+    {"id": "third-party-review", "status": "pending", "evidence": ["THIRD_PARTY_NOTICES.md"], "note": "逐项确认复制/改编边界与生成代码许可后才能确认。"},
+    {"id": "security-reporting", "status": "pending", "evidence": ["SECURITY.md"], "note": "已选择 GitHub 私密报告，尚未确认远端启用及入口可用。"},
+    {"id": "community-contact", "status": "confirmed", "evidence": ["CODE_OF_CONDUCT.md", "CONTRIBUTING.md"], "note": "维护者已提供并确认公开列出社区投诉邮箱；行为准则已说明私下报告与处理方式，未进行邮件收发测试。"},
+    {"id": "github-checks", "status": "pending", "evidence": [".github/workflows/ci.yml"], "note": "工作流文件不等于实际通过；远端 CI 及必需检查设置待验证。"},
+    {"id": "reader-trial", "status": "pending", "evidence": ["docs/designs/project-plan.md"], "note": "第 1/2 章与一个 Agent 示例尚待真实读者试学。"}
+  ]
+}

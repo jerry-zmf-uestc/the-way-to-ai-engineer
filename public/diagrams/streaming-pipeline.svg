@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" role="img" aria-labelledby="title"><title id="title">Streaming：事件、传输与页面各有职责</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="620" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="45" font-size="25">Streaming：事件、传输与页面各有职责</text>
+<rect x="30" y="135" width="215" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="42" y="165" font-size="17">runAgent</text>
+<text x="42" y="192" font-size="17">事件与完成原因</text>
+<rect x="310" y="135" width="215" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="322" y="165" font-size="17">无缓冲channel</text>
+<text x="322" y="192" font-size="17">发送或ctx取消</text>
+<rect x="590" y="135" width="215" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="602" y="165" font-size="17">HTTP writer</text>
+<text x="602" y="192" font-size="17">run_id / seq / SSE</text>
+<rect x="865" y="135" width="205" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="877" y="165" font-size="17">浏览器</text>
+<text x="877" y="192" font-size="17">校验与安全呈现</text>
+<path d="M245 180H310" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="261" y="163" font-size="16">事件</text>
+<path d="M525 180H590" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="540" y="163" font-size="16">消费</text>
+<path d="M805 180H865" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="820" y="163" font-size="16">网络</text>
+<path d="M960 225V320H695V225" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="720" y="306" font-size="16">关闭连接 → 请求取消</text>
+<path d="M695 225V365H140V225" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="250" y="352" font-size="16">写失败 / 超时 → cancel → 发送者退出</text>
+<rect x="70" y="430" width="455" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="82" y="460" font-size="17">一次连接只负责当前流</text>
+<text x="82" y="487" font-size="17">write/flush成功 ≠ 用户收到终态</text>
+<rect x="590" y="430" width="440" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="602" y="460" font-size="17">恢复需要独立状态与事件存储</text>
+<text x="602" y="487" font-size="17">当前Console不自动重跑、不支持重放</text>
+<text x="30" y="573" font-size="17">当前Console采用请求寿命；异步任务另有自己的状态，不照搬连接取消策略。</text>
+<text x="30" y="603" font-size="16">发送者、网络写入与工具分别协作退出；连接关闭不证明客户端收到done。</text>
+</g></svg>

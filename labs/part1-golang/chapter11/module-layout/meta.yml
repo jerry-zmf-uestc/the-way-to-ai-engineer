@@ -1,0 +1,17 @@
+---
+course:
+  part: 1
+  chapter: 11
+topic_slug: module-layout
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://go.dev/doc/modules/layout

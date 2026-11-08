@@ -1,0 +1,43 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[] }
+const headings = Astro.props.headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+{headings.length > 0 && (
+  <>
+    <details class="mobile-toc">
+      <summary>本页目录</summary>
+      <nav aria-label="本页目录">
+        {headings.map((heading) => (
+          <a class:list={[`toc-depth-${heading.depth}`]} href={`#${heading.slug}`}>{heading.text}</a>
+        ))}
+      </nav>
+    </details>
+    <aside class="contents-rail">
+      <span class="toc-label">本页目录</span>
+      <nav aria-label="本页目录">
+        {headings.map((heading) => (
+          <a class:list={[`toc-depth-${heading.depth}`]} data-toc-link={heading.slug} href={`#${heading.slug}`}>
+            {heading.text}
+          </a>
+        ))}
+      </nav>
+    </aside>
+    <script>
+      const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+      const sections = links
+        .map((link) => document.getElementById(link.dataset.tocLink ?? ''))
+        .filter((element): element is HTMLElement => element !== null);
+      const update = () => {
+        let current = sections[0]?.id;
+        for (const section of sections) {
+          if (section.getBoundingClientRect().top <= 140) current = section.id;
+        }
+        for (const link of links) link.toggleAttribute('aria-current', link.dataset.tocLink === current);
+      };
+      document.addEventListener('scroll', update, { passive: true });
+      update();
+    </script>
+  </>
+)}
