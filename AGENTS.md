@@ -8,7 +8,7 @@
 - 本文件适用于整个仓库。修改前检查目标目录及父目录中的局部 AGENTS.md；更近约定仅在对应范围内优先，不能覆盖运行环境的更高优先级指令或用户明确要求。工具的实际加载方式以其文档为准。
 - 已批准设计定义任务范围；本文件与专项规则约束实施。[总体方案中的章节地图](docs/designs/project-plan.md#chapter-map)是章节、Lab 映射及实现/代码/内容/读者状态的唯一人工维护视图。冲突无法由当前任务解决时，先确认，不静默绕过约束。
 
-面试合集位于 `content/interview/`，按题库列表制作公众号科普文章，保持框架中立；公众号优先保存草稿并回读，按项目本期流程经官方读者预览和作者确认后归档唯一正文与正式素材，不默认另建在线协作文稿；网站按授权呈现同稿，不进入课程章号。`node scripts/interview/issue.mjs next` 是新稿入口，私有本期与归档、网站准入规则见 [内容规范](docs/rules/interview-content-contract.md) 和 [合集方案](docs/designs/interview-handbook.md)。课程与归档文章各自只有一个正文真源；网页上线公开正文，保存草稿不等于发表。
+面试合集位于 `content/interview/`，按题库列表制作公众号科普文章，保持框架中立；公众号优先保存草稿并回读，按项目本期流程经官方读者预览和作者确认后归档唯一正文与正式素材，不默认另建在线协作文稿；网站按授权呈现同稿，不进入课程章号。`node scripts/interview/issue.mjs next` 是新稿入口，私有本期与归档、网站准入规则见 [内容规范](docs/rules/interview-content-contract.md) 和 [合集方案](docs/designs/interview-handbook.md)。课程与归档文章各自只有一个正文真源；网页上线公开正文，保存草稿不等于发表。公众号辅助 Skill 的分工、项目封面偏好与候选预览边界同样见该规范；试跑文件存仓库外，不自动覆盖正式稿或更新草稿。
 
 ## 按任务读取规则与模板
 
@@ -141,3 +141,7 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 ## 独立面试站点
 
 面试网页以content/interview为正文真源，website.json显式管理可见题目，不改变编辑/公众号发布状态。独立配置astro.interview.config.mjs读取src/interview-site，缓存.astro-interview、中间副本.generated/interview、输出dist-interview；与课程src/pages、.generated/chapters、dist隔离。复用依赖和公共静态资源，不另建人工正文或Node工程。npm run check:interview验证面试站点，dev:interview/preview:interview分别使用4322/4323，沿用受监督前台进程与失败保留上次有效内容。make validate-site执行npm run check:sites，检查两个站点并组装.pages-dist；Pages只部署合并包，既有课程地址不变，面试位于/the-way-to-ai-engineer/interview/。公开页面不得包含私有研究、审核、回执或凭据；自动检查不等于远端发布验收。
+
+## 公众号内容制作 Skill
+
+本项目公众号候选制作、试排、采用与授权草稿保存可使用 [agent-wechat-artifact-writer](.agents/skills/agent-wechat-artifact-writer/SKILL.md)。入口只编排流程；事实、质量与状态仍以题库和面试内容规范为准。社区依赖按需读取，本地候选与平台回执继续存仓库外。

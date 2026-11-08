@@ -88,6 +88,18 @@ node scripts/interview/issue.mjs site-enable AE-100 --public
 
 `site-enable AE-ID --public`仅准入本地网页，须另有公开范围确认；执行前保存/审核/归档摘要有效，公共构建拒绝网站记录版本漂移。新增可见不自动提交推送或部署。website schema1只兼容原首篇，schema2记录articles版本；本轮兼容改造不改变既有可见范围。旧工具和历史审核不自动提升。
 
+## 公众号辅助 Skill
+
+按需组合四项能力：content-research-writer核实原始来源、组织论证与引用；humanizer-zh在事实核实后轻度润色；baoyu-cover-image生成独立封面；dbs-wechat-html只负责排版。它们不替代题库、正文、状态和审核真源，不自动触发发布。Skill安装在维护者本机，公开校验不依赖安装目录或外部服务。
+
+文风以已确认首篇为样本，保留具体任务、自然段落、技术术语、引用、未知项及版本限定；不虚构亲历、面试高频、实测结果或读者效果。研究工具里的示例数字和故事不得直接写进正文。润色默认保留标题、层级、代码、链接及列表独立信息。
+
+封面偏好在项目.baoyu-skills/baoyu-cover-image/EXTEND.md维护；使用当前可用的原生图像生成能力，不为出图读取公众号凭据。封面与正文技术图分工，保留已审核Archify图，禁止用装饰图表达未经核实的控制语义。候选封面、完整提示词、来源核对、试跑稿及HTML保存在仓库外私有工作目录；未经采用不替换正式素材。
+
+默认排版比较minimal与editorial，白底、约16px正文、自然段落和少量强调，避免密集卡片、英文眉题及页脚装饰。优先保留中文句末标点，覆盖通用排版Skill的去句号建议。公众号用HTML将样式逐元素内联，首个一级标题仅作标题元信息，表格按需转为列表，图片保留可定位占位符；单独的本地阅读预览可以展示封面与内嵌原图，但必须标明它不是可直接投递的公众号HTML。预览不能证明微信后台清洗后的效果。
+
+用户仅要求试跑或预览时，正式正文、题库、编辑状态、网站可见清单及远端草稿保持；确认采用后才修改正式正文并重审。保存草稿仍须获得本轮对应内容的明确授权，不继承历史草稿授权自动写入；严禁自动线上发布。
+
 ## 面试网站
 
 website.json仅管理独立网站可见题目，不从编辑状态或公众号published推导；增加可见题前检查正文、来源和实际审核。首篇已确认内容可作为网站首篇，其他题不生成空路由。面试站点使用src/interview-site与astro.interview.config.mjs，生成副本在.generated/interview，输出dist-interview。npm run check:interview验证可见清单、链接、导航、搜索和构建，npm run dev:interview在4322启动，preview:interview在4323预览。课程独立命令不变；npm run check:sites检查二者并组装.pages-dist供现有Pages工作流上传，共享域名和部署但不共享课程导航。
