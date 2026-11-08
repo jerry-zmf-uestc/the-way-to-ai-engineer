@@ -1,6 +1,6 @@
 # 每日一题审核说明
 
-每题机器可读记录位于 私有工作目录的 `reviews/AE-NNN.json`，scaffold 自动创建。不得将此模板内的说明当成审核结果。
+每题归档审核位于私有工作目录 `reviews/AE-NNN.json`；公众号本期审核先写 `wechat/AE-NNN/working/review.json`，除article_sha256外必须绑定media_sha256，随审核版本冻结，归档后回填。旧scaffold保留兼容。不得将此模板内的说明当成审核结果。
 
 - reviewer：实际审阅者标识，明确是作者、真人同行或 Codex。
 - reviewed_at：实际审核日期 YYYY-MM-DD。
@@ -10,7 +10,7 @@
 - notes：逐项写来源定位、验证命令及结果、未验证边界、许可判断。证据不足不能写通过。
 - checks.facts：关键主张与权威来源一致、版本与前提明确。
 - checks.engineering：机制和失败路径有证据，示意与已运行代码区分。
-- checks.clarity：直接回答、原理、取舍、反例、追问与口述答案清楚。
+- checks.clarity：核心问题、机制、取舍、反例与回案例解释清楚；新稿公众号与网站同稿，历史补充只按其既有版本另审。
 - checks.sources：引用可定位、许可和归属正确。
 - checks.safety：权限、敏感数据、预算和副作用边界正确。
 

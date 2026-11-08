@@ -10,7 +10,7 @@
 | Rules | 章节、Lab、安全、面试内容与图示规范 | [强制读取规则](../AGENTS.md) |
 | 学习准备 | 工作目录、运行和练习副本；正文归入 book | [如何使用本书](../content/book/introduction.md#running-examples) |
 | Templates | 章节与内容审查模板 | [templates/book-chapter.md](templates/book-chapter.md) |
-| 面试合集 | 框架中立的 96 题、分章正文与统一内容生产 | [interview](../content/interview/README.md) / [内容规范](rules/interview-content-contract.md) |
+| 面试合集 | 框架中立的 50 个主问题、分章正文与统一内容生产 | [interview](../content/interview/README.md) / [内容规范](rules/interview-content-contract.md) |
 | Sources | 第三方归属与许可边界 | [第三方说明](../THIRD_PARTY_NOTICES.md) |
 
 ## 真源规则
@@ -32,7 +32,8 @@
 - Agent 操作约束：根目录 `AGENTS.md`。
 - 发布前人工与远端检查清单：`release-readiness.json`。
 
-- [面试专项方案](designs/interview-handbook.md)：96题边界、课程关联、编辑数据与迁移验收。
+- [面试专项方案](designs/interview-handbook.md)：50 个主问题边界、课程关联、编辑数据与迁移验收。
+- 公众号生产：[合集与草稿规则](rules/interview-wechat.md)、[渠道稿模板](templates/interview-wechat-article.md)、[本期命令与格式](rules/interview-content-contract.md#本期制作命令与资料格式)。同案例技术递进、设计者视角、无底色青绿记忆点及编号短图注统一维护在规则和模板，不在各篇另建风格副本。issue.mjs按列表选题，私有写作→审核/保存回读→归档→经另行授权的网站同稿准入；仅本地检查，不自动操作公众号、git或部署。wechat-check核对版本及缺口，候选预期snapshot不能当实际保存证据。
 - [图示规范](rules/diagram-contract.md)：课程与Archify各自的登记、验证及面试配图风格。
 - 面试编辑模板：[文章](templates/interview-article.md)、[研究](templates/interview-research.md)、[审核](templates/interview-review.md)。逐篇研究与审核在仓库外，模板不是审核结果。
 

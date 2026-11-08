@@ -79,6 +79,6 @@ Dir.mktmpdir('book-template-missing-new-page-') do |dir|
   FileUtils.cp_r(File.join(root, 'content'), dir)
   FileUtils.rm(File.join(dir, 'content/book/part3-agent/runtime/chapter33-serving.md'))
   out, err, status = Open3.capture3(RbConfig.ruby, checker, dir)
-  abort "missing new page accepted: #{out}#{err}" unless !status.success? && err.include?('expected 32 teaching pages')
+  abort "missing new page accepted: #{out}#{err}" unless !status.success? && err.include?('expected 37 teaching pages')
   puts 'PASS: missing new teaching page rejected'
 end

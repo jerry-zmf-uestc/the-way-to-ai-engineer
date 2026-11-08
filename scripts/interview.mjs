@@ -3,6 +3,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import {verifyDiagrams} from './interview/diagrams.mjs';
+import {checkWechat} from './interview/wechat.mjs';
 import {workspaceFile, publicFile} from './interview/workspace.mjs';
 
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -44,21 +45,23 @@ export function project(root = defaultRoot, env = process.env) {
     if (data.schema_version !== 3 || state.schema_version !== 1) fail('不支持的 schema_version');
     if (['plans','exports','.archify','research','reviews','scripts','templates','articles','assets','docs'].some(name => fs.existsSync(path.join(root,'content/interview',name)))) fail('发行回执、导出与运行材料应位于仓库外');
     if(fs.existsSync(path.join(root,'editorial')) || fs.existsSync(path.join(base,'calendar.json')))fail('旧编辑目录与发布日历已移除，不应重建');
-    if (data.questions.length !== 96) fail('题目数量必须为 96');
+    if (data.questions.length !== 50) fail('题目数量必须为 50');
     const ids = new Set(data.questions.map(q => q.id));
-    if (ids.size !== 96 || data.questions.some(q => !/^AE-\d{3}$/.test(q.id))) fail('ID 必须唯一且为 AE-三位数字');
+    if (ids.size !== 50 || data.questions.some(q => !/^AE-\d{3}$/.test(q.id))) fail('ID 必须唯一且为 AE-三位数字');
     if (data.plan_source !== 'docs/designs/interview-handbook.md' || !fs.existsSync(path.join(root,data.plan_source))) fail('方案来源无效');
-    const proposalNumbers=Array.from({length:99},(_,i)=>i+1).filter(n=>![5,6,7].includes(n));
+    const validProposal = id => /^P-0[0-9]{2}$/.test(id) && id !== 'P-000';
     data.questions.forEach((q,i) => {
-      if (q.order !== i+1 || q.proposal_id !== `P-${String(proposalNumbers[i]).padStart(3,'0')}` || !q.proposal_title?.trim() || (q.id !== 'AE-001' && q.title !== q.proposal_title)) fail(`题序或标题不一致：${q.id}`);
+      if (q.order !== i+1 || !validProposal(q.proposal_id) || (i > 0 && q.proposal_id <= data.questions[i-1].proposal_id) || !q.proposal_title?.trim()) fail(`题序或标题不一致：${q.id}`);
       if (!['design','runnable','measured'].includes(q.minimum_evidence) || !q.acceptance_case?.trim()) fail(`缺少证据等级或验收用例：${q.id}`);
     });
     if (data.questions[0].id !== 'AE-001') fail('首题必须保持 AE-001');
     const retired = data.retired_questions;
     if (!Array.isArray(retired) || new Set(retired.map(r => r.question?.id)).size !== retired.length || retired.some(r => !/^AE-\d{3}$/.test(r.question?.id) || ids.has(r.question.id) || !ids.has(r.covered_by) || r.last_state?.status !== 'planned' || r.last_state?.history?.length !== 0)) fail('封存ID重复、复用或记录无效');
+    const proposals = [...data.questions, ...retired.map(r => r.question)].map(q => q.proposal_id).filter(Boolean);
+    if (proposals.length !== 99 || new Set(proposals).size !== 99 || proposals.some(id => !validProposal(id))) fail('原提案 P-001 至 P-099 必须各保留一次');
     const modules = new Set(data.modules.map(m => m.id));
     if (modules.size !== 10 || data.modules.length !== 10) fail('必须有 10 个唯一模块');
-    const quotas=[7,10,10,10,8,12,9,8,12,10];
+    const quotas=[5,4,4,6,4,5,3,5,6,8];
     const directories=['reasoning-planning','tool-calling','context-memory','rag','evaluation-observability','runtime-harness','multi-agent','mcp-external-tools','production-engineering','system-design'];
     data.modules.forEach((m,i) => {
       if(m.count!==quotas[i] || m.directory!==directories[i] || data.questions.filter(q=>q.module===m.id).length!==m.count) fail(`模块题数或目录错误：${m.id}`);
@@ -84,9 +87,9 @@ export function project(root = defaultRoot, env = process.env) {
     }
     visitContent(path.join(root,'content/interview'));
     verifyDiagrams(root);
-    for(const file of articles){if(!fs.existsSync(articlePath({article:file})))continue;const text=fs.readFileSync(articlePath({article:file}),'utf8');for(const match of text.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)){const target=path.resolve(path.dirname(path.join(root,file)),match[2]),rel=path.relative(root,target).split(path.sep).join('/');if(!match[1].trim()||!rel.startsWith('public/diagrams/interview/')||!fs.existsSync(publicFile(root,rel)))fail('正文配图缺少替代文字或正式文件');}}
-    if (new Set(data.questions.map(q => q.title)).size !== 96) fail('题目标题重复');
-    if (Object.keys(state.items).length !== 96 || Object.keys(state.items).some(id => !ids.has(id))) fail('状态记录与题库不一致');
+    for(const file of articles){if(!fs.existsSync(articlePath({article:file})))continue;const text=fs.readFileSync(articlePath({article:file}),'utf8');for(const match of text.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)){const target=path.resolve(path.dirname(path.join(root,file)),match[2]),rel=path.relative(root,target).split(path.sep).join('/');if(!match[1].trim()||!(rel.startsWith('public/diagrams/interview/')||rel.startsWith('public/images/interview/'))||!fs.existsSync(publicFile(root,rel)))fail('正文配图缺少替代文字或正式文件');}}
+    if (new Set(data.questions.map(q => q.title)).size !== 50) fail('题目标题重复');
+    if (Object.keys(state.items).length !== 50 || Object.keys(state.items).some(id => !ids.has(id))) fail('状态记录与题库不一致');
     const visited = new Set(), visiting = new Set();
     function visit(id) {
       if (visiting.has(id)) fail(`前置依赖有环：${id}`);
@@ -113,7 +116,7 @@ export function project(root = defaultRoot, env = process.env) {
       if (item.status === 'published' && (!dateValid(item.published_at) || !urlValid(item.published_url))) fail(`缺少发布日期或链接：${q.id}`);
       if (item.status !== 'published' && (item.published_at !== null || item.published_url !== null)) fail(`未发布题不应带发布记录：${q.id}`);
     }
-    return '96 题、模块、依赖、课程/Lab关联、十大章节及状态结构校验通过；不代表私有审核通过';
+    return '50 题、模块、依赖、课程/Lab关联、十大章节及状态结构校验通过；不代表私有审核通过';
   }
 
   function scaffold(id) {
@@ -165,8 +168,8 @@ export function project(root = defaultRoot, env = process.env) {
     return '已更新面试手册总导航';
   }
   function navigation() {
-    const intro='# Agent 工程师面试手册 · '+data.questions.length+' 题\n\n按问题复习机制、工程取舍与失败边界。课程见 [book](../book/README.md)，实现与实验见 [实验约定](../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。\n\n运行、研究、审核及草稿边界见 [内容规范](../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../docs/designs/interview-handbook.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。\n\n在仓库根目录运行 `node scripts/interview.mjs next-work` 选择下一题，`node scripts/interview.mjs scaffold AE-ID` 创建正文，`node scripts/interview.mjs render` 更新导航。题库与状态直接保存在本目录的 `questions.json`、`state.json`；状态用 `status`，关联缺口用 `coverage` 查看；`make validate-interview` 检查公共结构，`node scripts/interview.mjs delivery-check AE-ID` 单独检查本地交付证据。\n\n<!-- generated: questions.json; edit catalogue then render -->\n\n';
-    return intro+data.modules.map(m=>`## ${m.name}（${m.count} 题）\n\n| 题序 | 永久 ID | 题目 | 难度 |\n| --- | --- | --- | --- |\n`+data.questions.filter(q=>q.module===m.id).map(q=>`| ${q.proposal_id} | ${q.id} | ${fs.existsSync(articlePath(q))?`[${q.title}](${path.relative(path.join(root,'content/interview'),articlePath(q)).split(path.sep).join('/')})`:q.title+'（待编写）'} | ${q.difficulty} |`).join('\n')).join('\n\n')+'\n';
+    const intro='# Agent 工程师面试手册 · '+data.questions.length+' 题\n\n题库title是本期主题，按order组织公众号科普文章，优先保存草稿并回读，最终正文归档后供网站同稿预览。课程见 [book](../book/README.md)，实现与实验见 [实验约定](../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。\n\n运行、研究、审核及草稿边界见 [内容规范](../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../docs/designs/interview-handbook.md)，豆包工作创建和更新公众号稿件见 [公众号规则](../../docs/rules/interview-wechat.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。\n\n在仓库根目录运行 `node scripts/interview/issue.mjs next` 按列表选择下一篇新稿，`node scripts/interview/issue.mjs start AE-ID` 在私有区准备本期；保存核验后归档。旧next-work/scaffold保留历史编辑兼容，不作为公众号新稿入口。`node scripts/interview.mjs render` 更新导航。题库与状态直接保存在本目录的 `questions.json`、`state.json`；状态用 `status`，关联缺口用 `coverage` 查看；`make validate-interview` 检查公共结构，`node scripts/interview.mjs delivery-check AE-ID` 单独检查本地交付证据。\n\n<!-- generated: questions.json; edit catalogue then render -->\n\n';
+    return intro+data.modules.map(m=>`## ${m.name}（${m.count} 题）\n\n| 来源编号 | 永久 ID | 题目 | 难度 |\n| --- | --- | --- | --- |\n`+data.questions.filter(q=>q.module===m.id).map(q=>`| ${q.proposal_id} | ${q.id} | ${fs.existsSync(articlePath(q))?`[${q.title}](${path.relative(path.join(root,'content/interview'),articlePath(q)).split(path.sep).join('/')})`:q.title+'（待编写）'} | ${q.difficulty} |`).join('\n')).join('\n\n')+'\n';
   }
   function checkNavigation(){if(fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8')!==navigation())fail('总导航过期，请运行 render');return '总导航与题库一致';}
   function coverage(){
@@ -186,14 +189,15 @@ export function project(root = defaultRoot, env = process.env) {
     const id=orderedQuestions().find(q=>!['ready','published'].includes(state.items[q.id].status))?.id;
     return id ? `${id} [${state.items[id].status}] ${question(id).proposal_id} ${question(id).title}` : '全部已完成内容制作';
   }
-  return {validate,scaffold,transition,hash,render,next,nextWork,orderedQuestions,checkNavigation,coverage,status,deliveryCheck};
+  function wechatCheck(){validate();const result=checkWechat(root,env);if(!result.ok)fail(result.errors.join('\n'));return JSON.stringify(result,null,2);}
+  return {validate,scaffold,transition,hash,render,next,nextWork,orderedQuestions,checkNavigation,coverage,status,deliveryCheck,wechatCheck};
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const [command,...args]=process.argv.slice(2), p=project();
     const flag = name => { const i=args.indexOf(name); return i>=0 ? args[i+1] : undefined; };
-    const positional={validate:0,next:0,'next-work':0,render:0,scaffold:1,hash:1,transition:2,coverage:0,status:0,'delivery-check':1,'check-navigation':0};
-    if(!(command in positional)) fail('用法：validate | next | next-work | render | scaffold ID | hash ID | transition ID STATUS [--date DATE --url URL] | status | coverage | delivery-check ID | check-navigation');
+    const positional={validate:0,next:0,'next-work':0,render:0,scaffold:1,hash:1,transition:2,coverage:0,status:0,'delivery-check':1,'check-navigation':0,'wechat-check':0};
+    if(!(command in positional)) fail('用法：validate | next | next-work | render | scaffold ID | hash ID | transition ID STATUS [--date DATE --url URL] | status | coverage | delivery-check ID | check-navigation | wechat-check');
     const n=positional[command];
     if(args.length<n || args.slice(0,n).some(a=>a.startsWith('--'))) fail('缺少必需参数');
     const allowed=command==='transition' ? ['--date','--url'] : [];
@@ -208,6 +212,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     else if(command==='next-work') console.log(p.nextWork());
     else if(command==='delivery-check') console.log(p.deliveryCheck(args[0]));
     else if(command==='hash') console.log(p.hash(args[0]));
+    else if(command==='wechat-check') console.log(p.wechatCheck());
     else if(command==='check-navigation') console.log(p.checkNavigation());
     else console.log(p[command]());
   } catch(e) { console.error(e.message); process.exitCode=1; }

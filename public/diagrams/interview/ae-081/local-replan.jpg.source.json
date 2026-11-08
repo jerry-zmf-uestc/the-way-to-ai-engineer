@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "局部重规划",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "bf1b58263896031e969133ffea24abd1a1e79f300453bf09c0a686c32cd5cac5",
+  "rebuildable": false
+}

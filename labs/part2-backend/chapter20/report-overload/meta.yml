@@ -1,0 +1,15 @@
+---
+course:
+  part: 2
+  chapter: 20
+topic_slug: report-overload
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null
+references:
+- https://go.dev/doc/diagnostics

@@ -10,9 +10,14 @@ export function verifyDiagrams(root) {
   if(registry.schema_version!==1 || !Array.isArray(registry.diagrams) || !registry.diagrams.length) throw new Error('面试图登记无效');
   const registered=new Set([base+'/sources.json']);
   for(const diagram of registry.diagrams){
-    if(diagram.format!=='archify-workflow-v2' || !Array.isArray(diagram.outputs) || !diagram.outputs.length)throw new Error('面试图源格式无效');
+    if(!['archify-workflow-v2','frozen-static-v1'].includes(diagram.format) || !Array.isArray(diagram.outputs) || !diagram.outputs.length)throw new Error('面试图源格式无效');
     const source=JSON.parse(fs.readFileSync(publicFile(root,diagram.source),'utf8'));
-    if(source.schema_version!==2 || source.diagram_type!=='workflow')throw new Error('面试图源结构无效');
+    if(diagram.format==='archify-workflow-v2') {
+      if(source.schema_version!==2 || source.diagram_type!=='workflow')throw new Error('面试图源结构无效');
+    } else {
+      if(source.schema_version!==1 || source.kind!=='frozen-static' || !source.title?.trim() || !source.provenance?.trim() || source.rebuildable!==false || !/^[a-f0-9]{64}$/.test(source.original_sha256) || diagram.outputs.length!==1 || registry.sha256[diagram.outputs[0]]!==source.original_sha256)throw new Error('冻结静态图来源或摘要无效');
+      if(!/\.(?:png|jpe?g|svg)$/.test(diagram.outputs[0]))throw new Error('冻结静态图格式不支持');
+    }
     for(const file of [diagram.source,...diagram.outputs]){
       if(registered.has(file)||!file.startsWith(base+'/')||!(file in registry.sha256))throw new Error('面试图重复或未登记');
       registered.add(file);
@@ -23,6 +28,7 @@ export function verifyDiagrams(root) {
     const bytes=fs.readFileSync(publicFile(root,file));
     if(crypto.createHash('sha256').update(bytes).digest('hex')!==hash)throw new Error('面试图字节已变化，需重新审查并登记');
     if(file.endsWith('.png') && !bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))throw new Error('面试PNG格式无效');
+    if(/\.jpe?g$/.test(file) && !(bytes[0]===255 && bytes[1]===216 && bytes[2]===255))throw new Error('面试JPEG格式无效');
     if(file.endsWith('.svg')){
       const text=bytes.toString('utf8');
       if(!/<svg\b/.test(text)||!/<title\b/.test(text)||/<!DOCTYPE|<!ENTITY|<(?:[\w-]+:)?(?:script|foreignObject|iframe|image|animate|set)\b|\son[\w:-]+\s*=|(?:href|src)\s*=\s*["'](?!#)|url\(\s*["']?(?!#)|@import|javascript:/i.test(text))throw new Error('面试SVG静态边界检查失败');

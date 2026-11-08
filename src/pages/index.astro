@@ -47,7 +47,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <p>按知识缺口选择章节，再到配套实验验证判断。Agent 部分按构建篇、运行时、治理篇组织；阅读顺序与前置知识见正文。</p>
     </div>
     {[...groups].map(([part, entries]) => (
-      <section class="part-section" id={part === 'Part 3 · Golang Agent' ? 'agent-course' : undefined}>
+      <section class="part-section" id={part === 'Part 3 · Golang Agent' ? 'agent-course' : part === 'Part 2 · 后端进阶' ? 'backend-roadmap' : undefined}>
         <div class="part-heading">
           <h2>{part}</h2>
           <span>{entries.length} 篇</span>

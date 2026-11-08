@@ -404,4 +404,4 @@ go -C labs test ./part1-golang/chapter11/uber-string-builder/... -count=1
 - [pprof 官方文档](https://pkg.go.dev/net/http/pprof)与 [Delve](https://github.com/go-delve/delve)：性能分析与调试工具入口。
 - The Way to Go 中文章节：[自定义包和可见性](https://learnku.com/docs/the-way-to-go/95-custom-packages-and-visibility/3629)、[使用 godoc 查看自定义包](https://learnku.com/docs/the-way-to-go/96-uses-godoc-for-custom-packages/3631)、[自定义包目录结构、go install 与 go test](https://learnku.com/docs/the-way-to-go/98-custom-package-directory-structure-go-install-and-go-test/3633)、[可见性模式](https://learnku.com/docs/the-way-to-go/173-the-visibility-pattern/3728)。
 
-[返回全书目录](../README.md) · [上一篇：Web 服务](chapter10.md) · [下一篇：MySQL、SQL、索引与 GORM](../part2-backend/chapter12.md)
+[返回全书目录](../README.md) · [上一篇：Web 服务](chapter10.md) · [下一篇：请求边界与任务 API](../part2-backend/chapter16.md)

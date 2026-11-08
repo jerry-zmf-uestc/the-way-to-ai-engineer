@@ -10,7 +10,7 @@ Dir.chdir(root)
 manifest = JSON.parse(File.read('content/book/chapters.json'))
 pages = manifest.values.select { |entry| entry['published'] && entry['unitNumber'] }.map { |entry| entry.fetch('path') }.sort
 actual = Dir.glob('content/book/**/chapter*.md').sort
-abort 'expected 32 teaching pages with matching published sources' unless pages.length == 32 && pages == actual
+abort 'expected 37 teaching pages with matching published sources' unless pages.length == 37 && pages == actual
 total = 0
 pages.each do |path|
   text = File.read(path)

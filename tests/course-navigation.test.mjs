@@ -78,3 +78,15 @@ test('all legacy Agent URLs and section fragments remain reachable after consoli
     assert.ok(ids.includes(redirects[oldId].anchor), `${oldId}: missing default topic anchor`);
   }
 });
+
+test('Part 2 follows the new learning order and preserves old URLs and fragments', () => {
+  const legacy = JSON.parse(readFileSync(resolve(ROOT, 'tests/fixtures/backend-legacy-links.json'), 'utf8'));
+  const entries = validateManifest(loadManifest()).filter((page) => page.part.startsWith('Part 2'));
+  assert.deepEqual(entries.map((page) => page.id), Object.keys(legacy));
+  assert.deepEqual(entries.map((page) => page.unitNumber), [12, 13, 14, 15, 16, 17, 18, 19, 20, 21]);
+  for (const [id, fragments] of Object.entries(legacy)) {
+    const html = readFileSync(resolve(ROOT, 'dist/chapters', id, 'index.html'), 'utf8');
+    const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]));
+    for (const fragment of fragments) assert.ok(ids.has(fragment), `${id}: missing #${fragment}`);
+  }
+});

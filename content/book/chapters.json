@@ -248,174 +248,219 @@
     ],
     "unitNumber": 11
   },
-  "ch12-mysql-gorm": {
-    "path": "content/book/part2-backend/chapter12.md",
-    "title": "第 12 章：数据访问与模型配置",
-    "part": "Part 2 · 后端进阶",
-    "order": 24,
-    "description": "模型配置、脱敏 DSN 与 repository 边界。",
-    "published": true,
-    "prerequisites": [
-      "ch11-engineering"
-    ],
-    "labs": [
-      "labs/part2-backend/chapter12/gorm-mysql",
-      "labs/part2-backend/chapter12/repository-pattern"
-    ],
-    "capabilities": [
-      "GORM",
-      "Repository"
-    ],
-    "unitNumber": 12
-  },
-  "ch13-transactions": {
-    "path": "content/book/part2-backend/chapter13.md",
-    "title": "第 13 章：事务边界与回滚",
-    "part": "Part 2 · 后端进阶",
-    "order": 26,
-    "description": "事务外壳、回滚语义与失败路径验证。",
-    "published": true,
-    "prerequisites": [
-      "ch12-mysql-gorm"
-    ],
-    "labs": [
-      "labs/part2-backend/chapter13/transactions"
-    ],
-    "capabilities": [
-      "事务",
-      "回滚"
-    ],
-    "unitNumber": 13
-  },
-  "ch14-redis": {
-    "path": "content/book/part2-backend/chapter14.md",
-    "title": "第 14 章：Redis 缓存、限流与分布式锁",
-    "part": "Part 2 · 后端进阶",
-    "order": 28,
-    "description": "缓存一致性、有限流量与锁的有效边界。",
-    "published": false,
-    "prerequisites": [
-      "ch13-transactions"
-    ],
-    "labs": [],
-    "capabilities": [],
-    "unitNumber": 14
-  },
-  "ch15-messaging": {
-    "path": "content/book/part2-backend/chapter15.md",
-    "title": "第 15 章：消息队列与异步任务",
-    "part": "Part 2 · 后端进阶",
-    "order": 30,
-    "description": "队列接纳、结果提交与重复投递的处理。",
-    "published": false,
-    "prerequisites": [
-      "ch14-redis"
-    ],
-    "labs": [],
-    "capabilities": [],
-    "unitNumber": 15
-  },
   "ch16-hertz": {
     "path": "content/book/part2-backend/chapter16.md",
-    "title": "第 16 章：Hertz 路由与网关",
+    "title": "第 12 章：请求边界与任务 API",
     "part": "Part 2 · 后端进阶",
-    "order": 32,
-    "description": "engine、middleware 与 route group 的组合边界。",
+    "order": 24,
+    "description": "定义接纳、查询、终态与资源归属。",
     "published": true,
     "prerequisites": [
-      "ch13-transactions"
+      "ch10-web-services"
     ],
     "labs": [
+      "labs/part2-backend/chapter21/report-flow",
       "labs/part2-backend/chapter16/hertz-routing",
       "labs/part2-backend/chapter16/hertz-kitex-demo",
       "labs/part2-backend/chapter16/hertz-kitex-real-chain"
     ],
     "capabilities": [
-      "Hertz",
-      "网关"
+      "HTTP 202",
+      "任务状态",
+      "资源归属"
     ],
-    "unitNumber": 16
+    "unitNumber": 12
   },
-  "ch17-kitex": {
-    "path": "content/book/part2-backend/chapter17.md",
-    "title": "第 17 章：Kitex 与 RPC 契约",
+  "ch12-mysql-gorm": {
+    "path": "content/book/part2-backend/chapter12.md",
+    "title": "第 13 章：数据建模、SQL 与索引",
     "part": "Part 2 · 后端进阶",
-    "order": 34,
-    "description": "IDL、代码生成与 optional 字段的契约演进。",
+    "order": 26,
+    "description": "用真实 SQL 验证组合索引、游标与执行计划。",
     "published": true,
     "prerequisites": [
       "ch16-hertz"
     ],
     "labs": [
-      "labs/part2-backend/chapter17/kitex-idl-handler",
-      "labs/part2-backend/chapter17/kitex-rpc"
+      "labs/part2-backend/chapter12/gorm-mysql",
+      "labs/part2-backend/chapter12/repository-pattern",
+      "labs/part2-backend/chapter12/report-sql"
     ],
     "capabilities": [
-      "Kitex",
-      "IDL",
+      "数据建模",
+      "SQL 执行计划",
+      "索引与游标"
+    ],
+    "unitNumber": 13
+  },
+  "ch13-transactions": {
+    "path": "content/book/part2-backend/chapter13.md",
+    "title": "第 14 章：事务、隔离与并发写入",
+    "part": "Part 2 · 后端进阶",
+    "order": 28,
+    "description": "用独立连接复现争用，验证条件更新与回滚。",
+    "published": true,
+    "prerequisites": [
+      "ch12-mysql-gorm"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter13/transactions",
+      "labs/part2-backend/chapter12/report-sql"
+    ],
+    "capabilities": [
+      "事务",
+      "条件更新",
+      "锁与回滚"
+    ],
+    "unitNumber": 14
+  },
+  "ch15-messaging": {
+    "path": "content/book/part2-backend/chapter15.md",
+    "title": "第 15 章：任务队列、投递与恢复",
+    "part": "Part 2 · 后端进阶",
+    "order": 30,
+    "description": "按持久化事实恢复投递，区分结果与确认。",
+    "published": true,
+    "prerequisites": [
+      "ch13-transactions"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter15/report-queue",
+      "labs/part2-backend/chapter12/report-sql"
+    ],
+    "capabilities": [
+      "持久任务",
+      "Outbox",
+      "重复投递"
+    ],
+    "unitNumber": 15
+  },
+  "ch14-redis": {
+    "path": "content/book/part2-backend/chapter14.md",
+    "title": "第 16 章：缓存、读路径与一致性",
+    "part": "Part 2 · 后端进阶",
+    "order": 32,
+    "description": "用回源量、命中与陈旧读评估缓存策略。",
+    "published": true,
+    "prerequisites": [
+      "ch15-messaging"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter14/report-cache"
+    ],
+    "capabilities": [
+      "缓存",
+      "回源成本",
+      "写后读"
+    ],
+    "unitNumber": 16
+  },
+  "ch17-kitex": {
+    "path": "content/book/part2-backend/chapter17.md",
+    "title": "第 17 章：远程调用、契约与服务边界",
+    "part": "Part 2 · 后端进阶",
+    "order": 34,
+    "description": "从网关跨到 RPC，验证发现、摘流与兼容。",
+    "published": true,
+    "prerequisites": [
+      "ch14-redis"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter17/kitex-idl-handler",
+      "labs/part2-backend/chapter17/kitex-rpc",
+      "labs/part2-backend/chapter16/hertz-routing",
+      "labs/part2-backend/chapter16/hertz-kitex-demo",
+      "labs/part2-backend/chapter16/hertz-kitex-real-chain",
+      "labs/part2-backend/chapter18/report-discovery"
+    ],
+    "capabilities": [
+      "HTTP → RPC",
+      "服务发现",
       "契约演进"
     ],
     "unitNumber": 17
   },
-  "ch18-service-discovery": {
-    "path": "content/book/part2-backend/chapter18.md",
-    "title": "第 18 章：服务发现、配置与微服务边界",
-    "part": "Part 2 · 后端进阶",
-    "order": 36,
-    "description": "服务身份、动态配置与依赖边界。",
-    "published": false,
-    "prerequisites": [
-      "ch17-kitex"
-    ],
-    "labs": [],
-    "capabilities": [],
-    "unitNumber": 18
-  },
   "ch19-resilience": {
     "path": "content/book/part2-backend/chapter19.md",
-    "title": "第 19 章：幂等、重试、超时、熔断与降级",
+    "title": "第 18 章：超时、结果未知与幂等",
     "part": "Part 2 · 后端进阶",
-    "order": 38,
-    "description": "有界恢复、结果未知与服务保护。",
-    "published": false,
-    "prerequisites": [
-      "ch18-service-discovery"
-    ],
-    "labs": [],
-    "capabilities": [],
-    "unitNumber": 19
-  },
-  "ch20-load-testing": {
-    "path": "content/book/part2-backend/chapter20.md",
-    "title": "第 20 章：高并发、pprof、背压与压测",
-    "part": "Part 2 · 后端进阶",
-    "order": 40,
-    "description": "容量、性能剖析、背压与负载验证。",
-    "published": false,
-    "prerequisites": [
-      "ch19-resilience"
-    ],
-    "labs": [],
-    "capabilities": [],
-    "unitNumber": 20
-  },
-  "ch21-service-runtime": {
-    "path": "content/book/part2-backend/chapter21.md",
-    "title": "第 21 章：配置、日志、探针与优雅关闭",
-    "part": "Part 2 · 后端进阶",
-    "order": 42,
-    "description": "配置加载、结构化日志、探针与协作式关闭。",
+    "order": 36,
+    "description": "区分拒绝与结果未知，核算重试和截止时间。",
     "published": true,
     "prerequisites": [
       "ch17-kitex"
     ],
     "labs": [
-      "labs/part2-backend/chapter21/service-runtime"
+      "labs/part2-backend/chapter19/report-idempotency"
     ],
     "capabilities": [
-      "配置",
-      "日志",
-      "优雅关闭"
+      "幂等",
+      "截止时间",
+      "重试"
+    ],
+    "unitNumber": 18
+  },
+  "ch20-load-testing": {
+    "path": "content/book/part2-backend/chapter20.md",
+    "title": "第 19 章：并发、背压与过载保护",
+    "part": "Part 2 · 后端进阶",
+    "order": 38,
+    "description": "观察固定到达率下的延迟、拒绝与恢复。",
+    "published": true,
+    "prerequisites": [
+      "ch19-resilience"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter20/report-overload"
+    ],
+    "capabilities": [
+      "容量",
+      "背压",
+      "压测"
+    ],
+    "unitNumber": 19
+  },
+  "ch18-service-discovery": {
+    "path": "content/book/part2-backend/chapter18.md",
+    "title": "第 20 章：可观测性与事故诊断",
+    "part": "Part 2 · 后端进阶",
+    "order": 40,
+    "description": "用用户影响、队列年龄与任务事件定位故障。",
+    "published": true,
+    "prerequisites": [
+      "ch20-load-testing"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter21/report-backlog",
+      "labs/part2-backend/chapter21/report-flow",
+      "labs/part2-backend/chapter18/report-discovery"
+    ],
+    "capabilities": [
+      "用户影响",
+      "日志与指标",
+      "队列年龄"
+    ],
+    "unitNumber": 20
+  },
+  "ch21-service-runtime": {
+    "path": "content/book/part2-backend/chapter21.md",
+    "title": "第 21 章：发布、关闭与综合演练",
+    "part": "Part 2 · 后端进阶",
+    "order": 42,
+    "description": "验证服务生命周期与在途任务，完成综合演练。",
+    "published": true,
+    "prerequisites": [
+      "ch18-service-discovery"
+    ],
+    "labs": [
+      "labs/part2-backend/chapter21/service-runtime",
+      "labs/part2-backend/chapter21/report-backlog",
+      "labs/part2-backend/chapter21/report-flow"
+    ],
+    "capabilities": [
+      "就绪探针",
+      "摘流量",
+      "故障恢复"
     ],
     "unitNumber": 21
   },

@@ -1,6 +1,14 @@
-# 第 17 章：Kitex 与 RPC 契约
+# 第 17 章：远程调用、契约与服务边界
 
 HTTP 接口改错了，问题还能在文本层被看见；RPC 契约改错了，最危险的情况是"还能跑，只是数据悄悄错位"。本章用两个 Kitex 示例建立 IDL → 生成代码 → handler 的链路，重点在字段编号与 optional 的演进纪律。
+
+IDL 对前端读者很像生成 API 类型的 schema；它约束跨进程编解码，还要考虑新旧实例在滚动发布期间同时在线。以导出请求新增可选的格式字段为例，老调用方省略字段时应保留原行为；新调用方在旧服务还没下线前，不能假定新字段已生效。把“旧客户端调用新服务”和“新客户端调用旧服务”分开验证，明确哪些能力需要服务端确认。编译能通过，只能证明本次构建的类型匹配。
+
+## 一次远程调用多出哪些失败
+
+报表网关收到请求后，可以在本进程调用任务模块，也可以通过 RPC 访问另一个实例。跨进程后，至少分开地址是否可用、调用契约是否兼容、服务是否已做完业务。发现返回一个地址只说明快照中还有它；旧连接、代理缓存和就绪状态都可能让路由晚一步更新。写操作跨实例重试还要遵守[幂等契约](chapter19.md)。
+
+把 Hertz 和 Kitex 当作同一次边界实验：在 [真实 HTTP → RPC 链路](../../../labs/part2-backend/chapter16/hertz-kitex-real-chain/README.md) 定位身份与截止时间应从哪层传入，再到 [实例下线实验](../../../labs/part2-backend/chapter18/report-discovery/README.md) 比较固定地址失败和刷新后恢复。就绪与配置的[原小节](chapter18.md#服务名地址和可接流量是三件事)可以作为进阶对照。只有需要独立容量、部署或故障隔离时，拆服务的收益才可能覆盖新的网络与运维成本。
 
 ## 17.1 IDL → codegen → handler
 
@@ -156,6 +164,8 @@ func badCurrency(req *order.QuoteRequest) string {
 
 现象："没传"和"传了零值"被混成一件事，旧客户端本该走的默认分支被跳过，后续分支逻辑越来越乱。修复：决定默认值前先查 `IsSet*` 或字段指针，再读 getter；测试要分别断言"未传"与"显式空串"两条分支。
 
+<a id="练习"></a>
+
 ## 动手练
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
@@ -182,4 +192,4 @@ go -C labs test ./part2-backend/chapter17/kitex-rpc/... -count=1
 - [接口和动态类型](https://learnku.com/docs/the-way-to-go/1112-interface-and-dynamic-type/3657)
 - [Go 中面向对象的总结](https://learnku.com/docs/the-way-to-go/1113-summary-object-oriented-in-go/3658)
 
-[返回全书目录](../README.md) · [上一篇：Hertz 路由与网关](chapter16.md) · [下一篇：Agent Runtime / Harness](../part3-agent/building/chapter22-architecture.md#topic-harness-intro)
+[返回全书目录](../README.md) · [上一篇：缓存、读路径与一致性](chapter14.md) · [下一篇：超时、结果未知与幂等](chapter19.md)

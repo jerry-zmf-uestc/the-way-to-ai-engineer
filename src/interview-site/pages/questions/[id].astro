@@ -12,11 +12,15 @@ const {Content,headings}=await render(entry);
 ---
 <HandbookLayout title={entry.data.title} currentId={entry.data.questionId}>
 <article>
-<header class="article-header"><a class="back-link" href={`${INTERVIEW_BASE}/`}>← 返回全部问题</a><p class="kicker">{entry.data.questionId} · 面试与工程取舍</p><h1>{entry.data.title}</h1></header>
-<details class="article-contents"><summary>本篇内容</summary><nav aria-label="本篇目录"><ul>{headings.filter(h=>h.depth===2).map(h=><li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul></nav></details>
+<header class="article-header"><a class="back-link" href={`${INTERVIEW_BASE}/`}>← 返回全部问题</a><h1>{entry.data.title}</h1></header>
+<details class="article-contents"><summary>本篇内容</summary><nav aria-label="本篇目录"><ul>{headings.filter(h=>h.depth<=3).map(h=><li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul></nav></details>
 <div class="prose"><Content/></div>
 <nav class="neighbors" aria-label="篇目导航">{previous&&<a href={`${INTERVIEW_BASE}/questions/${previous.id}/`}>上一篇：{previous.data.title}</a>}{next&&<a href={`${INTERVIEW_BASE}/questions/${next.id}/`}>下一篇：{next.data.title}</a>}<a href={`${INTERVIEW_BASE}/#catalogue`}>继续浏览问题目录 →</a></nav>
 <p class="source-link"><a href={`https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/blob/main/${entry.data.source}`}>查看本文源文件</a></p>
 </article>
 <ReadingTools/>
+<script>
+ import {formatArticle} from '../../scripts/article.mjs';
+ for(const prose of document.querySelectorAll('.prose'))formatArticle(prose);
+</script>
 </HandbookLayout>

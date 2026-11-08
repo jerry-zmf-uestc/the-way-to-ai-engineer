@@ -1,6 +1,23 @@
-# 第 16 章：Hertz 路由与网关
+# 第 12 章：请求边界与任务 API
 
-只会写 `net/http` handler 还不够：系统拆成多个服务后，需要一个专门的入口层负责路由、参数提取、鉴权、中间件和调用后端 RPC——Hertz 是 HTTP 世界的入口组织者，而不是业务本身。
+点击「导出」后，页面收到一个任务 ID，几次轮询后才看见 CSV。先打开 [报表导出浏览器实验](../../../labs/part2-backend/chapter21/report-flow/README.md)，在 Network 面板跟一遍 POST 和 GET。POST 承诺任务已被接纳，GET 才回答执行到了哪一步。
+
+## 从 UI 状态到服务端承诺
+
+| 页面动作 | HTTP 契约 | 服务端事实 |
+| --- | --- | --- |
+| 点击导出 | POST 返回 202 和任务 ID | 校验请求与身份，接纳任务并记录初始状态 |
+| 等待结果 | GET 返回 200 和状态 | 从任务记录读取 queued、running 或 succeeded |
+| 展示 CSV | succeeded 才包含结果 | 后台执行方已经提交结果 |
+| 没收到响应 | 本地标为结果未知 | 客户端没有足够证据判断是否创建，保留原键 |
+
+让前端把「提交中」和「后台运行中」分开。网络请求结束并不会结束已接纳的任务；取消轮询只停止查询。服务端应为重复查询提供稳定标识，并为输入错误、资源不存在和暂时不可用保留不同的 HTTP 语义。生产场景还要定义失败终态、结果保留期和查询限额。
+
+## 任务 ID 是索引，身份决定能否读取
+
+拿到一个 ID 并不代表持有者有权访问该资源。导出服务应在查任务和取结果时都用已认证的身份校验归属。入口从认证上下文取得身份，存储层按身份与资源查询，避免只在前端隐藏按钮。幂等键也应按身份和操作隔离，否则两个用户碰巧用了同一个键就会共享任务。综合 Lab 用两个固定教学身份验证同键隔离和跨用户 404，身份头只用于本地实验。
+
+下面的 Hertz 示例展示入口职责如何落到框架里。完整跨进程契约与实例发现见[第 17 章](chapter17.md)。
 
 ## 1. 组合 engine、middleware 和 route group
 
@@ -167,6 +184,8 @@ func run() {
 
 已有测试通过只说明已覆盖的用例符合预期，新增边界仍要补充断言。
 
+<a id="练习"></a>
+
 ## 动手练
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
@@ -189,4 +208,4 @@ go -C labs test ./part2-backend/chapter16/hertz-routing/... -count=1
 - [Hertz 官方文档](https://www.cloudwego.io/docs/hertz/)：路由、中间件和服务运行的官方说明；接口细节以本仓锁定版本（Hertz v0.10.5、Kitex v0.16.2，见 `labs/go.mod`）为准。
 - 《Go 入门指南》未直接覆盖 Hertz，以下三节与本章的网关职责最接近：[一个简单的 Web 服务器](https://learnku.com/docs/the-way-to-go/152-a-simple-web-server/3704)、[让 Web 应用更健壮](https://learnku.com/docs/the-way-to-go/155-making-a-web-application-robust/3707)、[功能更完整的 WebServer](https://learnku.com/docs/the-way-to-go/158-a-versatile-and-delicate-webserver/3710)。
 
-[返回全书目录](../README.md) · [上一篇：配置、日志、探针与优雅关闭](chapter21.md) · [下一篇：Kitex 与 RPC 契约](chapter17.md)
+[返回全书目录](../README.md) · [上一篇：Go 工程实践](../part1-golang/chapter11.md) · [下一篇：数据建模、SQL 与索引](chapter12.md)

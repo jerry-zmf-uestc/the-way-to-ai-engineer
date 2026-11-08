@@ -44,7 +44,7 @@ GoTrip 是后续独立旅行实践，不要求每章增加旅行功能，也不�
 
 | 入口 | 用途 |
 | --- | --- |
-| [interview](content/interview/README.md) | 按十大章节组织的 96 题面试手册（独立于课程章号） |
+| [interview](content/interview/README.md) | 按十大章节组织的 50 个主问题面试手册（独立于课程章号） |
 | [book](content/book/README.md) | 教材与阅读目录 |
 | labs | 各章独立示例，从正文进入 |
 | [docs](docs/README.md) | 长期设计、规则与模板 |

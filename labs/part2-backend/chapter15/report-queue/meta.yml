@@ -1,0 +1,15 @@
+---
+course:
+  part: 2
+  chapter: 15
+topic_slug: report-queue
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null
+references:
+- https://www.rabbitmq.com/docs/confirms

@@ -13,3 +13,9 @@
 使用Archify时读取已安装Skill，保留上游内容，仅按本规范定制；默认classic、meta.legend.mode为hidden（无额外信息时）、icon为none，省略不必要subtitle/viewBox，优先自动布局。每次工作用独立私有.archify目录，遵循finalize及实际视觉审查。浏览器策略禁止时不绕过，记录未执行项，交付PNG实际查看。非原创材料保留来源、许可和归属。
 
 第一题正式素材在public/diagrams/interview/ae-001，JSON源在sources子目录；封面在public/images/interview/ae-001。当前正式版本已由用户确认，迁移只校对图片字节，不重画或更新公众号。重新生成可使用公开JSON交给Archify在私有工作目录交付，正式替换须审查后更新登记和摘要。
+
+## 既有技术图与原生结构
+
+技术图采用青绿、浅青绿与白底表达角色和分组，不把颜色作为唯一标识。迁入既有位图不重绘，保留来源及原摘要；有历史样式差异时标明，不借迁移覆盖原件。`frozen-static-v1`来源JSON必须含schema_version=1、kind=frozen-static、title、provenance、original_sha256和rebuildable=false，只关联一张静态PNG/JPEG/SVG；检查不证明当前微信版本或可重建。Archify既有契约保持不变。
+
+请求位置、数据形态不是流程图时可采用正文内原生结构。安全白名单仅允许section/p/mark/br及request-diagram/request-group/request-highlight/request-label/request-code类，不接受脚本、事件、任意样式、外链或平台DOM属性。文本中的JSON和尖括号转义；代码与工具字段只作明确示意，不暗示固定role/位置。原生结构保存在唯一正文中，渠道预览共用，不另存脱离正文的图事实。

@@ -6,9 +6,14 @@ import os from 'node:os';
 import {ROOT,loadInterview,prepareInterview,renderInterview,INTERVIEW_BASE} from '../scripts/interview-site.mjs';
 import {watchInterviewSite} from '../scripts/watch-interview-site.mjs';
 import {filterQuestions} from '../src/interview-site/scripts/search.mjs';
+import {formatArticle} from '../src/interview-site/scripts/article.mjs';
+test('article semantic classes mark captions and references without modifying text',()=>{
+ const n=(tagName,textContent)=>({tagName,textContent,classList:{values:[],add(value){this.values.push(value);}}}),nodes=[n('P','普通正文'),n('P','图2：位置示意'),n('H1','参考资料'),n('UL','引用'),n('P','完整来源URL'),n('H2','回到开头'),n('P','结论')];
+ formatArticle({children:nodes});assert.deepEqual(nodes[1].classList.values,['caption']);assert.deepEqual(nodes[3].classList.values,['references']);assert.deepEqual(nodes[4].classList.values,['references']);assert.deepEqual(nodes[6].classList.values,[]);assert.equal(nodes[1].textContent,'图2：位置示意');
+});
 function fixture(t){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'interview-site-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
- for(const dir of ['content','docs','public/diagrams/interview']){fs.mkdirSync(path.dirname(path.join(root,dir)),{recursive:true});fs.cpSync(path.join(ROOT,dir),path.join(root,dir),{recursive:true});}
+ for(const dir of ['content','docs','public/diagrams/interview','public/images/interview']){fs.mkdirSync(path.dirname(path.join(root,dir)),{recursive:true});fs.cpSync(path.join(ROOT,dir),path.join(root,dir),{recursive:true});}
  const data=JSON.parse(fs.readFileSync(path.join(root,'content/interview/questions.json')));
  for(const lab of new Set(data.questions.flatMap(q=>q.lab_refs))){fs.mkdirSync(path.join(root,lab),{recursive:true});for(const name of ['README.md','meta.yml'])fs.copyFileSync(path.join(ROOT,lab,name),path.join(root,lab,name));}
  return root;
@@ -19,7 +24,7 @@ test('website visibility is explicit, independent from editorial publication and
  const statefile=path.join(root,'content/interview/state.json'),state=JSON.parse(fs.readFileSync(statefile));state.items['AE-001']={status:'planned',history:[],published_at:null,published_url:null};fs.writeFileSync(statefile,JSON.stringify(state));assert.equal(loadInterview(root).visible.length,1);
  website(root,[]);assert.equal(loadInterview(root).visible.length,0);
  for(const ids of [['AE-999'],['AE-001','AE-001'],['AE-002']]){website(root,ids);assert.throws(()=>loadInterview(root),/网站/);}
- const q=data.questions.find(q=>q.id==='AE-002');fs.mkdirSync(path.dirname(path.join(root,q.article)),{recursive:true});fs.writeFileSync(path.join(root,q.article),'# Draft\nTODO');website(root,['AE-002']);assert.throws(()=>loadInterview(root),/不完整/);
+ const q=data.questions.find(q=>q.id==='AE-002');fs.mkdirSync(path.dirname(path.join(root,q.article)),{recursive:true});fs.writeFileSync(path.join(root,q.article),'# Draft\nTODO');fs.writeFileSync(path.join(root,'content/interview/website.json'),JSON.stringify({schema_version:2,articles:[{id:q.id,title:'Draft',article_sha256:'0'.repeat(64),media_sha256:{},origin:'wechat-archive'}]}));assert.throws(()=>loadInterview(root),/不完整/);
 });
 test('generation is stable, rewrites formal images and removes withdrawn routes without touching source',t=>{
  const root=fixture(t),data=loadInterview(root),q=data.visible[0],file=path.join(root,q.article),source=fs.readFileSync(file);

@@ -8,7 +8,7 @@
 - 本文件适用于整个仓库。修改前检查目标目录及父目录中的局部 AGENTS.md；更近约定仅在对应范围内优先，不能覆盖运行环境的更高优先级指令或用户明确要求。工具的实际加载方式以其文档为准。
 - 已批准设计定义任务范围；本文件与专项规则约束实施。[总体方案中的章节地图](docs/designs/project-plan.md#chapter-map)是章节、Lab 映射及实现/代码/内容/读者状态的唯一人工维护视图。冲突无法由当前任务解决时，先确认，不静默绕过约束。
 
-面试合集位于 `content/interview/`，保持框架中立并独立管理题库、编辑状态和公众号草稿；不进入课程章号或现有 Astro 清单。面试正文遵循 [内容规范](docs/rules/interview-content-contract.md)，课程与面试各自只有一个正文真源。
+面试合集位于 `content/interview/`，按题库列表制作公众号科普文章，保持框架中立；公众号优先保存草稿并回读，按项目本期流程经官方读者预览和作者确认后归档唯一正文与正式素材，不默认另建在线协作文稿；网站按授权呈现同稿，不进入课程章号。`node scripts/interview/issue.mjs next` 是新稿入口，私有本期与归档、网站准入规则见 [内容规范](docs/rules/interview-content-contract.md) 和 [合集方案](docs/designs/interview-handbook.md)。课程与归档文章各自只有一个正文真源；网页上线公开正文，保存草稿不等于发表。
 
 ## 按任务读取规则与模板
 
@@ -17,6 +17,7 @@
 | 工作 | 必读文件 |
 | --- | --- |
 | 面试题、内容生产、题库与公众号草稿 | [面试内容规范](docs/rules/interview-content-contract.md) + [合集方案](docs/designs/interview-handbook.md) + [文章模板](docs/templates/interview-article.md) + [研究模板](docs/templates/interview-research.md) + [审核模板](docs/templates/interview-review.md)，同时遵守全仓安全规范 |
+| 公众号渠道稿、草稿续接与验收 | [公众号规则](docs/rules/interview-wechat.md) + [渠道稿模板](docs/templates/interview-wechat-article.md)；以设计者问题和同案例递进组织技术讲解，核心判断同字号青绿加粗无底色，图注序号加短标题；最新公众号稿保存回读后再归档，不套用旧候选 |
 | 绘制或迁移图示 | [图示规范](docs/rules/diagram-contract.md)，课程图保留现有重建契约 |
 | 所有任务：数据保护与安全 | [security.md](docs/rules/security.md) |
 | 编写、修改、合并或迁移课程章节 | [章节规范](docs/rules/book-chapter-contract.md) + [章节模板](docs/templates/book-chapter.md) |
@@ -50,7 +51,7 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 
 | 改动 | 必须执行 |
 | --- | --- |
-| 面试题库、状态、工具与模板 | `make validate-interview`；公共检查不读取私有审核；本地交付另运行 `node scripts/interview.mjs delivery-check AE-ID`。公开文档/引用变化另跑 `make validate-docs`，检查器变化按类型跑反例 |
+| 面试题库、状态、工具与模板 | `make validate-interview`；公共检查不读取私有审核；新本期另运行 `node scripts/interview/issue.mjs check AE-ID`，本地交付另运行 `node scripts/interview.mjs delivery-check AE-ID`，公众号本地登记另运行 `node scripts/interview.mjs wechat-check`。`node scripts/interview/export.mjs AE-ID --wechat` 仅生成摘要绑定的本地渠道预览，不操作公众号。公开文档/引用变化另跑 `make validate-docs`，检查器变化按类型跑反例 |
 | 文档、链接或规则 | `make validate-docs` |
 | 正文代码、操作步骤或文档检查器 | `make validate-docs`、`make validate-book`，并重跑受影响示例 |
 | `content/book/chapters.json`、内容生成、Astro 组件/样式或 Pages | `make validate-site`；同时按改动类型执行文档或 CI 检查 |

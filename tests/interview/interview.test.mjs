@@ -20,7 +20,7 @@ import crypto from 'node:crypto';
 const source=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 function fixture(t) {
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'agent-series-'));
-  for(const dir of ['content','docs','public/diagrams/interview']) {fs.mkdirSync(path.dirname(path.join(root,dir)),{recursive:true});fs.cpSync(path.join(source,dir),path.join(root,dir),{recursive:true});}
+  for(const dir of ['content','docs','public/diagrams/interview','public/images/interview']) {fs.mkdirSync(path.dirname(path.join(root,dir)),{recursive:true});fs.cpSync(path.join(source,dir),path.join(root,dir),{recursive:true});}
   const data=JSON.parse(fs.readFileSync(relative(root,'questions.json')));
   for(const lab of new Set(data.questions.flatMap(q=>q.lab_refs))){fs.mkdirSync(path.join(root,lab),{recursive:true});for(const f of ['README.md','meta.yml'])fs.copyFileSync(path.join(source,lab,f),path.join(root,lab,f));}
   const file=relative(root,'state.json');
@@ -40,7 +40,7 @@ function approved(root,p) {
   fs.writeFileSync(relative(root,'research/AE-001.md'),'Fixture evidence, no external claims.\n');
   mutate(root,'reviews/AE-001.json',r=>{r.reviewer='test fixture';r.reviewed_at='2026-10-27';r.article_sha256=p.hash('AE-001');r.notes='Only fixture evidence; not a real article review.';r.evidence_level='design';r.evidence_notes='Fixture evidence only.';for(const k of Object.keys(r.checks))r.checks[k]=true;});
 }
-test('real catalog has 96 questions and repeat rendering is deterministic', t=>{
+test('real catalog has 50 questions and repeat rendering is deterministic', t=>{
  const root=fixture(t),p=project(root);p.validate();p.render();const first=fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8');p.render();assert.equal(first,fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8'));
 });
 test('scaffold never overwrites existing article, research or review',t=>{
@@ -54,7 +54,7 @@ test('rejects duplicate IDs, dangling dependencies, cycles, unsafe paths',t=>{
  for(const [file,edit,pattern] of [
   ['questions.json',d=>d.questions[1].id=d.questions[0].id,/ID/],
   ['questions.json',d=>d.questions[0].prerequisites=['AE-999'],/前置题不存在/],
-  ['questions.json',d=>d.questions[0].prerequisites=['AE-011'],/有环/],
+  ['questions.json',d=>d.questions[0].prerequisites=['AE-081'],/有环/],
   ['questions.json',d=>d.questions[0].article='../escape',/正文路径/],
  ]) {const root=fixture(t);mutate(root,file,edit);assert.throws(()=>project(root).validate(),pattern);}
 });
@@ -85,20 +85,20 @@ test('publication dates reject impossible dates and accept leap days',()=>{
 
 test('catalogue title consistency, module allocation, source titles and retired IDs stay consistent',t=>{
  const root=fixture(t),q=JSON.parse(fs.readFileSync(relative(root,'questions.json')));
- assert.deepEqual(q.modules.map(m=>m.count),[7,10,10,10,8,12,9,8,12,10]);
+ assert.deepEqual(q.modules.map(m=>m.count),[5,4,4,6,4,5,3,5,6,8]);
  assert.equal(q.questions[0].id,'AE-001');
- assert.equal(q.questions.at(-1).proposal_id,'P-099');
+ assert.equal(q.questions.at(-1).proposal_id,'P-098');
  assert.ok(q.questions.some(q=>Number(q.id.slice(3))>=100));
  assert.equal(new Set([...q.questions.map(q=>q.id),...q.retired_questions.map(r=>r.question.id)]).size,q.questions.length+q.retired_questions.length);
  for(const [edit,pattern] of [
-  [d=>d.questions[2].proposal_title='wrong source title',/题序或标题/],
+  [d=>d.questions[2].proposal_title='',/题序或标题/],
   [d=>d.modules[4].count=10,/模块题数/],
   [d=>d.retired_questions[0].question.id='AE-001',/封存ID/]
  ]){const other=fixture(t);mutate(other,'questions.json',edit);assert.throws(()=>project(other).validate(),pattern);}
 });
 test('derived order is deterministic and follows prerequisites without a calendar',t=>{
  const root=fixture(t),p=project(root),ordered=p.orderedQuestions();
- assert.equal(ordered.length,96);assert.equal(new Set(ordered.map(q=>q.id)).size,96);
+ assert.equal(ordered.length,50);assert.equal(new Set(ordered.map(q=>q.id)).size,50);
  const positions=new Map(ordered.map((q,i)=>[q.id,i]));
  for(const q of ordered)for(const parent of q.prerequisites)assert.ok(positions.get(parent)<positions.get(q.id));
  assert.deepEqual(ordered.map(q=>q.id),project(root).orderedQuestions().map(q=>q.id));
@@ -117,7 +117,7 @@ test('engineering readiness requires the planned evidence level',t=>{
  for(const s of ['researching','drafting','reviewing'])p.transition('AE-012',s);
  mutate(root,'reviews/AE-012.json',r=>{r.reviewer='fixture';r.reviewed_at='2026-11-01';r.article_sha256=p.hash('AE-012');r.notes='Fixture review only';r.evidence_level='design';r.evidence_notes='Fixture only';for(const k of Object.keys(r.checks))r.checks[k]=true;});
  assert.throws(()=>p.transition('AE-012','ready'),/工程证据等级/);
- mutate(root,'reviews/AE-012.json',r=>{r.evidence_level='runnable';r.evidence_notes='Synthetic fixture record, not real article evidence.';});
+ mutate(root,'reviews/AE-012.json',r=>{r.evidence_level='measured';r.evidence_notes='Synthetic fixture record, not real article evidence.';});
  p.transition('AE-012','ready');assert.match(p.nextWork(),/^AE-001/);
 });
 
@@ -198,13 +198,29 @@ test('all module directories exist, only empty placeholders are allowed, and old
 test('Planning merge preserves old IDs and advanced coverage without retired dependencies or lost evidence',t=>{
  const root=fixture(t),data=JSON.parse(fs.readFileSync(relative(root,'questions.json'))),state=JSON.parse(fs.readFileSync(relative(root,'state.json')));
  const merged=data.questions.find(q=>q.id==='AE-081');
- assert.equal(data.questions.length,96);assert.equal(merged.title,'Agent 为什么需要 Planning？如何设计一个可靠的 Planner？');assert.equal(merged.minimum_evidence,'measured');
+ assert.equal(data.questions.length,50);assert.equal(merged.title,'Agent 为什么需要 Planning？如何设计一个可靠的 Planner？');assert.equal(merged.minimum_evidence,'measured');
  assert.ok(merged.supplemental_topics.some(t=>t.includes('树搜索')));assert.ok(merged.supplemental_topics.some(t=>t.includes('矛盾')));
  for(const id of ['AE-021','AE-091','AE-041']){
   assert.ok(!data.questions.some(q=>q.id===id));assert.ok(!(id in state.items));assert.ok(data.questions.every(q=>!q.prerequisites.includes(id)));
   const archived=data.retired_questions.find(r=>r.question.id===id);assert.equal(archived.covered_by,'AE-081');assert.equal(archived.last_state.status,'planned');assert.ok(archived.question.acceptance_case);
  }
- assert.deepEqual(data.questions.map(q=>q.order),Array.from({length:96},(_,i)=>i+1));
- assert.deepEqual(data.questions.map(q=>q.proposal_id),Array.from({length:99},(_,i)=>i+1).filter(n=>![5,6,7].includes(n)).map(n=>`P-${String(n).padStart(3,'0')}`));
- assert.equal(data.retired_questions.length,28);assert.ok(data.retired_questions.every(r=>data.questions.some(q=>q.id===r.covered_by)));
+ assert.deepEqual(data.questions.map(q=>q.order),Array.from({length:50},(_,i)=>i+1));
+ assert.deepEqual([...data.questions,...data.retired_questions.map(r=>r.question)].map(q=>q.proposal_id).filter(Boolean).sort(),Array.from({length:99},(_,i)=>`P-${String(i+1).padStart(3,'0')}`));
+ assert.equal(data.retired_questions.length,74);assert.ok(data.retired_questions.every(r=>data.questions.some(q=>q.id===r.covered_by)));
+});
+
+test('article consolidation keeps protected IDs and every newly archived acceptance case',t=>{
+ const root=fixture(t),data=JSON.parse(fs.readFileSync(relative(root,'questions.json')));
+ const active=new Map(data.questions.map(q=>[q.id,q]));
+ for(const id of ['AE-001','AE-081','AE-104','AE-120'])assert.ok(active.has(id));
+ const merged=data.retired_questions.filter(r=>r.reason.startsWith('2026-11-04'));
+ assert.equal(merged.length,46);
+ const ranks=['design','runnable','measured'];
+ for(const {question,covered_by} of merged){
+  const article=active.get(covered_by);
+  assert.ok(article.acceptance_case.includes(question.acceptance_case));
+  assert.ok(ranks.indexOf(article.minimum_evidence)>=ranks.indexOf(question.minimum_evidence));
+  assert.ok(question.course_refs.every(ref=>article.course_refs.includes(ref)));
+  assert.ok(question.lab_refs.every(ref=>article.lab_refs.includes(ref)));
+ }
 });

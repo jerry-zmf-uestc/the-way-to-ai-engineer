@@ -2,7 +2,7 @@
 
 本文档是项目愿景、课程结构、职业路线、仓库架构、章节状态、交付方式和长期边界的唯一设计入口。它描述当前有效方案，不保存迁移过程、已经完成的阶段计划或互相竞争的目录草案。
 
-目标课程按37个教学单元规划，其中Go与后端保持1–21章；Part 3包含16个教学单元，对外按三大篇组织：构建篇、运行时、治理篇。九类Agent知识体系继续作为内部蓝图和内容审查维度。目标主题使用语义ID追踪，单元编号在清单中维护，Part 3源码文件号与教学单元号保持一致。当前已将Harness纳入编号正文，Eino独立章节退出课程主线；下一阶段逐项核对蓝图、技术深度、模型效果与读者证据，不能由篇目齐全直接宣称课程完成。章节页和首页按同一三大篇分组；章节清单已建立37单元映射与展示编号，保留5个缺正文的后端单元为未发布规划项。第4节按现有33个章号记录真实状态，补充正文归入对应行，但不能继承同一行其他主题的验收结果。第3节定义目标结构，正文完成、机制测试通过、模型效果成立、读者学会与公开发布分别验收。
+目标课程按37个教学单元规划，其中Go与后端保持1–21章；Part 3包含16个教学单元，对外按三大篇组织：构建篇、运行时、治理篇。九类Agent知识体系继续作为内部蓝图和内容审查维度。目标主题使用语义ID追踪，单元编号在清单中维护，Part 3源码文件号与教学单元号保持一致。当前已将Harness纳入编号正文，Eino独立章节退出课程主线；下一阶段逐项核对蓝图、技术深度、模型效果与读者证据，不能由篇目齐全直接宣称课程完成。章节页和首页按同一三大篇分组；章节清单已建立37单元映射与展示编号，后端10章均有阅读入口，独立实验的实现状态仍在章节地图中单独跟踪。第4节按现有33个章号记录真实状态，补充正文归入对应行，但不能继承同一行其他主题的验收结果。第3节定义目标结构，正文完成、机制测试通过、模型效果成立、读者学会与公开发布分别验收。
 
 具体写作、Lab 和安全要求分别由 `docs/rules/` 维护；实际命令以根目录 `Makefile`、`package.json` 和 `labs/go.mod` 为准。
 
@@ -437,7 +437,7 @@ Harness从“模型能回答，但任务仍会失败”的案例进入：缺资�
 
 ### 教学单元编号与稳定页面映射
 
-全书规划37个教学单元，Go与后端保持1–21，Part 3整合为22–37共16章。5个未发布后端单元继续保留规划，不创建空正文。原始26个主题作为下方蓝图及证据审查维度，正文和公开导航按下表组织。Lab保留原路径，不随教学编号移动。
+全书规划37个教学单元，Go与后端保持1–21，Part 3整合为22–37共16章。后端第14、15、18、19、20章先交付机制讲解与基础练习，独立基础设施实验分开验收。原始26个主题作为下方蓝图及证据审查维度，正文和公开导航按下表组织。Lab保留原路径，不随教学编号移动。
 
 标题采用核心主题与职责范围；章内按输入、状态、动作和反馈的理解顺序重写。构建篇组织决策、信息与行动；运行时承载执行、存储与协作；治理篇处理观测、质量、安全和资源取舍。
 
@@ -656,18 +656,20 @@ GoTrip只作为可选旅行助手案例，不承担课程主线、毕业设计�
 
 ### Part 2 · 后端进阶
 
+第 12–21 单元沿报表请求组织为四段：请求与数据、异步与一致性、服务与故障、运行与排障。显示章号由课程清单决定；旧页面 ID、正文文件名和 Lab 路径作为兼容入口。旧实现记录按物理章号保存，下表标题列指出新的教学单元。SQLite 实验分别验证索引、并发条件写和确认前退出后的恢复。真实 Broker 与生产负载作为另外的验证范围。读者入口见 [后端学习路线](../../content/book/README.md#backend-roadmap)。
+
 | Ch | Title | Book | Core labs | implementation_status | code_status | content_status | reader_validation_status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 12 | MySQL、SQL、索引与 GORM | `content/book/part2-backend/chapter12.md` | gorm-mysql、repository-pattern | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 13 | 事务、隔离级别与锁 | `content/book/part2-backend/chapter13.md` | transactions | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 14 | Redis 缓存、限流与分布式锁 | `content/book/part2-backend/chapter14.md` | cache、rate-limit、distributed-lock | planned | pending | pending | pending | — |
-| 15 | 消息队列与异步任务 | `content/book/part2-backend/chapter15.md` | queue、outbox、worker | planned | pending | pending | pending | — |
-| 16 | Hertz API 工程 | `content/book/part2-backend/chapter16.md` | hertz-kitex-demo、hertz-kitex-real-chain、hertz-routing | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 17 | Kitex RPC 与契约演进 | `content/book/part2-backend/chapter17.md` | kitex-idl-handler、kitex-rpc | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
-| 18 | 服务发现、配置与微服务边界 | `content/book/part2-backend/chapter18.md` | discovery、config | planned | pending | pending | pending | — |
-| 19 | 幂等、重试、超时、熔断与降级 | `content/book/part2-backend/chapter19.md` | idempotency、retry、circuit-breaker | planned | pending | pending | pending | — |
-| 20 | 高并发、pprof、背压与压测 | `content/book/part2-backend/chapter20.md` | pprof、load-test、backpressure | planned | pending | pending | pending | — |
-| 21 | 日志、指标与分布式追踪 | `content/book/part2-backend/chapter21.md` | service-runtime | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 12 | 单元 13 · 数据建模、SQL 与索引 | `content/book/part2-backend/chapter12.md` | gorm-mysql、repository-pattern、report-sql | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 13 | 单元 14 · 事务、隔离与并发写入 | `content/book/part2-backend/chapter13.md` | transactions | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 14 | 单元 16 · 缓存、读路径与一致性 | `content/book/part2-backend/chapter14.md` | report-cache | partial | passed | pending | pending | code: [Lab](../../labs/part2-backend/chapter14/report-cache/README.md) |
+| 15 | 单元 15 · 任务队列、投递与恢复 | `content/book/part2-backend/chapter15.md` | report-queue | partial | passed | pending | pending | code: [Lab](../../labs/part2-backend/chapter15/report-queue/README.md) |
+| 16 | 单元 12 · 请求边界与任务 API | `content/book/part2-backend/chapter16.md` | hertz-kitex-demo、hertz-kitex-real-chain、hertz-routing | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 17 | 单元 17 · 远程调用、契约与服务边界 | `content/book/part2-backend/chapter17.md` | kitex-idl-handler、kitex-rpc | available | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
+| 18 | 单元 20 · 可观测性与事故诊断 | `content/book/part2-backend/chapter18.md` | report-discovery | partial | passed | pending | pending | code: [Lab](../../labs/part2-backend/chapter18/report-discovery/README.md) |
+| 19 | 单元 18 · 超时、结果未知与幂等 | `content/book/part2-backend/chapter19.md` | report-idempotency | partial | passed | pending | pending | code: [Lab](../../labs/part2-backend/chapter19/report-idempotency/README.md) |
+| 20 | 单元 19 · 并发、背压与过载保护 | `content/book/part2-backend/chapter20.md` | report-overload | partial | passed | pending | pending | code: [Lab](../../labs/part2-backend/chapter20/report-overload/README.md) |
+| 21 | 单元 21 · 发布、关闭与综合演练 | `content/book/part2-backend/chapter21.md` | service-runtime、report-backlog、report-flow | partial | passed | reviewed | pending | code: [checks](../../Makefile); content: [author-review](project-plan.md#author-review) |
 
 ### Part 3 · Agent 开发
 
@@ -770,7 +772,7 @@ Context蓝图中的布局与缓存取舍已补为主题正文：区分输入视�
 
 自动检查只证明结构、链接、代码和部分行为，不证明内容足够清晰，也不证明学习者已经掌握。`content_status` 只能由作者按章节审查表确认；`reader_validation_status` 只能记录真实读者从干净环境完成后的反馈。目前所有章节的读者验证均为 pending。
 
-第12、13、21章标为partial：仍需深化真实数据库/锁、完整观测、框架进阶对照和持久化服务恢复。Harness、Model、Tool、Loop与Runtime按各自基础契约完成正文；available表示该机制可独立学习，不表示覆盖所有Provider功能或生产运行场景。决策循环样章按Loop职责、状态与响应、受控动作、观察反馈、终止策略展开，关键源码片段与架构/流程图支撑机制讲解，补充最佳实践及常见问题排查；实验输出、测试导读迁入Lab README与代码注释。Tool正文位于 `content/book/part3-agent/building/chapter23-actions.md`，原Lab与练习保持原路径；Runtime与Checkpoint教学正文位于第29章，证据仍按旧Lab章号记录，runner实验独立。Harness正文位于 `content/book/part3-agent/building/chapter22-architecture.md`，作为第22单元承担 Part 3 主线建立作用。轮次预算、历史复制与续聊边界已明确；第33章统一服务入口、事件呈现、SSE与取消边界，证据问答保留在独立Console；Serving以独立task-service承接HTTP任务入口；持久恢复仍需补作品证据。第28章新增独立融合和证据实验，解释两路排序、RRF、重排与引用/支持边界；HashEmbedder、手工向量与固定Judge不证明真实语义效果，真实Embedding/向量库/生成与HyDE已有上述局部结果，尚待独立任务效果、真实重排、通用支持Judge及人工校准，不由基础融合实验继承。
+Part 2 的 SQLite 实验与本地服务证据按各自边界验收，生产数据库锁、真实 Broker、跨进程追踪和生产流量需另行验证。Harness、Model、Tool、Loop与Runtime按各自基础契约完成正文；available表示该机制可独立学习，不表示覆盖所有Provider功能或生产运行场景。决策循环样章按Loop职责、状态与响应、受控动作、观察反馈、终止策略展开，关键源码片段与架构/流程图支撑机制讲解，补充最佳实践及常见问题排查；实验输出、测试导读迁入Lab README与代码注释。Tool正文位于 `content/book/part3-agent/building/chapter23-actions.md`，原Lab与练习保持原路径；Runtime与Checkpoint教学正文位于第29章，证据仍按旧Lab章号记录，runner实验独立。Harness正文位于 `content/book/part3-agent/building/chapter22-architecture.md`，作为第22单元承担 Part 3 主线建立作用。轮次预算、历史复制与续聊边界已明确；第33章统一服务入口、事件呈现、SSE与取消边界，证据问答保留在独立Console；Serving以独立task-service承接HTTP任务入口；持久恢复仍需补作品证据。第28章新增独立融合和证据实验，解释两路排序、RRF、重排与引用/支持边界；HashEmbedder、手工向量与固定Judge不证明真实语义效果，真实Embedding/向量库/生成与HyDE已有上述局部结果，尚待独立任务效果、真实重排、通用支持Judge及人工校准，不由基础融合实验继承。
 
 <a id="slice-review"></a>
 
@@ -925,7 +927,7 @@ public/**/* ──────────────────────�
 
 `content/interview/` 是按问题复习的独立合集，不是课程 Part 4，不进入课程章节地图、教学单元编号、content/book/chapters.json 或现有 Astro collection。课程仍以 Go 为主，面试题保持框架中立；相互引用已经存在的正文和 Lab，不复制两套正文，不要求面试读者先安装 Go 或站点依赖。
 
-面试范围见[面试专项方案](interview-handbook.md)，正文规则见[面试内容规范](../rules/interview-content-contract.md)。题库、课程/Lab关联和编辑状态统一在 interview；questions.json是96题定义真源，总导航由工具生成，P-题序、AE-ID与发布顺序分开，封存ID不复用。
+面试范围见[面试专项方案](interview-handbook.md)，正文规则见[面试内容规范](../rules/interview-content-contract.md)。题库、课程/Lab关联和编辑状态统一在 interview；questions.json 定义 50 个主问题，总导航由工具生成，P 来源编号、AE-ID 与发布顺序分开，封存ID不复用。
 
 interview保留总README、questions.json、state.json和大章节下单题Markdown；十大章节预先建齐，空目录用零字节.gitkeep保留，不设置章节README，不创建空白题目正文。研究、逐篇审核、候选稿、平台回执和预览保存在仓库外私有工作目录；通用模板归入docs/templates，工具和测试归入根scripts/tests，正式图源和配图在public/diagrams/interview。课程与面试正文各有唯一真源，共用已有Lab，不建设另一套面试实验工程。
 
@@ -1264,7 +1266,7 @@ RAG必要前提另外按已复核的证据组检查候选与实际输入。Eval�
 
 ## 11. 实施顺序与交付
 
-现有代码与正文是建设基线，验证状态见第4节。当前从26个原始主题的基础正文与实验进入完整质量复核，按第7节逐章查缺并补齐内容和证据；章节页的Harness层级导航已接入，37单元映射与显示编号已接入；缺失后端正文与发布门禁仍需实施；新增图源格式按第7节的契约另行接入。课程内容建设、本机站点预览与远端发布分别推进，不把部署作为补齐正文的前置条件。
+现有代码与正文是建设基线，验证状态见第4节。当前从26个原始主题的基础正文与实验进入完整质量复核，按第7节逐章查缺并补齐内容和证据；章节页的Harness层级导航已接入，37单元映射与显示编号已接入；后端独立实验与发布门禁仍需按章节地图推进；新增图源格式按第7节的契约另行接入。课程内容建设、本机站点预览与远端发布分别推进，不把部署作为补齐正文的前置条件。
 
 | 阶段 | 交付 | 完成依据 |
 | --- | --- | --- |

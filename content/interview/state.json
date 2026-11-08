@@ -2,7 +2,7 @@
   "schema_version": 1,
   "items": {
     "AE-001": {
-      "status": "ready",
+      "status": "drafting",
       "history": [
         {
           "from": "planned",
@@ -53,28 +53,64 @@
           "from": "reviewing",
           "to": "ready",
           "at": "2026-10-28T16:02:05.861Z"
+        },
+        {
+          "from": "ready",
+          "to": "drafting",
+          "at": "2026-11-05T08:52:32.025Z"
         }
       ],
       "published_at": null,
       "published_url": null
     },
     "AE-081": {
-      "status": "planned",
-      "history": [],
+      "status": "drafting",
+      "history": [
+        {
+          "from": "planned",
+          "to": "researching",
+          "at": "2026-11-05T08:52:32.330Z"
+        },
+        {
+          "from": "researching",
+          "to": "drafting",
+          "at": "2026-11-05T08:52:32.625Z"
+        }
+      ],
       "published_at": null,
       "published_url": null
     },
     "AE-100": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-101": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
+      "status": "published",
+      "history": [
+        {
+          "from": "planned",
+          "to": "researching",
+          "at": "2026-11-06T17:07:46.559Z"
+        },
+        {
+          "from": "researching",
+          "to": "drafting",
+          "at": "2026-11-06T17:07:46.559Z"
+        },
+        {
+          "from": "drafting",
+          "to": "reviewing",
+          "at": "2026-11-06T17:07:46.559Z"
+        },
+        {
+          "from": "reviewing",
+          "to": "ready",
+          "at": "2026-11-06T17:07:46.559Z"
+        },
+        {
+          "from": "ready",
+          "to": "published",
+          "at": "2026-11-06T17:07:47.528Z"
+        }
+      ],
+      "published_at": "2026-11-07",
+      "published_url": "https://mp.weixin.qq.com/s/L-wB3JcxEeNpsGoERE-eJQ"
     },
     "AE-031": {
       "status": "planned",
@@ -88,12 +124,6 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-011": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-002": {
       "status": "planned",
       "history": [],
@@ -101,42 +131,6 @@
       "published_url": null
     },
     "AE-012": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-022": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-102": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-042": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-040": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-103": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-075": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -167,48 +161,23 @@
       "published_url": null
     },
     "AE-104": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-023": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-105": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-106": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-107": {
-      "status": "planned",
-      "history": [],
+      "status": "drafting",
+      "history": [
+        {
+          "from": "planned",
+          "to": "researching",
+          "at": "2026-11-05T08:52:33.489Z"
+        },
+        {
+          "from": "researching",
+          "to": "drafting",
+          "at": "2026-11-05T08:52:33.802Z"
+        }
+      ],
       "published_at": null,
       "published_url": null
     },
     "AE-053": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-033": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-108": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -220,37 +189,13 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-110": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-014": {
       "status": "planned",
       "history": [],
       "published_at": null,
       "published_url": null
     },
-    "AE-111": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-034": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-044": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-054": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -280,19 +225,7 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-008": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-038": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-028": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -304,31 +237,13 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-068": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-048": {
       "status": "planned",
       "history": [],
       "published_at": null,
       "published_url": null
     },
-    "AE-078": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-005": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-113": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -346,37 +261,7 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-114": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-072": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-055": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-045": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-115": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-116": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -388,19 +273,7 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-095": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-009": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-098": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -412,37 +285,7 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-019": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-117": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-118": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-029": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-049": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-119": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -455,20 +298,19 @@
       "published_url": null
     },
     "AE-120": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-026": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-016": {
-      "status": "planned",
-      "history": [],
+      "status": "drafting",
+      "history": [
+        {
+          "from": "planned",
+          "to": "researching",
+          "at": "2026-11-05T08:52:32.898Z"
+        },
+        {
+          "from": "researching",
+          "to": "drafting",
+          "at": "2026-11-05T08:52:33.172Z"
+        }
+      ],
       "published_at": null,
       "published_url": null
     },
@@ -479,12 +321,6 @@
       "published_url": null
     },
     "AE-056": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-121": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -508,24 +344,6 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-122": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-123": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-094": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-060": {
       "status": "planned",
       "history": [],
@@ -538,12 +356,6 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-030": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-090": {
       "status": "planned",
       "history": [],
@@ -551,18 +363,6 @@
       "published_url": null
     },
     "AE-050": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-092": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-080": {
       "status": "planned",
       "history": [],
       "published_at": null,
@@ -604,12 +404,6 @@
       "published_at": null,
       "published_url": null
     },
-    "AE-067": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
     "AE-087": {
       "status": "planned",
       "history": [],
@@ -617,12 +411,6 @@
       "published_url": null
     },
     "AE-057": {
-      "status": "planned",
-      "history": [],
-      "published_at": null,
-      "published_url": null
-    },
-    "AE-047": {
       "status": "planned",
       "history": [],
       "published_at": null,

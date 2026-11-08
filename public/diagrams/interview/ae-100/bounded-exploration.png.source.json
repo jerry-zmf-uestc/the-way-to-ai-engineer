@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "固定工作流中的局部补查循环",
+  "provenance": "原创确定性Pillow教学图，不是官方架构截图",
+  "original_sha256": "97ddde80657bc9da41779ac7c08bf4a286ff528e5f19c3cf0e1d0cb72f09e94b",
+  "rebuildable": false
+}

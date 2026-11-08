@@ -1,6 +1,12 @@
-# 第 21 章：配置、日志、探针与优雅关闭
+# 第 21 章：发布、关闭与综合演练
 
 事务章节解决多步骤业务怎样一起成功或一起失败；本章解决边界清楚的服务怎样工程化落地——配置兜底、取消传播、探针信号、日志定位。事务在这里只是前置能力，不再讲 begin / commit / rollback。
+
+## 发布时给已有工作留一个出口
+
+发布的第一个判断是是否还能接纳新任务。摘流量后，即使旧连接还打到实例，也应拒绝新的提交，允许查已有任务和确认已接纳的重试。第二个判断是当前进程能否在关闭预算内排空。内存队列适合看清这个时序；进程退出后要继续查询，任务和结果必须保存在能跨进程读取的地方。
+
+[报表综合实验](../../../labs/part2-backend/chapter21/report-flow/README.md)提供可控摘流量：暂停模式先接纳一个任务，再摘流量，观察 readiness 变为 503、新提交被拒、旧任务仍能完成并查询。随后用同一个 SQLite 文件分别演练结果提交前和提交后、确认前退出。重启后按原任务 ID 查询 CSV，并用写入次数与待办确认核对恢复；再对照[真实持久化恢复](../../../labs/part2-backend/chapter12/report-sql/README.md)中的新进程，说明两者各依赖哪份事实。
 
 ## 21.1 配置加载：默认值 → env 覆盖 → Validate
 
@@ -115,6 +121,32 @@ service=checkout-runtime env=dev order=ORD-2001 status=created request_timeout=2
 
 源码重点看 `LoadConfig`、`PlaceOrder`、`Shutdown`；测试重点看 timeout、probe、shutdown 三条路径（[service-runtime](../../../labs/part2-backend/chapter21/service-runtime/README.md)）。
 
+## 从用户症状追到耗时的那一层
+
+浏览器 Network 面板能看到提交请求超时；它不知道网关是否等到了 RPC，也不知道导出任务是否已经入队。服务端的日志、指标和追踪各自回答一个问题：
+
+| 信号 | 适合回答 | 在导出链路上记录什么 |
+| --- | --- | --- |
+| 指标 | 影响多少请求，何时开始 | 入口速率、错误率、延迟分布、连接池和队列饱和度；单独统计接纳和完成 |
+| Trace | 这一次请求在哪一段等待 | 网关、RPC、数据库跨度，以及发布和消费之间的关联；异步任务不能假定与 HTTP 同时结束 |
+| 结构化日志 | 某次尝试发生了什么 | 请求标识、任务标识、失败类型、阶段和配置版本；不记录凭据或完整请求体 |
+
+先定义用户目标的分母。例如“过去 30 分钟内，有权限且参数合法的导出提交中，有多少在 300ms 内确认接纳”，以及“已接纳任务中，有多少在约定时间完成”。指标用路由模板、结果类别等有限取值的标签；逐请求 ID 适合放日志或追踪，高基数会增加指标存储成本。
+
+如果提交 p95 没变，用户却说导出一直转圈，先看任务完成率、最旧待处理任务年龄与 worker 失败率；再用任务 ID 找相关事件。如果提交本身变慢，按网关、RPC、数据库池等待和 SQL 执行耗时逐层缩小范围。Trace 可能采样，缺少某条跨度不能单独证明没执行。当前 Lab 演示日志、探针与关闭，跨服务追踪是延伸实践。
+
+<a id="report-export-flow"></a>
+
+## Part 2 综合实验 · 报表导出从提交到结果
+
+打开 [报表导出综合实验](../../../labs/part2-backend/chapter21/report-flow/README.md)，用本地 HTTP 走完提交、排队、后台执行和结果查询。启动后可在浏览器打开本地练习页，提交任务并观察轮询、CSV 和队列指标。先跑正常链路，按任务 ID 对照日志和 CSV。随后每次重启只开启一种故障，在响应、队列指标和执行日志中各找一条证据。
+
+| 故障位置 | 用这个实验回答 |
+| --- | --- |
+| [缓存](chapter14.md)与[队列确认](chapter15.md) | 为什么缓存还显示运行中？为何投递两次却只生成一份报表？ |
+| [实例发现](chapter18.md)与[提交重试](chapter19.md) | A 下线后请求去了哪里？客户端没收到响应时怎样找回原任务？ |
+| [容量保护](chapter20.md)与任务积压 | 何时返回 503？停止接收或恢复消费后，怎样验证旧任务已排空？ |
+
 ## 踩坑清单
 
 ### 配置读取分散到 handler 或 service，各层自己兜底
@@ -157,12 +189,17 @@ func (a *App) routes() {
 
 修复后在独立副本把非法配置、取消传播、关闭期探针三类边界输入补进测试再复验；已有测试通过只说明已覆盖的用例符合预期，新增边界仍要补断言。
 
+<a id="练习"></a>
+
 ## 动手练
+
+先运行配套实验并记录故障与恢复时的指标。[报表任务积压与恢复](../../../labs/part2-backend/chapter21/report-backlog/README.md)
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
 | --- | --- | --- | --- |
 | 21.1 增加日志级别配置 | `Config` 增加 `LogLevel`：默认 info，`LoadConfig` 读取 `LOG_LEVEL`，`Validate` 只接受 debug/info/warn/error；logger 初始化只接收配置，不再读环境 | 缺省、合法、非法三类输入的测试全部通过 | `service-runtime/main.go`、`main_test.go` |
 | 21.2 把请求 ID 加入日志 | 由 runtime 入口获得 requestID，在 started / failed / completed 日志中添加同一字段 | 解码结构化日志断言同一次请求的 request_id 一致，不依赖字段打印顺序 | `service-runtime/main.go`、`main_test.go` |
+| 21.3 给转圈定位 | 比较“提交慢”与“接纳后一直不完成”两组现象，各写出首查指标与下一步证据 | 两组能落到不同阶段，能用任务 ID 串起日志，不把任务 ID 放进指标标签 | 本章报表案例 |
 
 完成后运行：
 
@@ -174,8 +211,9 @@ go -C labs test ./part2-backend/chapter21/service-runtime/... -count=1
 
 ## 链接
 
+- [Google SRE：分布式系统监控](https://sre.google/sre-book/monitoring-distributed-systems/)：从延迟、流量、错误和饱和度判断用户影响。
 - [Go 标准库：log/slog](https://pkg.go.dev/log/slog)：结构化日志的字段、级别与 Handler。
 - [Go 标准库：net/http](https://pkg.go.dev/net/http)：对照 `Server.Shutdown` 的等待与超时行为。
 - [Go 标准库：context](https://pkg.go.dev/context)：取消、截止时间及派生 Context 的传播方式。
 
-[返回全书目录](../README.md) · [上一篇：事务边界与回滚](chapter13.md) · [下一篇：Hertz 路由与网关](chapter16.md)
+[返回全书目录](../README.md) · [上一篇：可观测性与事故诊断](chapter18.md) · [下一篇：Agent 架构与模型接口](../part3-agent/building/chapter22-architecture.md)

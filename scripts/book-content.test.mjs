@@ -18,11 +18,11 @@ test('current manifest and published pages are valid', () => {
   const manifest = loadManifest();
   const entries = validateManifest(manifest);
   assert.equal(entries.length, 38);
-  assert.equal(entries.filter((entry) => entry.published).length, 33);
+  assert.equal(entries.filter((entry) => entry.published).length, 38);
   const units = entries.filter((entry) => entry.unitNumber !== undefined);
   assert.deepEqual(units.map((entry) => entry.unitNumber).sort((a,b) => a-b), Array.from({ length: 37 }, (_,i) => i+1));
   assert.deepEqual([1,2,3].map((n) => units.filter((entry) => entry.part.startsWith(`Part ${n} · `)).length), [11,10,16]);
-  assert.deepEqual(units.filter((entry) => !entry.published).map((entry) => entry.unitNumber), [14,15,18,19,20]);
+  assert.ok(units.every((entry) => entry.published));
   assert.ok(entries.some((entry) => entry.path === "content/book/part3-agent/runtime/chapter33-serving.md" && entry.published));
 });
 
@@ -206,15 +206,16 @@ test('merged pages redirect directly to published topics and reject broken or sh
   assert.deepEqual(manifest['agent-tool'].navigationPath, ['构建篇']);
   for (const mutate of [
     (r) => { r['agent-hitl'].pageId = 'absent'; },
-    (r) => { r['agent-hitl'].pageId = 'ch14-redis'; },
+    (r, pages) => { pages['ch14-redis'].published = false; r['agent-hitl'].pageId = 'ch14-redis'; },
     (r) => { r['agent-hitl'].pageId = 'agent-mcp'; },
     (r) => { r['agent-hitl'].anchor = 'absent-anchor'; },
     (r) => { r['agent-hitl'].anchor = '../outside'; },
     (r) => { r['agent-tool'] = r['agent-hitl']; },
   ]) {
     const broken = structuredClone(redirects);
-    mutate(broken);
-    assert.throws(() => validateRedirects(broken, manifest), /redirect/);
+    const pages = structuredClone(manifest);
+    mutate(broken, pages);
+    assert.throws(() => validateRedirects(broken, pages), /redirect/);
   }
 });
 

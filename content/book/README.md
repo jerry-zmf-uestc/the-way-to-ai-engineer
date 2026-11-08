@@ -20,15 +20,18 @@
 10. [Web 服务](part1-golang/chapter10.md)
 11. [工程实践与代码规范](part1-golang/chapter11.md)
 
-## 后端实践
+<a id="backend-roadmap"></a>
 
-- [数据访问与模型配置](part2-backend/chapter12.md)
-- [事务边界与回滚](part2-backend/chapter13.md)
-- [配置、日志、探针与关闭](part2-backend/chapter21.md)
-- [Hertz 路由与网关](part2-backend/chapter16.md)
-- [Kitex 与 RPC 契约](part2-backend/chapter17.md)
+## 后端实践 · 从点击导出到故障恢复
 
-先掌握数据和运行边界，再看框架，较容易分清哪些行为属于业务，哪些由框架提供。正式章号用于主题归类，阅读顺序不必按编号机械推进。
+先在第 12 章打开报表导出页面。提交返回任务 ID，结果晚一点才出现。接下来的十章沿同一个问题往下追：谁能查到这份任务，哪一步已经持久化，发生故障后系统凭什么继续执行。
+
+- **请求与数据**：[12 请求边界与任务 API](part2-backend/chapter16.md) → [13 数据建模、SQL 与索引](part2-backend/chapter12.md) → [14 事务、隔离与并发写入](part2-backend/chapter13.md)。
+- **异步与一致性**：[15 任务队列、投递与恢复](part2-backend/chapter15.md) → [16 缓存、读路径与一致性](part2-backend/chapter14.md)。
+- **服务与故障**：[17 远程调用、契约与服务边界](part2-backend/chapter17.md) → [18 超时、结果未知与幂等](part2-backend/chapter19.md) → [19 并发、背压与过载保护](part2-backend/chapter20.md)。
+- **运行与排障**：[20 可观测性与事故诊断](part2-backend/chapter18.md) → [21 发布、关闭与综合演练](part2-backend/chapter21.md)。
+
+浏览器实验默认使用内存模型。数据库三项实验证据分别来自 SQLite 执行计划、独立连接和独立 worker 进程。章末按各自的验收步骤检查结果，再完成 [综合演练](part2-backend/chapter21.md#report-export-flow)。
 
 ## Part 3 · Golang Agent
 
