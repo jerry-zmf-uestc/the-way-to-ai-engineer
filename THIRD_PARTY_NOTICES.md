@@ -15,7 +15,7 @@
 | [GORM](https://gorm.io/docs/)和 [Apache Thrift IDL](https://thrift.apache.org/docs/idl) | Part 2 数据访问及 IDL 示例 | 保留参考链接；文档示例复制与依赖使用分别核对 |
 | [Exponential Backoff and Jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) | HTTP 客户端实验参考资料 | AWS 作者的退避与抖动说明；仅作为参考入口，不授权转载原文或图片 |
 | [Hello-Agents](https://datawhalechina.github.io/hello-agents/) | 课程设计与独立旅行助手方向 | Datawhale；作为路线和场景参考，未引入其完整课程或旅行应用源码。将来复制/改编时先核对对应版本许可 |
-| [AI Agent Handbook](https://aliyun.github.io/ai-agent-handbook/contents.html) | Part 3 三大篇职责组织及构建篇的人工介入定位 | 阿里云与社区贡献者；2026-10-29查阅目录和构建篇第6章，仅参考组织方法，未复制其正文、代码或图片。本项目仍按自身来源声明授权 |
+| [AI Agent Handbook](https://aliyun.github.io/ai-agent-handbook/contents.html)与[治理篇](https://aliyun.github.io/ai-agent-handbook/governance/) | Part 3 三大篇职责组织、构建篇人工介入、治理篇导读及资产/行为验证分工 | 阿里云与社区贡献者；2026-10-29查阅目录和构建篇第6章，2026-11-08对照治理导读及第13–16章。上游站点声明Apache-2.0；本项目仅参考职责组织与概念分工，采用原创只读资料案例，未复制其正文段落、代码或图片，不将普通参考混同为上游文本的重新许可 |
 
 逐个 Lab 的具体 URL 保存在 meta.yml 的 references，正文参考资料保留对应阅读入口。引用 URL 不是完整的权属审计。
 

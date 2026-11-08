@@ -35,11 +35,24 @@
 
 ## Part 3 · Golang Agent
 
-构建篇组织决策、信息与行动；运行时承载状态、恢复与协作；治理篇提供观测、质量、安全和资源控制。共16章，实验保留独立运行入口。
+构建篇组织决策、信息与行动；运行时承载状态、恢复与协作；治理篇统一组织可观测性、安全、能力资产管理、行为验证与质量评估、资源与成本。共16章，实验保留独立运行入口。
+
+<a id="agent-roadmap"></a>
+
+### 按任务依赖分次阅读
+
+六层职责采用Product/Interface、Control Plane、Harness、Agent Runtime、Execution Environment、Data/Resource，Observability/Eval/Security横切各层；三大篇继续作为目录分组。完整分阶段入口见[八阶段实践路线](part3-agent/building/chapter22-architecture.md#从部件理解到完整实践)，下面只给首次阅读顺序，回读时补齐各章进阶主题。
+
+1. **先建立闭环**：[22架构/模型契约](part3-agent/building/chapter22-architecture.md#six-layer-architecture) → [23本地工具](part3-agent/building/chapter23-actions.md#topic-agent-tool) → [24基础Loop](part3-agent/building/chapter24-decision-loop.md) → [26会话/输入](part3-agent/building/chapter26-context.md)。
+2. **尽早检查运行**：[29预算/取消](part3-agent/runtime/chapter29-execution.md#topic-agent-runtime) → [35 Case/Runner](part3-agent/governance/chapter35-evaluation.md#topic-agent-eval) → [34事件关联](part3-agent/governance/chapter34-observability.md)。
+3. **再增加能力**：[22控制面](part3-agent/building/chapter22-architecture.md#control-plane-lifecycle)、[30 Workspace](part3-agent/runtime/chapter30-state.md#topic-agent-workspace)、[36执行环境](part3-agent/governance/chapter36-security.md#execution-environment-lifecycle) → [23 MCP](part3-agent/building/chapter23-actions.md#topic-agent-mcp)／[28 Skills](part3-agent/building/chapter28-skills.md) → [30 Memory](part3-agent/runtime/chapter30-state.md#topic-agent-memory)／[27 RAG](part3-agent/building/chapter27-rag.md)。
+4. **深化决策与产品化**：[25规划](part3-agent/building/chapter25-planning.md)、[29持久恢复](part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)、[23持久审批](part3-agent/building/chapter23-actions.md#topic-agent-hitl) → [31协作](part3-agent/runtime/chapter31-collaboration.md) → [32异步](part3-agent/runtime/chapter32-async-tasks.md) → [33服务](part3-agent/runtime/chapter33-serving.md) → [34–37治理深化](part3-agent/governance/chapter34-observability.md)。
+
+Tool/MCP/审批、检索/证据、委派/调度等合章允许分次阅读。最小流式体验不要求先学持久任务；完整Serving则需要任务状态与HTTP基础。下面按稳定章号列出全部文章，章号不表示必须一次读完该篇才能继续。
 
 ### 构建篇
 
-- [第22章：Agent 架构与模型接口](part3-agent/building/chapter22-architecture.md)：建立模型接口与Harness的共同语言，区分推理、执行、状态与任务验收。
+- [第22章：Agent 架构与模型接口](part3-agent/building/chapter22-architecture.md)：建立六层职责、控制面配置与Harness组装，再理解模型接口和任务验收。
 - [第23章：工具接入与受控行动](part3-agent/building/chapter23-actions.md)：将工具与MCP能力接入同一行动链，校验身份、参数、审批和观察。
 - [第24章：Agent 决策循环与 ReAct](part3-agent/building/chapter24-decision-loop.md)：用动作与观察推进多轮决策，限制重复行动并比较ReAct与简单流程。
 - [第25章：任务规划与反馈修订](part3-agent/building/chapter25-planning.md)：拆解可验证步骤，根据反馈修订计划，判断反思与搜索的适用条件。
@@ -57,7 +70,20 @@
 
 ### 治理篇
 
-- [第34章：可观测性与执行重放](part3-agent/governance/chapter34-observability.md)：关联事件与调用，录制原始响应并严格重放，逐层定位执行失败。
-- [第35章：质量评估与持续改进](part3-agent/governance/chapter35-evaluation.md)：定义成功标准，建设数据集与评分器，通过对照和回归持续改进。
-- [第36章：Agent 安全与权限治理](part3-agent/governance/chapter36-security.md)：建立信任与授权边界，约束不可信内容、执行环境及数据出口。
+
+从[治理篇导读](part3-agent/governance/chapter34-observability.md#governance-overview)进入。治理贯穿上线前验证、运行中约束和事后诊断，安全与环境隔离是其中的专题。
+
+| 治理维度 | 重点与正文入口 |
+| --- | --- |
+| 可观测性 | [34：运行事实、调用关联与重放](part3-agent/governance/chapter34-observability.md) |
+| 安全 | [36：身份授权、攻击路径、执行隔离与数据出口](part3-agent/governance/chapter36-security.md) |
+| 能力资产管理 | [34：Prompt/Skill/MCP/Agent版本与依赖变更](part3-agent/governance/chapter34-observability.md#asset-governance)，衔接第22章控制面与第28章加载机制 |
+| 行为验证与质量评估 | [35：Testing、Simulation、Evaluation与交付验收](part3-agent/governance/chapter35-evaluation.md#behavior-verification) |
+| 资源与成本 | [37：原预算、实际消耗、容量与优化收益](part3-agent/governance/chapter37-cost.md) |
+
+以下四篇保留各自机制与实验，能力资产和质量场景通过跨章专题串联。
+
+- [第34章：可观测性与执行重放](part3-agent/governance/chapter34-observability.md)：建立治理篇的共同证据，关联运行、能力资产版本与验证报告，再用Trace/Replay定位失败。
+- [第35章：行为验证与质量评估](part3-agent/governance/chapter35-evaluation.md)：区分测试、行为模拟、评估与验收，按证据判断任务质量和发布条件。
+- [第36章：Agent 安全与权限治理](part3-agent/governance/chapter36-security.md)：建立信任与授权边界，解释环境准备、执行、停止、销毁及数据出口。
 - [第37章：资源预算与成本优化](part3-agent/governance/chapter37-cost.md)：统一用量与费用口径，管理预留、未知和结算，以任务质量判断优化。

@@ -8,6 +8,8 @@
 
 可以把模型提议类比为页面提交的action：它表达意图，真正的执行由服务端批准。本章沿工具注册、MCP适配、执行政策、人工确认与观察反馈展开；批准绑定具体动作，不能替代权限。
 
+本章可以分三次阅读。先读[本地工具契约](#topic-agent-tool)与[结果回填](#工具结果如何成为下一轮观察)，接上[决策循环](chapter24-decision-loop.md)；理解Session/Context后，再读[MCP接入](#topic-agent-mcp)。[人工介入](#topic-agent-hitl)先理解决定绑定什么，读完[运行恢复](../runtime/chapter29-execution.md#topic-agent-checkpoint)与[任务控制](../runtime/chapter32-async-tasks.md)后，再回读持久等待、决定、恢复再授权和未知提交窗口。
+
 ## 工具契约与本地执行入口
 
 <a id="topic-agent-tool"></a>
@@ -413,6 +415,18 @@ func (c *Client) Call(ctx context.Context, name string, args map[string]any) (st
 工具描述、只读提示或其他annotations可以帮助判断，但不能作为权限事实。应用必须知道该Server实际提供什么、允许哪些动作、使用哪种身份与数据范围。
 
 <a id="topic-agent-hitl"></a>
+
+### 发现、授权与人工决定分别负责什么
+
+| 边界 | 决定什么 | 不能推出什么 |
+| --- | --- | --- |
+| 能力发现 | Server声明提供哪些名字、Schema与资料 | 当前Run获准使用全部能力 |
+| Harness选择 | 哪些已批准能力进入本轮输入，怎样绑定本地标识 | 模型选择即获得访问权 |
+| 执行授权 | 当前身份、动作、资源和政策是否允许 | 一次通过后永久有效 |
+| 人工决定 | 对已允许范围内的具体目标、动作或产物作判断 | 扩大部署政策、工具清单或环境权限 |
+| 实际执行与提交 | 动作尝试是否发生，结果是否可靠保存并可释放 | 有批准记录就说明结果已经提交 |
+
+控制面负责这些清单与政策的来源和版本，执行器负责每次落实。外部Server更新Schema或工具集时，重新发现与批准；不能沿用旧名称就默认沿用旧语义。配置生命周期见[架构章](chapter22-architecture.md#control-plane-lifecycle)，攻击路径与最终强制点见[安全章](../governance/chapter36-security.md)。
 
 ### 哪些判断交给人，哪些必须由应用执行
 

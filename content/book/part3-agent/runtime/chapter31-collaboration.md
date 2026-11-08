@@ -8,6 +8,8 @@
 
 本章先解释交给谁、允许做什么、如何验收返回，再引入Handoff与DAG。并行收益需要与单执行者或串行流程比较，失败、协调开销和共享预算一起保留。
 
+先读角色选择、子任务与结果契约，再读Handoff；需要并行时进入[DAG调度](#topic-agent-dag)与资源公平。持久所有权、SQLLease和文件恢复可在完成[Checkpoint](chapter29-execution.md#topic-agent-checkpoint)后回读。业务角色决定做哪类工作，Worker决定由哪个执行实例运行，Attempt标识一次实际尝试；三者不能共用一个Owner字段来表达全部语义。
+
 ## 分工价值与角色选择
 
 <a id="topic-agent-delegation"></a>

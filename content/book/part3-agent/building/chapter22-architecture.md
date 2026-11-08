@@ -73,6 +73,76 @@ type Response struct {
 
 框架可以提供消息、图编排、工具接口和事件机制，但不会自动定义业务权限与完成条件。先理解契约，再用框架或外部协议组合部件，才容易判断哪些行为来自外部组件，哪些仍由应用负责。
 
+## 六层职责怎样落到一次任务
+
+<a id="six-layer-architecture"></a>
+
+页面上的“停止”只是用户意图。服务入口需要验证任务归属，运行控制需要停止接纳新动作，工具与执行环境需要终止在途工作，存储保留已提交事实，页面最后显示实际终态。按职责追踪这条链路，比把所有代码叫作Agent更容易定位失败。
+
+| 职责层 | 持有的决定或状态 | 交给相邻层什么 | 主要正文 |
+| --- | --- | --- | --- |
+| Product / Interface | 用户目标、任务操作与结果呈现 | 经过身份绑定的请求、确认或取消意图 | [服务与流式交互](../runtime/chapter33-serving.md) |
+| Control Plane | Agent定义、模型/工具配置、Policy、配额与版本 | 经过校验的运行配置及授权约束 | 本章下一节；[动作授权](../governance/chapter36-security.md#topic-agent-safety) |
+| Harness | Provider、Context、工具、Skills、存储与观测接口的组装关系 | 一次Run使用的部件与适配边界 | 本章；[Context](chapter26-context.md)、[Skills](chapter28-skills.md) |
+| Agent Runtime | Run、Step、Attempt、计划、预算和提交事实 | 有界动作请求、观察、状态变化与终态 | [Loop](chapter24-decision-loop.md)、[运行控制](../runtime/chapter29-execution.md) |
+| Execution Environment | 实际进程、文件、网络、身份与资源限制 | 受限制的执行结果、退出与清理事实 | [执行环境生命周期](../governance/chapter36-security.md#execution-environment-lifecycle) |
+| Data / Resource | Session、Checkpoint、Memory、索引、Workspace与录制 | 带身份、版本和有效期的数据或引用 | [持久状态](../runtime/chapter30-state.md)、[RAG](chapter27-rag.md)、[Trace](../governance/chapter34-observability.md) |
+
+六层是本书采用的职责视角，不要求建立六个服务。Harness负责把任务需要的组件组织起来；Runtime负责一次运行如何推进、停止与恢复。Loop是推进决策的机制，ReAct与Planning提供策略；一个小程序可以同时承担这些职责，但仍要分清谁拥有可变状态、谁有最终执行权。
+
+[治理篇](../governance/chapter34-observability.md#governance-overview)共同组织可观测性、安全、能力资产、质量验证和成本；其中Observability、Eval、Security横切六层：每次调用保留身份与失败，结果按任务标准验收，数据和动作经过各自授权。三大篇是阅读分组，因此安全章中可以讲环境，构建篇中可以讲控制面，不能靠目录位置推断职责。
+
+### 从接纳到交付，边界在哪里检查
+
+以“比较当前超时与重试”为例，产品入口先绑定用户与任务；控制配置限定资料、工具、模型及预算；Harness组装输入与执行器；Runtime根据观察推进读取；环境限制实际文件/网络访问；数据层提供当前版本与保存结果。最后，应用检查必要证据与断言，再交给页面。
+
+这里有两条不同的路径：配置路径决定可用部件与约束，执行路径产生真实动作与观察。工具返回的文本只进入数据和决策输入，不能倒流成为控制面政策。Span记录成功也不能跳过业务验收；用户批准也不能使未注册工具获得执行权。
+
+## 控制面怎样形成一份运行配置
+
+<a id="control-plane-lifecycle"></a>
+
+前端的配置面板可以改变下一次请求参数，服务端却不能把任意客户端JSON当成执行政策。控制面负责将可信定义、调用身份与部署限制解析成可执行配置；模型和外部资料只能提供候选，不能给自己选择权限或执行环境。
+
+### 定义、运行快照与当前授权分开
+
+下面的AgentSpec、ResolvedConfig是设计角色名，用来串联已有局部机制，不是本仓库已经提供的统一配置类型或发布服务。
+
+| 对象 | 保存什么 | 何时改变 |
+| --- | --- | --- |
+| AgentSpec | 定义ID/版本、目标范围、Provider配置引用、工具/Skill版本、预算上界、环境档案引用 | 经过校验后发布新版本 |
+| ResolvedConfig | 本次Run实际选中的定义、部件版本、可信Scope、允许能力及原预算 | 启动时冻结；显式修订另建版本关系 |
+| 当前授权 | 资源是否仍可读、能力是否撤销、身份是否有效 | 执行前及结果释放时按授权契约重新判断 |
+| Checkpoint | 原提议、尝试、观察提交、游标与已知/未知消耗 | 随运行事实提交 |
+
+冻结快照让一次失败能够追溯到当时配置，**冻结不等于权限永久有效**。资料权限撤销以后，旧配置不能继续授权读取；恢复也不能重新解析一个更宽松的最新定义，再声称继承了旧Run。秘密只保存服务端引用，不进入可公开的配置档案。
+
+例如定义v3只允许读取A/B，某Run据此启动；后来v4新增C。旧Run不会自动得到C。如果A随后被撤销，旧Run即使记录着v3，也必须按资源授权规则拒绝A。恢复时缺少v3对应的工具或环境，应拒绝或进入明确迁移流程，不能悄悄替换成“差不多”的版本。
+
+### 从声明到执行，要经过哪些判断
+
+1. **校验完整定义**：拒绝未知Provider、重复工具标识、缺失资源版本、非法预算及不支持的环境要求；失败时不启动部分组件。
+2. **绑定可信身份**：Scope来自认证入口，工具和资源来自应用注册表；用户请求只能在允许范围内选择。
+3. **解析有效约束**：按显式规则组合部署限制、租户/用户授权、Agent能力与Run请求。允许集合取交集，预算受各自上界约束；取消、期限和撤销仍是独立条件。不是所有配置字段都能用“后者覆盖前者”处理。
+4. **建立运行快照**：保留定义、策略和部件版本，固定配置指纹与原预算，再交给Harness组装。指纹用于发现变化，不提供认证。
+5. **在执行点落实政策**：参数、授权、预算和环境资源分别检查。配置声明“只读”不能替代只读挂载或实际执行器限制。
+
+现有[工具注册表](chapter23-actions.md#注册在运行前完成)、[Skill激活](chapter28-skills.md)、[动作快照](chapter23-actions.md#topic-agent-hitl)与[Safety Policy](../governance/chapter36-security.md#topic-agent-safety)分别验证局部边界；统一AgentSpec解析、发布与全链路撤销仍需单独实现和验收。读取到版本号只说明标识存在，不能证明全部部件确实按该版本工作。
+
+### 发布、撤销与回滚各自影响谁
+
+发布v4决定新运行默认采用哪份配置，不自动改写进行中的v3。若允许运行中更新，必须说明在安全点生效、取消重跑还是仅影响下一步，并绑定新的目标/配置版本；[异步任务更新](../runtime/chapter32-async-tasks.md#目标修订与结果准入)解释其中一种有界选择。
+
+撤销首先关闭新接纳与后续执行/结果释放入口，再按政策取消在途工作。已发生的读取、发送和消耗无法靠删配置撤回。回滚也只是让后续运行选择旧定义，不能倒转外部事实或自动恢复旧Checkpoint。记录应关联配置版本、Run和动作尝试，排查时先核对实际快照，再检查执行器，不只看控制台当前展示的版本。
+
+### Harness按运行快照组装部件
+
+先解析配置与版本，再创建本次Run的预算/状态容器，绑定Provider与工具适配器、Context来源和观测接口。资源初始化失败时，关闭已经创建的本次资源，再返回接纳失败；不能把半套组件发布给运行器。具体创建顺序取决于依赖，慢模型调用不应放在持有配置或数据库全局锁的阶段。
+
+每次推理都沿同一边界：选择输入→调用Provider→解析提议→授权/预算检查→受控执行→提交观察→继续或终止。扩展钩子可以在这些位置加入输入转换、审计或验收，但顺序与失败策略必须明确：输入转换不能扩权，诊断导出失败是否阻断任务由契约决定，强制授权失败不能被后续钩子忽略。
+
+现有独立Lab各自组装组件，并没有统一Harness构造器。学习组装职责时，比较的是各Lab如何兑现这些边界；不要求将它们改成依赖同一持续工作区的平台。
+
 ## 推理机制怎样约束应用接口
 
 <a id="topic-ch22-llm-api"></a>
@@ -452,12 +522,31 @@ Provider提供的结构化输出约束可减少格式错误，但应用仍需处
 课程的最小实验使用fake与固定数据，不需要密钥。它证明程序按契约推进；真实模型是否做出正确选择，需要受控调用与任务集评估。学习时先预测失败会在哪一层出现，再运行和修改条件，最后脱离AI答案解释一次故障及修复。
 
 <a id="新能力改变了闭环的哪一部分"></a>
-
 <a id="如何继续阅读-part-3"></a>
 <a id="按问题选择路线"></a>
 <a id="从部件理解到完整实践"></a>
+
+### 八阶段实践路线
+
+先体验[流式资料问答](../runtime/chapter33-serving.md#topic-ch32-streaming-service)，再沿下面八阶段阅读。一次只完成阶段所需的小节；回读时补齐其余内容。首次阅读本章先建立职责、Provider、消息与响应契约，Token/Attention/KV/采样及后训练的数值机制可在需要理解输入预算和性能时回读。
+
+| 阶段 | 先解决的问题与阅读入口 | 需要解释的失败与迁移证据 |
+| --- | --- | --- |
+| 1. 建立最小闭环 | 本章Harness/Model → [23本地Tool](chapter23-actions.md#topic-agent-tool) → [24 Loop/ReAct基础](chapter24-decision-loop.md#topic-ch23-tool-calling) → [26 Session/Context](chapter26-context.md) | 未知工具不执行、观察关联不丢、历史与输入分离；换一条查询解释继续和停止 |
+| 2. 让运行可检查 | [29运行控制](../runtime/chapter29-execution.md#topic-agent-runtime) → [35 Case/Runner](../governance/chapter35-evaluation.md#topic-agent-eval) → [34事件关联](../governance/chapter34-observability.md) | 坏输出、工具失败、取消和预算有不同记录；固定Case绑定实际Run，Trace不等于评分 |
+| 3. 约束配置与环境 | 本章控制面 → [30 Workspace](../runtime/chapter30-state.md#topic-agent-workspace) → [36环境与安全](../governance/chapter36-security.md#execution-environment-lifecycle) | 版本快照不授予永久权限；受限目录不等于进程隔离；等待结束不等于资源销毁 |
+| 4. 接入领域能力 | [23 MCP](chapter23-actions.md#topic-agent-mcp) → [28 Skills](chapter28-skills.md) → [23人工决定概念](chapter23-actions.md#topic-agent-hitl) | 发现、加载、批准与执行分开；坏Schema/断连不被转成正常资料 |
+| 5. 形成知识任务 | [30 Memory](../runtime/chapter30-state.md#topic-agent-memory) → [27检索与RAG](chapter27-rag.md) → [35证据评分与校准](../governance/chapter35-evaluation.md#独立校准与指标口径) | 更新/过期/删除改变有效输入；召回、出处、支持和完成度分别验证；回读HyDE与重排 |
+| 6. 决策与恢复 | [24 Self-Ask](chapter24-decision-loop.md#子问题怎样由观察继续展开) → [25 Planning/Reflection/Reflexion/搜索](chapter25-planning.md) → [29 Checkpoint](../runtime/chapter29-execution.md#topic-agent-checkpoint) → [23持久审批](chapter23-actions.md#人工介入与动作确认) | 同任务对照策略；中断后按提交事实继续；重做不清零预算，旧批准不覆盖新动作 |
+| 7. 扩展协作与产品入口 | [31委派/Handoff/DAG](../runtime/chapter31-collaboration.md) → [32 Async](../runtime/chapter32-async-tasks.md) → [33 Serving/Streaming](../runtime/chapter33-serving.md) | 子结果归属、目标版本、资源竞争、取消收齐与幂等接纳；区分局部SQLLease和完整跨实例恢复 |
+| 8. 治理与架构取舍 | 先读[治理篇导读](../governance/chapter34-observability.md#governance-overview)，回读[34 Trace/Replay](../governance/chapter34-observability.md)、[35 Eval](../governance/chapter35-evaluation.md)、[36 Safety](../governance/chapter36-security.md)、[37 Cost](../governance/chapter37-cost.md) | 用四类独立作品说明质量、恢复、安全、延迟和成本；保留无收益与未验证的生产边界 |
+
+这条路线覆盖原26个主题，但不要求一阶段一周。按Runtime、知识系统或能力集成方向加深，不把上一页自动当成硬前置。MCP不要求先完成多Agent，最小流式体验也不要求先完成持久任务。
+
 <a id="一次学习怎样安排阅读与动手"></a>
 <a id="用一次故障检验理解"></a>
+
+每次先预测一个行为，再读对应机制、运行独立实验、改变条件制造失败，最后闭卷解释并迁移到新输入。只运行成功不足以进入下一阶段；至少说明一个失败由谁发现、怎样传播、哪些事实和消耗保留。实验命令与练习在各Lab，长期24周安排由项目总体方案维护，正文不承担学习记录管理。
 
 <a id="最佳实践"></a>
 <a id="先验证协议再比较模型"></a>

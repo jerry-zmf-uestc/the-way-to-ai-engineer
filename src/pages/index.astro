@@ -57,6 +57,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
             {AGENT_NAVIGATION_PATHS.map((path) => (
               <section class="course-family" data-course-group={path[0]}>
                 <h3>{path[0]}</h3>
+                {path[0] === '治理篇' && (
+                  <p>
+                    可观测性、安全、能力资产管理、行为验证与质量评估、资源与成本共同构成治理。
+                    <a href={`${base}/chapters/agent-trace-replay/#governance-overview`}>阅读治理篇导读</a>，按当前问题选择专题。
+                  </p>
+                )}
                 <ChapterGrid headingLevel={4} pages={entries.filter((page) => page.data.navigationPath?.[0] === path[0])} />
               </section>
             ))}

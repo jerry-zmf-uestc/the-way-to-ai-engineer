@@ -8,6 +8,8 @@
 
 Agent Loop管理循环与状态，ReAct利用动作和观察推进决策。二者沿同一条链路讲解：谁决定下一步、谁执行、哪些事实进入下一轮，以及何时必须停止。
 
+第一次阅读先串联“从单次响应到持续决策”“动作执行与观察回填”和“继续、停止与预算”，用固定输出核对Loop。接着读[Session/Context](chapter26-context.md)、[运行控制](../runtime/chapter29-execution.md#topic-agent-runtime)和[最小Eval](../governance/chapter35-evaluation.md#topic-agent-eval)，再回读Self-Ask、模型提议适配与策略效果。本章讨论动作选择和观察反馈；配置由控制面解析，执行环境由应用绑定，模型不能通过一次提议替换它们。
+
 ## 从单次响应到持续决策
 
 <a id="topic-ch23-tool-calling"></a>
