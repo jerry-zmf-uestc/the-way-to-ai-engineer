@@ -1,8 +1,10 @@
 # 第 11 章：工程实践与代码规范
 
+配套实验：[project-layout](../../../labs/part1-golang/chapter11/project-layout/README.md)、[json-api](../../../labs/part1-golang/chapter11/json-api/cmd/README.md)、[review-cli](../../../labs/part1-golang/chapter11/review-cli/cmd/README.md)、[Effective Go 对照](../../../labs/part1-golang/chapter11/effective-go/README.md)。
+
 代码能跑只是起点。接手一个陌生仓库时，最先暴露问题的不是算法，而是这些细节：打开 `cmd/`、`internal/`、`pkg/`、`api/`、`deployments/` 一应俱全，点进去一半目录是空的，剩下一半各躺着一个没人敢删的 `main.go`；错误信息全是 `"error"`，定位一次失败要全文搜索；函数名叫 `DoIt`，改动它之前没人知道会破坏谁。本章的判断：**先让职责清楚，再谈目录完整**——命名、错误信息和目录职责决定这份代码能否被别人接手、扩展和审查。
 
-## 目录职责用数据表达
+## 用职责数据决定目录是否存在
 
 **module 是依赖与版本边界，package 是编译与可见性边界；目录建齐不等于设计合理。** 用读者熟悉的生态类比：go.mod ≈ package.json（声明模块路径与依赖版本），package ≈ Python 的模块文件，而 `internal/` 类似 Python 的 `_private` 前缀约定——区别在于 Go 由工具链**强制**执行，不是靠自觉。目录叫 cmd 不会自动让程序更好测试——只有把参数处理、业务函数和 I/O 分清楚，测试才能替换输入而不必启动整个进程。
 
@@ -117,7 +119,7 @@ chapterN/<name>/internal [current]: 章节内分层项目的私有实现; use wh
 
 运行 `go -C labs run ./part1-golang/chapter11/module-layout` 查看 server 形态的完整建议。共同的原则：**每个目录存在的那一刻就要能说出它装什么、为什么现在需要它**。
 
-## cmd + internal：入口和实现分开
+## cmd 只装配，internal 保存不可外部导入的实现
 
 **拆分只改目录，不改外部行为：状态码、响应字段和错误路径必须在重构前后一致。** 入口只装配依赖并启动，业务逻辑落在 internal 包里，接收可替换的输入，便于测试。[json-api](../../../labs/part1-golang/chapter11/json-api) 是从单包 API 升级到分层项目的完整示例。先看入口，它薄到只有装配（摘录自 json-api/cmd/main.go）：
 
@@ -213,7 +215,7 @@ go -C labs run ./part1-golang/chapter11/review-cli/cmd
 # review-cli: review: no items（退出码 2）
 ```
 
-## 规范与优化取舍
+## 规范约束协作，优化服从证据
 
 **规范是降低协作成本的工具；优化类写法先用 benchmark 证明值得，再保留。**
 
@@ -297,7 +299,7 @@ go test -bench=. -benchmem ./labs/part1-golang/chapter11/uber-string-builder
 
 输出的 `ns/op` 数值随机器变化，没有跨环境意义；值得盯的是 `B/op` 和 `allocs/op` 两列——这个实现稳定为 1 次分配。给优化"记账"的标准流程：先写正确版本，benchmark 建立基线，改动后对比，收益不显著就回退到直白的写法。
 
-## 调试与分析工具
+## 从测试、静态检查到运行时分析
 
 写完代码之后的排障也有标准工具链，先知道入口，用到时再深入：
 
@@ -371,6 +373,8 @@ if strings.Contains(err.Error(), "config not found") {
 
 现象：听说 `strings.Builder` 快，于是拼接两个字符串也建 Builder；听说预分配好，于是给固定 3 个元素的切片也算容量。代码变绕了，性能没有可测量的变化。原因：优化的收益只在热路径上显著，凭感觉优化等于把阅读成本花在看不到收益的地方。修复：先写直白正确的版本；怀疑慢就 `go test -bench=. -benchmem` 建基线，改动后对比 `ns/op` 与 `allocs/op`；收益不显著就回退。规范类写法（命名、early return、错误包装）不需要这个门槛——它们的收益在协作成本上，不在纳秒上。
 
+<a id="练习"></a>
+
 ## 动手练
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
@@ -394,6 +398,14 @@ go -C labs test ./part1-golang/chapter11/uber-string-builder/... -count=1
 ```
 
 已有测试通过只说明已覆盖的用例符合预期；练习中新增的边界仍要补充断言。更多练习（为自己的项目写职责表等）见各 lab 的 README。
+
+## 小结
+
+- 目录只有在承担稳定职责时才值得存在；先写清依赖方向和引入条件，再决定是否拆包。
+- module 管依赖与版本，package 管编译与可见性，`cmd` 管入口装配，`internal` 用工具链强制私有边界。
+- 好命名、早返回、错误包装和小接口降低协作成本；它们不是为了追求统一外观。
+- 性能优化必须从 benchmark、profile 或真实指标开始；没有基线时，复杂写法只是在预付维护成本。
+- 测试、`go vet`、benchmark、pprof 和调试器回答不同问题，任何单项通过都不能替代完整工程判断。
 
 ## 链接
 

@@ -1,5 +1,7 @@
 # 第 9 章：并发编程
 
+配套实验：[goroutine、channel 与 select](../../../labs/part1-golang/chapter09/goroutine-channel-select/README.md)、[worker pool](../../../labs/part1-golang/chapter09/worker-pools/README.md)。
+
 Go 的并发难不在启动——`go` 一个关键字就够——而在正确收尾：每个共享数据的决定都要回答"谁看得到这次写入、谁先结束"，答不上来就是内存可见性错误、goroutine 泄漏或数据竞争。
 
 先用一个场景感受一下代价。HTTP 服务里每个请求派生 5 个 goroutine 分别查缓存、数据库和下游 API（第 10 章的"每连接一个 goroutine"模型）。如果其中一个 goroutine 卡在无人接收的 channel 发送上，它不会被 GC 回收、不会被超时救回，就这么一直挂着：每秒 200 个请求、每请求泄漏 1 个，一小时后进程里堆着 72 万个休眠 goroutine 和几 GB 的栈内存，除了 pprof 里 goroutine 数量单调上涨，没有任何报错。前面八章的程序都跑在一条主 goroutine 上，不存在这个问题；本章的所有原语——channel、select、sync、context——说到底都是为同一件事服务：**让每个 goroutine 有明确的退出条件，让每次共享写入有明确的可见性保证**。
@@ -708,6 +710,14 @@ go test -race ./labs/part1-golang/chapter09/worker-pools/... -count=1
 ```
 
 更多练习（如检查共享统计的锁保护、用 `collectAll` 收集全部竞争结果）见各 lab 的 README。
+
+## 小结
+
+- 并发正确性依赖 happens-before，而不是“看起来先执行”。共享状态必须通过 channel、锁、原子操作或其他明确同步关系发布。
+- channel 传递所有权或事件；发送方负责关闭，接收方不能靠关闭未知来源的通道来终止生产者。
+- 锁保护共享内存，channel 组织协作流程。选择依据是状态归属与生命周期，不是语法偏好。
+- `context` 传播取消、截止时间和请求范围值，但取消只有在各层主动检查并返回后才真正生效。
+- 并发测试应运行 `-race`，并只断言协议保证的结果；调度顺序、worker 分配和 select 分支通常不稳定。
 
 ## 链接
 

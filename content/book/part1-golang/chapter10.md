@@ -1,10 +1,12 @@
 # 第 10 章：Web 服务
 
+配套实验：[HTTP server](../../../labs/part1-golang/chapter10/http-server/README.md)、[中间件与客户端](../../../labs/part1-golang/chapter10/http-middleware-client/README.md)、[GORM 与 MySQL](../../../labs/part2-backend/chapter12/gorm-mysql/README.md)、[repository pattern](../../../labs/part2-backend/chapter12/repository-pattern/README.md)。
+
 Web 服务的复杂度集中在两个边界：服务端怎么处理进来的请求，客户端怎么调用别的服务。本章用标准库 `net/http` 和 `database/sql` 把这两个边界打通。
 
 这两个边界对 AI 工程师尤其具体：Agent 的一次工具调用，落到传输层就是一次 HTTP 事务。一次研究型任务可能发出几十次下游调用，每次调用的 P99 假设是 300ms，但只要其中一次遇到挂死的下游、`http.DefaultClient` 又没有超时，那个 goroutine 就会永远等下去——连接、内存和重试预算一起被拖住，进程表面还活着，实际上已经停摆。本章的每个机制都对应这类真实故障的一种解法。
 
-## 10.1 Web 如何工作：URL、DNS 与 HTTP
+## 10.1 一次请求跨过 URL、DNS 与 HTTP
 
 **一次网页访问 = DNS 解析 → TCP 连接 → HTTP 请求/响应 → 渲染。** 浏览器输入 URL 回车之后，依次发生：
 
@@ -57,7 +59,7 @@ Content-Length: 90
 
 状态码按首位数字分五类：1XX 提示信息、2XX 成功、3XX 重定向、4XX 客户端错误、5XX 服务器错误。最常用的如 200（正常）、301/302（跳转）、404（未找到）、500（服务器内部错误）。10.4 节的重试策略会直接消费这个分类——4XX 通常意味着请求本身有问题，重发无意义；5XX 和 429 才值得退避重试。
 
-## 10.2 用 net/http 搭建一个服务
+## 10.2 把服务装配与请求处理分开
 
 **一个最小 Go Web 服务只需要两个函数：`http.HandleFunc` 注册路由，`http.ListenAndServe` 监听端口**——不需要 nginx 或 Apache 这类外部 Web 服务器。
 
@@ -165,7 +167,7 @@ go -C labs run ./part1-golang/chapter10/http-server
 
 两条路径输出完全一致——这正是要点：handler 的行为不依赖于它被谁驱动，所以测试可以用最便宜的方式覆盖它。
 
-## 10.3 net/http 的运行机制
+## 10.3 net/http 如何调度连接和 Handler
 
 **一次请求的生命周期：监听端口 → 接受连接 → 读取并解析请求 → 交给 handler → 写回响应。** 服务端有四个核心概念：**Request**（请求信息）、**Response**（响应）、**Conn**（每次请求的连接）、**Handler**（处理逻辑）。
 
@@ -283,7 +285,7 @@ go func() {
 
 方案 B 里那行 `ReadHeaderTimeout: 2 * time.Second` 不是装饰——它是防 slow-header 这类低级 DoS 的最低配置。
 
-## 10.4 中间件、客户端超时与重试
+## 10.4 中间件组织服务端策略，客户端显式控制失败
 
 ### 中间件：洋葱模型
 
@@ -507,7 +509,7 @@ demo=retry-then-ok status=200 body={"echo":"ok"}  attempts=3
 
 取消 Context 可以通知下游停止工作，但不会自动替它执行清理，也不会自动把追踪字段放进 HTTP header。
 
-## 10.5 访问数据库：database/sql 与 MySQL
+## 10.5 database/sql 管连接池，repository 隔离存储实现
 
 **Go 不内置任何数据库驱动，而是定义 `database/sql` 标准接口，第三方驱动按接口实现——按标准接口写的代码，迁移数据库时无需修改。**
 
@@ -684,6 +686,8 @@ func ProductHandler(w http.ResponseWriter, r *http.Request) {
 
 已有测试通过只说明已覆盖的用例符合预期；修复中新增的边界仍要补充断言。
 
+<a id="练习"></a>
+
 ## 动手练
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
@@ -701,6 +705,14 @@ go -C labs test ./part2-backend/chapter12/repository-pattern/... -count=1
 ```
 
 更多练习见各 lab 的 README。
+
+## 小结
+
+- Web 排错先定位 DNS、连接、HTTP 事务还是页面渲染；不同层的失败不能用同一条重试策略处理。
+- Handler 只处理请求，装配函数负责路由和依赖，启动函数负责监听与关闭；职责拆开后才能直接测试协议行为。
+- 服务端必须设置读写与空闲超时，客户端必须有总超时；重试只能用于满足幂等条件且仍有剩余预算的失败。
+- Header、状态码和响应体有固定写入顺序；响应体与数据库 rows 必须关闭，底层连接才能回到连接池。
+- repository 隔离的是存储能力与失败语义。内存实现通过只能证明接口契约，不能替代真实 SQL、事务和连接池验证。
 
 ## 链接
 

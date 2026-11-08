@@ -1,12 +1,14 @@
 # 第 6 章：结构体与方法
 
+配套实验：[structs-methods-interfaces](../../../labs/part1-golang/chapter06/structs-methods-interfaces/README.md)。
+
 Go 没有类继承体系：结构体保存状态、方法表达行为、接口约定调用方需要的能力，三者的组合就是 Go 的主要建模方式。
 
 从 Python 或 Java 转过来，第一反应往往是找 `class`。设想把一个 Python 写的账户服务迁到 Go：原代码里 `class Account` 一把抓——字段、`deposit`/`withdraw` 方法、`__str__`，报表模块靠继承一个 `Formatter` 基类拿到多态。到了 Go，这三样东西要拆开声明、再按规则组合；迁移期最典型的两类迷惑——"方法明明执行了，余额为什么没变""接口明明不是 nil，为什么一调用就 panic"——全都来自把 class 的心智模型直接套过来。本章用一个可运行的账户例子把这三层各自的规则讲透。
 
 <a id="structs-interfaces"></a>
 
-## 6.1 结构体、方法与接口
+## 6.1 用结构体承载状态，用方法与接口划分行为
 
 `labs/part1-golang/chapter06/structs-methods-interfaces` 用一个账户例子串起三层：`Account` 保存 `Owner` 和 `Balance`（数据层），`Deposit`、`Withdraw`、`Summary` 把账户动作贴到类型上（行为层），`Formatter` 表示"只要能 Format，就能被调用方接受"（边界层）。后面的 HTTP handler、RPC service 和 repository 都是这套写法。
 
@@ -261,6 +263,14 @@ go -C labs test ./part1-golang/chapter06/structs-methods-interfaces/... -count=1
 ```
 
 已有测试通过只说明已覆盖的用例符合预期；更多练习（实现另一个 Formatter 等）见各 lab 的 README。
+
+## 小结
+
+- 结构体聚合状态，方法把行为关联到类型，接口由调用方声明所需能力；三者不是类体系的拆分语法。
+- 会修改接收者状态的方法通常使用指针接收者；值接收者操作副本，更适合小型、只读和值语义类型。
+- 方法集合决定一个值能否赋给接口。把接收者从值改成指针会改变接口兼容性，必须同步检查调用方。
+- 接口值同时保存动态类型和动态值；装入 typed nil 后接口本身不为 nil，生命周期检查不能只写 `v != nil`。
+- 嵌入提供字段与方法提升，不提供继承或虚方法覆盖；需要动态多态时应显式依赖接口。
 
 ## 链接
 

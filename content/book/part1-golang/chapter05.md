@@ -1,8 +1,10 @@
 # 第 5 章：错误处理与异常
 
-程序只要开始解析输入、读文件、调网络，就一定会失败。Go 的答案很极端：没有异常体系，错误就是一个普通返回值。读懂这套设计，是写出"凌晨被 oncall 翻出来也扛得住"的代码的第一步。
+配套实验：[functions-errors](../../../labs/part1-golang/chapter05/functions-errors/README.md)、[defer-panic](../../../labs/part1-golang/chapter04/defer-panic/README.md)。
 
-## 5.1 错误是值
+程序只要开始解析输入、读文件、调网络，就一定会失败。Go 不用异常跨过中间调用层，而是把可预期失败放进普通返回值：产生错误的一层补充上下文，能决定处理策略的一层再恢复、降级或终止。对熟悉 Promise rejection 或 try/catch 的读者，关键差异不是语法，而是控制权更显式——忽略 `error` 就是在当前调用点主动放弃失败信息。`panic` 和 `recover` 处理的是另一条路径：当前层已无法维持内部约束，只能在明确边界转换少数预期 panic，其余继续传播。
+
+## 5.1 error 值让失败沿调用链传播
 
 Go 的惯例：最后一个返回值承载 `error`（或 `bool` 表示成功）。`if err != nil` 的重复是必要的——不要试图抽象掉它。
 
@@ -48,7 +50,7 @@ go -C labs run ./part1-golang/chapter05/functions-errors
 
 两个细则：返回 non-nil error 时，其余返回值应被忽略（例外如 `io.Read` 返回已读字节）；`io.EOF` 是最著名的哨兵错误，用 `errors.Is(err, io.EOF)` 判定。
 
-## 5.2 panic：不可恢复的路径
+## 5.2 panic 表示当前层无法维持约束
 
 数组越界、nil 解引用这类运行时错误会引发 panic：**中断执行 → 沿栈展开所有 deferred 函数 → 崩溃并打印堆栈**。主动 `panic(v)` 只用于"逻辑上不应到达"的路径，比如穷举 switch 的 default。
 
@@ -56,7 +58,7 @@ go -C labs run ./part1-golang/chapter05/functions-errors
 
 defer 在 panic 路径上同样执行——这既是资源清理的保障（第 4 章），也是 recover 能工作的前提。
 
-## 5.3 recover：只在边界恢复
+## 5.3 recover 只在明确边界转换预期 panic
 
 `recover` **只在 deferred 函数里有效**：外围函数正在 panic 时，它中止传播并返回 panic 值；否则返回 nil。典型用法是把包内部的 panic 转成 error：
 
@@ -113,6 +115,8 @@ defer func() {
 
 现象：数组越界这类真 bug 被记成一条日志，程序带着不一致的状态继续跑。修复：用专用类型区分预期 panic，其余 `panic(p)` 继续抛——见 5.3 的模式。
 
+<a id="练习"></a>
+
 ## 动手练
 
 | 练习 | 任务 | 预期结果 | 入口文件 |
@@ -129,11 +133,12 @@ go -C labs test ./part1-golang/chapter04/defer-panic/... -count=1
 
 更多练习（哨兵错误、空输入边界、recover 后状态检查）见各 lab 的 README。
 
-记住这几条：
+## 小结
 
 - **错误是值：传播为主，终止只发生在 main。**
 - **`%w` 保链、`%v` 断链；判定用 errors.Is/As，不依赖文案。**
 - **panic 是内部矛盾的信号；recover 只放边界，只恢复预期内的 panic。**
+- 返回零值不能代替返回失败，否则调用方无法区分合法结果和错误路径。
 
 ## 链接
 
