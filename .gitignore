@@ -18,12 +18,12 @@ coverage.out
 ._*
 
 # Interview production artifacts belong outside the checkout.
-content/interview/exports/
-content/interview/.archify/
-content/interview/plans/
-content/interview/research/
-content/interview/reviews/
-content/interview/.state.lock
+content/wecaht/ai-daily-question/exports/
+content/wecaht/ai-daily-question/.archify/
+content/wecaht/ai-daily-question/plans/
+content/wecaht/ai-daily-question/research/
+content/wecaht/ai-daily-question/reviews/
+content/wecaht/ai-daily-question/.state.lock
 
 # Python bytecode caches are regenerated locally.
 __pycache__/

@@ -7,7 +7,7 @@ const labels=['推理与规划','工具调用','上下文与记忆','检索增�
 const levels={basic:'基础',intermediate:'进阶',advanced:'深入','system-design':'系统设计'};
 ---
 <HandbookLayout title={`${data.questions.length} 个核心问题`}>
-<header class="introduction"><p class="kicker">面试准备 · 工程实践</p><h1>Agent 工程师<br/>面试手册</h1><p class="lead">从一道问题出发，讲清机制、取舍与失败边界。</p><p class="availability">共 {data.questions.length} 题，当前可阅读 {data.visible.length} 篇。其余内容陆续补充。</p>{data.visible[0]&&<a class="start-link" href={`${INTERVIEW_BASE}/questions/${data.visible[0].id.toLowerCase()}/`}>从第一题开始阅读 <span aria-hidden="true">→</span></a>}</header>
+<header class="introduction"><p class="kicker">技术科普 · 工程实践</p><h1>AI 每日一题</h1><p class="lead">从一道问题出发，讲清机制、取舍与失败边界。</p><p class="availability">共 {data.questions.length} 题，当前可阅读 {data.visible.length} 篇。其余内容陆续补充。</p>{data.visible[0]&&<a class="start-link" href={`${INTERVIEW_BASE}/questions/${data.visible[0].id.toLowerCase()}/`}>从第一题开始阅读 <span aria-hidden="true">→</span></a>}</header>
 <section id="catalogue" aria-labelledby="catalogue-title"><div class="catalogue-header"><h2 id="catalogue-title">按主题查找问题</h2><p>读懂原理，再组织自己的回答。</p></div>
 <div class="search" role="search"><label for="question-search">搜索题目或编号</label><input disabled id="question-search" type="search" placeholder="例如：ReAct、Memory、AE-001" autocomplete="off"/><p id="search-result" role="status" aria-live="polite">全部 {data.questions.length} 题</p><noscript><p>可使用浏览器的“页内查找”搜索全部题目。</p></noscript></div>
 <nav class="topic-index" aria-label="主题索引">{data.modules.map((module,i)=><a href={`#${module.directory}`}>{labels[i]}</a>)}</nav>

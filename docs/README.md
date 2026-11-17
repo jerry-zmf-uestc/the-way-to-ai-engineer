@@ -10,7 +10,8 @@
 | Rules | 章节、Lab、安全、面试内容与图示规范 | [强制读取规则](../AGENTS.md) |
 | 学习准备 | 工作目录、运行和练习副本；正文归入 book | [如何使用本书](../content/book/introduction.md#running-examples) |
 | Templates | 章节与内容审查模板 | [templates/book-chapter.md](templates/book-chapter.md) |
-| 面试合集 | 框架中立的 50 个主问题、分章正文与统一内容生产 | [interview](../content/interview/README.md) / [内容规范](rules/interview-content-contract.md) |
+| AI 每日一题 | 框架中立的 50 个主问题、分章正文与统一内容生产 | [合集入口](../content/wecaht/ai-daily-question/README.md) / [内容规范](rules/interview-content-contract.md) |
+| AI 产品观察 | 独立的新产品技术科普，正文与素材本地归档，不进入课程与AE题库 | [栏目入口](../content/wecaht/ai-product-observation/README.md) / [栏目规范](rules/ai-product-observation.md) |
 | Sources | 第三方归属与许可边界 | [第三方说明](../THIRD_PARTY_NOTICES.md) |
 
 ## 真源规则
@@ -38,3 +39,7 @@
 - 面试编辑模板：[文章](templates/interview-article.md)、[研究](templates/interview-research.md)、[审核](templates/interview-review.md)。逐篇研究与审核在仓库外，模板不是审核结果。
 
 - 面试独立站点、website.json可见门槛及共享Pages部署：[面试专项方案](designs/interview-handbook.md#独立面试站点与共享pages托管)。两个站点独立构建，发布包统一组装，不修改课程地址或公众号状态。
+
+- 项目写作能力：[技术文章写作Skill](../.agents/skills/technical-article-writer/SKILL.md)负责技术拆解、大纲、机制与结论；[公众号制作Skill](../.agents/skills/agent-wechat-artifact-writer/SKILL.md)按需复用技术写作，继续管理候选、渠道排版与授权交付。规则与模板仍是内容要求的真源。
+
+- 写作持续改进：[当前作者偏好](../.agents/skills/technical-article-writer/references/author-style.md)、[学习与编译](../.agents/skills/technical-article-writer/references/style-learning.md)、[验证与回退](../.agents/skills/technical-article-writer/references/style-evaluation.md)。完整样文与反馈在仓外，产品栏目单向复用共用层，公共检查不依赖私有材料。

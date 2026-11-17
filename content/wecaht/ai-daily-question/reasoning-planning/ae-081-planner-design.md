@@ -1,6 +1,6 @@
 # Agent 每日一题｜Reasoning&Planning 02：Agent 为什么需要 Planning，Planner 应该怎么做？
 
-![Planning 与 Replan 主题头图](../../../public/images/interview/ae-081/header.jpg)
+![Planning 与 Replan 主题头图](../../../../public/images/interview/ae-081/header.jpg)
 
 # 会调用工具，为什么还是做不完任务？
 
@@ -28,7 +28,7 @@ Plan-and-Solve 研究用“先拆任务，再逐项求解”减少特定推理�
 
 **Harness 如何运行：**定义并保存计划，接纳前检查依赖、目标覆盖、权限和预算；接纳后调度任务、记录结果，按反馈修订，并验收实际产物。**计划负责安排，待办负责进度，调度器负责运行，验收负责判断完成**。
 
-![模型与 Harness 的职责](../../../public/diagrams/interview/ae-081/model-harness.jpg)
+![模型与 Harness 的职责](../../../../public/diagrams/interview/ae-081/model-harness.jpg)
 
 图1：模型与 Harness 在计划生成、接纳和执行中的职责分工。
 
@@ -109,7 +109,7 @@ def draft_plan(model, request, allowed_tools, ready_tasks, review):
 
 Claude Code 官方建议先在 Plan Mode 中了解代码、制定方案，再实施和测试。它适合**方向不明确、跨文件或不熟悉代码**的任务；简单明确的修复可直接处理。[[11]](https://code.claude.com/docs/en/best-practices)
 
-![Claude Code 探索与实施](../../../public/diagrams/interview/ae-081/claude-plan.jpg)
+![Claude Code 探索与实施](../../../../public/diagrams/interview/ae-081/claude-plan.jpg)
 
 图2：Claude Code 的探索、规划、实施与提交流程（简化示意）。
 
@@ -123,7 +123,7 @@ Claude Code 官方建议先在 Plan Mode 中了解代码、制定方案，再实
 
 ## 流程与实现：倒推工作，校验依赖
 
-![任务拆解与依赖](../../../public/diagrams/interview/ae-081/deliverable-dependencies.jpg)
+![任务拆解与依赖](../../../../public/diagrams/interview/ae-081/deliverable-dependencies.jpg)
 
 图3：帮助中心更新任务的拆解与前置依赖关系。
 
@@ -170,7 +170,7 @@ def ready_tasks(tasks, valid_results):
 
 LangGraph 官方客服邮件示例将分类、检索、回复和人工审核拆成节点，通过共享 state 传递结果。**拆开的价值是单独检查、重试与恢复**，而非越细越好。[[8]](https://docs.langchain.com/oss/python/langgraph/thinking-in-langgraph)
 
-![LangGraph 客服节点](../../../public/diagrams/interview/ae-081/langgraph-nodes.jpg)
+![LangGraph 客服节点](../../../../public/diagrams/interview/ae-081/langgraph-nodes.jpg)
 
 图4：LangGraph 客服邮件示例的节点与意图路由（简化示意）。
 
@@ -179,7 +179,7 @@ LangGraph 官方客服邮件示例将分类、检索、回复和人工审核拆�
 |  | 完整计划 | 滚动规划 |
 | --- | --- | --- |
 | **概念** | 开始前安排全程任务、依赖和已知分支；不要求提前知道每一步的结果。[[3]](https://www.langchain.com/blog/planning-agents) | 先明确目标、约束与当前阶段，再根据阶段结果展开或调整后续任务。[[4]](https://www.anthropic.com/engineering/multi-agent-research-system) |
-| **应用** | **Codex 旧系统改造（官方示例）**：先在 ExecPlan 中列出旧系统梳理、目标设计、新旧行为对照等全程交付与验收，再分阶段实施。适合改造范围和目标已明确的工作；全程结构先定，不表示所有细节提前写死。[[12] 拓展阅读](https://github.com/openai/openai-cookbook/blob/main/examples/codex/code_modernization.md) | **Claude Research**：先定研究策略、分派子任务，再汇总发现；信息不足时补充研究或修订策略。适合下一步依赖新证据的开放式研究，不代表强依赖任务也应多智能体化。[[4] 拓展阅读](https://www.anthropic.com/engineering/multi-agent-research-system)![滚动研究](../../../public/diagrams/interview/ae-081/rolling-research.jpg)<br>图5：Claude Research 的任务分派、结果汇总与研究策略反馈循环（简化示意）。 |
+| **应用** | **Codex 旧系统改造（官方示例）**：先在 ExecPlan 中列出旧系统梳理、目标设计、新旧行为对照等全程交付与验收，再分阶段实施。适合改造范围和目标已明确的工作；全程结构先定，不表示所有细节提前写死。[[12] 拓展阅读](https://github.com/openai/openai-cookbook/blob/main/examples/codex/code_modernization.md) | **Claude Research**：先定研究策略、分派子任务，再汇总发现；信息不足时补充研究或修订策略。适合下一步依赖新证据的开放式研究，不代表强依赖任务也应多智能体化。[[4] 拓展阅读](https://www.anthropic.com/engineering/multi-agent-research-system)![滚动研究](../../../../public/diagrams/interview/ae-081/rolling-research.jpg)<br>图5：Claude Research 的任务分派、结果汇总与研究策略反馈循环（简化示意）。 |
 | **工程边界** | 便于检查整体覆盖，但过早写细可能返工。输入或假设改变时仍可 Replan；按预设条件选分支不等于 Replan。 | 须保留整体目标、当前产物与完成条件；及时更新计划，防止遗漏和反复改写。展开已有阶段不一定是 Replan。[[10]](https://cookbook.openai.com/examples/gpt-5/gpt-5-1_prompting_guide) |
 
 > 本文用**滚动规划**指按阶段结果展开或调整计划，避免与算法里的 Dynamic Programming 混淆。
@@ -201,7 +201,7 @@ LangGraph 官方客服邮件示例将分类、检索、回复和人工审核拆�
 
 局部 Replan 的处理流程如下：
 
-![局部重规划](../../../public/diagrams/interview/ae-081/local-replan.jpg)
+![局部重规划](../../../../public/diagrams/interview/ae-081/local-replan.jpg)
 
 图6：局部 Replan 中受影响结果的复核与独立成果保留。
 
@@ -267,7 +267,7 @@ OpenAI 的 Codex 旧系统改造示例以**相同输入对照新旧实现**，�
 
 局部修复不一定需要 Replan；原方案不再成立时，才修改后续安排。ExecPlan 记录不会自动完成本文演示的来源失效传播。
 
-![Codex 反馈修复](../../../public/diagrams/interview/ae-081/codex-feedback.jpg)
+![Codex 反馈修复](../../../../public/diagrams/interview/ae-081/codex-feedback.jpg)
 
 图7：Codex 示例中的对照测试、修复循环与计划记录（简化示意）。
 

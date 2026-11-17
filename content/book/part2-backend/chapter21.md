@@ -216,4 +216,4 @@ go -C labs test ./part2-backend/chapter21/service-runtime/... -count=1
 - [Go 标准库：net/http](https://pkg.go.dev/net/http)：对照 `Server.Shutdown` 的等待与超时行为。
 - [Go 标准库：context](https://pkg.go.dev/context)：取消、截止时间及派生 Context 的传播方式。
 
-[返回全书目录](../README.md) · [上一篇：可观测性与事故诊断](chapter18.md) · [下一篇：Agent 架构与模型接口](../part3-agent/building/chapter22-architecture.md)
+[返回全书目录](../README.md) · [上一篇：可观测性与事故诊断](chapter18.md) · [下一篇：Agent 架构基本要素与最佳实践](../part3-agent/building/chapter22-architecture.md)

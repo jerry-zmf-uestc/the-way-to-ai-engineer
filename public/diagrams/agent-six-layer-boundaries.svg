@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="870" viewBox="0 0 1120 870" role="img" aria-labelledby="title desc">
+<title id="title">Agent六层：职责与最终检查点</title><desc id="desc">六层是职责视角，不是六个服务或串行调用阶段。控制配置交给Harness组装，Runtime推进动作，Environment落实资源边界，Data/Resource提供有身份和版本的数据；Observability、Eval、Security横切全部边界。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#23736b"/></marker></defs>
+<rect width="1120" height="870" fill="#ffffff"/><g font-family="system-ui,sans-serif" fill="#163f3a">
+<text x="32" y="45" font-size="27">Agent六层：职责与最终检查点</text>
+<text x="32" y="82" font-size="18">按职责定位代码；框内是拥有的决定或状态，不代表固定部署方式。</text>
+<rect x="32" y="110" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="140" font-size="21">Product / Interface</text>
+<text x="48" y="169" font-size="17">用户目标、请求接纳、确认与取消意图；页面显示实际任务状态</text>
+<rect x="32" y="218" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="248" font-size="21">Control Plane</text>
+<text x="48" y="277" font-size="17">可信定义、授权范围、配额与部件版本 → 解析本次运行配置</text>
+<rect x="32" y="326" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="356" font-size="21">Harness</text>
+<text x="48" y="385" font-size="17">按配置组装Provider、Context、工具、Skills、存储与观测接口</text>
+<rect x="32" y="434" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="464" font-size="21">Agent Runtime</text>
+<text x="48" y="493" font-size="17">Run / Step / Attempt、计划、预算、动作推进与提交事实</text>
+<rect x="32" y="542" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="572" font-size="21">Execution Environment</text>
+<text x="48" y="601" font-size="17">实际进程、文件、网络与CPU/内存限制；确认退出并清理</text>
+<rect x="32" y="650" width="808" height="88" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="680" font-size="21">Data / Resource</text>
+<text x="48" y="709" font-size="17">Session、Checkpoint、Memory、索引、Workspace及录制归档</text>
+<rect x="872" y="110" width="216" height="628" rx="10" fill="#f0f8f6" stroke="#60968e"/>
+<text x="888" y="140" font-size="21">横切治理</text>
+<text x="888" y="182" font-size="20">Observability</text>
+<text x="888" y="217" font-size="17">关联实际运行</text>
+<text x="888" y="246" font-size="17">记录失败与不完整</text>
+<text x="888" y="350" font-size="20">Eval</text>
+<text x="888" y="385" font-size="17">独立标准与证据</text>
+<text x="888" y="414" font-size="17">验证行为及交付</text>
+<text x="888" y="518" font-size="20">Security</text>
+<text x="888" y="553" font-size="17">当前授权与隔离</text>
+<text x="888" y="582" font-size="17">检查数据和动作出口</text>
+<path d="M436 306V326" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="450" y="321" font-size="13">运行配置</text>
+<path d="M436 414V434" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="450" y="429" font-size="13">本次Run的组件</text>
+<path d="M436 522V542" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="450" y="537" font-size="13">受限执行请求</text>
+<text x="32" y="778" font-size="18">数据与资源供相关层按身份、版本和有效期读写，不是执行链的最后一个函数。</text>
+<text x="32" y="814" font-size="18">控制路径决定允许怎样运行；观察与资料进入决策输入，不能反向成为授权。</text>
+<text x="32" y="848" font-size="17">任务结束、进程退出、结果提交与业务验收分别取证。</text>
+</g></svg>

@@ -5,7 +5,7 @@ export function watchInterviewSite({rootDir=ROOT,pollMs=250,debounceMs=120,onErr
   const snapshot=()=>{
     const rows=[];
     function visit(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())visit(file);else if(/\.(md|json)$/.test(entry.name)){const stat=fs.statSync(file,{bigint:true});rows.push(`${file}:${stat.ino}:${stat.mtimeNs}:${stat.size}`);}}}
-    visit(path.join(rootDir,'content/interview'));
+    visit(path.join(rootDir,'content/wecaht/ai-daily-question'));
     const manifest=path.join(rootDir,'content/book/chapters.json');rows.push(fs.readFileSync(manifest,'utf8'));
     return rows.sort().join('\n');
   };

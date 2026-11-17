@@ -1,6 +1,6 @@
 ---
 name: agent-wechat-artifact-writer
-description: 为本项目 Agent 每日一题制作公众号候选稿、配图与排版预览，或将已确认内容纳入正式稿并在明确授权后保存公众号草稿。适用于 AE 题目制作、旧稿试排和草稿更新。
+description: 为本项目 AI 每日一题制作公众号候选稿、配图与排版预览，或将已确认内容纳入正式稿并在明确授权后保存公众号草稿。适用于 AE 题目制作、旧稿试排和草稿更新。
 ---
 
 # 公众号内容制作
@@ -11,7 +11,7 @@ description: 为本项目 Agent 每日一题制作公众号候选稿、配图与
 
 从本 Skill 所在目录向上三级定位仓库根目录，不依赖当前终端目录。先读根目录 AGENTS.md 与目标路径适用的局部规则，保留已有未提交修改。完整读取 docs/rules/interview-content-contract.md、docs/rules/security.md 和 AGENTS.md 对当前工作指定的其他规范与模板；它们是项目约束的真源，本 Skill 不复制正文模板和审核规则。
 
-content/interview/questions.json 定义题目、路径、前置和最低证据；state.json 管编辑状态；website.json 单独控制网站可见性。按 AE-ID 查记录，不按顺序猜文件，不复用封存 ID。正式正文与素材路径从清单及正文读取，不硬编码第一题路径。
+content/wecaht/ai-daily-question/questions.json 定义题目、路径、前置和最低证据；state.json 管编辑状态；website.json 单独控制网站可见性。按 AE-ID 查记录，不按顺序猜文件，不复用封存 ID。正式正文与素材路径从清单及正文读取，不硬编码第一题路径。
 
 ## 根据请求选择模式
 
@@ -32,18 +32,23 @@ content/interview/questions.json 定义题目、路径、前置和最低证据�
 
 run.json 是私有回执：记录题号、模式、源文件摘要、实际使用的 Skill 及其入口摘要、执行环节、产物相对路径、真实检查结果和待确认事项。确认记录注明本会话中对应的用户授权及内容摘要，不凭空填“已确认”。不保存密钥、cookie、后台会话 token，不作为公共校验依赖，也不替代审核记录。
 
-## 社区 Skill 的复用与交接
+<a id="社区-skill-的复用与交接"></a>
 
-本 Skill 是编排入口，社区 Skill 是各阶段的实际执行规范。不能只读下面的能力名称就自行重写一套流程。每次先从运行时技能目录解析本轮需要的入口，完整读取对应 SKILL.md，再按它指定的参考文件、脚本或原生工具执行。具体解析、调用上下文、验收和失败处理见 [社区 Skill 复用契约](references/dependencies.md)，执行某阶段前读取对应条目。
+## 写作能力与社区 Skill 的复用
+
+本 Skill 是编排入口，本地共享写作Skill与社区Skill分别提供所需阶段的执行规范。不能只读下面的能力名称就自行重写一套流程。每次先从运行时技能目录解析本轮需要的入口，完整读取对应 SKILL.md，再按它指定的参考文件、脚本或原生工具执行。具体解析、调用上下文、验收和失败处理见 [写作能力与社区依赖契约](references/dependencies.md)，执行某阶段前读取对应条目。
 
 | 阶段 | 实际复用 | 输入 | 输出与下一步 |
 | --- | --- | --- | --- |
-| 研究／初稿 | content-research-writer | 题库focus、证据要求、原稿或已确认选题、原始来源 | research.md与候选初稿 → 技术核验 |
+| 研究／初稿 | content-research-writer | 题库focus、证据要求、原稿或已确认选题、原始来源 | research.md与候选初稿 → 按需技术结构重构及技术核验 |
+| 技术结构与结论（按需） | [technical-article-writer](../technical-article-writer/SKILL.md) | 本次渠道、题库focus、候选稿、已核实来源与保护项 | 重构后的技术大纲、候选稿与差异 → 技术核验 |
 | 中文润色 | humanizer-zh | 已核验初稿、首篇文风样本、保护项 | candidate.md与changes.diff → 配图或排版 |
 | 技术图（按需） | archify | 机制事实、图类型、角色与控制边界 | 原生图源、交付回执与导出图 → image-map.json |
 | 封面（按需） | baoyu-cover-image → 原生imagegen | 候选正文、项目EXTEND偏好 | 完整提示词与候选封面 → 素材映射 |
 | 公众号排版 | dbs-wechat-html | 最终候选Markdown、选定style id | 行内样式HTML与图片占位 → 编排层生成带图阅读预览 |
 | 保存草稿（授权后） | baoyu-post-to-wechat | 确认版HTML、已解析图片、封面和元数据 | 新建草稿回执 → 独立回读核对；更新能力须先实查 |
+
+technical-article-writer是本仓库共享的技术写作能力，不是新安装的社区依赖。新稿需要组织技术体系、旧稿大纲混乱或关键结论不清时，读取其实际入口，只复用技术拆解、机制讲解、代码/图示衔接和结论提炼；已有清晰正文的轻度润色、纯排版与只换封面请求跳过。传入渠道为公众号，不套用课程章号、Lab导航或独立引用块外观；强调仍按公众号规则使用同字号、青绿且无底色。它只返回指定私有目录内的候选与差异，不递归调用本编排入口。
 
 技术核验、图片映射、HTML交接和授权检查由编排层负责；不能把这些项目补充能力说成社区 Skill 自带功能。不机械调用全部依赖：只换封面就只加载封面相关能力，已有合格正文图则记录复用而不调用Archify。
 

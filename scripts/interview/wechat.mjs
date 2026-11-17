@@ -6,8 +6,8 @@ import {issueProject} from './issue.mjs';
 import {safeNativeHTML} from './preview.mjs';
 const digest=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 export function checkWechat(root=repositoryRoot,env=process.env){
- const catalogue=JSON.parse(fs.readFileSync(path.join(root,'content/interview/questions.json'),'utf8'));
- const state=JSON.parse(fs.readFileSync(path.join(root,'content/interview/state.json'),'utf8'));
+ const catalogue=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json'),'utf8'));
+ const state=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/state.json'),'utf8'));
  const file=workspaceFile('wechat/registry.json',env);
  if(!fs.existsSync(file))throw new Error('私有公众号登记不存在');
  const registry=JSON.parse(fs.readFileSync(file,'utf8')),errors=[],pending=[],numbers=new Set();
@@ -15,7 +15,7 @@ export function checkWechat(root=repositoryRoot,env=process.env){
  for(const [id,item] of Object.entries(registry.items)){
   const q=catalogue.questions.find(q=>q.id===id);
   if(!q||item.article!==q.article){errors.push(`${id} 正文路径与题库不一致`);continue;}
-  if(!item.section?.trim()||!/^\d{2}$/.test(item.section_number)||item.section_number==='00'||!item.title?.startsWith(`Agent 每日一题｜${item.section} ${item.section_number}：`))errors.push(`${id} 栏目标题或章内编号无效`);
+  if(!item.section?.trim()||!/^\d{2}$/.test(item.section_number)||item.section_number==='00'||!['AI 每日一题','Agent 每日一题'].some(name=>item.title?.startsWith(`${name}｜${item.section} ${item.section_number}：`)))errors.push(`${id} 栏目标题或章内编号无效`);
   const key=item.section+' '+item.section_number;if(numbers.has(key))errors.push(`${id} 栏目编号重复`);numbers.add(key);
   const article=publicFile(root,q.article);
   if(!fs.existsSync(article)){errors.push(`${id} 正文缺失`);continue;}

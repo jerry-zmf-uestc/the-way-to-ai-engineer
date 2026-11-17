@@ -1,17 +1,19 @@
-# Agent 工程师面试手册 · 完整建设方案
+# AI 每日一题 · 合集建设方案
 
-本方案管理面试手册的定位、50个主问题及其与课程、实验的关系。全仓架构见[总体方案](project-plan.md)，生产与审核执行要求见[内容规范](../rules/interview-content-contract.md)，题目清单见[手册导航](../../content/interview/README.md)。
+本方案管理面试手册的定位、50个主问题及其与课程、实验的关系。全仓架构见[总体方案](project-plan.md)，生产与审核执行要求见[内容规范](../rules/interview-content-contract.md)，题目清单见[手册导航](../../content/wecaht/ai-daily-question/README.md)。
 
 ## 定位与范围
 
 面向有开发经验、希望理解AI应用或Agent工程的技术读者，以项目题单组织公众号科普文章，面试贴合为辅，网站呈现同稿归档。预备知识是程序设计、HTTP、并发、存储与测试，不以模型训练和算法岗为核心。保持框架中立，引用的实现以Go课程和独立Lab为主。
 
-50 个主问题构成当前合集范围，不代表所有Agent知识或已证实的面试高频。不承诺通过率。每题可包含简答、机制解释与工程讨论，按主题自然组织，不强制固定栏目或卡片。公众号栏目名为“Agent 每日一题”，按稿件准备情况安排发表。
+50 个主问题构成当前合集范围，不代表所有Agent知识或已证实的面试高频。不承诺通过率。每题可包含简答、机制解释与工程讨论，按主题自然组织，不强制固定栏目或卡片。公众号栏目名为“AI 每日一题”，按稿件准备情况安排发表。
 
 ## 目录与单一真源
 
+合集正文、题库、状态与网站可见清单统一迁到 `content/wecaht/ai-daily-question/`，合集与独立阅读站点显示名为“AI 每日一题”，与“AI 产品观察”并列。永久AE-ID、题单主题、章内编号、编辑状态和已归档文章标题保持；新稿使用新合集名。素材仍在既有public目录，工具、私有工作目录配置和网站URL沿用原名称。迁移只重定位相对链接，不据此认定历史审核或公众号保存证据对新字节有效，也不改远端稿件。
+
 ```text
-content/interview/
+content/wecaht/ai-daily-question/
 ├── README.md
 ├── questions.json              # 题库与课程/Lab关联
 ├── state.json                  # 编辑与实际公开发布状态
@@ -31,11 +33,11 @@ content/interview/
 
 | 资产 | 真源与边界 |
 | --- | --- |
-| 面试正文 | content/interview/十大章节目录，独立于课程章号和Astro路由 |
+| 面试正文 | content/wecaht/ai-daily-question/十大章节目录，独立于课程章号和Astro路由 |
 | 课程正文 | content/book/；页面身份和既有Lab关联由book/chapters.json管理 |
 | 实现与实验 | labs/，遵守现有Lab契约，不另建面试examples或逐题演进工程 |
-| 题库与课程关联 | content/interview/questions.json；主问题定义的唯一机器真源 |
-| 编辑状态和实际公开发布 | content/interview/state.json；保留转换历史 |
+| 题库与课程关联 | content/wecaht/ai-daily-question/questions.json；主问题定义的唯一机器真源 |
+| 编辑状态和实际公开发布 | content/wecaht/ai-daily-question/state.json；保留转换历史 |
 | 生产与审核规范 | docs/rules/interview-content-contract.md |
 | 编辑模板 | docs/templates/interview-*.md |
 | 图示规范 | docs/rules/diagram-contract.md |
@@ -137,7 +139,7 @@ site-enable需--public明确确认，核对本期保存、归档和审核后生�
 
 面试手册使用独立Astro配置、src/interview-site页面/布局/样式、.generated/interview内容、.astro-interview缓存与dist-interview产物。课程仍由原配置构建至dist，原URL保持。面试站点挂在现有Pages的/the-way-to-ai-engineer/interview/，有自己的品牌、首页、十大模块导航、搜索和题目页面，不成为课程章号或课程导航的一部分。
 
-content/interview/website.json明确控制网站可见题目，首次展示已确认的AE-001；不从ready/published编辑状态自动推导可见性，也不修改公众号状态。其余题目仍展示在总目录，但仅显式可见的文章生成路由；编辑进度由state.json实时决定，不把已恢复正文固定标为待编写。正文仍唯一保存于content/interview，生成时适配图片和跨课程/Lab链接，不复制人工正文。研究、审核、回执和凭据不得进入站点。
+content/wecaht/ai-daily-question/website.json明确控制网站可见题目，首次展示已确认的AE-001；不从ready/published编辑状态自动推导可见性，也不修改公众号状态。其余题目仍展示在总目录，但仅显式可见的文章生成路由；编辑进度由state.json实时决定，不把已恢复正文固定标为待编写。正文仍唯一保存于content/wecaht/ai-daily-question，生成时适配图片和跨课程/Lab链接，不复制人工正文。研究、审核、回执和凭据不得进入站点。
 
 npm run dev:interview/build:interview/preview:interview/check:interview用于独立开发、构建与校验。npm run check:sites先检查两个站点，再将课程dist与面试dist-interview合并到忽略目录.pages-dist；Pages只上传合并产物，不让两个deploy步骤覆盖彼此。二者共享一次Pages部署和域名，但课程构建不生成面试页面，面试构建不生成课程页面；构建或校验失败不上传新产物。本地完成不代表远端CI或实际部署通过，不自动提交、推送或操作公众号。
 

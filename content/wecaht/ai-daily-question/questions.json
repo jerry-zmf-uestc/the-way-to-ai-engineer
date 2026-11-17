@@ -74,7 +74,7 @@
       "difficulty": "basic",
       "focus": "比较决策时机、反馈与重规划边界",
       "prerequisites": [],
-      "article": "content/interview/reasoning-planning/ae-001-react-vs-plan-execute.md",
+      "article": "content/wecaht/ai-daily-question/reasoning-planning/ae-001-react-vs-plan-execute.md",
       "minimum_evidence": "design",
       "acceptance_case": "给定资料缺失时解释补查与重规划的区别",
       "course_refs": [
@@ -103,7 +103,7 @@
       "prerequisites": [
         "AE-001"
       ],
-      "article": "content/interview/reasoning-planning/ae-081-planner-design.md",
+      "article": "content/wecaht/ai-daily-question/reasoning-planning/ae-081-planner-design.md",
       "minimum_evidence": "measured",
       "acceptance_case": "固定资料研究任务与普通工作流基线对照；为子任务定义输入/输出/依赖/验收；注入只读超时、缺失与矛盾资料，验证有限重试、局部Replan和预算停止；记录完成率、额外调用及耗时，允许规划收益为零或负",
       "course_refs": [
@@ -135,7 +135,7 @@
         "AE-001",
         "AE-081"
       ],
-      "article": "content/interview/reasoning-planning/ae-100-reasoning-strategies.md",
+      "article": "content/wecaht/ai-daily-question/reasoning-planning/ae-100-reasoning-strategies.md",
       "minimum_evidence": "design",
       "acceptance_case": "围绕同一案例完成以下检查：AE-100 区分推理提示、交互循环与规划职责，不要求隐藏思维链；AE-101 固定 Prompt 无法独自完成需要外部写入的任务；AE-011 固定流程与开放任务各给一个反例",
       "course_refs": [
@@ -174,7 +174,7 @@
       "prerequisites": [
         "AE-001"
       ],
-      "article": "content/interview/reasoning-planning/ae-031-reflection.md",
+      "article": "content/wecaht/ai-daily-question/reasoning-planning/ae-031-reflection.md",
       "minimum_evidence": "measured",
       "acceptance_case": "同预算反思与无反思对照",
       "course_refs": [
@@ -203,7 +203,7 @@
         "AE-002",
         "AE-089"
       ],
-      "article": "content/interview/reasoning-planning/ae-051-loop-termination.md",
+      "article": "content/wecaht/ai-daily-question/reasoning-planning/ae-051-loop-termination.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-051 重复无信息增量动作终止，保留停止原因；AE-103 达到工具预算后硬停止，不接受模型继续调用",
       "course_refs": [
@@ -236,7 +236,7 @@
       "difficulty": "basic",
       "focus": "合法 JSON 不等于已执行工具，验证参数和执行分离",
       "prerequisites": [],
-      "article": "content/interview/tool-calling/ae-002-function-calling-vs-json.md",
+      "article": "content/wecaht/ai-daily-question/tool-calling/ae-002-function-calling-vs-json.md",
       "minimum_evidence": "design",
       "acceptance_case": "合法 JSON 不等于已执行工具，验证参数和执行分离",
       "course_refs": [
@@ -266,7 +266,7 @@
       "prerequisites": [
         "AE-002"
       ],
-      "article": "content/interview/tool-calling/ae-012-tool-schema.md",
+      "article": "content/wecaht/ai-daily-question/tool-calling/ae-012-tool-schema.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-012 缺必填字段、错误枚举和危险参数被拒绝；AE-022 相似工具固定测试集区分选择错误与参数错误；AE-102 同 Schema 改描述，观察选择结果；不得凭一个样例断言提升",
       "course_refs": [
@@ -302,7 +302,7 @@
         "AE-012",
         "AE-052"
       ],
-      "article": "content/interview/tool-calling/ae-062-tool-permissions.md",
+      "article": "content/wecaht/ai-daily-question/tool-calling/ae-062-tool-permissions.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-062 恶意输入不能绕过工具层拒绝；跨租户拒绝；AE-075 审批后参数变化、审批过期、重复恢复均被处理；AE-072 未知工具、旧版本和非法参数不绕过接口契约",
       "course_refs": [
@@ -337,7 +337,7 @@
       "prerequisites": [
         "AE-002"
       ],
-      "article": "content/interview/tool-calling/ae-052-tool-observations.md",
+      "article": "content/wecaht/ai-daily-question/tool-calling/ae-052-tool-observations.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-052 错误、空结果、部分成功可判别且不会被当指令；AE-042 结果未知时先查询，重复写入被幂等控制；AE-040 重试预算、超时、降级和取消传播均有用例",
       "supplemental_topics": [
@@ -375,7 +375,7 @@
       "difficulty": "basic",
       "focus": "沿一次请求解释输入组装、短期与长期记忆和提示设计的职责",
       "prerequisites": [],
-      "article": "content/interview/context-memory/ae-013-context-vs-memory.md",
+      "article": "content/wecaht/ai-daily-question/context-memory/ae-013-context-vs-memory.md",
       "minimum_evidence": "design",
       "acceptance_case": "围绕同一案例完成以下检查：AE-013 同一信息在上下文、运行状态、记忆中的生命周期对比；AE-023 临时任务状态与经授权持久偏好分开；AE-108 按预算组装系统约束、任务状态、工具和检索内容",
       "course_refs": [
@@ -411,7 +411,7 @@
         "AE-104",
         "AE-025"
       ],
-      "article": "content/interview/context-memory/ae-003-history-budget.md",
+      "article": "content/wecaht/ai-daily-question/context-memory/ae-003-history-budget.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-003 相同任务在不同历史长度下检查关键约束与预算；AE-105 会话隔离、排序、重连恢复和摘要来源可查；AE-106 压缩后保留约束、未完成任务与来源，列失败例；AE-033 摘要或截断后的事实遗漏可检测",
       "course_refs": [
@@ -444,7 +444,7 @@
         "AE-013",
         "AE-005"
       ],
-      "article": "content/interview/context-memory/ae-104-agent-state.md",
+      "article": "content/wecaht/ai-daily-question/context-memory/ae-104-agent-state.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "Run/Step/工具结果/待审批状态归属可追踪",
       "course_refs": [
@@ -475,7 +475,7 @@
         "AE-013",
         "AE-062"
       ],
-      "article": "content/interview/context-memory/ae-053-user-memory.md",
+      "article": "content/wecaht/ai-daily-question/context-memory/ae-053-user-memory.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-053 授权写入、检索、纠正和删除缓存的闭环；AE-107 同一事实与一次任务经历分别建模，说明重叠边界",
       "supplemental_topics": [
@@ -508,7 +508,7 @@
       "difficulty": "basic",
       "focus": "用一条端到端管线解释索引、检索、证据、生成与引用",
       "prerequisites": [],
-      "article": "content/interview/rag/ae-109-rag-purpose.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-109-rag-purpose.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-109 无检索基线、相关证据和缺证据输入分别说明；AE-110 从文档索引到查询、检索、上下文、回答和引用逐步追踪",
       "course_refs": [
@@ -539,7 +539,7 @@
       "prerequisites": [
         "AE-109"
       ],
-      "article": "content/interview/rag/ae-014-chunk-size.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-014-chunk-size.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-014 固定问题集比较切块边界、重叠与召回差异；AE-111 领域/语言任务集比较召回、延迟、成本和索引兼容",
       "course_refs": [
@@ -574,7 +574,7 @@
         "AE-109",
         "AE-014"
       ],
-      "article": "content/interview/rag/ae-034-hybrid-search.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-034-hybrid-search.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-034 纯关键词、纯向量和融合检索同集比较；AE-054 原查询与改写查询对照，核对原始约束；AE-044 增益、延迟与成本同口径比较",
       "course_refs": [
@@ -606,7 +606,7 @@
         "AE-109",
         "AE-015"
       ],
-      "article": "content/interview/rag/ae-004-agentic-rag.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-004-agentic-rag.md",
       "minimum_evidence": "design",
       "acceptance_case": "查询不需要循环与需要补查各举例",
       "course_refs": [
@@ -636,7 +636,7 @@
       "prerequisites": [
         "AE-034"
       ],
-      "article": "content/interview/rag/ae-084-graph-rag.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-084-graph-rag.md",
       "minimum_evidence": "measured",
       "acceptance_case": "关系任务与简单检索任务同预算对照",
       "course_refs": [
@@ -665,7 +665,7 @@
         "AE-112",
         "AE-038"
       ],
-      "article": "content/interview/rag/ae-058-rag-evaluation.md",
+      "article": "content/wecaht/ai-daily-question/rag/ae-058-rag-evaluation.md",
       "minimum_evidence": "measured",
       "acceptance_case": "分别记录检索召回、回答忠实性与引用有效性",
       "supplemental_topics": [
@@ -695,7 +695,7 @@
       "difficulty": "intermediate",
       "focus": "用同一任务族串起离线验证、在线监测和任务、轨迹、成本指标",
       "prerequisites": [],
-      "article": "content/interview/evaluation-observability/ae-112-eval-purpose.md",
+      "article": "content/wecaht/ai-daily-question/evaluation-observability/ae-112-eval-purpose.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-112 同题多次运行，区分任务失败和表达变化；AE-008 明确任务成功分母、部分成功、延迟和费用口径；AE-028 固定回归集与线上抽样口径不同，不混用数据",
       "course_refs": [
@@ -727,7 +727,7 @@
       "prerequisites": [
         "AE-112"
       ],
-      "article": "content/interview/evaluation-observability/ae-038-llm-judge.md",
+      "article": "content/wecaht/ai-daily-question/evaluation-observability/ae-038-llm-judge.md",
       "minimum_evidence": "measured",
       "acceptance_case": "人工标签对照，测量位置/风格偏差和一致性",
       "course_refs": [
@@ -754,7 +754,7 @@
         "AE-005",
         "AE-112"
       ],
-      "article": "content/interview/evaluation-observability/ae-018-trace-fields.md",
+      "article": "content/wecaht/ai-daily-question/evaluation-observability/ae-018-trace-fields.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-018 模型/工具/状态 span 可关联且敏感字段脱敏；AE-068 以同一失败样本关联重跑、Trace 与故障注入；AE-078 单个失败 Run 能定位到模型/工具事件，脱敏和保留生效",
       "course_refs": [
@@ -791,7 +791,7 @@
         "AE-112",
         "AE-002"
       ],
-      "article": "content/interview/evaluation-observability/ae-048-tool-calling-evaluation.md",
+      "article": "content/wecaht/ai-daily-question/evaluation-observability/ae-048-tool-calling-evaluation.md",
       "minimum_evidence": "measured",
       "acceptance_case": "工具选择、参数正确、执行成功与任务成功分开计量",
       "course_refs": [
@@ -818,7 +818,7 @@
       "difficulty": "basic",
       "focus": "沿一次模型请求和工具执行区分 Model、Runtime、Harness 与 Framework",
       "prerequisites": [],
-      "article": "content/interview/runtime-harness/ae-005-runtime.md",
+      "article": "content/wecaht/ai-daily-question/runtime-harness/ae-005-runtime.md",
       "minimum_evidence": "design",
       "acceptance_case": "围绕同一案例完成以下检查：AE-005 职责图能区分模型、状态、工具与循环控制；AE-113 同一框架可提供部分 Runtime 能力，避免绝对二分；AE-115 模型提出命令与 Harness 执行/限制职责分开；AE-116 替换模型不改变安全执行边界，说明术语适用范围",
       "course_refs": [
@@ -857,7 +857,7 @@
         "AE-055",
         "AE-089"
       ],
-      "article": "content/interview/runtime-harness/ae-015-agent-loop.md",
+      "article": "content/wecaht/ai-daily-question/runtime-harness/ae-015-agent-loop.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-015 成功、失败、预算耗尽三种终止可区分；AE-095 可控模型替身+只读工具+预算+取消+状态闭环通过",
       "course_refs": [
@@ -897,7 +897,7 @@
         "AE-005",
         "AE-104"
       ],
-      "article": "content/interview/runtime-harness/ae-025-runtime-state.md",
+      "article": "content/wecaht/ai-daily-question/runtime-harness/ae-025-runtime-state.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-025 状态迁移与持久化点一一对应，外部副作用单列；AE-114 同 Session 并发请求隔离、过期会话恢复策略清楚",
       "course_refs": [
@@ -931,7 +931,7 @@
         "AE-025",
         "AE-035"
       ],
-      "article": "content/interview/runtime-harness/ae-055-interruption-recovery.md",
+      "article": "content/wecaht/ai-daily-question/runtime-harness/ae-055-interruption-recovery.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-055 崩溃恢复不重复副作用，输出续传与审批恢复区分；AE-045 Checkpoint 一致性、恢复和结果未知路径可复现",
       "supplemental_topics": [
@@ -963,7 +963,7 @@
         "AE-005",
         "AE-062"
       ],
-      "article": "content/interview/runtime-harness/ae-065-sandbox.md",
+      "article": "content/wecaht/ai-daily-question/runtime-harness/ae-065-sandbox.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "越界文件、网络和进程资源访问被拒绝",
       "course_refs": [
@@ -992,7 +992,7 @@
       "prerequisites": [
         "AE-112"
       ],
-      "article": "content/interview/multi-agent/ae-009-single-vs-multi-agent.md",
+      "article": "content/wecaht/ai-daily-question/multi-agent/ae-009-single-vs-multi-agent.md",
       "minimum_evidence": "measured",
       "acceptance_case": "围绕同一案例完成以下检查：AE-009 单 Agent 足够与需要并行分工各给一例；AE-098 固定总预算比较不同数量，记录协调开销；AE-119 协调开销或信息污染导致回退的失败样本",
       "course_refs": [
@@ -1028,7 +1028,7 @@
         "AE-009",
         "AE-002"
       ],
-      "article": "content/interview/multi-agent/ae-039-collaboration-patterns.md",
+      "article": "content/wecaht/ai-daily-question/multi-agent/ae-039-collaboration-patterns.md",
       "minimum_evidence": "design",
       "acceptance_case": "围绕同一案例完成以下检查：AE-039 同任务比较集中调度、交接和依赖图的控制权；AE-019 Supervisor 分配、收集结果、失败后决定下一步；AE-117 父调用返回与控制权转交的轨迹有区别",
       "course_refs": [
@@ -1061,7 +1061,7 @@
         "AE-013",
         "AE-050"
       ],
-      "article": "content/interview/multi-agent/ae-118-communication.md",
+      "article": "content/wecaht/ai-daily-question/multi-agent/ae-118-communication.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-118 重复、乱序与超时消息不会造成重复结论或悬挂任务；AE-029 共享摘要版本和并发状态更新冲突可检测；AE-049 同一任务重复委派只产生一次可接受提交",
       "course_refs": [
@@ -1098,7 +1098,7 @@
       "difficulty": "basic",
       "focus": "以一次服务接入解释 Host、Client、Server、Tools、Resources、Prompts 和 REST 的分工",
       "prerequisites": [],
-      "article": "content/interview/mcp-external-tools/ae-006-mcp-purpose.md",
+      "article": "content/wecaht/ai-daily-question/mcp-external-tools/ae-006-mcp-purpose.md",
       "minimum_evidence": "design",
       "acceptance_case": "围绕同一案例完成以下检查：AE-006 业务 API 与模型工具接入分别说明职责；AE-026 Host/Client/Server 的连接和授权边界清楚；AE-016 Tool、Resource、Prompt 的用途和信任边界分别举例；AE-121 现有 REST 服务经适配暴露为工具，不混淆层次",
       "course_refs": [
@@ -1131,7 +1131,7 @@
         "AE-006",
         "AE-002"
       ],
-      "article": "content/interview/mcp-external-tools/ae-120-mcp-vs-function-calling.md",
+      "article": "content/wecaht/ai-daily-question/mcp-external-tools/ae-120-mcp-vs-function-calling.md",
       "minimum_evidence": "design",
       "acceptance_case": "同一 Tool Call 可由不同接入适配执行",
       "course_refs": [
@@ -1161,7 +1161,7 @@
       "prerequisites": [
         "AE-006"
       ],
-      "article": "content/interview/mcp-external-tools/ae-036-mcp-transport.md",
+      "article": "content/wecaht/ai-daily-question/mcp-external-tools/ae-036-mcp-transport.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "本地/远程建立、断开、重连和不兼容路径可测",
       "supplemental_topics": [
@@ -1194,7 +1194,7 @@
         "AE-062",
         "AE-060"
       ],
-      "article": "content/interview/mcp-external-tools/ae-056-mcp-permissions.md",
+      "article": "content/wecaht/ai-daily-question/mcp-external-tools/ae-056-mcp-permissions.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "合法身份访问未授权资源仍被拒绝",
       "supplemental_topics": [
@@ -1227,7 +1227,7 @@
         "AE-120",
         "AE-118"
       ],
-      "article": "content/interview/mcp-external-tools/ae-096-mcp-a2a-tool-calling.md",
+      "article": "content/wecaht/ai-daily-question/mcp-external-tools/ae-096-mcp-a2a-tool-calling.md",
       "minimum_evidence": "design",
       "acceptance_case": "工具调用、工具接入、任务委派各举一条消息链",
       "course_refs": [
@@ -1255,7 +1255,7 @@
       "difficulty": "basic",
       "focus": "可靠性/权限/观测/费用各给一个服务化缺口",
       "prerequisites": [],
-      "article": "content/interview/production-engineering/ae-010-production-readiness.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-010-production-readiness.md",
       "minimum_evidence": "design",
       "acceptance_case": "可靠性/权限/观测/费用各给一个服务化缺口",
       "supplemental_topics": [
@@ -1291,7 +1291,7 @@
         "AE-005",
         "AE-052"
       ],
-      "article": "content/interview/production-engineering/ae-035-timeouts.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-035-timeouts.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-035 请求超时后底层工具停止或明确结果未知；AE-122 退避上限、重试放大与未知结果均有用例；AE-123 关闭/打开/半开及探测失败迁移正确；AE-094 依赖不可用时降级不伪造完整结果",
       "course_refs": [
@@ -1329,7 +1329,7 @@
         "AE-010",
         "AE-018"
       ],
-      "article": "content/interview/production-engineering/ae-060-authorization.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-060-authorization.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-060 跨租户、越权工具和凭据边界均有拒绝路径；AE-080 谁在何时批准何动作可追溯，敏感凭据不可见",
       "course_refs": [
@@ -1365,7 +1365,7 @@
         "AE-010",
         "AE-003"
       ],
-      "article": "content/interview/production-engineering/ae-089-cost-control.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-089-cost-control.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-089 预算耗尽停止，Trace 可核对费用组成；AE-030 上下文增长、输出上限和成本硬预算不矛盾",
       "course_refs": [
@@ -1398,7 +1398,7 @@
         "AE-035",
         "AE-089"
       ],
-      "article": "content/interview/production-engineering/ae-090-concurrency.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-090-concurrency.md",
       "minimum_evidence": "measured",
       "acceptance_case": "排队/背压/外部依赖饱和可识别",
       "course_refs": [
@@ -1428,7 +1428,7 @@
         "AE-035",
         "AE-002"
       ],
-      "article": "content/interview/production-engineering/ae-050-async-tasks.md",
+      "article": "content/wecaht/ai-daily-question/production-engineering/ae-050-async-tasks.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-050 重复投递、worker崩溃、取消和查询结果一致；AE-092 单工具幂等、队列去重和补偿失败分别可复现",
       "course_refs": [
@@ -1467,7 +1467,7 @@
         "AE-118",
         "AE-009"
       ],
-      "article": "content/interview/system-design/ae-007-deep-research-agent.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-007-deep-research-agent.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-007 固定资料多轮补查、冲突保留、来源和预算可验收；AE-067 任务DAG、去重、冲突合并与预算可演示",
       "course_refs": [
@@ -1510,7 +1510,7 @@
         "AE-056",
         "AE-060"
       ],
-      "article": "content/interview/system-design/ae-124-coding-agent.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-124-coding-agent.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "围绕同一案例完成以下检查：AE-124 隔离编辑/测试/审阅流程，失败后保留可恢复变更；AE-047 隔离、审批、恢复、重放边界逐项验证，并列未实现能力",
       "course_refs": [
@@ -1551,7 +1551,7 @@
         "AE-055",
         "AE-062"
       ],
-      "article": "content/interview/system-design/ae-037-browser-agent.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-037-browser-agent.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "网页恶意指令、审批过期、动作失败可恢复",
       "course_refs": [
@@ -1582,7 +1582,7 @@
         "AE-058",
         "AE-060"
       ],
-      "article": "content/interview/system-design/ae-017-enterprise-knowledge-agent.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-017-enterprise-knowledge-agent.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "跨租户检索被阻断，引用与拒答可检查",
       "course_refs": [
@@ -1613,7 +1613,7 @@
         "AE-112",
         "AE-089"
       ],
-      "article": "content/interview/system-design/ae-027-data-analyst-agent.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-027-data-analyst-agent.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "只读查询、资源上限、结果核验和权限失败均可演示",
       "course_refs": [
@@ -1646,7 +1646,7 @@
         "AE-055",
         "AE-060"
       ],
-      "article": "content/interview/system-design/ae-077-memory-system.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-077-memory-system.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "写入、检索、撤销、索引删除传播闭环",
       "course_refs": [
@@ -1678,7 +1678,7 @@
         "AE-018",
         "AE-060"
       ],
-      "article": "content/interview/system-design/ae-087-eval-platform.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-087-eval-platform.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "版本回归失败阻断，灰度异常可回滚",
       "course_refs": [
@@ -1709,7 +1709,7 @@
         "AE-036",
         "AE-056"
       ],
-      "article": "content/interview/system-design/ae-057-mcp-runtime.md",
+      "article": "content/wecaht/ai-daily-question/system-design/ae-057-mcp-runtime.md",
       "minimum_evidence": "runnable",
       "acceptance_case": "发现/适配/授权/调用和不兼容降级通过",
       "course_refs": [

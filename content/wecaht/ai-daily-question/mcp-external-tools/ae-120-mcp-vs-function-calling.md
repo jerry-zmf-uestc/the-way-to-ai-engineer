@@ -2,7 +2,7 @@
 
 # 一个多接了两个资料库的 Agent，为什么先卡住了？
 
-![Tool Calling 主题头图](../../../public/images/interview/ae-120/header.jpg)
+![Tool Calling 主题头图](../../../../public/images/interview/ae-120/header.jpg)
 
 上一道题里，我们做过一个选型报告：让 Agent 读完 A、B、C 三份资料，从部署方式、数据权限、运维成本三个角度做比较，最后附上来源。现在再加新要求：比较的时候顺手查两个新数据源——一个企业内部文档库、一个公开技术资料库，而且两边调用要带各自的权限。
 
@@ -20,7 +20,7 @@ Function Calling（Tool Calling）的分工很清楚：模型不直接执行任�
 
 一次完整的循环大致是：用户提问 → 应用把"可用工具清单+说明"连同问题给模型 → 模型输出结构化调用 → 应用解析、按工具 schema 校验、在白名单内执行 → 结果作为新消息回灌 → 模型基于结果继续。
 
-![Function Calling 调用循环](../../../public/diagrams/interview/ae-120/fc-loop.png)
+![Function Calling 调用循环](../../../../public/diagrams/interview/ae-120/fc-loop.png)
 
 ```python
 # 接口约定：pick_tool 返回结构化意图 {"kind":"tool",...} 或 {"kind":"final",...}；其他 kind 一律拒为非法。
@@ -76,7 +76,7 @@ Function Calling 在这里的价值就是：把"模型怎么表达一次工具�
 
 MCP（Model Context Protocol）把"接一个外部能力"变成标准对话 [3][4]。Host 是你正在用的那个 Agent 应用；Client 是 Host 内部负责跟 Server 对话的一侧；Server 是把自己能力暴露出来的一方，其核心类型有三类：**tools**（可调用的函数）、**resources**（可读的数据）、**prompts**（预置提示模板）[4]；
 
-![MCP 角色与能力发现](../../../public/diagrams/interview/ae-120/mcp-roles.png)
+![MCP 角色与能力发现](../../../../public/diagrams/interview/ae-120/mcp-roles.png)
 
 要特别注意三点：
 

@@ -3,7 +3,7 @@ require 'pathname'
 
 root = File.expand_path(ARGV.fetch(0, '..'), ARGV.empty? ? __dir__ : Dir.pwd)
 Dir.chdir(root)
-obsolete = %w[book interview src/content docs/guides docs/rules/workspace.md docs/rules/spec-driven-workflow.md docs/rules/variables.md docs/rules/testing.md]
+obsolete = %w[book interview content/interview src/content docs/guides docs/rules/workspace.md docs/rules/spec-driven-workflow.md docs/rules/variables.md docs/rules/testing.md]
 obsolete.each { |p| abort "obsolete docs path: #{p}" if File.exist?(p) }
 required = %w[docs/designs/project-plan.md docs/release-readiness.json docs/rules/book-chapter-contract.md docs/rules/topic-contract.md docs/rules/security.md docs/templates/book-chapter.md docs/templates/book-chapter-review.md docs/designs/interview-handbook.md docs/rules/interview-content-contract.md docs/rules/diagram-contract.md docs/templates/interview-article.md docs/templates/interview-research.md docs/templates/interview-review.md]
 required.each { |p| abort "missing required document: #{p}" unless File.file?(p) }

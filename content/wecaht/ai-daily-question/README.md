@@ -1,8 +1,8 @@
-# Agent 工程师面试手册 · 50 题
+# AI 每日一题 · 50 题
 
-题库title是本期主题，按order组织公众号科普文章，优先保存草稿并回读，最终正文归档后供网站同稿预览。课程见 [book](../book/README.md)，实现与实验见 [实验约定](../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。
+题库title是本期主题，按order组织公众号科普文章，优先保存草稿并回读，最终正文归档后供网站同稿预览。课程见 [book](../../book/README.md)，实现与实验见 [实验约定](../../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。
 
-运行、研究、审核及草稿边界见 [内容规范](../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../docs/designs/interview-handbook.md)，豆包工作创建和更新公众号稿件见 [公众号规则](../../docs/rules/interview-wechat.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。
+运行、研究、审核及草稿边界见 [内容规范](../../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../../docs/designs/interview-handbook.md)，豆包工作创建和更新公众号稿件见 [公众号规则](../../../docs/rules/interview-wechat.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。
 
 在仓库根目录运行 `node scripts/interview/issue.mjs next` 按列表选择下一篇新稿，`node scripts/interview/issue.mjs start AE-ID` 在私有区准备本期；保存核验后归档。旧next-work/scaffold保留历史编辑兼容，不作为公众号新稿入口。`node scripts/interview.mjs render` 更新导航。题库与状态直接保存在本目录的 `questions.json`、`state.json`；状态用 `status`，关联缺口用 `coverage` 查看；`make validate-interview` 检查公共结构，`node scripts/interview.mjs delivery-check AE-ID` 单独检查本地交付证据。
 

@@ -15,9 +15,19 @@
 | [GORM](https://gorm.io/docs/)和 [Apache Thrift IDL](https://thrift.apache.org/docs/idl) | Part 2 数据访问及 IDL 示例 | 保留参考链接；文档示例复制与依赖使用分别核对 |
 | [Exponential Backoff and Jitter](https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/) | HTTP 客户端实验参考资料 | AWS 作者的退避与抖动说明；仅作为参考入口，不授权转载原文或图片 |
 | [Hello-Agents](https://datawhalechina.github.io/hello-agents/) | 课程设计与独立旅行助手方向 | Datawhale；作为路线和场景参考，未引入其完整课程或旅行应用源码。将来复制/改编时先核对对应版本许可 |
-| [AI Agent Handbook](https://aliyun.github.io/ai-agent-handbook/contents.html)与[治理篇](https://aliyun.github.io/ai-agent-handbook/governance/) | Part 3 三大篇职责组织、构建篇人工介入、治理篇导读及资产/行为验证分工 | 阿里云与社区贡献者；2026-10-29查阅目录和构建篇第6章，2026-11-08对照治理导读及第13–16章。上游站点声明Apache-2.0；本项目仅参考职责组织与概念分工，采用原创只读资料案例，未复制其正文段落、代码或图片，不将普通参考混同为上游文本的重新许可 |
+| [AI Agent Handbook](https://aliyun.github.io/ai-agent-handbook/contents.html)、[架构第2章](https://aliyun.github.io/ai-agent-handbook/architecture/chapter-02.html)与[治理篇](https://aliyun.github.io/ai-agent-handbook/governance/) | Part 3 架构入口、三大篇职责组织、构建篇人工介入、治理篇导读及资产/行为验证分工 | 阿里云与社区贡献者；2026-10-29查阅目录和构建篇第6章，2026-11-08对照架构第2章、治理导读及第13–16章。上游站点声明Apache-2.0；本项目仅参考职责组织与概念分工，采用原创只读资料案例，未复制其正文段落、代码或图片，不将普通参考混同为上游文本的重新许可 |
 
 逐个 Lab 的具体 URL 保存在 meta.yml 的 references，正文参考资料保留对应阅读入口。引用 URL 不是完整的权属审计。
+
+## AI 产品观察的产品截图
+
+`content/wecaht/ai-product-observation/assets/hex-4/` 内的两张PNG来自 Hex 官方文档及其 Inspect 演示，原图、视频地址、截取方式与字节摘要见同栏目 `media-sources.json`。同目录 `00-cover.png` 为原生imagegen生成的概念头图，提示词和摘要登记在媒体清单，不是Hex界面截图。销售应用原图未改动；Inspect图为演示第6秒的局部截取，画面中的数字与文字未修改。素材只作为产品介绍与评论的来源，版权与商标归 Hex／相应权利人，未取得单独转载许可，不适用本项目的MIT或CC BY 4.0再授权。当前仅本地归档，公开分发前需再次核对使用条件与范围。
+
+AI产品科普Skill借鉴APPSO公开文章的组织方法，参考链接保留在Skill画像中；未引入对标文章全文、图片或第三方人格Skill，不代表APPSO官方授权或出品。
+
+## 共用写作方法的参考来源
+
+technical-article-writer 的协作改稿与图文规划模块参考 Anthropic doc-coauthoring 及 Jim Liu baoyu-article-illustrator 的方法，以项目中文规则独立整理，未复制上游Skill全文、模板或脚本。固定revision、入口、吸收内容及许可核对情况见[方法来源说明](.agents/skills/technical-article-writer/references/method-sources.md)。未将第三方材料统一声明为本项目原创，也不要求额外安装两个入口。
 
 ## 生成代码与普通依赖
 

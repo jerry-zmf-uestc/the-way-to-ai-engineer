@@ -33,7 +33,7 @@ Part 3用最小决策闭环串联知识：先理解模型提议、应用执行�
 
 ## 1. 产品定位
 
-项目以 Go 为核心 Runtime 和后端语言，构建一条从语言基础、高性能后端到 Agent 系统工程的连续学习路径。课程正文负责解释机制和设计取舍，独立 Lab 负责运行、测试、故障复现和指标观察；content/interview/ 提供框架中立的 Agent 面试合集及公众号内容生产，Astro 当前只发布课程阅读体验。
+项目以 Go 为核心 Runtime 和后端语言，构建一条从语言基础、高性能后端到 Agent 系统工程的连续学习路径。课程正文负责解释机制和设计取舍，独立 Lab 负责运行、测试、故障复现和指标观察；content/wecaht/ai-daily-question/ 提供框架中立的 Agent 面试合集及公众号内容生产，课程与AI每日一题使用独立Astro构建和导航，共享Pages托管。
 
 第一目标用户是已有 TypeScript/React 经验、希望补齐 Go 后端与 Agent 工程能力、并形成可验证作品证据的前端工程师；其他已有软件工程经验、准备系统进入 Go AI 全栈方向的开发者也适用。TypeScript/React 主要承担 Console、Trace、Replay 和 Eval 界面；首个 Console 采用无构建的原生 JavaScript，先验证协议与生命周期，再逐步扩展浏览器侧可见面。Python 只承担必要的 AI 生态互操作和框架对照，不重复实现 Go Runtime。
 
@@ -55,6 +55,22 @@ Part 3用最小决策闭环串联知识：先理解模型提议、应用执行�
 - 不把模型预训练、完整 RL Infra 或 Kubernetes 平台工程设为主线；
 - 不实现学习推送、打卡、自动复盘或个人学习记录管理；
 - 不实现旅行预订、支付、消息发送等不可逆业务工具。
+
+### AI 产品观察栏目
+
+[AI 产品观察](../../content/wecaht/ai-product-observation/README.md) 位于 `content/wecaht/ai-product-observation/`，是面向普通科技读者的独立产品科普栏目。`wecaht` 沿用用户指定路径。它介绍产品用途、可见能力、必要技术与使用限制，不占用课程章号、AE题号、课程Lab或面试题库状态。
+
+正文与采用素材在栏目目录维护，审阅和试跑在仓库外工作空间；长期要求见[栏目规范](../rules/ai-product-observation.md)。栏目主打作者真实产品体验：由[AI产品科普Skill](../../.agents/skills/ai-product-explainer/SKILL.md)维护体验定位与证据边界，再复用[技术写作Skill](../../.agents/skills/technical-article-writer/SKILL.md)的协作改稿、图文规划与读者检验。共性能力下沉到技术写作层，不将课程机制目录或面试设计者问题设为产品稿默认结构。读者稿不展示引用编号和参考资料章节，核查依据另存；没有真实操作时明确为公开演示观察，不伪造上手经历。
+
+该目录当前仅作本地内容归档，不接入 Astro 路由、站点可见清单或自动发布。Moyo Research Agent 的应用建设、Runtime与效果追踪工程不进入本项目。现有面试制作脚本依赖AE题库，不能直接处理本栏目；通用方法可复用，栏目状态与正式正文保持独立。
+
+### 写作风格学习与 Skill 持续改进
+
+共用写作入口支持材料入库、改稿反馈、偏好提炼、增量编译与验证，流程见[写作学习](../../.agents/skills/technical-article-writer/references/style-learning.md)和[风格验证](../../.agents/skills/technical-article-writer/references/style-evaluation.md)。作者历史文章、AI协作稿和第三方参考分别标识；原文、反馈、会话与编译回执保存在仓库外，不进入课程学习记录或生产运行时。
+
+仓库只维护精简的[作者偏好](../../.agents/skills/technical-article-writer/references/author-style.md)、共用方法和栏目规则。起草时按任务读取，产品Skill单向复用，不各自生成作者画像。事实、渠道规范与来源权利不能被文风覆盖；采用文章不等于确认其全部风格，也不自动授权平台保存或发布。
+
+学习由当前写作或整理任务触发，不提供后台服务或自动模型训练。明确反馈可在授权范围内增量修订，样文推断先作为候选；编译记录输入、差异、检验和回退集合。作者尚未提供历史文章时仅使用已明确的反馈，不声称完成个人风格蒸馏或独立效果验证。私有工作区可通过WRITING_WORKSPACE或本地.specs/writing-workspace.json定位，公共检查不依赖这些私有材料；具体解析与隔离要求由写作学习模块维护。
 
 ## 2. 目标岗位能力
 
@@ -476,7 +492,7 @@ Harness从“模型能回答，但任务仍会失败”的案例进入：缺资�
 
 | 单元 | 分类与主题 | 稳定页面ID | 正文 | 原主题归并 |
 | --- | --- | --- | --- | --- |
-| 22 | 构建篇 · Agent 架构与模型接口 | `harness-intro` | [正文](../../content/book/part3-agent/building/chapter22-architecture.md) | harness-intro、ch22-llm-api |
+| 22 | 构建篇 · Agent 架构基本要素与最佳实践 | `harness-intro` | [正文](../../content/book/part3-agent/building/chapter22-architecture.md) | harness-intro、ch22-llm-api |
 | 23 | 构建篇 · 工具接入与受控行动 | `agent-tool` | [正文](../../content/book/part3-agent/building/chapter23-actions.md) | agent-tool、agent-mcp、agent-hitl |
 | 24 | 构建篇 · Agent 决策循环与 ReAct | `ch23-tool-calling` | [正文](../../content/book/part3-agent/building/chapter24-decision-loop.md) | ch23-tool-calling、agent-react |
 | 25 | 构建篇 · 任务规划与反馈修订 | `agent-planning` | [正文](../../content/book/part3-agent/building/chapter25-planning.md) | agent-planning |
@@ -591,7 +607,7 @@ DAG资源调度另有RunReadyStream：有限Run内运行中接纳就绪任务，
 
 先补最小Go前置：接口、错误链、JSON、context、HTTP、测试；并发章再补channel、锁与race，存储章再补事务和幂等。已有后端经验可以按缺口补课，不强制先逐页重读Part 1/2。
 
-- **基础路线（10个主题，分布于现有合章）**：Harness/Model（第22章基础）→Tool（第23章本地契约）→Loop（第24章基础）→Session/Context（第26章）→Runtime（第29章运行控制）→Eval（第35章入门）→Retrieval/RAG（第27章基础证据链）。先建立Case、Run和固定评分，再比较Self-Ask、Planning等策略；Trace基础在Runtime后引入。
+- **基础路线（10个主题，分布于现有合章）**：架构总览（第22章，模型接入按需选读配套Lab）→Tool（第23章本地契约）→Loop（第24章基础）→Session/Context（第26章）→Runtime（第29章运行控制）→Eval（第35章入门）→Retrieval/RAG（第27章基础证据链）。先建立Case、Run和固定评分，再比较Self-Ask、Planning等策略；Trace基础在Runtime后引入。
 - **完整路线**：以第22章的八阶段路线为读者入口。第22章控制面、第30章Workspace与第36章执行环境在外部能力接入前选读；随后接入MCP/Skills，深化Memory/RAG，再学习Planning、Checkpoint、持久审批、协作、异步任务与Serving。长章分次阅读，全部主题仍须完成，不将跳过进阶视为已学完整章。
 - **专项路线**：Runtime方向深化Checkpoint、DAG、Async、Serving、Trace及持久Worker交接；知识系统方向深化Context、Memory、Retrieval、RAG、Eval；集成方向深化MCP、Skills、Workspace与执行环境。权限、费用和错误约束贯穿每条路线，不等到Safety与Cost章才出现。
 
@@ -633,7 +649,7 @@ DAG资源调度另有RunReadyStream：有限Run内运行中接纳就绪任务，
 
 | 原主题 | 当前正文 | 保留与精炼方式 |
 | --- | --- | --- |
-| Harness、Model | 第22章架构与模型接口 | 统一职责图与开场，保留模型机制和响应契约，重复路线由目录承接 |
+| Harness、Model | 第22章架构总览及既有Model实验 | 正文解释组件、六层职责与架构取舍；模型机制、Provider及响应校验在原Lab深入，保留练习与稳定入口 |
 | Tool、MCP、HITL | 第23章工具接入与受控行动 | 串联注册、协议、政策、人工决定与观察；持久实现细节进入Lab并衔接第29章 |
 | Loop、ReAct、Planning | 第24章决策循环、第25章任务规划 | 合并逐步决策链，规划独立成章；保留反馈、搜索和策略对照的边界 |
 | Session、Context、Memory、Workspace | 第26章上下文工程、第30章持久状态 | 分开保存、可见、长期授权与产物；并发修订、回查、版本和删除各有机制 |
@@ -960,13 +976,13 @@ public/**/* ──────────────────────�
 
 生成器只做可预测转换：校验清单和路径、移除布局重复渲染的首个 H1、重写 Pages base 下的资源路径、注入 schema frontmatter。它不得润色、重排或删除普通段落。只有 `published: true` 的页面生成 route。
 
-### 面试合集与课程的边界
+### AI 每日一题合集与课程的边界
 
-`content/interview/` 是按问题复习的独立合集，不是课程 Part 4，不进入课程章节地图、教学单元编号、content/book/chapters.json 或现有 Astro collection。课程仍以 Go 为主，面试题保持框架中立；相互引用已经存在的正文和 Lab，不复制两套正文，不要求面试读者先安装 Go 或站点依赖。
+`content/wecaht/ai-daily-question/` 是公众号“AI 每日一题”的独立合集，不是课程 Part 4，不进入课程章节地图、教学单元编号、content/book/chapters.json 或现有 Astro collection。课程仍以 Go 为主，面试题保持框架中立；相互引用已经存在的正文和 Lab，不复制两套正文，不要求面试读者先安装 Go 或站点依赖。
 
-面试范围见[面试专项方案](interview-handbook.md)，正文规则见[面试内容规范](../rules/interview-content-contract.md)。题库、课程/Lab关联和编辑状态统一在 interview；questions.json 定义 50 个主问题，总导航由工具生成，P 来源编号、AE-ID 与发布顺序分开，封存ID不复用。
+面试范围见[面试专项方案](interview-handbook.md)，正文规则见[面试内容规范](../rules/interview-content-contract.md)。题库、课程/Lab关联和编辑状态统一在 `content/wecaht/ai-daily-question/`；questions.json 定义 50 个主问题，总导航由工具生成，P 来源编号、AE-ID 与发布顺序分开，封存ID不复用。
 
-interview保留总README、questions.json、state.json和大章节下单题Markdown；十大章节预先建齐，空目录用零字节.gitkeep保留，不设置章节README，不创建空白题目正文。研究、逐篇审核、候选稿、平台回执和预览保存在仓库外私有工作目录；通用模板归入docs/templates，工具和测试归入根scripts/tests，正式图源和配图在public/diagrams/interview。课程与面试正文各有唯一真源，共用已有Lab，不建设另一套面试实验工程。
+AI每日一题目录保留总README、questions.json、state.json和大章节下单题Markdown；十大章节预先建齐，空目录用零字节.gitkeep保留，不设置章节README，不创建空白题目正文。研究、逐篇审核、候选稿、平台回执和预览保存在仓库外私有工作目录；通用模板归入docs/templates，工具和测试归入根scripts/tests，正式图源和配图在public/diagrams/interview。课程与面试正文各有唯一真源，共用已有Lab，不建设另一套面试实验工程。
 
 课程四维状态、面试编辑状态、网站展示和公众号公开发布分别管理。make validate-interview检查公共结构与关联并纳入validate-docs，不读取私有过程记录；本地delivery-check和进入ready/published时另核对研究、审核、正文摘要及证据门槛。公共通过不证明审核或效果通过。
 
@@ -1139,7 +1155,7 @@ Agent Loop样章确定的是讲解深度与审查标准。后续章节先拆解�
 
 图名、部件名和状态名与代码/正文一致；箭头标明调用、数据或事件，配必要图例；已实现和规划能力用明确标注区分。每张图有替代文字，附近解释它支持的判断，图片不可见时正文仍可理解。截图只能证明某个观察，不能代替机制图。
 
-图示采用可编辑源文件与静态SVG成对管理，资源集中在 `public/diagrams/`，普通Markdown与Astro使用同一SVG。当前采用Python标准库生成器，24个源文件及50个SVG在 `public/diagrams/sources.json` 登记，SVG由Part 3正文或配套Lab引用。Agent Loop图由 `public/diagrams/agent-loop.py` 生成，执行 `python3 public/diagrams/agent-loop.py` 可重建。
+图示采用可编辑源文件与静态SVG成对管理，资源集中在 `public/diagrams/`，普通Markdown与Astro使用同一SVG。当前采用Python标准库生成器，26个源文件及54个SVG在 `public/diagrams/sources.json` 登记，SVG由Part 3正文或配套Lab引用。Agent Loop图由 `public/diagrams/agent-loop.py` 生成，执行 `python3 public/diagrams/agent-loop.py` 可重建。
 
 `validate-book`逐源在临时副本重建并逐字比较，核对登记集合、替代文字、局部引用及受限元素/属性；反例覆盖缺源、额外/重复产物、过期图、脚本、外链、xml:base与缺替代文字。自动检查证明产物可重建及符合当前静态结构约束，图与源码的语义、完整图的布局和读者理解仍须分别核对；临时副本也不是未知生成器的进程沙箱。
 
@@ -1154,6 +1170,64 @@ Agent Loop样章确定的是讲解深度与审查标准。后续章节先拆解�
 | Streaming | 为什么只有转圈→展示哪些事件→如何传输→断流与停止 | Event、channel、SSE与局部连接回调 | 事件时序；部分输出、断流、迟到事件 |
 
 这张表约束各章的教学主线，不直接复制成统一模块标题。三篇用于校准后续章节的讲解深度和表达方式：读者应能从正文理解关键实现，从顶部实验入口独立运行，并解释正常与失败结果。其他主题已按这套标准建设基础正文，后续继续逐章复核；真人试学单独验收，不能因扩写完成而补记通过。
+
+### Skills与持久状态的表达样章
+
+进一步校准第28章Skills与第30章持久状态：借鉴课程第7、8章从具体任务进入、用目录与短代码建立模型、随后展开设计取舍的表达方式，保留本书Go实现及权限、修订、失效和实际失败证据。先完成两篇样章供审阅，再按反馈推进其他章节；不批量套统一栏目。
+
+| 样章 | 连贯案例与讲解顺序 | 新增教学支撑 | 保留边界 |
+| --- | --- | --- | --- |
+| Skills | 超时诊断任务→能力包目录与正文→发现/选择/激活/资源读取→快照和预算→许可与格式→任务效果 | 实际加载调用、包内容与模型输入的区别、渐进加载案例图、分层排错 | 格式子集、固定词选择、单实例缓存、allowed-tools不扩权、真实模型失败 |
+| 持久状态 | 用户确认简洁→更新为详细→删除→授权与CAS→回查和输入→缓存竞态→报告产物分页与回收 | 修订与输入变化图、写入调用、分页过程表、按链路排错 | 墓碑、可信Scope、消费时点窗口、SQL/Redis与生成证据区别、Workspace非Sandbox |
+
+两篇样章进一步按技术体系组织：H2划分职责明确的技术模块，H3展开数据模型、状态转换和实现机制；案例放回相应机制中。补足Skill/Tool/Workflow及Session/Checkpoint/Memory/Workspace的概念比较，用少量独立引用块加粗提炼关键结论，普通加粗用于段内强调，不再代替目录层级。存储选择与缓存一致性独立成节，加载预算归入运行状态，真实任务评估与存储契约分开。保留既有标题锚点的兼容入口。
+
+章节路径、页面ID、已有锚点、Lab入口和练习保持有效；不新增运行能力。图示使用现有Python/SVG登记与重建契约。代码摘录、原知识去向、真实Lab运行及站点构建分别核对，自动通过不记作真人学习效果通过。
+
+### 其余十四章的技术表达改进
+
+沿用Skills与持久状态样章建立的表达标准，使用项目technical-article-writer逐章重构其余14篇：H2呈现技术模块，H3/H4区分机制与局部约束；保留现有知识、代码、实验边界、练习入口和生成标题的兼容锚点。章节不套同一套模块名；长章按真实职责拆开，关键判断在对应机制附近突出。
+
+| 章节 | 技术主线与重点拆分 |
+| --- | --- |
+| 22 架构基本要素 | 任务与组件→六层职责→任务流转→运行基础→治理闭环→最佳实践；模型实现细节归既有Lab |
+| 23 受控行动 | 本地工具契约→MCP互操作→发现授权→持久审批→观察与错误→Loop集成 |
+| 24 决策循环 | 决策模型→动作观察→Self-Ask→提议适配→终止预算→策略对照 |
+| 25 规划 | 计划模型→验证调度→反馈修订→本次反思→候选搜索→跨尝试经验 |
+| 26 上下文 | Session/Context归属→消息与并发→容量和完整观察组→压缩卸载→输入质量 |
+| 27 RAG | 资料与编码→范围过滤/ANN→索引发布→召回/融合/重排→输入→支持/拒答/交付→分层评估 |
+| 29 运行恢复 | 身份状态→预算→重试取消→提交窗口→持久快照/所有权→观察与费用恢复 |
+| 31 协作 | 角色选择→子契约→控制交接→租约代际→持久接管→DAG→取消收齐→资源公平 |
+| 32 异步 | 生命周期→父子关联→控制协议→版本更新→取消退出→保留与远程扩展 |
+| 33 服务 | 接纳身份→幂等容量→事件/SSE→背压断连→关闭部署 |
+| 34 可观测 | 治理视角→事件身份→Span传播→录制采集→Replay→诊断→能力资产 |
+| 35 验证评估 | 验证职责→成功标准→数据用途→Runner→评分→校准→对照与交付验收；补充治理证据流图 |
+| 36 安全 | 信任边界→动作授权→结果/日志出口→环境隔离→供应链→对抗及处置；合并重复供应链段落 |
+| 37 成本 | usage口径→预留/发送/恢复→实际结算→成功任务成本→缓存/路由/降级 |
+
+代码以已有独立Lab为准，优先补足关键分支和状态变化的解释，不为篇幅新增能力或伪造效果。图示复用现有素材，新增图沿用Python/SVG重建登记；适用层级、控制/数据方向和保证范围在正文说明。记录旧内容去向与实际验证，书稿/站点/示例通过不计为真人试学或新的模型实测。
+
+### 第22章聚焦Agent架构概念
+
+第22章改为《Agent 架构基本要素与最佳实践》，仅承担Part 3整体架构入口：从任务与组件、六层职责、一次任务流转、运行基础及治理闭环解释系统，再给出采用条件与最佳实践。参考AI Agent Handbook架构第2章的多视角组织，继续明确本书六层职责是另一种粒度划分，不将上游五个责任域写成本书六层的原定义。
+
+| 原内容 | 调整后位置与处理 |
+| --- | --- |
+| Harness、六层职责、可信配置及状态分工 | 第22章按组件、分层和任务链重写，保留核心边界与原稳定片段入口 |
+| Token、Attention、KV Cache及采样的机制与Go摘录 | 既有inference-mechanisms实验README增加机制解释；后训练保留该实验已有专题，不再在架构正文展开 |
+| Provider、消息、HTTP响应及错误分类 | 既有hello-llm实验README承接接口解释，不新增教学单元或模型API专题文章 |
+| JSON字段契约与有限修复 | 既有structured-output实验README承接说明，练习和代码仍在原Lab |
+| 八阶段路线与原26主题覆盖 | 第22章末保留架构到专题的阅读映射，模型接入通过可选实验进入，不计入架构讲解本体 |
+
+同步页面标题、摘要、能力标签、全书目录与相邻导航；页面ID、URL、Lab目录和API兼容跳转保持。涉及Model的旧内容状态表示既有实验材料，不再将机制实现深度计作架构正文内容。重排先保存本轮基线和内容去向；书稿、站点及受影响实验分别验证，不因重写标记真人学习已通过。
+
+### 技术文章写作Skill与渠道复用
+
+项目内 `.agents/skills/technical-article-writer/` 提供技术文章的提纲、写作、重构和审查能力，沉淀上述样章的技术体系拆解、机制解释、代码/图示配合及关键结论提炼。入口按当前请求区分只规划、实际改稿与只审查，不因调用Skill而扩大修改或交付范围。现有规则与模板仍为真源，Skill不复制其完整内容，也不把样章标题数、代码语言或图数固定为全篇模板。
+
+课程写作直接使用该Skill；公众号编排在技术内容需要重构时按需读取同一个入口，复用大纲、论证和结论提炼。共享语义、不共享渠道样式：课程按章节规范保留Lab、导航和源码约束，公众号按合集规范保留单题主线、无底色青绿强调及独立候选工作区。研究可复用content-research-writer，纯润色由humanizer-zh承担，图工具、排版与草稿保存仍由原公众号编排管理。新Skill不调用公众号、不修改题库状态或网站可见性，不安装额外依赖。
+
+验证覆盖入口元信息、相对引用、课程/公众号/审查/纯排版等请求的路由与交接边界；复用现有文档检查，不为写作风格新增匹配标题或高亮数量的自动评分。没有真实试写反馈时，不声称写作质量已得到独立验证。
 
 ### 站点阅读体验
 
@@ -1365,7 +1439,7 @@ RAG必要前提另外按已复核的证据组检查候选与实际输入。Eval�
 
 ### 内容目录收敛
 
-课程和面试正文分别迁入content/book与content/interview，labs保持根目录与原Go模块。网站源码src只负责呈现；课程中间副本迁至.generated/chapters并忽略提交。迁移同步引用、监听、CI与检查器，稳定页面ID、网站URL和跳转保持；首题只调整必要图片路径并核对导出一致，远端公众号草稿不操作。历史冻结评测载荷保留原字节，legacySources继续解析其原路径。
+课程和面试正文分别迁入content/book与content/wecaht/ai-daily-question，labs保持根目录与原Go模块。网站源码src只负责呈现；课程中间副本迁至.generated/chapters并忽略提交。迁移同步引用、监听、CI与检查器，稳定页面ID、网站URL和跳转保持；首题只调整必要图片路径并核对导出一致，远端公众号草稿不操作。历史冻结评测载荷保留原字节，legacySources继续解析其原路径。
 
 ### 两个阅读站点的构建与共享托管
 

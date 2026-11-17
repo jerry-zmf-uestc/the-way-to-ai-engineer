@@ -1,6 +1,6 @@
 # Agent 每日一题｜Reasoning&Planning 03：复杂任务的 Agent 设计：提示工程、工作流编排与自主智能体
 
-![复杂任务的三种组织方式](../../../public/images/interview/ae-100/header.jpg)
+![复杂任务的三种组织方式](../../../../public/images/interview/ae-100/header.jpg)
 
 # 设计一个智能体，哪些决定该交给模型？
 
@@ -16,7 +16,7 @@
 
 <mark>自主智能体（Autonomous Agent）</mark>由模型结合目标与环境观察（Observation），在可用工具和许可范围内选择后续动作。环境观察是工具调用或执行过程实际返回的信息，模型提出动作后，应用仍要校验提议、执行工具并反馈结果。注意，自主程度描述的是行动选择的范围，权限始终由应用限制。[1]
 
-![单次调用、预设工作流与观察驱动循环](../../../public/diagrams/interview/ae-100/control-patterns.png)
+![单次调用、预设工作流与观察驱动循环](../../../../public/diagrams/interview/ae-100/control-patterns.png)
 
 图1：谁决定下一步？
 
@@ -113,7 +113,7 @@ def collect_draft(choose, tools, verify, known_ids, max_turns=6):
 
 在帮助中心案例中，可以组合使用工作流编排和局部自主智能体：外层工作流安排版本读取、产物校验、持久化和回读；局部自主智能体只参与补充检索与冲突核对，模型提议下一步读取什么，运行层检查并执行，同时限定工具集合、来源范围、资源预算和终止条件。
 
-![固定工作流中的局部补查循环](../../../public/diagrams/interview/ae-100/bounded-exploration.png)
+![固定工作流中的局部补查循环](../../../../public/diagrams/interview/ae-100/bounded-exploration.png)
 
 图2：稳定阶段固定，局部探索受控
 

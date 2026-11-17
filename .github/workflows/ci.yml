@@ -52,7 +52,7 @@ jobs:
       - name: Verify content source layout
         run: |
           test -f content/book/chapters.json
-          test -f content/interview/questions.json
+          test -f content/wecaht/ai-daily-question/questions.json
           test ! -d book
           test ! -d interview
           test ! -d src/content

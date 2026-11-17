@@ -7,7 +7,7 @@ import {renderArticle} from './preview.mjs';
 project().validate();
 const [id,...flags]=process.argv.slice(2),wechat=flags.includes('--wechat');
 if(!/^AE-\d{3}$/.test(id||'')||flags.some(f=>f!=='--wechat')||flags.length>1)throw new Error('用法：node scripts/interview/export.mjs AE-ID [--wechat]');
-const data=JSON.parse(fs.readFileSync(path.join(root,'content/interview/questions.json'),'utf8'));
+const data=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json'),'utf8'));
 const q=data.questions.find(q=>q.id===id);if(!q)throw new Error('未知题号');
 const article=publicFile(root,q.article),source=fs.readFileSync(article,'utf8');
 let adaptation={};

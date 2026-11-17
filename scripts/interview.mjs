@@ -21,7 +21,7 @@ function atomicWrite(file, text) {
   finally { if (fs.existsSync(tmp)) fs.unlinkSync(tmp); }
 }
 export function project(root = defaultRoot, env = process.env) {
-  const base = path.join(root, 'content/interview');
+  const base = path.join(root, 'content/wecaht/ai-daily-question');
   const read = name => JSON.parse(fs.readFileSync(path.join(base, name), 'utf8'));
   const data = read('questions.json'), state = read('state.json');
   const question = id => data.questions.find(q => q.id === id) ?? fail(`未知题号：${id}`);
@@ -43,7 +43,7 @@ export function project(root = defaultRoot, env = process.env) {
   }
   function validate(skipReady = null) {
     if (data.schema_version !== 3 || state.schema_version !== 1) fail('不支持的 schema_version');
-    if (['plans','exports','.archify','research','reviews','scripts','templates','articles','assets','docs'].some(name => fs.existsSync(path.join(root,'content/interview',name)))) fail('发行回执、导出与运行材料应位于仓库外');
+    if (['plans','exports','.archify','research','reviews','scripts','templates','articles','assets','docs'].some(name => fs.existsSync(path.join(root,'content/wecaht/ai-daily-question',name)))) fail('发行回执、导出与运行材料应位于仓库外');
     if(fs.existsSync(path.join(root,'editorial')) || fs.existsSync(path.join(base,'calendar.json')))fail('旧编辑目录与发布日历已移除，不应重建');
     if (data.questions.length !== 50) fail('题目数量必须为 50');
     const ids = new Set(data.questions.map(q => q.id));
@@ -70,7 +70,7 @@ export function project(root = defaultRoot, env = process.env) {
     const articles=new Set();
     for(const q of data.questions){
       const m=data.modules.find(m=>m.id===q.module);
-      if(!m || !new RegExp(`^content/interview/${m.directory}/${q.id.toLowerCase()}-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$`).test(q.article) || articles.has(q.article)) fail(`正文路径无效：${q.id}`);
+      if(!m || !new RegExp(`^content/wecaht/ai-daily-question/${m.directory}/${q.id.toLowerCase()}-[a-z0-9]+(?:-[a-z0-9]+)*\\.md$`).test(q.article) || articles.has(q.article)) fail(`正文路径无效：${q.id}`);
       articles.add(q.article);articlePath(q);
       if(!Array.isArray(q.course_refs) || !q.course_refs.length || new Set(q.course_refs).size!==q.course_refs.length || q.course_refs.some(c=>!chapters[c] || !fs.existsSync(publicFile(root,chapters[c].path)))) fail(`课程关联无效：${q.id}`);
       const labs=new Set(q.course_refs.flatMap(c=>chapters[c].labs));
@@ -81,11 +81,11 @@ export function project(root = defaultRoot, env = process.env) {
     function visitContent(dir){
       for(const ent of fs.readdirSync(dir,{withFileTypes:true})){
         const file=path.join(dir,ent.name),rel=path.relative(root,file).split(path.sep).join('/');
-        if(ent.isDirectory()) {if(path.dirname(rel)!=='content/interview'||!directories.includes(ent.name))fail('面试目录仅允许大章节');visitContent(file);}
-        else if(ent.isSymbolicLink() || !((path.dirname(rel)==='content/interview' && ['README.md','questions.json','state.json','website.json','.state.lock'].includes(ent.name)) || (directories.includes(path.basename(path.dirname(file))) && ent.name==='.gitkeep' && fs.statSync(file).size===0) || articles.has(rel)))fail(`面试目录仅允许总导航与已登记正文：${rel}`);
+        if(ent.isDirectory()) {if(path.dirname(rel)!=='content/wecaht/ai-daily-question'||!directories.includes(ent.name))fail('面试目录仅允许大章节');visitContent(file);}
+        else if(ent.isSymbolicLink() || !((path.dirname(rel)==='content/wecaht/ai-daily-question' && ['README.md','questions.json','state.json','website.json','.state.lock'].includes(ent.name)) || (directories.includes(path.basename(path.dirname(file))) && ent.name==='.gitkeep' && fs.statSync(file).size===0) || articles.has(rel)))fail(`面试目录仅允许总导航与已登记正文：${rel}`);
       }
     }
-    visitContent(path.join(root,'content/interview'));
+    visitContent(path.join(root,'content/wecaht/ai-daily-question'));
     verifyDiagrams(root);
     for(const file of articles){if(!fs.existsSync(articlePath({article:file})))continue;const text=fs.readFileSync(articlePath({article:file}),'utf8');for(const match of text.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)){const target=path.resolve(path.dirname(path.join(root,file)),match[2]),rel=path.relative(root,target).split(path.sep).join('/');if(!match[1].trim()||!(rel.startsWith('public/diagrams/interview/')||rel.startsWith('public/images/interview/'))||!fs.existsSync(publicFile(root,rel)))fail('正文配图缺少替代文字或正式文件');}}
     if (new Set(data.questions.map(q => q.title)).size !== 50) fail('题目标题重复');
@@ -164,14 +164,14 @@ export function project(root = defaultRoot, env = process.env) {
   }
   function render() {
     validate();
-    atomicWrite(path.join(root,'content/interview/README.md'), navigation());
+    atomicWrite(path.join(root,'content/wecaht/ai-daily-question/README.md'), navigation());
     return '已更新面试手册总导航';
   }
   function navigation() {
-    const intro='# Agent 工程师面试手册 · '+data.questions.length+' 题\n\n题库title是本期主题，按order组织公众号科普文章，优先保存草稿并回读，最终正文归档后供网站同稿预览。课程见 [book](../book/README.md)，实现与实验见 [实验约定](../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。\n\n运行、研究、审核及草稿边界见 [内容规范](../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../docs/designs/interview-handbook.md)，豆包工作创建和更新公众号稿件见 [公众号规则](../../docs/rules/interview-wechat.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。\n\n在仓库根目录运行 `node scripts/interview/issue.mjs next` 按列表选择下一篇新稿，`node scripts/interview/issue.mjs start AE-ID` 在私有区准备本期；保存核验后归档。旧next-work/scaffold保留历史编辑兼容，不作为公众号新稿入口。`node scripts/interview.mjs render` 更新导航。题库与状态直接保存在本目录的 `questions.json`、`state.json`；状态用 `status`，关联缺口用 `coverage` 查看；`make validate-interview` 检查公共结构，`node scripts/interview.mjs delivery-check AE-ID` 单独检查本地交付证据。\n\n<!-- generated: questions.json; edit catalogue then render -->\n\n';
-    return intro+data.modules.map(m=>`## ${m.name}（${m.count} 题）\n\n| 来源编号 | 永久 ID | 题目 | 难度 |\n| --- | --- | --- | --- |\n`+data.questions.filter(q=>q.module===m.id).map(q=>`| ${q.proposal_id} | ${q.id} | ${fs.existsSync(articlePath(q))?`[${q.title}](${path.relative(path.join(root,'content/interview'),articlePath(q)).split(path.sep).join('/')})`:q.title+'（待编写）'} | ${q.difficulty} |`).join('\n')).join('\n\n')+'\n';
+    const intro='# AI 每日一题 · '+data.questions.length+' 题\n\n题库title是本期主题，按order组织公众号科普文章，优先保存草稿并回读，最终正文归档后供网站同稿预览。课程见 [book](../../book/README.md)，实现与实验见 [实验约定](../../../docs/rules/topic-contract.md)。题库是主题定义真源，已创建正文才生成链接；十大章节目录预先建立，空目录仅用 .gitkeep 保留，不创建空白文章。\n\n运行、研究、审核及草稿边界见 [内容规范](../../../docs/rules/interview-content-contract.md)，整体设计见 [面试方案](../../../docs/designs/interview-handbook.md)，豆包工作创建和更新公众号稿件见 [公众号规则](../../../docs/rules/interview-wechat.md)。不接入课程章号；独立面试站点通过 website.json 控制可见题目，与公众号发布状态分开。\n\n在仓库根目录运行 `node scripts/interview/issue.mjs next` 按列表选择下一篇新稿，`node scripts/interview/issue.mjs start AE-ID` 在私有区准备本期；保存核验后归档。旧next-work/scaffold保留历史编辑兼容，不作为公众号新稿入口。`node scripts/interview.mjs render` 更新导航。题库与状态直接保存在本目录的 `questions.json`、`state.json`；状态用 `status`，关联缺口用 `coverage` 查看；`make validate-interview` 检查公共结构，`node scripts/interview.mjs delivery-check AE-ID` 单独检查本地交付证据。\n\n<!-- generated: questions.json; edit catalogue then render -->\n\n';
+    return intro+data.modules.map(m=>`## ${m.name}（${m.count} 题）\n\n| 来源编号 | 永久 ID | 题目 | 难度 |\n| --- | --- | --- | --- |\n`+data.questions.filter(q=>q.module===m.id).map(q=>`| ${q.proposal_id} | ${q.id} | ${fs.existsSync(articlePath(q))?`[${q.title}](${path.relative(path.join(root,'content/wecaht/ai-daily-question'),articlePath(q)).split(path.sep).join('/')})`:q.title+'（待编写）'} | ${q.difficulty} |`).join('\n')).join('\n\n')+'\n';
   }
-  function checkNavigation(){if(fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8')!==navigation())fail('总导航过期，请运行 render');return '总导航与题库一致';}
+  function checkNavigation(){if(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/README.md'),'utf8')!==navigation())fail('总导航过期，请运行 render');return '总导航与题库一致';}
   function coverage(){
     const chapters=JSON.parse(fs.readFileSync(path.join(root,'content/book/chapters.json'),'utf8'));
     return '# '+data.questions.length+' 题课程与实验关联\n\n覆盖是内容关联，不是题目完成或效果验收。\n\n'+data.questions.map(q=>`## ${q.proposal_id} / ${q.id} ${q.title}\n\n- 状态：${q.coverage.status}\n- 课程：${q.course_refs.map(c=>chapters[c].title+' ['+c+']').join('；')}\n- 实验：${q.lab_refs.join('；')||'无'}\n- 分工与缺口：${q.coverage.notes}\n- 最低证据：${q.minimum_evidence}；验收：${q.acceptance_case}\n`).join('\n');

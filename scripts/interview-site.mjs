@@ -13,8 +13,8 @@ export const OUTPUT=path.join(ROOT,'.generated/interview');
 export function loadInterview(root=ROOT){
   root=fs.realpathSync(root);
   project(root).validate();
-  const data=JSON.parse(fs.readFileSync(path.join(root,'content/interview/questions.json'),'utf8'));
-  const website=JSON.parse(fs.readFileSync(path.join(root,'content/interview/website.json'),'utf8'));
+  const data=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json'),'utf8'));
+  const website=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/website.json'),'utf8'));
   let entries;
   if(website.schema_version===1){
     if(!Array.isArray(website.visible_questions)||website.visible_questions.some(id=>id!=='AE-001'))throw new Error('旧网站清单只兼容历史首篇，新增正文需版本准入');
@@ -56,7 +56,7 @@ export function renderInterview(q,data,root=ROOT){
     if(!fs.existsSync(absolute))throw new Error('网站链接缺失：'+target);
     const question=data.visible.find(q=>q.article===rel);
     if(question)return `${INTERVIEW_BASE}/questions/${question.id.toLowerCase()}/${fragment}`;
-    if(rel==='content/interview/README.md')return `${INTERVIEW_BASE}/${fragment}`;
+    if(rel==='content/wecaht/ai-daily-question/README.md')return `${INTERVIEW_BASE}/${fragment}`;
     const page=Object.entries(course).find(([,p])=>p.path===rel&&p.published);
     if(page)return `${COURSE_BASE}/chapters/${page[0]}/${fragment}`;
     if(rel.startsWith('public/'))return `${INTERVIEW_BASE}/${rel.slice('public/'.length)}${fragment}`;

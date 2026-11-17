@@ -9,6 +9,7 @@ checker = File.join(root, 'scripts/verify-docs-layout.rb')
 cases = {
   'obsolete root book' => ['obsolete docs path', ->(dir) { FileUtils.mkdir_p(File.join(dir, 'book')) }],
   'obsolete root interview' => ['obsolete docs path', ->(dir) { FileUtils.mkdir_p(File.join(dir, 'interview')) }],
+  'obsolete content interview' => ['obsolete docs path', ->(dir) { FileUtils.mkdir_p(File.join(dir, 'content/interview')) }],
   'obsolete generated source' => ['obsolete docs path', ->(dir) { FileUtils.mkdir_p(File.join(dir, 'src/content')) }],
   'valid layout' => [nil, ->(dir) {}],
   'obsolete guide directory' => ['obsolete docs path', ->(dir) { FileUtils.mkdir_p(File.join(dir, 'docs/guides')) }],

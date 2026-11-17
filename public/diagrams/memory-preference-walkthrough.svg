@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="660" viewBox="0 0 1080 660" role="img" aria-labelledby="title desc">
+<title id="title">用户偏好：修订防旧写，回查防旧读</title><desc id="desc">同一Tenant/User和response-style键从简洁修订1更新为详细修订2，删除形成空值墓碑修订3。旧缓存只提供键，当前输入由事实源的有效状态决定。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#23736b"/></marker></defs>
+<rect width="1080" height="660" fill="#ffffff"/>
+<g font-family="system-ui,sans-serif" fill="#163f3a">
+<text x="32" y="44" font-size="26">用户偏好：修订防旧写，回查防旧读</text>
+<text x="32" y="82" font-size="18">固定Tenant / User / response-style；以下为连续状态推演。</text>
+<rect x="32" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="147" font-size="20">首次确认</text>
+<text x="48" y="177" font-size="17">concise / revision=1</text>
+<text x="48" y="207" font-size="17">创建条件：expected=0</text>
+<rect x="390" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="406" y="147" font-size="20">用户更新</text>
+<text x="406" y="177" font-size="17">detailed / revision=2</text>
+<text x="406" y="207" font-size="17">更新条件：expected=1</text>
+<rect x="748" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="764" y="147" font-size="20">用户删除</text>
+<text x="764" y="177" font-size="17">空值 / revision=3 / Deleted</text>
+<text x="764" y="207" font-size="17">删除条件：expected=2</text>
+<path d="M332 177H390" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M690 177H748" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="278" font-size="18">写入侧：旧任务仍用expected=1提交 → ErrConflict，不能覆盖修订2或3。</text>
+<rect x="32" y="318" width="300" height="122" rx="10" fill="#f3f6f5" stroke="#60968e"/>
+<text x="48" y="349" font-size="20">旧缓存或索引</text>
+<text x="48" y="379" font-size="17">可能仍保存concise@1</text>
+<text x="48" y="409" font-size="17">只提取候选键，不信任旧值</text>
+<rect x="390" y="318" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="406" y="349" font-size="20">Resolve回查事实源</text>
+<text x="406" y="379" font-size="17">可信Scope + 候选键</text>
+<text x="406" y="409" font-size="17">核对修订、删除与有效期</text>
+<rect x="748" y="318" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="764" y="349" font-size="20">Memory.Input投影</text>
+<text x="764" y="379" font-size="17">更新后：detailed@2</text>
+<text x="764" y="409" font-size="17">删除后：空集合</text>
+<path d="M332 379H390" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M690 379H748" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="488" font-size="18">读取侧：缓存TTL未到，也不能恢复已经更新或删除的事实。</text>
+<rect x="32" y="522" width="1016" height="92" rx="10" fill="#f0f8f6" stroke="#60968e"/>
+<text x="48" y="553" font-size="20">Context按当前任务使用有效偏好</text>
+<text x="48" y="583" font-size="17">空集合按当前要求或默认方式继续；读取失败另行处理。输入正确仍需验证回答是否采用。</text>
+<path d="M898 440V522" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="640" font-size="18">回查只形成一次读取快照；严格使用或交付时，还需处理随后发生的撤销。</text>
+</g></svg>

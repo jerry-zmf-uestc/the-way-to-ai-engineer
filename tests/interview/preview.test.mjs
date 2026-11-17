@@ -11,10 +11,10 @@ const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex
 function fixture(t){
  const root=fs.mkdtempSync(path.join(os.tmpdir(),'wechat-preview-'));
  const privateRoot=root+'-private';
- for(const dir of ['content/interview','public/diagrams/interview','public/images/interview'])fs.mkdirSync(path.join(root,dir),{recursive:true});
+ for(const dir of ['content/wecaht/ai-daily-question','public/diagrams/interview','public/images/interview'])fs.mkdirSync(path.join(root,dir),{recursive:true});
  fs.mkdirSync(privateRoot,{recursive:true});
  t.after(()=>{fs.rmSync(root,{recursive:true,force:true});fs.rmSync(privateRoot,{recursive:true,force:true});});
- return {root,privateRoot,article:path.join(root,'content/interview/test.md')};
+ return {root,privateRoot,article:path.join(root,'content/wecaht/ai-daily-question/test.md')};
 }
 test('wechat preview preserves code blank lines, correct heading text and typography, native cards and tables',t=>{
  const {root,article}=fixture(t);
@@ -42,10 +42,10 @@ test('unsafe native HTML, URLs, unsupported whiteboards and malformed fences fai
 test('local images use actual MIME and reject external, missing and symlink escapes',t=>{
  const {root,article}=fixture(t);
  fs.writeFileSync(path.join(root,'public/images/interview/header.jpg'),Buffer.from([255,216,255,217]));
- const out=renderArticle('# Test\n\n![header](../../public/images/interview/header.jpg)',{root,article});assert.ok(out.includes('data:image/jpeg;base64,'));
- for(const s of ['https://example.org/x.png','../../outside.png','../../public/images/interview/missing.png'])assert.throws(()=>imageData(root,article,s));
+ const out=renderArticle('# Test\n\n![header](../../../public/images/interview/header.jpg)',{root,article});assert.ok(out.includes('data:image/jpeg;base64,'));
+ for(const s of ['https://example.org/x.png','../../outside.png','../../../public/images/interview/missing.png'])assert.throws(()=>imageData(root,article,s));
  const outside=path.join(path.dirname(root),path.basename(root)+'-outside.png');fs.writeFileSync(outside,'private');t.after(()=>fs.rmSync(outside,{force:true}));
- fs.symlinkSync(outside,path.join(root,'public/images/interview/escape.png'));assert.throws(()=>imageData(root,article,'../../public/images/interview/escape.png'));
+ fs.symlinkSync(outside,path.join(root,'public/images/interview/escape.png'));assert.throws(()=>imageData(root,article,'../../../public/images/interview/escape.png'));
 });
 test('channel adapter omits selected site supplements without rewriting shared body',t=>{
  const {root,article}=fixture(t);const source='# Common\n\n## 机制\n\n共同正文\n\n## 30 秒面试回答\n\n可选补充\n\n## 参考资料\n\n原始出处\n';
@@ -54,9 +54,9 @@ test('channel adapter omits selected site supplements without rewriting shared b
 });
 test('registry checker rejects duplicate section sequence, stale hashes, evidence escapes and false ready',t=>{
  const {root,privateRoot,article}=fixture(t),env={INTERVIEW_WORKSPACE:privateRoot};fs.writeFileSync(article,'# Article\n\n正文');
- const q={id:'AE-001',article:'content/interview/test.md',minimum_evidence:'measured'};
- fs.writeFileSync(path.join(root,'content/interview/questions.json'),JSON.stringify({questions:[q]}));
- const state={items:{'AE-001':{status:'drafting'}}};fs.writeFileSync(path.join(root,'content/interview/state.json'),JSON.stringify(state));
+ const q={id:'AE-001',article:'content/wecaht/ai-daily-question/test.md',minimum_evidence:'measured'};
+ fs.writeFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json'),JSON.stringify({questions:[q]}));
+ const state={items:{'AE-001':{status:'drafting'}}};fs.writeFileSync(path.join(root,'content/wecaht/ai-daily-question/state.json'),JSON.stringify(state));
  for(const dir of ['wechat/AE-001','research','reviews'])fs.mkdirSync(path.join(privateRoot,dir),{recursive:true});
  fs.writeFileSync(path.join(privateRoot,'research/AE-001.md'),'已知输入，尚缺测量');
  const review={id:'AE-001',article_sha256:hash(article),evidence_level:'design',checks:{facts:false}};fs.writeFileSync(path.join(privateRoot,'reviews/AE-001.json'),JSON.stringify(review));
@@ -64,10 +64,12 @@ test('registry checker rejects duplicate section sequence, stale hashes, evidenc
  fs.writeFileSync(path.join(privateRoot,'wechat/AE-001/adaptation.json'),JSON.stringify({id:q.id,article:q.article,article_sha256:hash(article),title:item.title}));
  const registry={schema_version:2,items:{'AE-001':item}},file=path.join(privateRoot,'wechat/registry.json'),write=()=>fs.writeFileSync(file,JSON.stringify(registry));write();
  assert.equal(checkWechat(root,env).ok,true);assert.equal(checkWechat(root,env).pending.length,2);
+ for(const name of ['AI 每日一题','Agent 每日一题']){item.title=`${name}｜Reasoning&Planning 01：问题？`;fs.writeFileSync(path.join(privateRoot,'wechat/AE-001/adaptation.json'),JSON.stringify({id:q.id,article:q.article,article_sha256:hash(article),title:item.title}));write();assert.equal(checkWechat(root,env).ok,true);}
+
  item.body_sha256='0'.repeat(64);write();assert.equal(checkWechat(root,env).ok,false);item.body_sha256=hash(article);
  item.evidence=['../../outside'];write();assert.equal(checkWechat(root,env).ok,false);item.evidence=[];
- state.items['AE-001'].status='ready';fs.writeFileSync(path.join(root,'content/interview/state.json'),JSON.stringify(state));write();assert.equal(checkWechat(root,env).ok,false);
- const second={...q,id:'AE-002'};fs.writeFileSync(path.join(root,'content/interview/questions.json'),JSON.stringify({questions:[q,second]}));registry.items['AE-002']={...item};write();assert.ok(checkWechat(root,env).errors.some(e=>e.includes('编号重复')));
+ state.items['AE-001'].status='ready';fs.writeFileSync(path.join(root,'content/wecaht/ai-daily-question/state.json'),JSON.stringify(state));write();assert.equal(checkWechat(root,env).ok,false);
+ const second={...q,id:'AE-002'};fs.writeFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json'),JSON.stringify({questions:[q,second]}));registry.items['AE-002']={...item};write();assert.ok(checkWechat(root,env).errors.some(e=>e.includes('编号重复')));
 });
 test('frozen static diagram registration requires provenance and authentic digest, rejects JPEG disguise',t=>{
  const {root}=fixture(t),base='public/diagrams/interview',img=base+'/diagram.jpg',src=base+'/diagram.jpg.source.json';

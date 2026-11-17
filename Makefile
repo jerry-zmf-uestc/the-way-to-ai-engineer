@@ -36,7 +36,7 @@ build:
 validate-interview:
 	node scripts/interview.mjs validate
 	node scripts/interview.mjs check-navigation
-	node scripts/check-links.mjs content/interview
+	node scripts/check-links.mjs content/wecaht/ai-daily-question
 	node --test tests/interview/*.test.mjs tests/interview-site-source.test.mjs
 
 validate-docs: validate-interview

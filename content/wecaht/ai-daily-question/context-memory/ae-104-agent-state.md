@@ -1,6 +1,6 @@
 # Agent 每日一题｜Context&Memory 01：Agent State 应该存哪些内容？
 
-![Agent State 任务档案主题头图](../../../public/images/interview/ae-104/header.jpg)
+![Agent State 任务档案主题头图](../../../../public/images/interview/ae-104/header.jpg)
 
 # 有了计划，为什么换一轮又像重新开始？
 

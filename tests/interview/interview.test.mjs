@@ -10,9 +10,9 @@ import {checkLinks} from '../../scripts/check-links.mjs';
 function privateRoot(root){return root+'-private';}
 function project(root){return actualProject(root,{INTERVIEW_WORKSPACE:privateRoot(root)});}
 function relative(root,file){
- if(['questions.json','state.json'].includes(file))return path.join(root,'content/interview',file);
+ if(['questions.json','state.json'].includes(file))return path.join(root,'content/wecaht/ai-daily-question',file);
  if(file.startsWith('reviews/')||file.startsWith('research/'))return path.join(privateRoot(root),file);
- if(file.startsWith('articles/')){const id=path.basename(file,'.md').toUpperCase();const data=JSON.parse(fs.readFileSync(path.join(root,'content/interview/questions.json')));return path.join(root,data.questions.find(q=>q.id===id).article);}
+ if(file.startsWith('articles/')){const id=path.basename(file,'.md').toUpperCase();const data=JSON.parse(fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/questions.json')));return path.join(root,data.questions.find(q=>q.id===id).article);}
  return path.join(root,file);
 }
 import {spawnSync} from 'node:child_process';
@@ -41,7 +41,7 @@ function approved(root,p) {
   mutate(root,'reviews/AE-001.json',r=>{r.reviewer='test fixture';r.reviewed_at='2026-10-27';r.article_sha256=p.hash('AE-001');r.notes='Only fixture evidence; not a real article review.';r.evidence_level='design';r.evidence_notes='Fixture evidence only.';for(const k of Object.keys(r.checks))r.checks[k]=true;});
 }
 test('real catalog has 50 questions and repeat rendering is deterministic', t=>{
- const root=fixture(t),p=project(root);p.validate();p.render();const first=fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8');p.render();assert.equal(first,fs.readFileSync(path.join(root,'content/interview/README.md'),'utf8'));
+ const root=fixture(t),p=project(root);p.validate();p.render();const first=fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/README.md'),'utf8');p.render();assert.equal(first,fs.readFileSync(path.join(root,'content/wecaht/ai-daily-question/README.md'),'utf8'));
 });
 test('scaffold never overwrites existing article, research or review',t=>{
  const root=fixture(t),p=project(root);p.scaffold('AE-002');
@@ -102,7 +102,7 @@ test('derived order is deterministic and follows prerequisites without a calenda
  const positions=new Map(ordered.map((q,i)=>[q.id,i]));
  for(const q of ordered)for(const parent of q.prerequisites)assert.ok(positions.get(parent)<positions.get(q.id));
  assert.deepEqual(ordered.map(q=>q.id),project(root).orderedQuestions().map(q=>q.id));
- assert.ok(!fs.existsSync(path.join(root,'content/interview/calendar.json')));
+ assert.ok(!fs.existsSync(path.join(root,'content/wecaht/ai-daily-question/calendar.json')));
 });
 test('next-work skips completed content without treating a saved draft as published',t=>{
  const root=fixture(t),p=project(root);for(const s of ['researching','drafting','reviewing'])p.transition('AE-001',s);
@@ -134,25 +134,25 @@ test('private output paths reject checkout locations and symlink escapes',t=>{
 });
 test('article export runs from another cwd and preserves source bytes outside checkout',t=>{
  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'interview-export-'));t.after(()=>fs.rmSync(temp,{recursive:true,force:true}));
- const article=path.join(source,JSON.parse(fs.readFileSync(path.join(source,'content/interview/questions.json'))).questions[0].article);const hash=()=>crypto.createHash('sha256').update(fs.readFileSync(article)).digest('hex');const before=hash();
+ const article=path.join(source,JSON.parse(fs.readFileSync(path.join(source,'content/wecaht/ai-daily-question/questions.json'))).questions[0].article);const hash=()=>crypto.createHash('sha256').update(fs.readFileSync(article)).digest('hex');const before=hash();
  for(const script of ['export.mjs']){
   const result=spawnSync(process.execPath,[path.join(source,'scripts/interview',script),'AE-001'],{cwd:temp,env:{...process.env,INTERVIEW_WORKSPACE:temp},encoding:'utf8'});
   assert.equal(result.status,0,result.stderr);
  }
  const html=fs.readFileSync(path.join(temp,'exports/ae-001.html'),'utf8');
  assert.equal((html.match(/data:image\/png;base64,/g)||[]).length,2);
- assert.ok(html.includes('ReAct'));assert.equal(hash(),before);assert.ok(!fs.existsSync(path.join(source,'content/interview/exports')));
+ assert.ok(html.includes('ReAct'));assert.equal(hash(),before);assert.ok(!fs.existsSync(path.join(source,'content/wecaht/ai-daily-question/exports')));
 });
 test('public interview files cannot depend on private workspace or outside repository links',t=>{
  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'interview-links-'));t.after(()=>fs.rmSync(temp,{recursive:true,force:true}));
- const repo=path.join(temp,'repo'),root=path.join(repo,'content/interview');fs.mkdirSync(root,{recursive:true});fs.mkdirSync(path.join(repo,'content/book'),{recursive:true});fs.writeFileSync(path.join(repo,'content/book/chapter.md'),'public');
- fs.writeFileSync(path.join(root,'README.md'),'[course](../book/chapter.md)');assert.deepEqual(checkLinks(root,repo),[]);
- fs.mkdirSync(path.join(repo,'.specs'));fs.writeFileSync(path.join(repo,'.specs/private.md'),'private');fs.writeFileSync(path.join(root,'README.md'),'[private](../../.specs/private.md)');assert.equal(checkLinks(root,repo).length,1);
+ const repo=path.join(temp,'repo'),root=path.join(repo,'content/wecaht/ai-daily-question');fs.mkdirSync(root,{recursive:true});fs.mkdirSync(path.join(repo,'content/book'),{recursive:true});fs.writeFileSync(path.join(repo,'content/book/chapter.md'),'public');
+ fs.writeFileSync(path.join(root,'README.md'),'[course](../../book/chapter.md)');assert.deepEqual(checkLinks(root,repo),[]);
+ fs.mkdirSync(path.join(repo,'.specs'));fs.writeFileSync(path.join(repo,'.specs/private.md'),'private');fs.writeFileSync(path.join(root,'README.md'),'[private](../../../.specs/private.md)');assert.equal(checkLinks(root,repo).length,1);
  fs.writeFileSync(path.join(temp,'outside.md'),'outside');fs.symlinkSync(path.join(temp,'outside.md'),path.join(root,'escaped.md'));
  fs.writeFileSync(path.join(root,'README.md'),'[outside](escaped.md)');assert.equal(checkLinks(root,repo).length,1);
 });
 test('private production folders fail the public catalogue gate even when gitignored',t=>{
- for(const dir of ['plans','exports','.archify']){const root=fixture(t);fs.mkdirSync(path.join(root,'content/interview',dir));assert.throws(()=>project(root).validate(),/仓库外/);}
+ for(const dir of ['plans','exports','.archify']){const root=fixture(t);fs.mkdirSync(path.join(root,'content/wecaht/ai-daily-question',dir));assert.throws(()=>project(root).validate(),/仓库外/);}
 });
 
 test('public checkout validates ready text without private evidence, delivery still fails closed',t=>{
@@ -168,14 +168,14 @@ test('stable course IDs, Lab ownership, coverage and generated navigation are en
   const root=fixture(t);mutate(root,'questions.json',edit);assert.throws(()=>project(root).validate(),/关联|覆盖/);
  }
  const root=fixture(t),p=project(root);p.render();assert.doesNotThrow(()=>p.checkNavigation());
- fs.appendFileSync(path.join(root,'content/interview/README.md'),'outdated');assert.throws(()=>p.checkNavigation(),/总导航过期/);
+ fs.appendFileSync(path.join(root,'content/wecaht/ai-daily-question/README.md'),'outdated');assert.throws(()=>p.checkNavigation(),/总导航过期/);
  const chapter=path.dirname(relative(root,'articles/ae-001.md'));fs.writeFileSync(path.join(chapter,'README.md'),'extra');assert.throws(()=>p.validate(),/总导航与已登记正文/);
 });
 test('public article paths reject symlink redirection and private process files',t=>{
  const root=fixture(t),file=relative(root,'articles/ae-001.md'),outside=path.join(privateRoot(root),'outside.md');
  fs.writeFileSync(outside,'private');fs.rmSync(file);fs.symlinkSync(outside,file);
  assert.throws(()=>project(root).validate(),/符号链接/);
- fs.rmSync(file);fs.writeFileSync(file,'# Public');fs.mkdirSync(path.join(root,'content/interview/reviews'));
+ fs.rmSync(file);fs.writeFileSync(file,'# Public');fs.mkdirSync(path.join(root,'content/wecaht/ai-daily-question/reviews'));
  assert.throws(()=>project(root).validate(),/仓库外/);
 });
 test('registered diagram bytes and source set cannot silently drift',t=>{
@@ -187,12 +187,12 @@ test('registered diagram bytes and source set cannot silently drift',t=>{
 
 test('all module directories exist, only empty placeholders are allowed, and old calendar is rejected',t=>{
  const root=fixture(t),p=project(root);const data=JSON.parse(fs.readFileSync(relative(root,'questions.json')));
- for(const m of data.modules)assert.ok(fs.statSync(path.join(root,'content/interview',m.directory)).isDirectory());
- const empty=path.join(root,'content/interview/system-design');
+ for(const m of data.modules)assert.ok(fs.statSync(path.join(root,'content/wecaht/ai-daily-question',m.directory)).isDirectory());
+ const empty=path.join(root,'content/wecaht/ai-daily-question/system-design');
  fs.writeFileSync(path.join(empty,'.gitkeep'),'not empty');assert.throws(()=>p.validate(),/总导航与已登记正文/);
  fs.writeFileSync(path.join(empty,'.gitkeep'),'');assert.doesNotThrow(()=>p.validate());
  fs.rmSync(empty,{recursive:true});assert.throws(()=>p.validate(),/缺少大章节/);
- fs.mkdirSync(empty);fs.writeFileSync(path.join(root,'content/interview/calendar.json'),'{}');assert.throws(()=>p.validate(),/发布日历已移除/);
+ fs.mkdirSync(empty);fs.writeFileSync(path.join(root,'content/wecaht/ai-daily-question/calendar.json'),'{}');assert.throws(()=>p.validate(),/发布日历已移除/);
 });
 
 test('Planning merge preserves old IDs and advanced coverage without retired dependencies or lost evidence',t=>{

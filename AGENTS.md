@@ -8,7 +8,9 @@
 - 本文件适用于整个仓库。修改前检查目标目录及父目录中的局部 AGENTS.md；更近约定仅在对应范围内优先，不能覆盖运行环境的更高优先级指令或用户明确要求。工具的实际加载方式以其文档为准。
 - 已批准设计定义任务范围；本文件与专项规则约束实施。[总体方案中的章节地图](docs/designs/project-plan.md#chapter-map)是章节、Lab 映射及实现/代码/内容/读者状态的唯一人工维护视图。冲突无法由当前任务解决时，先确认，不静默绕过约束。
 
-面试合集位于 `content/interview/`，按题库列表制作公众号科普文章，保持框架中立；公众号优先保存草稿并回读，按项目本期流程经官方读者预览和作者确认后归档唯一正文与正式素材，不默认另建在线协作文稿；网站按授权呈现同稿，不进入课程章号。`node scripts/interview/issue.mjs next` 是新稿入口，私有本期与归档、网站准入规则见 [内容规范](docs/rules/interview-content-contract.md) 和 [合集方案](docs/designs/interview-handbook.md)。课程与归档文章各自只有一个正文真源；网页上线公开正文，保存草稿不等于发表。公众号辅助 Skill 的分工、项目封面偏好与候选预览边界同样见该规范；试跑文件存仓库外，不自动覆盖正式稿或更新草稿。
+公众号“AI 每日一题”合集位于 `content/wecaht/ai-daily-question/`，按题库列表制作公众号科普文章，保持框架中立；公众号优先保存草稿并回读，按项目本期流程经官方读者预览和作者确认后归档唯一正文与正式素材，不默认另建在线协作文稿；网站按授权呈现同稿，不进入课程章号。`node scripts/interview/issue.mjs next` 是新稿入口，私有本期与归档、网站准入规则见 [内容规范](docs/rules/interview-content-contract.md) 和 [合集方案](docs/designs/interview-handbook.md)。课程与归档文章各自只有一个正文真源；网页上线公开正文，保存草稿不等于发表。公众号辅助 Skill 的分工、项目封面偏好与候选预览边界同样见该规范；试跑文件存仓库外，不自动覆盖正式稿或更新草稿。
+
+独立公众号栏目 [AI 产品观察](content/wecaht/ai-product-observation/README.md) 位于 `content/wecaht/ai-product-observation/`，沿用用户指定的 `wecaht` 拼写。它不进入课程章节、面试题库、AE状态或网站路由；正文与采用素材由该目录维护，研究、候选、试跑与预览保存在仓库外。该栏目按[专用规范](docs/rules/ai-product-observation.md)和[AI产品科普Skill](.agents/skills/ai-product-explainer/SKILL.md)写作，下表的面试与公众号面试稿规则仅适用于 `content/wecaht/ai-daily-question/` 及其制作流程。
 
 ## 按任务读取规则与模板
 
@@ -16,8 +18,9 @@
 
 | 工作 | 必读文件 |
 | --- | --- |
-| 面试题、内容生产、题库与公众号草稿 | [面试内容规范](docs/rules/interview-content-contract.md) + [合集方案](docs/designs/interview-handbook.md) + [文章模板](docs/templates/interview-article.md) + [研究模板](docs/templates/interview-research.md) + [审核模板](docs/templates/interview-review.md)，同时遵守全仓安全规范 |
-| 公众号渠道稿、草稿续接与验收 | [公众号规则](docs/rules/interview-wechat.md) + [渠道稿模板](docs/templates/interview-wechat-article.md)；以设计者问题和同案例递进组织技术讲解，核心判断同字号青绿加粗无底色，图注序号加短标题；最新公众号稿保存回读后再归档，不套用旧候选 |
+| AI 产品观察的写作、采用与素材归档 | [栏目规范](docs/rules/ai-product-observation.md) + [AI产品科普Skill](.agents/skills/ai-product-explainer/SKILL.md)，同时遵守全仓安全规范；不套用AE题库与课程模板 |
+| 面试题、面试内容生产、题库与公众号草稿 | [面试内容规范](docs/rules/interview-content-contract.md) + [合集方案](docs/designs/interview-handbook.md) + [文章模板](docs/templates/interview-article.md) + [研究模板](docs/templates/interview-research.md) + [审核模板](docs/templates/interview-review.md)，同时遵守全仓安全规范 |
+| 面试栏目公众号渠道稿、草稿续接与验收 | [公众号规则](docs/rules/interview-wechat.md) + [渠道稿模板](docs/templates/interview-wechat-article.md)；以设计者问题和同案例递进组织技术讲解，核心判断同字号青绿加粗无底色，图注序号加短标题；最新公众号稿保存回读后再归档，不套用旧候选 |
 | 绘制或迁移图示 | [图示规范](docs/rules/diagram-contract.md)，课程图保留现有重建契约 |
 | 所有任务：数据保护与安全 | [security.md](docs/rules/security.md) |
 | 编写、修改、合并或迁移课程章节 | [章节规范](docs/rules/book-chapter-contract.md) + [章节模板](docs/templates/book-chapter.md) |
@@ -100,7 +103,7 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 - 治理篇共同覆盖可观测性、安全、能力资产管理、行为验证与质量评估、资源与成本。第34章维护篇导读与资产变更证据，第35章区分Testing/Simulation/Evaluation/Acceptance，第36章负责安全专题；不得用安全或沙箱代替治理的整体范围。
 - 六层职责（Product/Interface、Control Plane、Harness、Agent Runtime、Execution Environment、Data/Resource）用于架构分析，Observability/Eval/Security横切各层，不替代三大篇导航或要求拆成六个服务。读者分阶段路线在第22章维护，24周安排与建设优先级在总体方案维护；合章分次阅读不削减原主题覆盖，规划能力不写成已实现。
 - Agent章节以最小决策闭环定位机制，解释其输入、状态、动作或控制权变化；按[总体方案](docs/designs/project-plan.md)与[章节规范](docs/rules/book-chapter-contract.md)区分机制正确、任务有效和复杂度收益。四个审查问题不固定为标题，Provider字段或具体调度/通信接口不作为通用架构定义。
-- `content/interview/<大章节>/ae-ID-主题.md` 是面试正文唯一真源；同一篇文章不复制到 book。题库与状态在 `content/interview/`，生产工具与测试统一在根目录 scripts/tests。interview 保存总导航、questions.json、state.json与章节正文；十大章节预建，空目录用零字节 .gitkeep 保留，不放章节 README、局部规则或过程材料。研究、逐篇审核及 interview 的本地预览、图工具运行回执、平台标识与备份保存在仓库外私有工作目录，公开目录不依赖这些材料。
+- `content/wecaht/ai-daily-question/<大章节>/ae-ID-主题.md` 是面试正文唯一真源；同一篇文章不复制到 book。题库与状态在 `content/wecaht/ai-daily-question/`，生产工具与测试统一在根目录 scripts/tests。AI每日一题目录保存总导航、questions.json、state.json与章节正文；十大章节预建，空目录用零字节 .gitkeep 保留，不放章节 README、局部规则或过程材料。研究、逐篇审核及 interview 的本地预览、图工具运行回执、平台标识与备份保存在仓库外私有工作目录，公开目录不依赖这些材料。
 - docs 只存设计、规则与模板，不放测试代码或夹具，不重建已移除的 guides、records、testing 或学习记录目录。非原创内容保留来源、revision、许可证、行为契约和偏差。
 
 <a id="spec-workflow"></a>
@@ -142,8 +145,14 @@ GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off go -C labs test ./part1-golang/chapter
 
 ## 独立面试站点
 
-面试网页以content/interview为正文真源，website.json显式管理可见题目，不改变编辑/公众号发布状态。独立配置astro.interview.config.mjs读取src/interview-site，缓存.astro-interview、中间副本.generated/interview、输出dist-interview；与课程src/pages、.generated/chapters、dist隔离。复用依赖和公共静态资源，不另建人工正文或Node工程。npm run check:interview验证面试站点，dev:interview/preview:interview分别使用4322/4323，沿用受监督前台进程与失败保留上次有效内容。make validate-site执行npm run check:sites，检查两个站点并组装.pages-dist；Pages只部署合并包，既有课程地址不变，面试位于/the-way-to-ai-engineer/interview/。公开页面不得包含私有研究、审核、回执或凭据；自动检查不等于远端发布验收。
+面试网页以content/wecaht/ai-daily-question为正文真源，website.json显式管理可见题目，不改变编辑/公众号发布状态。独立配置astro.interview.config.mjs读取src/interview-site，缓存.astro-interview、中间副本.generated/interview、输出dist-interview；与课程src/pages、.generated/chapters、dist隔离。复用依赖和公共静态资源，不另建人工正文或Node工程。npm run check:interview验证面试站点，dev:interview/preview:interview分别使用4322/4323，沿用受监督前台进程与失败保留上次有效内容。make validate-site执行npm run check:sites，检查两个站点并组装.pages-dist；Pages只部署合并包，既有课程地址不变，面试位于/the-way-to-ai-engineer/interview/。公开页面不得包含私有研究、审核、回执或凭据；自动检查不等于远端发布验收。
+
+## 技术文章写作 Skill
+
+本项目课程章节及公众号技术稿的提纲、起草、重构与内容审查可使用 [technical-article-writer](.agents/skills/technical-article-writer/SKILL.md)。共享协作改稿、内容结构、机制说明、图文规划、关键结论与读者检验；共性方法沉淀在此，课程和公众号分别读取渠道规范。AI产品科普Skill以单向依赖复用本Skill，产品体验叙事不套用课程技术目录；产品读者稿隐藏引用样式，事实与素材依据另存。纯排版消费冻结正文，封面任务只使用视觉模块，不触发技术重写。
+
+写作时读取共用Skill的[作者偏好](.agents/skills/technical-article-writer/references/author-style.md)；采用稿件、新增认可资料、持续偏好与经验整理按[写作学习](.agents/skills/technical-article-writer/references/style-learning.md)及[验证回退](.agents/skills/technical-article-writer/references/style-evaluation.md)执行。原文、完整反馈、编译回执在仓库外；公共规则和默认检查不依赖私有工作区。渠道约束继续生效，不把AI协作稿所有特征当作者习惯，不把外部样文经历写成亲历。流程由当前任务触发，不是后台服务；不自动提交、部署或发布。
 
 ## 公众号内容制作 Skill
 
-本项目公众号候选制作、试排、采用与授权草稿保存可使用 [agent-wechat-artifact-writer](.agents/skills/agent-wechat-artifact-writer/SKILL.md)。入口只编排流程；事实、质量与状态仍以题库和面试内容规范为准。社区依赖按需读取，本地候选与平台回执继续存仓库外。
+本项目面试栏目公众号候选制作、试排、采用与授权草稿保存可使用 [agent-wechat-artifact-writer](.agents/skills/agent-wechat-artifact-writer/SKILL.md)。入口只编排流程；事实、质量与状态仍以题库和面试内容规范为准。社区依赖按需读取，本地候选与平台回执继续存仓库外。

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
 
 export const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-export const interviewRoot = path.join(repositoryRoot,'content/interview');
+export const interviewRoot = path.join(repositoryRoot,'content/wecaht/ai-daily-question');
 export function workspaceRoot(env = process.env) {
   const root = path.resolve(env.INTERVIEW_WORKSPACE || path.join(os.homedir(), '.local', 'share', 'the-way-to-ai-engineer', 'interview'));
   // Resolve existing ancestors so a symlink cannot redirect private output into the checkout.

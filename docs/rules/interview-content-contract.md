@@ -1,10 +1,10 @@
 # 面试内容与编辑规范
 
-适用于interview正文及interview数据，不强套课程章节模板。整体范围见[面试方案](../designs/interview-handbook.md)，图示见[图示规范](diagram-contract.md)，全仓安全见[安全规范](security.md)。
+适用于公众号“AI 每日一题”合集的正文与数据，唯一目录为 `content/wecaht/ai-daily-question/`，不强套课程章节模板。整体范围见[面试方案](../designs/interview-handbook.md)，图示见[图示规范](diagram-contract.md)，全仓安全见[安全规范](security.md)。
 
 ## 正文与文件
 
-interview保存README总导航、questions.json题库、state.json状态与大章节下的单题Markdown。十大章节目录预先建立，空目录允许零字节.gitkeep，不放章节README、过程记录、模板或工具。每题用永久AE-ID与主题命名，questions.json记录路径、focus、难度、前置、验收及课程/Lab关联。P-来源编号、当前展示顺序与AE-ID分开；公众号制作按order，前置依赖只指导资料准备，不维护发布日历，封存ID不复用。题库是主题定义真源；README由render生成。新稿先写私有候选，保存核验后归档正式正文，不用空文件补题数。
+合集目录保存README总导航、questions.json题库、state.json状态与大章节下的单题Markdown。十大章节目录预先建立，空目录允许零字节.gitkeep，不放章节README、过程记录、模板或工具。每题用永久AE-ID与主题命名，questions.json记录路径、focus、难度、前置、验收及课程/Lab关联。P-来源编号、当前展示顺序与AE-ID分开；公众号制作按order，前置依赖只指导资料准备，不维护发布日历，封存ID不复用。题库是主题定义真源；README由render生成。新稿先写私有候选，保存核验后归档正式正文，不用空文件补题数。
 
 共同正文须覆盖直接回答、机制、条件/取舍、失败情形与来源，以知识科普为主，面试贴合为辅。新稿公众号与网站使用同一正文，不额外生成面试版或追加独立复习栏目；已有首篇及历史渠道差异原样保护。保留已确认第一题的白底、自然段落和少量强调，避免密集卡片、模拟经历与固定“加分答案”。代码标明完整程序、摘录或伪代码；不宣称未运行的实验。深入机制引用book，运行命令与实现链接已有labs；不复制另一份正文或实现，不依赖私有Lab代码。
 

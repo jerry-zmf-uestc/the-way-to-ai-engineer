@@ -4,7 +4,7 @@
 
 本书默认读者已经熟悉 Web 前端与基础工程协作，希望把已有的 TypeScript/React 经验迁移到 Go 后端、Agent Runtime、RAG 和运行治理。第一次使用本书，先读[学习方法与运行约定](introduction.md)，再完成[环境准备](part1-golang/chapter01.md)。
 
-如果你想先看一条“浏览器页面 → Go 服务 → Agent 执行 → 证据与终态”的完整链路，先体验[Agent 架构与模型接口](part3-agent/building/chapter22-architecture.md#topic-harness-intro)和[第33章：服务接入与流式交互](part3-agent/runtime/chapter33-serving.md#topic-ch32-streaming-service)，再回到第 1 章补齐 Go 基础。
+如果你想先看一条“浏览器页面 → Go 服务 → Agent 执行 → 证据与终态”的完整链路，先读[Agent 架构基本要素与最佳实践](part3-agent/building/chapter22-architecture.md#topic-harness-intro)，再体验[第33章：服务接入与流式交互](part3-agent/runtime/chapter33-serving.md#topic-ch32-streaming-service)，再回到第 1 章补齐 Go 基础。
 
 ## Go 基础
 
@@ -43,7 +43,7 @@
 
 六层职责采用Product/Interface、Control Plane、Harness、Agent Runtime、Execution Environment、Data/Resource，Observability/Eval/Security横切各层；三大篇继续作为目录分组。完整分阶段入口见[八阶段实践路线](part3-agent/building/chapter22-architecture.md#从部件理解到完整实践)，下面只给首次阅读顺序，回读时补齐各章进阶主题。
 
-1. **先建立闭环**：[22架构/模型契约](part3-agent/building/chapter22-architecture.md#six-layer-architecture) → [23本地工具](part3-agent/building/chapter23-actions.md#topic-agent-tool) → [24基础Loop](part3-agent/building/chapter24-decision-loop.md) → [26会话/输入](part3-agent/building/chapter26-context.md)。
+1. **先建立闭环**：[22架构总览](part3-agent/building/chapter22-architecture.md#six-layer-architecture) → [23本地工具](part3-agent/building/chapter23-actions.md#topic-agent-tool) → [24基础Loop](part3-agent/building/chapter24-decision-loop.md) → [26会话/输入](part3-agent/building/chapter26-context.md)。
 2. **尽早检查运行**：[29预算/取消](part3-agent/runtime/chapter29-execution.md#topic-agent-runtime) → [35 Case/Runner](part3-agent/governance/chapter35-evaluation.md#topic-agent-eval) → [34事件关联](part3-agent/governance/chapter34-observability.md)。
 3. **再增加能力**：[22控制面](part3-agent/building/chapter22-architecture.md#control-plane-lifecycle)、[30 Workspace](part3-agent/runtime/chapter30-state.md#topic-agent-workspace)、[36执行环境](part3-agent/governance/chapter36-security.md#execution-environment-lifecycle) → [23 MCP](part3-agent/building/chapter23-actions.md#topic-agent-mcp)／[28 Skills](part3-agent/building/chapter28-skills.md) → [30 Memory](part3-agent/runtime/chapter30-state.md#topic-agent-memory)／[27 RAG](part3-agent/building/chapter27-rag.md)。
 4. **深化决策与产品化**：[25规划](part3-agent/building/chapter25-planning.md)、[29持久恢复](part3-agent/runtime/chapter29-execution.md#topic-agent-checkpoint)、[23持久审批](part3-agent/building/chapter23-actions.md#topic-agent-hitl) → [31协作](part3-agent/runtime/chapter31-collaboration.md) → [32异步](part3-agent/runtime/chapter32-async-tasks.md) → [33服务](part3-agent/runtime/chapter33-serving.md) → [34–37治理深化](part3-agent/governance/chapter34-observability.md)。
@@ -52,7 +52,7 @@ Tool/MCP/审批、检索/证据、委派/调度等合章允许分次阅读。最
 
 ### 构建篇
 
-- [第22章：Agent 架构与模型接口](part3-agent/building/chapter22-architecture.md)：建立六层职责、控制面配置与Harness组装，再理解模型接口和任务验收。
+- [第22章：Agent 架构基本要素与最佳实践](part3-agent/building/chapter22-architecture.md)：建立基本构件、六层职责与任务链路的整体概念，理解运行治理边界及最佳实践。
 - [第23章：工具接入与受控行动](part3-agent/building/chapter23-actions.md)：将工具与MCP能力接入同一行动链，校验身份、参数、审批和观察。
 - [第24章：Agent 决策循环与 ReAct](part3-agent/building/chapter24-decision-loop.md)：用动作与观察推进多轮决策，限制重复行动并比较ReAct与简单流程。
 - [第25章：任务规划与反馈修订](part3-agent/building/chapter25-planning.md)：拆解可验证步骤，根据反馈修订计划，判断反思与搜索的适用条件。

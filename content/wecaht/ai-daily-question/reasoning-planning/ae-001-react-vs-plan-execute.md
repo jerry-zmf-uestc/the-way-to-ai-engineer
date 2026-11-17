@@ -20,7 +20,7 @@ ReAct 中的 Re 和 Act 分别对应 Reasoning 与 Acting。原论文讨论了�
 
 这里的重点是：后续动作取决于已经获得的信息。下图把这种关系画成反馈循环；它是控制流程示意，不是某次模型的运行记录。
 
-![ReAct：观察结果返回决策环节](../../../public/diagrams/interview/ae-001/react.png)
+![ReAct：观察结果返回决策环节](../../../../public/diagrams/interview/ae-001/react.png)
 
 工程实现还要把两件事分开：模型提出动作，程序负责检查并执行。模型说“继续搜索”，不代表工具就必须无限执行；模型说“完成了”，也不代表报告满足了要求。
 
@@ -28,7 +28,7 @@ ReAct 中的 Re 和 Act 分别对应 Reasoning 与 Acting。原论文讨论了�
 
 同一个报告任务，可以先制定四步计划：读取资料、抽取事实、比较差异、校验报告。Planner 负责组织步骤，Executor 负责完成当前步骤，再根据结果决定继续、调整或结束。[3]
 
-![Plan-and-Execute：执行结果可触发重规划](../../../public/diagrams/interview/ae-001/plan-execute.png)
+![Plan-and-Execute：执行结果可触发重规划](../../../../public/diagrams/interview/ae-001/plan-execute.png)
 
 计划最好不只写“分析产品”。可以写成：“抽取 A/B/C 的三个维度，每项附资料位置，缺失内容标为未知。”这样，执行器才有明确的交付物，检查器也知道该检查什么。这是本文对案例的工程设计建议。
 

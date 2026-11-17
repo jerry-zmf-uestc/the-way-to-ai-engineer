@@ -466,10 +466,10 @@
   },
   "harness-intro": {
     "path": "content/book/part3-agent/building/chapter22-architecture.md",
-    "title": "Agent 架构与模型接口",
+    "title": "Agent 架构基本要素与最佳实践",
     "part": "Part 3 · Golang Agent",
     "order": 44,
-    "description": "建立六层职责、控制面配置与Harness组装，再理解模型接口和任务验收。",
+    "description": "从基本构件、六层职责与任务链路理解Agent系统，掌握运行治理边界及架构最佳实践。",
     "published": true,
     "prerequisites": [],
     "labs": [
@@ -479,11 +479,12 @@
       "labs/part3-agent/chapter22/inference-mechanisms"
     ],
     "capabilities": [
-      "Harness",
-      "职责边界",
-      "Provider",
-      "结构化输出",
-      "token/cost"
+      "Agent架构",
+      "六层职责",
+      "任务闭环",
+      "状态与资源",
+      "治理闭环",
+      "架构取舍"
     ],
     "navigationPath": [
       "构建篇"

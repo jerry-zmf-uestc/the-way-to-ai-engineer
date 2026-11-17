@@ -10,6 +10,10 @@
     "planning-revision.svg",
     "react-feedback.svg"
   ],
+  "architecture-governance.py": [
+    "agent-six-layer-boundaries.svg",
+    "governance-evidence-decisions.svg"
+  ],
   "async-tasks.py": [
     "async-task-sequence.svg",
     "async-task-state.svg"
@@ -83,6 +87,10 @@
   "serving.py": [
     "serving-boundary.svg",
     "serving-shutdown.svg"
+  ],
+  "skills-memory-walkthrough.py": [
+    "skills-diagnosis-walkthrough.svg",
+    "memory-preference-walkthrough.svg"
   ],
   "sql-lease-row-wait.py": [
     "sql-lease-row-wait.svg"
