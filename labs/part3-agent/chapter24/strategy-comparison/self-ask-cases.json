@@ -1,0 +1,97 @@
+{
+  "version": "followup-development-v1",
+  "split": "development",
+  "cases": [
+    {
+      "id": "team-timeout",
+      "question": "What is the timeout of the service operated by team Orion?",
+      "seed": "orion-directory",
+      "corpus": {
+        "orion-directory": {
+          "id": "orion-directory",
+          "text": "Team Orion operates service Quartz. Configuration is in quartz-config.",
+          "references": [
+            "quartz-config"
+          ]
+        },
+        "quartz-config": {
+          "id": "quartz-config",
+          "text": "Quartz request timeout is 31 seconds.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "31"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "team-retry",
+      "question": "How many retry attempts are allowed for the service managed by team Vega?",
+      "seed": "vega-directory",
+      "corpus": {
+        "vega-directory": {
+          "id": "vega-directory",
+          "text": "Team Vega manages service Cedar. Its policy is in cedar-policy.",
+          "references": [
+            "cedar-policy"
+          ]
+        },
+        "cedar-policy": {
+          "id": "cedar-policy",
+          "text": "Cedar allows 4 retry attempts.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "4"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "compare",
+      "question": "Which team has the lower service timeout, Alpha or Beta? State both timeout values.",
+      "seed": "teams-directory",
+      "corpus": {
+        "teams-directory": {
+          "id": "teams-directory",
+          "text": "Alpha uses service Amber; Beta uses service Azure. Their configuration references follow.",
+          "references": [
+            "amber-config",
+            "azure-config"
+          ]
+        },
+        "amber-config": {
+          "id": "amber-config",
+          "text": "Alpha service Amber timeout is 17 seconds.",
+          "references": []
+        },
+        "azure-config": {
+          "id": "azure-config",
+          "text": "Beta service Azure timeout is 29 seconds.",
+          "references": []
+        }
+      },
+      "required_terms": [
+        "Alpha",
+        "17",
+        "29"
+      ],
+      "expected_refuse": false
+    },
+    {
+      "id": "missing",
+      "question": "What is the timeout of the service operated by team Nova?",
+      "seed": "nova-directory",
+      "corpus": {
+        "nova-directory": {
+          "id": "nova-directory",
+          "text": "Nova service timeout is not documented. There are no further references.",
+          "references": []
+        }
+      },
+      "required_terms": [],
+      "expected_refuse": true
+    }
+  ]
+}

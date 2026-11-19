@@ -1,0 +1,248 @@
+{
+  "Version": "holdout-v4",
+  "Cases": [
+    {
+      "Input": {
+        "ID": "new-q1",
+        "Root": "p0",
+        "Version": "s9",
+        "Required": [
+          "quota",
+          "latency"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "quota": "12",
+          "latency": "31"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "new-q2",
+        "Root": "t0",
+        "Version": "s9",
+        "Required": [
+          "ttl"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "ttl": "270"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "new-q3",
+        "Root": "x0",
+        "Version": "s9",
+        "Required": [
+          "left",
+          "right"
+        ]
+      },
+      "Labels": {
+        "Values": {},
+        "Refuse": true
+      }
+    },
+    {
+      "Input": {
+        "ID": "new-q4",
+        "Root": "v0",
+        "Version": "s9",
+        "Required": [
+          "limit"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "limit": "14"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "new-q5",
+        "Root": "m0",
+        "Version": "s9",
+        "Required": [
+          "window"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "window": "67"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "new-q6",
+        "Root": "n0",
+        "Version": "s9",
+        "Required": [
+          "cap"
+        ]
+      },
+      "Labels": {
+        "Values": {},
+        "Refuse": true
+      }
+    }
+  ],
+  "Corpus": {
+    "p0": {
+      "ID": "p0",
+      "Version": "s9",
+      "Values": {
+        "quota": "12"
+      },
+      "Links": {
+        "latency": [
+          "p1"
+        ]
+      }
+    },
+    "p1": {
+      "ID": "p1",
+      "Version": "s9",
+      "Values": {
+        "latency": "31"
+      },
+      "Links": {}
+    },
+    "t0": {
+      "ID": "t0",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "t1"
+        ]
+      }
+    },
+    "t1": {
+      "ID": "t1",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "t2"
+        ]
+      }
+    },
+    "t2": {
+      "ID": "t2",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "t3"
+        ]
+      }
+    },
+    "t3": {
+      "ID": "t3",
+      "Version": "s9",
+      "Values": {
+        "ttl": "270"
+      },
+      "Links": {}
+    },
+    "x0": {
+      "ID": "x0",
+      "Version": "s9",
+      "Values": {
+        "left": "5"
+      },
+      "Links": {
+        "right": [
+          "x1"
+        ]
+      }
+    },
+    "x1": {
+      "ID": "x1",
+      "Version": "s9",
+      "Values": {
+        "left": "6",
+        "right": "7"
+      },
+      "Links": {}
+    },
+    "v0": {
+      "ID": "v0",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "limit": [
+          "v1",
+          "v2"
+        ]
+      }
+    },
+    "v1": {
+      "ID": "v1",
+      "Version": "s8",
+      "Values": {
+        "limit": "2"
+      },
+      "Links": {}
+    },
+    "v2": {
+      "ID": "v2",
+      "Version": "s9",
+      "Values": {
+        "limit": "14"
+      },
+      "Links": {}
+    },
+    "m0": {
+      "ID": "m0",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "window": [
+          "m-absent",
+          "m1"
+        ]
+      }
+    },
+    "m1": {
+      "ID": "m1",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "window": [
+          "m2"
+        ]
+      }
+    },
+    "m2": {
+      "ID": "m2",
+      "Version": "s9",
+      "Values": {
+        "window": "67"
+      },
+      "Links": {}
+    },
+    "n0": {
+      "ID": "n0",
+      "Version": "s9",
+      "Values": {},
+      "Links": {
+        "cap": [
+          "n-absent-1",
+          "n-absent-2"
+        ]
+      }
+    }
+  }
+}

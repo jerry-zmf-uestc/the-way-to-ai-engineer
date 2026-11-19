@@ -1,0 +1,14 @@
+---
+course:
+  part: 3
+  chapter: 28
+topic_slug: neural-retrieval
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: EMBEDDING_E2E=1
+references: []

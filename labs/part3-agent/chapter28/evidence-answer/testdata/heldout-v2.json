@@ -1,0 +1,11 @@
+{
+ "version":"rag-heldout-v2",
+ "cases":[
+  {"id":"deadline","question":"What is the upload deadline?","evidence":[{"ID":"deadline","Source":"manual","Version":"r3","Tenant":"demo","Text":"The upload deadline is 13 seconds."}],"expected_quote":"The upload deadline is 13 seconds.","should_abstain":false},
+  {"id":"quota","question":"How many files can a batch contain?","evidence":[{"ID":"quota","Source":"manual","Version":"r3","Tenant":"demo","Text":"A batch may contain at most 5 files."}],"expected_quote":"A batch may contain at most 5 files.","should_abstain":false},
+  {"id":"revoked","question":"May a revoked capability still be executed?","evidence":[{"ID":"revoked","Source":"manual","Version":"r3","Tenant":"demo","Text":"A revoked capability must not be executed."}],"expected_quote":"A revoked capability must not be executed.","should_abstain":false},
+  {"id":"release","question":"How many worker slots are allowed in release 3?","evidence":[{"ID":"slots","Source":"manual","Version":"r3","Tenant":"demo","Text":"Release 3 permits 7 worker slots. Release 2 permitted 4 worker slots."}],"expected_quote":"Release 3 permits 7 worker slots.","should_abstain":false},
+  {"id":"unknown","question":"What is the hotel room price?","evidence":[{"ID":"deadline","Source":"manual","Version":"r3","Tenant":"demo","Text":"The upload deadline is 13 seconds."}],"expected_quote":"","should_abstain":true},
+  {"id":"empty","question":"Which cloud region is configured?","evidence":[],"expected_quote":"","should_abstain":true}
+ ]
+}

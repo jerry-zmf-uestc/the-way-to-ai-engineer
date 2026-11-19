@@ -1,0 +1,19 @@
+---
+course:
+  part: 1
+  chapter: 6
+topic_slug: structs-methods-interfaces
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/structs
+- https://gobyexample.com/methods
+- https://gobyexample.com/interfaces

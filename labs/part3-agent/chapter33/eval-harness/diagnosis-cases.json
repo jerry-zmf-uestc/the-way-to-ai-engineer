@@ -1,0 +1,292 @@
+{
+  "version": "runtime-diagnosis-development-v1",
+  "family": "runtime-diagnosis",
+  "kind": "model-input",
+  "split": "development",
+  "provenance": "原创合成场景；不是实际Trace归档，也未完成真人评分校准。",
+  "cases": [
+    {
+      "id": "d01",
+      "split": "development",
+      "scenario": "admission",
+      "question": "为什么任务b没有开始？给出下一步，不承诺已入队。",
+      "events": [
+        {
+          "id": "e1",
+          "text": "ready_queue_limit=1; task a is queued."
+        },
+        {
+          "id": "e2",
+          "text": "task b admission returned ErrQueue; its handler calls=0."
+        }
+      ],
+      "allowed_actions": [
+        "wait_or_reduce_batch",
+        "raise_model_steps",
+        "report_success"
+      ],
+      "expected": {
+        "cause": "queue_capacity",
+        "action": "wait_or_reduce_batch",
+        "refs": [
+          "e1",
+          "e2"
+        ]
+      },
+      "source": {
+        "path": "book/part3-agent/chapter38-dag.md",
+        "contract": "接纳容量与模型轮次不同，未接纳任务不能当作已经执行。"
+      }
+    },
+    {
+      "id": "d02",
+      "split": "development",
+      "scenario": "ownership",
+      "question": "为什么这次角色执行被拒绝？怎样安全地继续判断？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Current task owner=retry-reader, revision=4."
+        },
+        {
+          "id": "e2",
+          "text": "Request from=timeout-reader, revision=3; response=ErrHandoff; tool calls=0."
+        }
+      ],
+      "allowed_actions": [
+        "refresh_state",
+        "retry_same_request",
+        "create_new_task"
+      ],
+      "expected": {
+        "cause": "stale_owner_revision",
+        "action": "refresh_state",
+        "refs": [
+          "e1",
+          "e2"
+        ]
+      },
+      "source": {
+        "path": "labs/part3-agent/chapter31/delegation/handoff.go",
+        "contract": "执行前核对当前Owner与Revision；冲突不表示可以自动覆盖。"
+      }
+    },
+    {
+      "id": "d03",
+      "split": "development",
+      "scenario": "observation",
+      "question": "工具已返回，但下一轮仍说没有资料。优先检查哪里？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Assistant proposed tool call id=c1."
+        },
+        {
+          "id": "e2",
+          "text": "Executor returned a valid result for c1."
+        },
+        {
+          "id": "e3",
+          "text": "Next model history contains user and assistant messages, but no tool observation for c1."
+        }
+      ],
+      "allowed_actions": [
+        "inspect_observation_binding",
+        "increase_retrieval_count",
+        "declare_tool_failed"
+      ],
+      "expected": {
+        "cause": "missing_tool_observation",
+        "action": "inspect_observation_binding",
+        "refs": [
+          "e1",
+          "e2",
+          "e3"
+        ]
+      },
+      "source": {
+        "path": "book/part3-agent/chapter25-agent-loop.md",
+        "contract": "工具返回、关联回填和下一轮模型输入分别检查。"
+      }
+    },
+    {
+      "id": "d04",
+      "split": "development",
+      "scenario": "parent-goal",
+      "question": "子任务completed，为什么不能放进当前报告？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Child binding parent_goal_revision=1; task revision=1; result=completed."
+        },
+        {
+          "id": "e2",
+          "text": "Current parent goal revision=2; scope and parent ID unchanged."
+        }
+      ],
+      "allowed_actions": [
+        "reject_old_goal_result",
+        "accept_any_completed",
+        "reset_parent_revision"
+      ],
+      "expected": {
+        "cause": "parent_goal_changed",
+        "action": "reject_old_goal_result",
+        "refs": [
+          "e1",
+          "e2"
+        ]
+      },
+      "source": {
+        "path": "labs/part3-agent/chapter31/async-tasks/parent.go",
+        "contract": "相同父ID和Scope不代替目标版本，完成结果仍要准入。"
+      }
+    },
+    {
+      "id": "d05",
+      "split": "development",
+      "scenario": "commit-window",
+      "question": "是否可以直接重新读取工具并宣称原角色已经完成？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Store phase=executing; stable role turns=0; RoleResults is empty."
+        },
+        {
+          "id": "e2",
+          "text": "Attempt 1 outcome=returned; bounded raw Fact saved; Used=1."
+        },
+        {
+          "id": "e3",
+          "text": "Original process has terminated."
+        }
+      ],
+      "allowed_actions": [
+        "inspect_commit_and_authority",
+        "reread_with_fresh_budget",
+        "report_role_completed"
+      ],
+      "expected": {
+        "cause": "tool_return_without_role_commit",
+        "action": "inspect_commit_and_authority",
+        "refs": [
+          "e1",
+          "e2"
+        ]
+      },
+      "source": {
+        "path": "labs/part3-agent/chapter31/delegation/file_store.go",
+        "contract": "保存工具返回不证明角色提交；核查记录与权限，不重置消耗。"
+      }
+    },
+    {
+      "id": "d06",
+      "split": "development",
+      "scenario": "revocation",
+      "question": "索引命中了资料，当前回答是否可以引用它？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Retriever returned document d with index_version=1."
+        },
+        {
+          "id": "e2",
+          "text": "Current authority marks document d revoked; final delivery check denied access."
+        }
+      ],
+      "allowed_actions": [
+        "withhold_revoked_evidence",
+        "cite_cached_document",
+        "rewrite_permission_flag"
+      ],
+      "expected": {
+        "cause": "evidence_revoked",
+        "action": "withhold_revoked_evidence",
+        "refs": [
+          "e1",
+          "e2"
+        ]
+      },
+      "source": {
+        "path": "book/part3-agent/chapter31-rag.md",
+        "contract": "缓存/检索候选不代替当前授权，撤销后不因命中继续交付。"
+      }
+    },
+    {
+      "id": "d07",
+      "split": "development",
+      "scenario": "conflict",
+      "question": "能否把两位角色的结果投票为一个超时值？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Role a reports production timeout=30 seconds, source v1."
+        },
+        {
+          "id": "e2",
+          "text": "Role b reports production timeout=60 seconds, source v2."
+        },
+        {
+          "id": "e3",
+          "text": "Both sources are in allowed scope; which version is current is not established."
+        }
+      ],
+      "allowed_actions": [
+        "resolve_version_or_clarify",
+        "majority_vote",
+        "choose_last_arrival"
+      ],
+      "expected": {
+        "cause": "unresolved_source_version",
+        "action": "resolve_version_or_clarify",
+        "refs": [
+          "e1",
+          "e2",
+          "e3"
+        ]
+      },
+      "source": {
+        "path": "book/part3-agent/chapter37-delegation.md",
+        "contract": "同范围冲突需要版本与新证据，来源获准不证明当前有效。"
+      }
+    },
+    {
+      "id": "d08",
+      "split": "development",
+      "scenario": "cancellation",
+      "question": "用户已经取消，为什么名额仍未释放？现在能接纳新任务吗？",
+      "events": [
+        {
+          "id": "e1",
+          "text": "Manager active_limit=1; task a state=canceling."
+        },
+        {
+          "id": "e2",
+          "text": "Worker a received cancellation but has not exited."
+        },
+        {
+          "id": "e3",
+          "text": "New task b returned ErrCapacity."
+        }
+      ],
+      "allowed_actions": [
+        "wait_for_exit_and_fix_downstream",
+        "release_slot_immediately",
+        "increase_token_budget"
+      ],
+      "expected": {
+        "cause": "worker_not_drained",
+        "action": "wait_for_exit_and_fix_downstream",
+        "refs": [
+          "e1",
+          "e2",
+          "e3"
+        ]
+      },
+      "source": {
+        "path": "book/part3-agent/chapter39-async-tasks.md",
+        "contract": "取消请求与退出分开，收齐前不释放名额。"
+      }
+    }
+  ]
+}

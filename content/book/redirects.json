@@ -1,0 +1,42 @@
+{
+  "ch22-llm-api": {
+    "pageId": "harness-intro",
+    "anchor": "topic-ch22-llm-api"
+  },
+  "agent-mcp": {
+    "pageId": "agent-tool",
+    "anchor": "topic-agent-mcp"
+  },
+  "agent-hitl": {
+    "pageId": "agent-tool",
+    "anchor": "topic-agent-hitl"
+  },
+  "agent-react": {
+    "pageId": "ch23-tool-calling",
+    "anchor": "topic-agent-react"
+  },
+  "agent-session": {
+    "pageId": "agent-context",
+    "anchor": "topic-agent-session"
+  },
+  "ch28-vector-retrieval": {
+    "pageId": "ch28-rag-app",
+    "anchor": "topic-ch28-vector-retrieval"
+  },
+  "agent-checkpoint": {
+    "pageId": "agent-runtime",
+    "anchor": "topic-agent-checkpoint"
+  },
+  "agent-workspace": {
+    "pageId": "agent-memory",
+    "anchor": "topic-agent-workspace"
+  },
+  "agent-dag": {
+    "pageId": "agent-delegation",
+    "anchor": "topic-agent-dag"
+  },
+  "ch32-streaming-service": {
+    "pageId": "agent-serving",
+    "anchor": "topic-ch32-streaming-service"
+  }
+}

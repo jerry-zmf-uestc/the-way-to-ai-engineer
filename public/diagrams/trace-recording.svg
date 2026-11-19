@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="680" viewBox="0 0 1000 680" role="img" aria-labelledby="title desc"><title id="title">Trace与Replay：事件和响应档案分别记录</title><desc id="desc">同一调用分别投影诊断事件和私有响应档案。Replay只消费校验后的响应档案，按类型、名字、输入指纹和顺序匹配，不调用实时工具。</desc><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1000" height="680" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Trace与Replay：事件和响应档案分别记录</text>
+<text x="30" y="74" font-size="16">箭头表示记录内容与消费关系，不表示跨进程观测平台的完整实现。</text>
+<rect x="250" y="110" width="500" height="90" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="268" y="141" font-size="18">调用边界：Run / Step / Call</text>
+<text x="268" y="168" font-size="16">开始、实际返回与稳定错误；计数口径明确</text>
+<rect x="40" y="290" width="430" height="90" rx="10" fill="#fff" stroke="#64748b"/>
+<text x="58" y="321" font-size="18">诊断Event：关联、序号与指纹</text>
+<text x="58" y="348" font-size="16">不记录原prompt、响应或内部错误文本</text>
+<rect x="530" y="290" width="430" height="90" rx="10" fill="#fef3c7" stroke="#64748b"/>
+<text x="548" y="321" font-size="18">私有Archive：请求指纹与录制响应</text>
+<text x="548" y="348" font-size="16">错误保留类别；失败响应置空</text>
+<path d="M370 200V240H255V290" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<path d="M630 200V240H745V290" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<rect x="40" y="450" width="430" height="90" rx="10" fill="#fff" stroke="#64748b"/>
+<text x="58" y="481" font-size="18">定位调用与执行路径</text>
+<text x="58" y="508" font-size="16">指纹不是匿名化；事件也需要隐私判断</text>
+<rect x="530" y="450" width="430" height="90" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="548" y="481" font-size="18">Load校验 → Replay逐项匹配</text>
+<text x="548" y="508" font-size="16">Kind / Name / InputHash / 顺序</text>
+<text x="548" y="535" font-size="16">返回录制值或错误，不执行live</text>
+<path d="M255 380V450" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<path d="M745 380V450" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="30" y="590" font-size="16">本Lab为串行内存录制；载荷授权、加密与保留策略须另行实现。</text>
+<text x="30" y="621" font-size="16">缺记录、错请求或顺序不匹配均失败；不访问真实服务补齐。</text>
+<text x="30" y="652" font-size="16">Replay不是Checkpoint恢复；生产Span传播、采集与可靠审计另有契约。</text>
+</g></svg>

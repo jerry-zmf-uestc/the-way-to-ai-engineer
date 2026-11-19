@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 17
+topic_slug: kitex-rpc
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://www.cloudwego.io/docs/kitex/getting-started/prerequisite/
+- https://www.cloudwego.io/docs/kitex/getting-started/quick_start/
+- https://www.cloudwego.io/docs/kitex/getting-started/pre-knowledge/

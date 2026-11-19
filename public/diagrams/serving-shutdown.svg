@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">关闭服务：拒绝新工作与真实退出分开</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">关闭服务：拒绝新工作与真实退出分开</text>
+<rect x="30" y="115" width="280" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="145" font-size="17">SIGINT / SIGTERM</text>
+<text x="44" y="172" font-size="17">同一关闭预算</text>
+<rect x="420" y="115" width="300" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="145" font-size="17">readiness = false</text>
+<text x="434" y="172" font-size="17">拒绝新Start / Update</text>
+<path d="M310 155H420" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="332" y="142" font-size="16">开始关闭</text>
+<rect x="70" y="315" width="400" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="84" y="345" font-size="17">取消活跃任务，等待worker退出</text>
+<text x="84" y="372" font-size="17">迟到文本不能提交</text>
+<rect x="630" y="315" width="400" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="644" y="345" font-size="17">HTTP Shutdown</text>
+<text x="644" y="372" font-size="17">停止监听，等待活跃handler</text>
+<path d="M500 205V265H270V315" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="295" y="252" font-size="16">任务边界</text>
+<path d="M640 205V265H830V315" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="770" y="252" font-size="16">连接边界</text>
+<rect x="300" y="500" width="500" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="314" y="530" font-size="17">两者退出才是drained</text>
+<text x="314" y="557" font-size="17">超时返回错误；不能强行抢占Go函数</text>
+<path d="M270 405V455H410V500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="304" y="443" font-size="16">确认</text>
+<path d="M830 405V455H700V500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="751" y="443" font-size="16">确认</text>
+<text x="30" y="628" font-size="17">策略为取消只读任务并收齐；若需完成当前任务，应另行设计自然排空与持久接管。</text>
+</g></svg>

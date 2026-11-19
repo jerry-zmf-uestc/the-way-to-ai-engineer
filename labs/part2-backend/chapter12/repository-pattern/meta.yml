@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 12
+topic_slug: repository-pattern
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://go.dev/doc/database/
+- https://go.dev/doc/database/manage-connections
+- https://pkg.go.dev/context

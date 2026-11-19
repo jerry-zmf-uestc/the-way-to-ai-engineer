@@ -1,0 +1,13 @@
+<button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+  <span aria-hidden="true" class="theme-icon">◐</span>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  button?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+</script>

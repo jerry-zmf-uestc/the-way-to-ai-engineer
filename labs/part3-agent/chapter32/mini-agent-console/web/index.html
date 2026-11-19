@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Agent Console</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.25rem; }
+  #log { border: 1px solid #9995; border-radius: 8px; padding: 1rem; min-height: 12rem; white-space: pre-wrap; }
+  .user { color: #0969da; }
+  .meta { color: #8250df; font-size: 0.85rem; }
+  .err  { color: #cf222e; }
+  .done { color: #1a7f37; font-size: 0.85rem; }
+  form { display: flex; gap: 0.5rem; margin-top: 1rem; }
+  input { flex: 1; padding: 0.5rem; }
+  button { padding: 0.5rem 1rem; }
+  #stop[disabled] { opacity: 0.4; }
+</style>
+</head>
+<body>
+<h1>Mini Agent Console</h1>
+<p>提示：<code>calc 2+3*4</code> 触发 calculator 工具，<code>echo hello</code> 触发 echo 工具，<code>tool rocket launch</code> 触发未知工具拒绝，<code>research context</code> 查询固定资料并附来源，其它输入直接回答。</p>
+<div id="log" aria-live="polite"></div>
+<form id="ask">
+  <input id="q" autocomplete="off" placeholder="输入问题，例如 calc 2+3*4">
+  <button type="submit">发送</button>
+  <button type="button" id="stop" disabled>停止</button>
+</form>
+<script>
+const logEl = document.getElementById('log');
+const form = document.getElementById('ask');
+const input = document.getElementById('q');
+const stopBtn = document.getElementById('stop');
+let source = null;
+
+function append(text, cls) {
+  const span = document.createElement('span');
+  if (cls) span.className = cls;
+  span.textContent = text;
+  logEl.appendChild(span);
+}
+
+function newline() { logEl.appendChild(document.createTextNode('\n')); }
+
+function stopStream() {
+  if (source) { source.close(); source = null; }
+  stopBtn.disabled = true;
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const q = input.value.trim();
+  if (!q) return;
+  stopStream();
+  append('> ' + q + '\n', 'user');
+  const answerLine = document.createElement('span');
+  let answerStarted = false;
+  let runID = null;
+  let lastSeq = 0;
+  let hadError = false;
+
+  const connection = new EventSource('/chat?q=' + encodeURIComponent(q));
+  source = connection;
+  stopBtn.disabled = false;
+
+  function receive(e, apply) {
+    if (source !== connection) return;
+    try {
+      const d = JSON.parse(e.data);
+      if (typeof d.run_id !== 'string' || !d.run_id ||
+          !Number.isSafeInteger(d.seq) || d.seq !== lastSeq + 1 ||
+          (runID !== null && d.run_id !== runID) ||
+          !d.payload || typeof d.payload !== 'object' || Array.isArray(d.payload)) {
+        throw new Error('invalid stream envelope');
+      }
+      // Commit the cursor only after the event-specific payload is accepted.
+      apply(d.payload);
+      runID = d.run_id;
+      lastSeq = d.seq;
+    } catch {
+      append('[invalid stream; completion unknown]\n', 'err');
+      stopStream();
+    }
+  }
+  function stringField(d, key) {
+    if (typeof d[key] !== 'string') throw new Error('invalid payload');
+    return d[key];
+  }
+  connection.addEventListener('token', (e) => receive(e, (d) => {
+    const token = stringField(d, 'token');
+    if (!answerStarted) { logEl.appendChild(answerLine); answerStarted = true; }
+    answerLine.textContent += token;
+  }));
+  connection.addEventListener('tool_call', (e) => receive(e, (d) => {
+    const name = stringField(d, 'name'), args = stringField(d, 'args');
+    newline();
+    append(`[tool_call] ${name}(${args})\n`, 'meta');
+  }));
+  connection.addEventListener('tool_result', (e) => receive(e, (d) => {
+    const name = stringField(d, 'name'), result = stringField(d, 'result');
+    append(`[tool_result] ${name} → ${result}\n`, 'meta');
+  }));
+  connection.addEventListener('agent_error', (e) => receive(e, (d) => {
+    const message = stringField(d, 'message');
+    hadError = true;
+    newline();
+    append('[error] ' + message + '\n', 'err');
+  }));
+  connection.addEventListener('done', (e) => receive(e, (d) => {
+    const reason = stringField(d, 'finish_reason');
+    if (!['stop', 'error', 'timeout', 'cancelled'].includes(reason) ||
+        (hadError && reason === 'stop')) throw new Error('invalid terminal');
+    newline();
+    append('[done] finish_reason=' + reason + '\n', reason === 'stop' ? 'done' : 'err');
+    stopStream();
+  }));
+  connection.addEventListener('error', () => {
+    if (source !== connection) return;
+    append('[connection interrupted; completion unknown]\n', 'err');
+    // close prevents EventSource automatically starting the run again.
+    stopStream();
+  });
+});
+
+stopBtn.addEventListener('click', () => {
+  stopStream();
+  append('[stopped locally; server completion not acknowledged]\n', 'meta');
+});
+</script>
+</body>
+</html>

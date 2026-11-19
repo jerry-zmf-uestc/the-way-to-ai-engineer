@@ -1,0 +1,19 @@
+---
+interface Neighbor { id: string; title: string }
+interface Props { previous?: Neighbor; next?: Neighbor }
+const { previous, next } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<nav class="chapter-nav" aria-label="章节导航">
+  {previous ? (
+    <a class="nav-previous" href={`${base}/chapters/${previous.id}/`}>
+      <span>上一篇</span><strong>{previous.title}</strong>
+    </a>
+  ) : <span />}
+  {next ? (
+    <a class="nav-next" href={`${base}/chapters/${next.id}/`}>
+      <span>下一篇</span><strong>{next.title}</strong>
+    </a>
+  ) : <span />}
+</nav>

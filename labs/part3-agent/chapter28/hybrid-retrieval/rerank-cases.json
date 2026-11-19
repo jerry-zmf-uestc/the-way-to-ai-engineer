@@ -1,0 +1,75 @@
+{
+  "version": "rerank-candidates-v1",
+  "split": "development",
+  "cases": [
+    {
+      "id": "request-deadline",
+      "query": "What is the timeout for Kestrel client requests?",
+      "candidates": [
+        {
+          "id": "a-glossary",
+          "text": "Kestrel request timeout monitoring describes how to label request timeout dashboards."
+        },
+        {
+          "id": "b-retry",
+          "text": "Kestrel retries temporary connection errors."
+        },
+        {
+          "id": "c-policy",
+          "text": "Kestrel cancels each client request once it has waited 45 seconds."
+        }
+      ],
+      "grades": {
+        "a-glossary": 0,
+        "b-retry": 1,
+        "c-policy": 3
+      }
+    },
+    {
+      "id": "unknown-write",
+      "query": "Can a non-idempotent write be blindly retried after the commit result is unknown?",
+      "candidates": [
+        {
+          "id": "a-general",
+          "text": "Retry policies configure retry attempts and retry delays for requests."
+        },
+        {
+          "id": "b-log",
+          "text": "A request log can contain the time a write started."
+        },
+        {
+          "id": "c-policy",
+          "text": "A write without an idempotency key must not be retried when its commit outcome is unknown; query the external result first."
+        }
+      ],
+      "grades": {
+        "a-general": 1,
+        "b-log": 0,
+        "c-policy": 3
+      }
+    },
+    {
+      "id": "deleted-memory",
+      "query": "How should a stale vector candidate be handled after the user deletes memory?",
+      "candidates": [
+        {
+          "id": "a-vector",
+          "text": "Vector candidates retrieve similar memory from an embedding index."
+        },
+        {
+          "id": "b-speed",
+          "text": "Caching user memory can reduce lookup latency."
+        },
+        {
+          "id": "c-policy",
+          "text": "After deletion, resolve candidate identifiers against the current authorized fact store and discard deleted records before model input."
+        }
+      ],
+      "grades": {
+        "a-vector": 1,
+        "b-speed": 0,
+        "c-policy": 3
+      }
+    }
+  ]
+}

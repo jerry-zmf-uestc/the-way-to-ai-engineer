@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+<title id="title">Workspace：读取不自动清理产物</title><desc id="desc">应用发布带身份、摘要与期限的产物。有效期内按需读取身份与范围明确的页面，到期拒绝访问；应用清理成功才删除文件和释放字节，保留ID墓碑。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs>
+<rect width="1000" height="690" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="25">Workspace：读取不自动清理产物</text>
+<text x="30" y="73" font-size="16">可信Scope绑定每任务Root；模型只取得注册ID，物理路径由应用管理。</text>
+<rect x="30" y="120" width="280" height="111" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="45" y="150" font-size="19">应用发布</text>
+<text x="45" y="177" font-size="16">有界文本 → 私有文件</text>
+<text x="45" y="204" font-size="16">ID / 摘要 / 大小 / 期限</text>
+<rect x="355" y="120" width="290" height="111" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="370" y="150" font-size="19">有效产物目录</text>
+<text x="370" y="177" font-size="16">登记ID，不静默复用</text>
+<text x="370" y="204" font-size="16">应用持有内容与访问状态</text>
+<path d="M310 168H355" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="312" y="109" font-size="15">登记</text>
+<rect x="690" y="120" width="280" height="138" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="705" y="150" font-size="19">按需读取页面</text>
+<text x="705" y="177" font-size="16">ArtifactID / Digest</text>
+<text x="705" y="204" font-size="16">StartLine / NextLine</text>
+<text x="705" y="231" font-size="16">Complete只说明到达EOF</text>
+<path d="M645 168H690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="650" y="109" font-size="15">读取</text>
+<rect x="355" y="330" width="290" height="111" rx="10" fill="#fef3c7" stroke="#64748b"/>
+<text x="370" y="360" font-size="19">到期：Read拒绝，List不展示</text>
+<text x="370" y="387" font-size="16">不会自动删除物理文件</text>
+<text x="370" y="414" font-size="16">已有字节仍计入Used</text>
+<path d="M500 231V330" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="520" y="277" font-size="15">期限到达</text>
+<rect x="355" y="520" width="290" height="111" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="370" y="550" font-size="19">应用Cleanup</text>
+<text x="370" y="577" font-size="16">删除成功才释放Used</text>
+<text x="370" y="604" font-size="16">revoked墓碑保留，ID不复用</text>
+<path d="M500 441V520" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="520" y="477" font-size="15">可信维护过程</text>
+<text x="30" y="484" font-size="15">清理失败：保留记录与配额，可复验</text>
+<text x="30" y="651" font-size="16">内存catalog不提供重启恢复或多实例配额；Root不是进程沙箱。</text>
+<text x="30" y="677" font-size="16">页面与摘要不提供授权，也不证明模型读过全部内容或已完成任务。</text>
+</g></svg>

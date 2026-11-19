@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Runtime：状态与每次尝试的边界</title><desc id="desc">合法运行进入Running；非法定义或预取消可从Pending直接终止。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Runtime：状态与每次尝试的边界</text>
+<text x="30" y="72" font-size="16">合法运行进入Running；非法定义或预取消可从Pending直接终止。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">进入运行：验证策略与动作</text>
+<text x="80" y="158" font-size="16">非法定义 → Failed；已取消 → Canceled；有效 → Running</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">尝试前：取消与预算检查</text>
+<text x="80" y="268" font-size="16">模型 / 工具次数分别预留；失败与重试仍计次数</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">执行返回：登记消耗，再判断结果</text>
+<text x="80" y="378" font-size="16">取消 / 超限 / 永久错误 → 终止；成功 → 接受结果</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="475" y="421" font-size="14">暂时错误且可重试</text>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">暂时错误 + RetrySafe：有限退避</text>
+<text x="80" y="488" font-size="16">等待可取消；有剩余尝试与总配额才回到尝试前</text>
+<text x="30" y="558" font-size="16">全部动作提交 → Completed；过程失败仍保留已知消耗与部分结果。</text>
+<text x="30" y="586" font-size="16">返回后统计无法阻止本次超额；内存事件不等于持久恢复。</text>
+</g></svg>

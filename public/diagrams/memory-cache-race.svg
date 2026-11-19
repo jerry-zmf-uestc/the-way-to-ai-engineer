@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+<title id="title">Memory：删除缓存不能阻止旧读取回填</title><desc id="desc">受控顺序：A读到修订1后暂停；事实源更新为修订2并清除缓存；A晚到写回修订1。候选回查仍以当前Scope和事实源修订为准。这不是Redis或分布式竞态的运行证据。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs>
+<rect width="1000" height="690" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="25">Memory：删除缓存不能阻止旧读取回填</text>
+<text x="30" y="73" font-size="16">缓存仍在TTL内，也可能已经过时；箭头编号表示先后顺序。</text>
+<rect x="30" y="110" width="280" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="45" y="140" font-size="19">读请求A</text>
+<text x="45" y="167" font-size="16">先取得旧快照，随后回填</text>
+<rect x="355" y="110" width="290" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="370" y="140" font-size="19">权威事实源</text>
+<text x="370" y="167" font-size="16">Scope / Key / Revision</text>
+<rect x="690" y="110" width="280" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="705" y="140" font-size="19">派生缓存</text>
+<text x="705" y="167" font-size="16">清除不意味着旧请求停止</text>
+<path d="M170 194V620" stroke="#94a3b8" stroke-width="1" fill="none"/>
+<path d="M500 194V620" stroke="#94a3b8" stroke-width="1" fill="none"/>
+<path d="M835 194V620" stroke="#94a3b8" stroke-width="1" fill="none"/>
+<path d="M170 235H500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="195" y="222" font-size="15">1. 请求读取偏好</text>
+<path d="M500 285H170" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="195" y="272" font-size="15">2. 返回revision=1；尚未回填</text>
+<rect x="355" y="315" width="290" height="84" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="370" y="345" font-size="19">新确认提交revision=2</text>
+<text x="370" y="372" font-size="16">新值detailed</text>
+<path d="M500 425H835" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="520" y="412" font-size="15">3. 更新以后清除缓存</text>
+<path d="M170 490H835" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="240" y="477" font-size="15">4. A迟到回填revision=1 / concise</text>
+<path d="M835 545H500" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="515" y="532" font-size="15">5. 候选键回查当前事实源</text>
+<rect x="355" y="565" width="290" height="84" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="370" y="595" font-size="19">回查取得revision=2</text>
+<text x="370" y="622" font-size="16">再核对范围、删除与期限</text>
+<rect x="690" y="565" width="280" height="84" rx="10" fill="#fee2e2" stroke="#64748b"/>
+<text x="705" y="595" font-size="19">缓存旧值尚未到期</text>
+<text x="705" y="622" font-size="16">不能直接当作当前记忆</text>
+<text x="30" y="665" font-size="16">受控顺序反例；回查增加存储成本，也不消除读取之后与模型消费之间的窗口。</text>
+</g></svg>

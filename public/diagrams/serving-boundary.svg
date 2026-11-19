@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">Serving：入口、任务与执行的边界</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">Serving：入口、任务与执行的边界</text>
+<rect x="30" y="130" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="160" font-size="17">HTTP请求</text>
+<text x="44" y="187" font-size="17">身份 / JSON / 幂等键</text>
+<rect x="420" y="130" width="270" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="160" font-size="17">Task Manager</text>
+<text x="434" y="187" font-size="17">Scope / ID / 版本 / 名额</text>
+<rect x="820" y="130" width="250" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="834" y="160" font-size="17">只读Worker</text>
+<text x="834" y="187" font-size="17">任务总时限 / 协作取消</text>
+<path d="M290 170H420" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="330" y="155" font-size="16">接纳</text>
+<path d="M690 170H820" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="725" y="155" font-size="16">独立寿命</text>
+<path d="M555 220V305H160V220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="225" y="292" font-size="16">202 + Location；请求结束</text>
+<path d="M940 220V395H555V220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="665" y="382" font-size="16">退出后提交终态</text>
+<rect x="50" y="465" width="450" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="64" y="495" font-size="17">GET /tasks/{id}：只查授权范围</text>
+<text x="64" y="522" font-size="17">连接断开不取消已接纳任务</text>
+<rect x="590" y="465" width="450" height="90" rx="9" fill="#ffffff" stroke="#64748b"/>
+<text x="604" y="495" font-size="17">Request ID ≠ Task ID ≠ 幂等键</text>
+<text x="604" y="522" font-size="17">当前实现无持久队列 / 重启恢复</text>
+<text x="30" y="600" font-size="17">身份提供方把请求映射为可信Scope；demo bearer表只是可重复的教学替身。</text>
+</g></svg>

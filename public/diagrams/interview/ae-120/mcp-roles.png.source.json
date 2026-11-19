@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "MCP Host Client Server 关系",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "e8a1c4dd312bb9a228732a9cb7f4085135a25aed05632291985fe2e1717cace0",
+  "rebuildable": false
+}

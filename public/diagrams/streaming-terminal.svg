@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 620" role="img" aria-labelledby="title"><title id="title">页面终态：只有明确事件才能结束当前运行</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="620" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="45" font-size="25">页面终态：只有明确事件才能结束当前运行</text>
+<rect x="55" y="110" width="255" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="67" y="140" font-size="17">接收当前连接事件</text>
+<text x="67" y="167" font-size="17">running / 部分文本</text>
+<rect x="650" y="110" width="340" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="662" y="140" font-size="17">done(stop)</text>
+<text x="662" y="167" font-size="17">正常结束；质量另行评估</text>
+<rect x="650" y="295" width="340" height="90" rx="9" fill="#fee2e2" stroke="#64748b"/>
+<text x="662" y="325" font-size="17">done(error / timeout / cancelled)</text>
+<text x="662" y="352" font-size="17">失败或取消；保留部分输出</text>
+<rect x="650" y="480" width="340" height="90" rx="9" fill="#fef3c7" stroke="#64748b"/>
+<text x="662" y="510" font-size="17">断连 / 协议无效 / 本地停止</text>
+<text x="662" y="537" font-size="17">完成未知；关闭当前连接</text>
+<path d="M310 155H650" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="350" y="143" font-size="16">同run_id，seq连续</text>
+<path d="M185 200V340H650" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="350" y="327" font-size="16">明确非成功终态</text>
+<path d="M125 200V525H650" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="350" y="512" font-size="16">没有可信终态确认</text>
+<text x="250" y="265" font-size="17">旧连接事件直接忽略。</text>
+<text x="250" y="303" font-size="17">JSON或序号错误不能补猜结果。</text>
+<text x="30" y="570" font-size="17">id与seq仅用于当前流归属和顺序；没有持久事件账本，不能据此恢复旧任务。</text>
+</g></svg>

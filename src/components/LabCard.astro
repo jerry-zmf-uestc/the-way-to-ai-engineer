@@ -1,0 +1,15 @@
+---
+interface Props { path: string }
+const { path } = Astro.props;
+const name = path.split('/').at(-1)?.replaceAll('-', ' ') ?? path;
+const href = `https://github.com/jerry-zmf-uestc/the-way-to-ai-engineer/tree/main/${path}`;
+---
+
+<aside class="lab-card">
+  <div>
+    <span class="eyebrow">配套实验</span>
+    <strong>{name}</strong>
+    <code>{path}</code>
+  </div>
+  <a href={href}>查看源码与运行方式 →</a>
+</aside>

@@ -1,0 +1,15 @@
+---
+course:
+  part: 1
+  chapter: 2
+topic_slug: maps
+kind: original
+status: validated
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/maps

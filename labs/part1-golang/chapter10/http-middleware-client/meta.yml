@@ -1,0 +1,20 @@
+---
+course:
+  part: 1
+  chapter: 10
+topic_slug: http-middleware-client
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://pkg.go.dev/net/http
+- https://pkg.go.dev/net/http/httptest
+- https://pkg.go.dev/log/slog
+- https://aws.amazon.com/blogs/architecture/exponential-backoff-and-jitter/

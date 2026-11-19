@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>报表导出 · Part 2 实验</title>
+<style>
+* { box-sizing: border-box }
+body { margin: 0; background: #f2f5f8; color: #182b3c; font: 16px/1.55 system-ui, sans-serif }
+main { max-width: 1050px; padding: 28px 16px; margin: auto }
+h1, h2, p { margin: 0 0 .6em }
+h2 { font-size: 1.2rem }
+section { margin-top: 16px; background: white; border: 1px solid #ced9e3; border-radius: 10px; padding: 18px }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px }
+button { padding: .6em .9em; margin: 0 .3em .35em 0; font: inherit; border: 1px solid #15528b; border-radius: 6px; background: #15528b; color: white; cursor: pointer }
+button:disabled { background: #edf2f6; border-color: #cbd5de; color: #536678; cursor: default }
+code, pre { overflow-wrap: anywhere }
+pre { background: #edf2f6; padding: 12px; white-space: pre-wrap }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 5px 14px; margin: 0 }
+dd { margin: 0; font-variant-numeric: tabular-nums }
+ul, ol { padding-left: 1.35em }
+#jobs { display: grid; gap: 4px }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>报表导出练习台</h1>
+  <p>提交后用任务 ID 查询状态。对照 CSV、队列指标和 Go 终端中的同一条任务日志。</p>
+</header>
+<section aria-labelledby="mode-heading">
+  <h2 id="mode-heading">当前模式 <code id="mode">连接中</code></h2>
+  <ol id="guide"></ol>
+  <p id="check">等待验收数据</p>
+  <details><summary>切换故障模式</summary>
+    <p>在 Go 终端按 Ctrl-C，然后从仓库根目录重新运行。选择一个模式，把命令中的 <code>-fault</code> 参数换掉。</p>
+    <pre>go -C labs run ./part2-backend/chapter21/report-flow -port 8080 -fault none</pre>
+    <code>stale-cache · lost-ack · instance-down · lost-response · overload · backlog</code>
+  </details>
+</section>
+<section aria-labelledby="actions-heading">
+  <h2 id="actions-heading">提交与恢复</h2>
+  <button id="submit" disabled>提交新任务</button>
+  <button id="retry" disabled>用原键重试</button>
+  <button id="resume" disabled>恢复消费</button>
+  <p id="feedback" role="status">正在连接本地服务。</p>
+  <p>待重试的幂等键 <code id="key">—</code></p>
+  <p id="connection" role="status"></p>
+  <form id="lookup-form">
+    <label for="lookup-id">按原任务 ID 查询</label>
+    <input id="lookup-id" placeholder="export-1" required pattern="export-[0-9]+">
+    <button id="lookup" disabled>查询任务</button>
+  </form>
+</section>
+<div class="grid">
+  <section aria-labelledby="jobs-heading">
+    <h2 id="jobs-heading">任务状态与 CSV</h2>
+    <ul id="jobs"></ul>
+    <label for="result">所选任务的 CSV</label>
+    <pre id="result" tabindex="0" aria-label="所选任务的 CSV">任务完成后可查看。</pre>
+  </section>
+  <section aria-labelledby="metrics-heading">
+    <h2 id="metrics-heading">队列与故障指标</h2>
+    <dl id="metrics"></dl>
+  </section>
+</div>
+</main>
+<script>
+const byId = id => document.getElementById(id);
+const submitButton = byId('submit');
+const retryButton = byId('retry');
+const resumeButton = byId('resume');
+const jobs = new Map();
+let selected, pending, snapshot;
+let busy = false;
+let connected = false;
+const metricLabels = {
+  depth: '等待执行', oldest_wait_ms: '最久等待（毫秒）', peak_depth: '队列峰值',
+  accepted: '接纳', completed: '完成', rejected: '拒绝（503）',
+  deliveries: '投递', ack_drops: 'ACK 丢失', duplicates: '重复投递',
+  response_drops: '响应丢失', reused: '沿用原键', cache_stale: '发现旧快照',
+  recovered_pending: '启动时恢复的待办',
+  instance_failures: '实例不可用',
+};
+const crashGuide = [
+  '提交一个任务并记下任务 ID，随后点击「注入故障」。',
+  '等待服务退出，在终端用同一个 -db 文件和 -fault none 重启。',
+  '输入原任务 ID 并点击「查询任务」。核对 CSV、结果写入次数和恢复待办数。',
+];
+const scenarios = {
+  'crash-before-result': [crashGuide, () => false],
+  'crash-after-result': [crashGuide, () => false],
+  none: [['提交一个任务。', '等待状态变为 succeeded，查看执行实例 A 和 CSV。'],
+    m => m.completed > 0],
+  'stale-cache': [['提交一个任务，等待页面查询到完成状态。', '核对旧快照计数至少为 1，页面仍能显示完成状态和 CSV。'],
+    m => m.cache_stale > 0 && m.completed > 0],
+  'lost-ack': [['提交一个任务，等轮询显示完成。', '对照两次投递、一次 ACK 丢失、一次重复投递和一次完成。'],
+    m => m.deliveries >= 2 && m.ack_drops === 1 && m.duplicates === 1 && m.completed > 0],
+  'instance-down': [['提交一个任务，等待完成。', '核对实例不可用计数为 1，任务由备用实例 B 执行并产出 CSV。'],
+    m => m.instance_failures === 1 && [...jobs.values()].some(j => j.status === 'succeeded' && j.instance === 'B')],
+  'lost-response': [['提交一次，观察响应丢失和结果未知。查看接纳计数，确认服务端已有任务。', '点「用原键重试」，等页面找回原任务并显示 CSV。核对沿用原键计数和完成数。'],
+    m => m.response_drops === 1 && m.reused > 0 && m.completed > 0],
+  overload: [['连续提交三个任务。前两个排队，第三个收到 503。观察队列深度和拒绝数。', '点「恢复消费」，等队列排空，再点「用原键重试」提交第三个任务并查看 CSV。'],
+    m => m.rejected > 0 && m.completed >= 3 && m.depth === 0 && !pending],
+  backlog: [['提交三个任务，观察队列深度为 3，最久等待时间持续增长。', '点「恢复消费」。等三个结果都可查询，再核对队列深度和最久等待归零。'],
+    m => m.peak_depth >= 3 && m.completed >= 3 && m.depth === 0 && m.oldest_wait_ms === 0],
+};
+const statusLabels = {queued: '排队中', running: '执行中', succeeded: '已完成'};
+
+function buttons() {
+  submitButton.disabled = busy || !connected || !!pending;
+  retryButton.disabled = busy || !connected || !pending;
+  resumeButton.disabled = busy || !connected || !snapshot?.paused;
+  resumeButton.textContent = snapshot?.fault.startsWith('crash-') ? '注入故障' : '恢复消费';
+  byId('lookup').disabled = busy || !connected;
+  byId('key').textContent = pending || '—';
+}
+function renderJobs() {
+  byId('jobs').replaceChildren(...[...jobs.values()].map(job => {
+    const li = document.createElement('li');
+    const button = document.createElement('button');
+    button.textContent = job.id + ' · ' + (statusLabels[job.status] || job.status)
+      + (job.instance ? ' · 实例 ' + job.instance : '')
+      + ' · 结果写入 ' + job.result_writes + ' 次';
+    button.setAttribute('aria-pressed', String(job.id === selected));
+    button.onclick = () => { selected = job.id; renderJobs(); buttonFocus(job.id); };
+    button.dataset.job = job.id;
+    li.append(button);
+    return li;
+  }));
+  byId('result').textContent = jobs.get(selected)?.result || '任务完成后可查看。';
+}
+function buttonFocus(id) {
+  [...byId('jobs').querySelectorAll('button')].find(button => button.dataset.job === id)?.focus();
+}
+function record(job) {
+  const previous = jobs.get(job.id);
+  if (previous?.status === 'succeeded' || (previous?.status === 'running' && job.status === 'queued')) return;
+  jobs.set(job.id, job);
+}
+function request(path, options) {
+  return fetch(path, {cache: 'no-store', signal: AbortSignal.timeout(3000), ...options});
+}
+async function json(path) {
+  const response = await request(path);
+  if (!response.ok) throw Error('HTTP ' + response.status);
+  return response.json();
+}
+async function refresh() {
+  try {
+    const current = await json('/metrics');
+    if (snapshot?.run_id !== current.run_id) {
+      const sameDatabase = current.storage_id && snapshot?.storage_id === current.storage_id;
+      if (snapshot) byId('feedback').textContent = sameDatabase
+        ? '已连接到原 SQLite 数据库，可按原任务 ID 查询。'
+        : '服务已重启，开始新一轮练习。';
+      if (!sameDatabase) {
+        pending = selected = undefined;
+        jobs.clear();
+        byId('lookup-id').value = '';
+        renderJobs();
+      } else {
+        for (const id of jobs.keys()) jobs.set(id, {id, status: 'queued', result_writes: 0});
+      }
+      byId('guide').replaceChildren(...scenarios[current.fault][0].map(text => {
+        const li = document.createElement('li');
+        li.textContent = text;
+        return li;
+      }));
+    }
+    snapshot = current;
+    byId('mode').textContent = current.fault;
+    const active = [...jobs.values()].filter(job => job.status !== 'succeeded');
+    const updates = await Promise.allSettled(active.map(job => json('/exports/' + encodeURIComponent(job.id))));
+    for (const update of updates) {
+      if (update.status === 'fulfilled') record(update.value);
+    }
+    const focused = document.activeElement?.dataset.job;
+    if (updates.some(update => update.status === 'fulfilled')) {
+      renderJobs();
+      if (focused) buttonFocus(focused);
+    }
+    byId('metrics').replaceChildren(...Object.entries(metricLabels).flatMap(([key, label]) => {
+      const term = document.createElement('dt');
+      const value = document.createElement('dd');
+      term.textContent = label;
+      value.textContent = current[key];
+      value.id = 'metric-' + key;
+      return [term, value];
+    }));
+    byId('check').textContent = scenarios[current.fault][1](current) && [...jobs.values()].some(j => j.status === 'succeeded')
+      ? '已观察到本轮验收指标。' : '等待本轮验收指标。';
+    connected = true;
+    byId('connection').textContent = updates.some(update => update.status === 'rejected')
+      ? '部分任务暂时查不到，保留上次状态并继续查询。'
+      : (current.paused ? '消费者已暂停，任务仍可入队。' : '');
+  } catch {
+    connected = false;
+    byId('connection').textContent = '本地服务暂时不可用，保留已有结果并继续尝试连接。';
+  } finally {
+    buttons();
+  }
+}
+async function submit(key) {
+  busy = true;
+  pending = key;
+  buttons();
+  const run = snapshot.run_id;
+  try {
+    const response = await request('/exports', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Idempotency-Key': key, 'X-Report-Lab-Client': 'browser'},
+      body: JSON.stringify({format: 'csv'}),
+    });
+    if (snapshot.run_id !== run) return;
+    if (response.status === 503) {
+      const detail = await response.text();
+      byId('feedback').textContent = detail.includes('draining')
+        ? '503 实例正在摘流量，本次未接纳。'
+        : '503 队列已满，本次未接纳。等容量恢复后用原键重试。';
+      return;
+    }
+    if (response.status !== 202) {
+      if (response.status < 500) pending = undefined;
+      byId('feedback').textContent = '提交返回 HTTP ' + response.status + '。';
+      return;
+    }
+    const job = await response.json();
+    if (snapshot.run_id !== run) return;
+    record(job);
+    selected = job.id;
+    byId('lookup-id').value = job.id;
+    pending = undefined;
+    renderJobs();
+    byId('feedback').textContent = '已接收 ' + job.id + '，正在查询任务状态。';
+  } catch {
+    if (snapshot.run_id === run) byId('feedback').textContent = '未收到提交响应，结果未知。请用原键重试。';
+  } finally {
+    busy = false;
+    buttons();
+  }
+}
+submitButton.onclick = () => submit(crypto.randomUUID());
+retryButton.onclick = () => submit(pending);
+resumeButton.onclick = async () => {
+  busy = true;
+  buttons();
+  try {
+    const response = await request('/lab/resume', {method: 'POST'});
+    if (response.status !== 204) throw Error('resume');
+    byId('feedback').textContent = snapshot.fault.startsWith('crash-')
+      ? '已释放 worker，等待故障退出。'
+      : '已恢复消费，等待队列排空。';
+  } catch {
+    byId('feedback').textContent = '暂时无法确认消费是否恢复，请查看队列状态。';
+  } finally {
+    busy = false;
+    buttons();
+  }
+};
+byId('lookup-form').onsubmit = async event => {
+  event.preventDefault();
+  if (busy || !connected) return;
+  busy = true;
+  buttons();
+  const run = snapshot.run_id;
+  const id = byId('lookup-id').value;
+  try {
+    const job = await json('/exports/' + encodeURIComponent(id));
+    if (snapshot.run_id !== run) return;
+    record(job);
+    selected = job.id;
+    renderJobs();
+    byId('feedback').textContent = '已查询 ' + job.id + '。';
+  } catch (error) {
+    if (snapshot.run_id === run) byId('feedback').textContent = '查询失败 · ' + error.message;
+  } finally {
+    busy = false;
+    buttons();
+  }
+};
+async function poll() {
+  await refresh();
+  setTimeout(poll, 650);
+}
+poll();
+</script>
+</body>
+</html>

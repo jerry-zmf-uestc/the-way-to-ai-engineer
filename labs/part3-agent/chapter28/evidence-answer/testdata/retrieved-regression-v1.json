@@ -1,0 +1,200 @@
+{
+  "dataset_version": "retrieved-regression-v1",
+  "retrieval": {
+    "Protocol": "retrieved-evidence-v1",
+    "Revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "Space": "minilm-l6-v2-onnx-mean-l2-256-v1",
+    "Rows": [
+      {
+        "ID": "duration",
+        "Question": "What setting controls how long an operation is allowed to wait?",
+        "Evidence": [
+          {
+            "ID": "timeout",
+            "Source": "fixture:timeout",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "The request timeout is the maximum duration a network operation may wait before it is canceled."
+          }
+        ]
+      },
+      {
+        "ID": "retry",
+        "Question": "How can another attempt be made after a transient failure without looping forever?",
+        "Evidence": [
+          {
+            "ID": "retry",
+            "Source": "fixture:retry",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "Retry attempts repeat a failed call with exponential backoff and a bounded attempt limit."
+          }
+        ]
+      },
+      {
+        "ID": "cancel",
+        "Question": "How does a downstream operation learn that it should halt?",
+        "Evidence": [
+          {
+            "ID": "cancel",
+            "Source": "fixture:cancel",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "A cancellation signal must be passed to downstream operations so that they can stop cooperatively."
+          }
+        ]
+      },
+      {
+        "ID": "cache",
+        "Question": "When should a previously saved result no longer be reused?",
+        "Evidence": [
+          {
+            "ID": "cache",
+            "Source": "fixture:cache",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "Cache entries store reusable results and expire after a time to live. Stale data must be invalidated."
+          }
+        ]
+      },
+      {
+        "ID": "citation",
+        "Question": "How can I check whether an answer is backed by its referenced material?",
+        "Evidence": [
+          {
+            "ID": "citation",
+            "Source": "fixture:citation",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "A citation identifies the source document. Check that quoted material supports the answer's claim."
+          }
+        ]
+      },
+      {
+        "ID": "unsupported",
+        "Question": "Can this assistant buy a flight ticket and charge a credit card?",
+        "Evidence": [
+          {
+            "ID": "cancel",
+            "Source": "fixture:cancel",
+            "Version": "v1",
+            "Tenant": "demo",
+            "Text": "A cancellation signal must be passed to downstream operations so that they can stop cooperatively."
+          }
+        ]
+      }
+    ]
+  },
+  "generation_rows": [
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [{\"text\": \"The request timeout is the maximum duration a network operation may wait before it is canceled.\", \"evidence_id\": \"timeout\", \"version\": \"v1\", \"quote\": \"The request timeout is the maximum duration a network operation may wait before it is canceled.\"}]}",
+      "ID": "duration",
+      "Status": "accepted_extract",
+      "InputTokens": 218,
+      "OutputTokens": 63,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": [
+          {
+            "text": "The request timeout is the maximum duration a network operation may wait before it is canceled.",
+            "evidence_id": "timeout",
+            "version": "v1",
+            "quote": "The request timeout is the maximum duration a network operation may wait before it is canceled."
+          }
+        ],
+        "Abstained": false,
+        "Reason": ""
+      }
+    },
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [{\"text\": \"Another attempt can be made after a transient failure without looping forever\", \"evidence_id\": \"retry\", \"version\": \"v1\", \"quote\": \"Retry attempts repeat a failed call with exponential backoff and a bounded attempt limit.\"}]}",
+      "ID": "retry",
+      "Status": "support_unknown",
+      "InputTokens": 219,
+      "OutputTokens": 58,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": null,
+        "Abstained": false,
+        "Reason": ""
+      }
+    },
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [{\"text\": \"A cancellation signal must be passed to downstream operations so that they can stop cooperatively.\", \"evidence_id\": \"cancel\", \"version\": \"v1\", \"quote\": \"A cancellation signal must be passed to downstream operations so that they can stop cooperatively.\"}]}",
+      "ID": "cancel",
+      "Status": "accepted_extract",
+      "InputTokens": 217,
+      "OutputTokens": 63,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": [
+          {
+            "text": "A cancellation signal must be passed to downstream operations so that they can stop cooperatively.",
+            "evidence_id": "cancel",
+            "version": "v1",
+            "quote": "A cancellation signal must be passed to downstream operations so that they can stop cooperatively."
+          }
+        ],
+        "Abstained": false,
+        "Reason": ""
+      }
+    },
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [{\"text\": \"A previously saved result should no longer be reused when it is no longer in the cache or has expired.\"}, {\"evidence_id\": \"cache\", \"version\": \"v1\", \"quote\": \"Cache entries store reusable results and expire after a time to live.\"}]}",
+      "ID": "cache",
+      "Status": "draft_failed",
+      "InputTokens": 220,
+      "OutputTokens": 64,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": null,
+        "Abstained": false,
+        "Reason": ""
+      }
+    },
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [], \"abstained\": true, \"reason\": \"insufficient_evidence\"}",
+      "ID": "citation",
+      "Status": "abstained",
+      "InputTokens": 220,
+      "OutputTokens": 21,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": null,
+        "Abstained": true,
+        "Reason": "model_insufficient_evidence"
+      }
+    },
+    {
+      "Profile": "qwen3",
+      "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "PromptVersion": "rag-draft-v4",
+      "DiagnosticDraft": "{\"claims\": [], \"abstained\": true, \"reason\": \"insufficient_evidence\"}",
+      "ID": "unsupported",
+      "Status": "abstained",
+      "InputTokens": 219,
+      "OutputTokens": 21,
+      "AtOutputLimit": false,
+      "Answer": {
+        "Claims": null,
+        "Abstained": true,
+        "Reason": "model_insufficient_evidence"
+      }
+    }
+  ]
+}

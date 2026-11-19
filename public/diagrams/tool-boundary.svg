@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="672" viewBox="0 0 900 672" role="img" aria-labelledby="title desc">
+<title id="title">Tool：从提议到受控执行</title><desc id="desc">每层拒绝都会结束本次调用，不能绕过校验进入Handler。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="672" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Tool：从提议到受控执行</text>
+<text x="30" y="72" font-size="16">每层拒绝都会结束本次调用，不能绕过校验进入Handler。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">模型提议：调用ID / 名字 / 参数</text>
+<text x="80" y="158" font-size="16">内容不可信；工具说明不赋予执行权限</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">应用注册表：查找与校验</text>
+<text x="80" y="268" font-size="16">未知工具拒绝；必填、类型、额外字段检查</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">可信业务上下文：授权与配额</text>
+<text x="80" y="378" font-size="16">实验使用启动时只读能力清单；真实系统按身份检查范围</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">Handler：执行 → 关联观察</text>
+<text x="80" y="488" font-size="16">context传入下游；错误与结果保留身份；取消后不提交迟到文本</text>
+<text x="30" y="558" font-size="16">参数形状合法仍可能业务失败；错误不是空结果。</text>
+<text x="30" y="586" font-size="16">普通错误可反馈；取消不能撤销已经发生的动作。</text>
+<text x="30" y="614" font-size="16">本Lab演示静态清单与参数校验；动态授权、配额由应用扩展。</text>
+</g></svg>

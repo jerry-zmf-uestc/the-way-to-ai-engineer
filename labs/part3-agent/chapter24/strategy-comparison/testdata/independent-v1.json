@@ -1,0 +1,234 @@
+{
+  "Version": "independent-v1",
+  "Cases": [
+    {
+      "Input": {
+        "ID": "q1",
+        "Root": "a0",
+        "Version": "r7",
+        "Required": [
+          "lease"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "lease": "17"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "q2",
+        "Root": "b0",
+        "Version": "r7",
+        "Required": [
+          "lease",
+          "tries"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "lease": "19",
+          "tries": "4"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "q3",
+        "Root": "c0",
+        "Version": "r7",
+        "Required": [
+          "ttl"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "ttl": "83"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "q4",
+        "Root": "d0",
+        "Version": "r7",
+        "Required": [
+          "window"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "window": "41"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "q5",
+        "Root": "e0",
+        "Version": "r7",
+        "Required": [
+          "limit"
+        ]
+      },
+      "Labels": {
+        "Values": {
+          "limit": "9"
+        },
+        "Refuse": false
+      }
+    },
+    {
+      "Input": {
+        "ID": "q6",
+        "Root": "f0",
+        "Version": "r7",
+        "Required": [
+          "cap"
+        ]
+      },
+      "Labels": {
+        "Values": {},
+        "Refuse": true
+      }
+    }
+  ],
+  "Corpus": {
+    "a0": {
+      "ID": "a0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "lease": [
+          "a1"
+        ]
+      }
+    },
+    "a1": {
+      "ID": "a1",
+      "Version": "r7",
+      "Values": {
+        "lease": "17"
+      },
+      "Links": {}
+    },
+    "b0": {
+      "ID": "b0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "lease": [
+          "b1"
+        ],
+        "tries": [
+          "b2"
+        ]
+      }
+    },
+    "b1": {
+      "ID": "b1",
+      "Version": "r7",
+      "Values": {
+        "lease": "19"
+      },
+      "Links": {}
+    },
+    "b2": {
+      "ID": "b2",
+      "Version": "r7",
+      "Values": {
+        "tries": "4"
+      },
+      "Links": {}
+    },
+    "c0": {
+      "ID": "c0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "c1"
+        ]
+      }
+    },
+    "c1": {
+      "ID": "c1",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "ttl": [
+          "c2"
+        ]
+      }
+    },
+    "c2": {
+      "ID": "c2",
+      "Version": "r7",
+      "Values": {
+        "ttl": "83"
+      },
+      "Links": {}
+    },
+    "d0": {
+      "ID": "d0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "window": [
+          "d-missing",
+          "d2"
+        ]
+      }
+    },
+    "d2": {
+      "ID": "d2",
+      "Version": "r7",
+      "Values": {
+        "window": "41"
+      },
+      "Links": {}
+    },
+    "e0": {
+      "ID": "e0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "limit": [
+          "e-old",
+          "e2"
+        ]
+      }
+    },
+    "e-old": {
+      "ID": "e-old",
+      "Version": "r6",
+      "Values": {
+        "limit": "2"
+      },
+      "Links": {}
+    },
+    "e2": {
+      "ID": "e2",
+      "Version": "r7",
+      "Values": {
+        "limit": "9"
+      },
+      "Links": {}
+    },
+    "f0": {
+      "ID": "f0",
+      "Version": "r7",
+      "Values": {},
+      "Links": {
+        "cap": [
+          "f-missing"
+        ]
+      }
+    }
+  }
+}

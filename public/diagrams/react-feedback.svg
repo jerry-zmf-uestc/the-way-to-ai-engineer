@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 670" role="img" aria-labelledby="title desc"><title id="title">ReAct：观察如何改变下一步</title><desc id="desc">两列使用相同问题、资料、工具与查询目录，只比较反馈后的动作选择。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs><rect width="1000" height="670" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">ReAct：观察如何改变下一步</text>
+<text x="30" y="74" font-size="16">两列使用相同问题、资料、工具与查询目录，只比较反馈后的动作选择。</text>
+<rect x="40" y="106" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="58" y="136" font-size="20">固定策略：查询E42</text>
+<text x="58" y="166" font-size="16">读取同一工具与资料范围</text>
+<path d="M250 189 V219" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="225" width="420" height="83" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="58" y="255" font-size="20">观察：没有命中</text>
+<text x="58" y="285" font-size="16">工具完成，不是取得了答案</text>
+<path d="M250 308 V338" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="344" width="420" height="83" rx="10" fill="#fee2e2" stroke="#64748b"/>
+<text x="58" y="374" font-size="20">固定分支：结束并拒答</text>
+<text x="58" y="404" font-size="16">未使用可用的替代查询</text>
+<path d="M250 427 V457" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="463" width="420" height="83" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="58" y="493" font-size="20">任务评分：目标未完成</text>
+<text x="58" y="523" font-size="16">需要的超时参数仍未取得</text>
+<text x="40" y="602" font-size="16">调用较少，不一定完成任务。</text>
+<rect x="540" y="106" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="558" y="136" font-size="20">观察驱动策略：查询E42</text>
+<text x="558" y="166" font-size="16">相同初始请求与能力</text>
+<path d="M750 189 V219" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="225" width="420" height="83" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="558" y="255" font-size="20">观察：没有命中</text>
+<text x="558" y="285" font-size="16">确认缺少超时参数证据</text>
+<path d="M750 308 V338" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="344" width="420" height="83" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="558" y="374" font-size="20">改变动作：查询timeout</text>
+<text x="558" y="404" font-size="16">受工具配额与轮次限制</text>
+<path d="M750 427 V457" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="540" y="463" width="420" height="83" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="558" y="493" font-size="20">获得证据：再决策并结束</text>
+<text x="558" y="523" font-size="16">输出关联来源，独立核对任务</text>
+<text x="540" y="602" font-size="16">多一次动作，需要比较收益与代价。</text>
+<text x="30" y="642" font-size="16">任务与执行记录独立评分；教学策略与固定事实不证明真实LLM效果。</text>
+</g></svg>

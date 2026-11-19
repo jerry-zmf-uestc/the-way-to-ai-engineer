@@ -1,0 +1,18 @@
+---
+course:
+  part: 1
+  chapter: 2
+topic_slug: json
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/json
+- https://pkg.go.dev/encoding/json

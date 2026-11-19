@@ -1,0 +1,1510 @@
+{
+  "Version": "local-strategy-v1",
+  "ModelRevision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "PromptVersion": "strategy-decisions-v4",
+  "Rows": [
+    {
+      "CaseID": "holdout-q1",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "31",
+            "Source": "h1",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 2,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h1\"}",
+          "InputTokens": 202,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 943,
+          "ForwardTokens": 423,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h1\"}",
+              "MeanLogProb": -1.3940259218215942,
+              "InputTokens": 212,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.4594435691833496,
+              "InputTokens": 211,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 259,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 863,
+          "ForwardTokens": 535,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.5093178749084473,
+              "InputTokens": 267,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.163583278656006,
+              "InputTokens": 268,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q2",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "43",
+            "Source": "h3",
+            "Version": "z4"
+          },
+          "tries": {
+            "Value": "6",
+            "Source": "h4",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h2",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h3",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h4",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h3\"}",
+          "InputTokens": 216,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1089,
+          "ForwardTokens": 677,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h3\"}",
+              "MeanLogProb": -1.6450414657592773,
+              "InputTokens": 226,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h4\"}",
+              "MeanLogProb": -2.116152286529541,
+              "InputTokens": 226,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.5425450801849365,
+              "InputTokens": 225,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h4\"}",
+          "InputTokens": 273,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 899,
+          "ForwardTokens": 565,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h4\"}",
+              "MeanLogProb": -1.8114475011825562,
+              "InputTokens": 283,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.4009158611297607,
+              "InputTokens": 282,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 328,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1054,
+          "ForwardTokens": 673,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.729370594024658,
+              "InputTokens": 336,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.239224433898926,
+              "InputTokens": 337,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q3",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "ttl": {
+            "Value": "127",
+            "Source": "h7",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h5",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h6",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h7",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h6\"}",
+          "InputTokens": 202,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 674,
+          "ForwardTokens": 423,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h6\"}",
+              "MeanLogProb": -1.3594619035720825,
+              "InputTokens": 212,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.399409055709839,
+              "InputTokens": 211,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h7\"}",
+          "InputTokens": 239,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 757,
+          "ForwardTokens": 497,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h7\"}",
+              "MeanLogProb": -1.5528490543365479,
+              "InputTokens": 249,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.250666379928589,
+              "InputTokens": 248,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 298,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1012,
+          "ForwardTokens": 613,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.586029529571533,
+              "InputTokens": 306,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -2.9756314754486084,
+              "InputTokens": 307,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q4",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "window": {
+            "Value": "59",
+            "Source": "h9",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h8",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-d-missing",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h9",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"absent-d-missing\"}",
+          "InputTokens": 216,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1131,
+          "ForwardTokens": 680,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"absent-d-missing\"}",
+              "MeanLogProb": -1.3032118082046509,
+              "InputTokens": 229,
+              "ChoiceTokens": 13
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h9\"}",
+              "MeanLogProb": -1.4698270559310913,
+              "InputTokens": 226,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.3379461765289307,
+              "InputTokens": 225,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h9\"}",
+          "InputTokens": 223,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 763,
+          "ForwardTokens": 465,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h9\"}",
+              "MeanLogProb": -1.4896634817123413,
+              "InputTokens": 233,
+              "ChoiceTokens": 10
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.3003997802734375,
+              "InputTokens": 232,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 280,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 931,
+          "ForwardTokens": 577,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.477074146270752,
+              "InputTokens": 288,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.093571186065674,
+              "InputTokens": 289,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q5",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "11",
+            "Source": "h12",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h11",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h12",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 3,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h10\"}",
+          "InputTokens": 217,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1099,
+          "ForwardTokens": 682,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h10\"}",
+              "MeanLogProb": -1.232617735862732,
+              "InputTokens": 228,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h12\"}",
+              "MeanLogProb": -1.5036232471466064,
+              "InputTokens": 228,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.3313512802124023,
+              "InputTokens": 226,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"h12\"}",
+          "InputTokens": 251,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 852,
+          "ForwardTokens": 522,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"h12\"}",
+              "MeanLogProb": -1.4932129383087158,
+              "InputTokens": 262,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.3587872982025146,
+              "InputTokens": 260,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 311,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 998,
+          "ForwardTokens": 639,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"final\",\"document\":\"\"}",
+              "MeanLogProb": -3.715501308441162,
+              "InputTokens": 319,
+              "ChoiceTokens": 8
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.271562337875366,
+              "InputTokens": 320,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q6",
+      "Strategy": "react-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h13",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-f-missing",
+            "Code": "missing"
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 2,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"read\",\"document\":\"absent-f-missing\"}",
+          "InputTokens": 211,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 684,
+          "ForwardTokens": 444,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"read\",\"document\":\"absent-f-missing\"}",
+              "MeanLogProb": -1.0057021379470825,
+              "InputTokens": 224,
+              "ChoiceTokens": 13
+            },
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.256272315979004,
+              "InputTokens": 220,
+              "ChoiceTokens": 9
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+          "InputTokens": 218,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 367,
+          "ForwardTokens": 227,
+          "Candidates": [
+            {
+              "Raw": "{\"action\":\"refuse\",\"document\":\"\"}",
+              "MeanLogProb": -3.200695037841797,
+              "InputTokens": 227,
+              "ChoiceTokens": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q1",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "31",
+            "Source": "h1",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h1\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 580,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h1\"]}",
+              "MeanLogProb": -2.029003143310547,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.284992694854736,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q2",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "43",
+            "Source": "h3",
+            "Version": "z4"
+          },
+          "tries": {
+            "Value": "6",
+            "Source": "h4",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h2",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h3",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h4",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h3\",\"h4\"]}",
+          "InputTokens": 193,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1278,
+          "ForwardTokens": 797,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h3\",\"h4\"]}",
+              "MeanLogProb": -1.9976946115493774,
+              "InputTokens": 202,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"h3\"]}",
+              "MeanLogProb": -4.534799575805664,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[\"h4\"]}",
+              "MeanLogProb": -4.381803035736084,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.132612705230713,
+              "InputTokens": 197,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q3",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h5",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h6",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h6\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 579,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h6\"]}",
+              "MeanLogProb": -1.984683871269226,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.101338863372803,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q4",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "window": {
+            "Value": "59",
+            "Source": "h9",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h8",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-d-missing",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h9",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"absent-d-missing\",\"h9\"]}",
+          "InputTokens": 193,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1290,
+          "ForwardTokens": 803,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"absent-d-missing\",\"h9\"]}",
+              "MeanLogProb": -1.9051823616027832,
+              "InputTokens": 205,
+              "ChoiceTokens": 12
+            },
+            {
+              "Raw": "{\"documents\":[\"absent-d-missing\"]}",
+              "MeanLogProb": -2.8791236877441406,
+              "InputTokens": 202,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"h9\"]}",
+              "MeanLogProb": -3.022536039352417,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.9703783988952637,
+              "InputTokens": 197,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q5",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "11",
+            "Source": "h12",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h11",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h12",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h10\",\"h12\"]}",
+          "InputTokens": 194,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1280,
+          "ForwardTokens": 805,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h10\",\"h12\"]}",
+              "MeanLogProb": -1.3385580778121948,
+              "InputTokens": 205,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"documents\":[\"h10\"]}",
+              "MeanLogProb": -3.130617618560791,
+              "InputTokens": 201,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[\"h12\"]}",
+              "MeanLogProb": -3.121242046356201,
+              "InputTokens": 201,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.7155048847198486,
+              "InputTokens": 198,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q6",
+      "Strategy": "plan-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h13",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-f-missing",
+            "Code": "missing"
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"absent-f-missing\"]}",
+          "InputTokens": 188,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 609,
+          "ForwardTokens": 389,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"absent-f-missing\"]}",
+              "MeanLogProb": -1.9583430290222168,
+              "InputTokens": 197,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.1610536575317383,
+              "InputTokens": 192,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q1",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "31",
+            "Source": "h1",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h0",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h1",
+            "Code": ""
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h1\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 576,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h1\"]}",
+              "MeanLogProb": -2.029003143310547,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.284992694854736,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q2",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "lease": {
+            "Value": "43",
+            "Source": "h3",
+            "Version": "z4"
+          },
+          "tries": {
+            "Value": "6",
+            "Source": "h4",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h2",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h3",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h4",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h3\",\"h4\"]}",
+          "InputTokens": 193,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1277,
+          "ForwardTokens": 797,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h3\",\"h4\"]}",
+              "MeanLogProb": -1.9976946115493774,
+              "InputTokens": 202,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"h3\"]}",
+              "MeanLogProb": -4.534799575805664,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[\"h4\"]}",
+              "MeanLogProb": -4.381803035736084,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.132612705230713,
+              "InputTokens": 197,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q3",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "ttl": {
+            "Value": "127",
+            "Source": "h7",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h5",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h6",
+            "Code": ""
+          },
+          {
+            "Kind": "critique",
+            "Goal": "ttl",
+            "Document": "",
+            "Code": "missing_evidence"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h7",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 2,
+        "Repairs": 1,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h6\"]}",
+          "InputTokens": 179,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 583,
+          "ForwardTokens": 368,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h6\"]}",
+              "MeanLogProb": -1.984683871269226,
+              "InputTokens": 185,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -4.101338863372803,
+              "InputTokens": 183,
+              "ChoiceTokens": 4
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h7\"]}",
+          "InputTokens": 232,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 735,
+          "ForwardTokens": 474,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h7\"]}",
+              "MeanLogProb": -3.111564874649048,
+              "InputTokens": 238,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.839251756668091,
+              "InputTokens": 236,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q4",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "window": {
+            "Value": "59",
+            "Source": "h9",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h8",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-d-missing",
+            "Code": "missing"
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h9",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"absent-d-missing\",\"h9\"]}",
+          "InputTokens": 193,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1284,
+          "ForwardTokens": 803,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"absent-d-missing\",\"h9\"]}",
+              "MeanLogProb": -1.9051823616027832,
+              "InputTokens": 205,
+              "ChoiceTokens": 12
+            },
+            {
+              "Raw": "{\"documents\":[\"absent-d-missing\"]}",
+              "MeanLogProb": -2.8791236877441406,
+              "InputTokens": 202,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[\"h9\"]}",
+              "MeanLogProb": -3.022536039352417,
+              "InputTokens": 199,
+              "ChoiceTokens": 6
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.9703783988952637,
+              "InputTokens": 197,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q5",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {
+          "limit": {
+            "Value": "11",
+            "Source": "h12",
+            "Version": "z4"
+          }
+        },
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h11",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "reject_version",
+            "Goal": "",
+            "Document": "h10",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h12",
+            "Code": ""
+          }
+        ],
+        "Reads": 3,
+        "Decisions": 1,
+        "Repairs": 0,
+        "Refused": false,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"h10\",\"h12\"]}",
+          "InputTokens": 194,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 1283,
+          "ForwardTokens": 805,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"h10\",\"h12\"]}",
+              "MeanLogProb": -1.3385580778121948,
+              "InputTokens": 205,
+              "ChoiceTokens": 11
+            },
+            {
+              "Raw": "{\"documents\":[\"h10\"]}",
+              "MeanLogProb": -3.130617618560791,
+              "InputTokens": 201,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[\"h12\"]}",
+              "MeanLogProb": -3.121242046356201,
+              "InputTokens": 201,
+              "ChoiceTokens": 7
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.7155048847198486,
+              "InputTokens": 198,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CaseID": "holdout-q6",
+      "Strategy": "reflection-local",
+      "Error": "",
+      "Report": {
+        "Facts": {},
+        "Events": [
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "h13",
+            "Code": ""
+          },
+          {
+            "Kind": "read",
+            "Goal": "",
+            "Document": "absent-f-missing",
+            "Code": "missing"
+          },
+          {
+            "Kind": "critique",
+            "Goal": "cap",
+            "Document": "",
+            "Code": "missing_evidence"
+          }
+        ],
+        "Reads": 2,
+        "Decisions": 2,
+        "Repairs": 1,
+        "Refused": true,
+        "UsageKnown": true,
+        "Conflicts": []
+      },
+      "Generations": [
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[\"absent-f-missing\"]}",
+          "InputTokens": 188,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 608,
+          "ForwardTokens": 389,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[\"absent-f-missing\"]}",
+              "MeanLogProb": -1.9583430290222168,
+              "InputTokens": 197,
+              "ChoiceTokens": 9
+            },
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.1610536575317383,
+              "InputTokens": 192,
+              "ChoiceTokens": 4
+            }
+          ]
+        },
+        {
+          "Mode": "likelihood",
+          "Raw": "{\"documents\":[]}",
+          "InputTokens": 211,
+          "OutputTokens": 0,
+          "AtOutputLimit": false,
+          "Millis": 329,
+          "ForwardTokens": 215,
+          "Candidates": [
+            {
+              "Raw": "{\"documents\":[]}",
+              "MeanLogProb": -3.144397258758545,
+              "InputTokens": 215,
+              "ChoiceTokens": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

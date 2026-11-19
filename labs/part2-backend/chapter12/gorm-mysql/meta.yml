@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 12
+topic_slug: gorm-mysql
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gorm.io/docs/models.html
+- https://gorm.io/docs/connecting_to_the_database.html
+- https://pkg.go.dev/net/url

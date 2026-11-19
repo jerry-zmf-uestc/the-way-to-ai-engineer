@@ -1,0 +1,11 @@
+{
+ "version":"rag-heldout-v3",
+ "cases":[
+  {"id":"poll","question":"What is the task polling interval?","evidence":[{"ID":"poll","Source":"manual","Version":"r4","Tenant":"demo","Text":"The task polling interval is 11 seconds."}],"expected_quote":"The task polling interval is 11 seconds.","should_abstain":false},
+  {"id":"payload","question":"How many entries can a payload contain?","evidence":[{"ID":"payload","Source":"manual","Version":"r4","Tenant":"demo","Text":"A payload may contain at most 6 entries."}],"expected_quote":"A payload may contain at most 6 entries.","should_abstain":false},
+  {"id":"expired","question":"Can an expired approval authorize execution?","evidence":[{"ID":"expired","Source":"manual","Version":"r4","Tenant":"demo","Text":"An expired approval must not authorize execution."}],"expected_quote":"An expired approval must not authorize execution.","should_abstain":false},
+  {"id":"revision","question":"What is the cache lifetime in release 4?","evidence":[{"ID":"cache","Source":"manual","Version":"r4","Tenant":"demo","Text":"Release 4 sets cache lifetime to 41 seconds. Release 3 used 19 seconds."}],"expected_quote":"Release 4 sets cache lifetime to 41 seconds.","should_abstain":false},
+  {"id":"unknown","question":"What is the electricity price?","evidence":[{"ID":"poll","Source":"manual","Version":"r4","Tenant":"demo","Text":"The task polling interval is 11 seconds."}],"expected_quote":"","should_abstain":true},
+  {"id":"empty","question":"What is the configured database host?","evidence":[],"expected_quote":"","should_abstain":true}
+ ]
+}

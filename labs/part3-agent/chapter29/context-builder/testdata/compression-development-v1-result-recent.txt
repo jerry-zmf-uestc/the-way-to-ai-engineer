@@ -1,0 +1,5 @@
+{"Version": "task-v2", "Facts": [
+  {"Key": "budget_cny", "Value": "current", "Source": "user-current-3", "State": "unknown"},
+  {"Key": "offline_required", "Value": "mandatory", "Source": "task", "State": "known"},
+  {"Key": "option_b_offline", "Value": "unknown", "Source": "user-current-3", "State": "unknown"}
+]}

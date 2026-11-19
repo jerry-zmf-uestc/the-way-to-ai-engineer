@@ -1,0 +1,13 @@
+---
+course:
+  part: 2
+  chapter: 21
+topic_slug: report-backlog
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null

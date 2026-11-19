@@ -1,0 +1,18 @@
+---
+course:
+  part: 1
+  chapter: 7
+topic_slug: reflection-basics
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://go.dev/blog/laws-of-reflection
+- https://pkg.go.dev/reflect

@@ -1,0 +1,16 @@
+---
+course:
+  part: 1
+  chapter: 2
+topic_slug: values-variables-constants
+kind: original
+status: validated
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/variables
+- https://gobyexample.com/constants

@@ -1,0 +1,18 @@
+---
+course:
+  part: 1
+  chapter: 10
+topic_slug: http-server
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://pkg.go.dev/net/http
+- https://pkg.go.dev/net/http/httptest

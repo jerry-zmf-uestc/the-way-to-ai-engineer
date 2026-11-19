@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc"><title id="title">DAG：就绪、并发与汇总</title><desc id="desc">依赖全completed才启动后续；调度器单写状态，worker只返回结果。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs><rect width="1000" height="650" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">DAG：就绪、并发与汇总</text>
+<text x="30" y="74" font-size="16">依赖全completed才启动后续；调度器单写状态，worker只返回结果。</text>
+<rect x="210" y="106" width="580" height="90" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="228" y="138" font-size="19">校验图 → 有界FIFO就绪队列</text>
+<text x="228" y="165" font-size="16">parallel限制在途；queueLimit限制等待，满时显式背压</text>
+<rect x="45" y="265" width="420" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="63" y="297" font-size="19">timeout：独立节点</text>
+<text x="63" y="324" font-size="16">pending → queued → running → completed</text>
+<rect x="535" y="265" width="420" height="90" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="553" y="297" font-size="19">retry：独立节点</text>
+<text x="553" y="324" font-size="16">失败则阻断summary；独立任务可继续</text>
+<rect x="210" y="425" width="580" height="90" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="228" y="457" font-size="19">summary：依赖timeout与retry</text>
+<text x="228" y="484" font-size="16">只接收有效结果副本；取消后收齐在途，不提交迟到文本</text>
+<path d="M350 196 V225 H255 V265" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M650 196 V225 H745 V265" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M255 355 V393 H350 V425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M745 355 V393 H650 V425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="30" y="559" font-size="16">running是派发登记，不证明回调已进入；Handler仍需协作退出。</text>
+<text x="30" y="587" font-size="16">单运行FIFO不证明多租户公平，真实延迟与总消耗需要独立测量。</text>
+</g></svg>

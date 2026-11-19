@@ -1,0 +1,19 @@
+---
+course:
+  part: 2
+  chapter: 17
+topic_slug: kitex-idl-handler
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://www.cloudwego.io/docs/kitex/tutorials/code-gen/
+- https://www.cloudwego.io/docs/kitex/tutorials/basic-feature/context/
+- https://thrift.apache.org/docs/idl

@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "generator": "Archify 3.2.0; frozen approved delivery; rerender requires explicit local tool environment",
+  "diagrams": [
+    {
+      "format": "archify-workflow-v2",
+      "source": "public/diagrams/interview/ae-001/sources/react.workflow.json",
+      "outputs": [
+        "public/diagrams/interview/ae-001/react.svg",
+        "public/diagrams/interview/ae-001/react.png"
+      ]
+    },
+    {
+      "format": "archify-workflow-v2",
+      "source": "public/diagrams/interview/ae-001/sources/plan-execute.workflow.json",
+      "outputs": [
+        "public/diagrams/interview/ae-001/plan-execute.svg",
+        "public/diagrams/interview/ae-001/plan-execute.png"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/model-harness.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/model-harness.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/claude-plan.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/claude-plan.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/deliverable-dependencies.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/deliverable-dependencies.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/langgraph-nodes.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/langgraph-nodes.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/rolling-research.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/rolling-research.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/local-replan.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/local-replan.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-081/codex-feedback.jpg.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-081/codex-feedback.jpg"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-120/fc-loop.png.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-120/fc-loop.png"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-120/mcp-roles.png.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-120/mcp-roles.png"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-100/control-patterns.png.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-100/control-patterns.png"
+      ]
+    },
+    {
+      "format": "frozen-static-v1",
+      "source": "public/diagrams/interview/ae-100/bounded-exploration.png.source.json",
+      "outputs": [
+        "public/diagrams/interview/ae-100/bounded-exploration.png"
+      ]
+    }
+  ],
+  "sha256": {
+    "public/diagrams/interview/ae-001/sources/react.workflow.json": "86a4196903a9bac30b27e894e2453f7ba752aae9f18f6ba555d3fd7dae535aed",
+    "public/diagrams/interview/ae-001/react.svg": "dfd44b7fd8269c64e4245219917b46bc63962ac5d2d0ef4cae6c7af554cc0ffc",
+    "public/diagrams/interview/ae-001/react.png": "3d07f504dc22f02f359ea1fa5bc471c4eee10c9364ccac11c5f53facaeba5787",
+    "public/diagrams/interview/ae-001/sources/plan-execute.workflow.json": "20fe513d3cdce09a8e354e6260ff8dca64313e3837f9e2bc049e14cddf355ac7",
+    "public/diagrams/interview/ae-001/plan-execute.svg": "8a81263963835bfa8abaaf22759fc704e26b9894e514a6e3e28d4e6796d2d7e6",
+    "public/diagrams/interview/ae-001/plan-execute.png": "38789d1de1a7520f8de29344d68b7dafa22a85351a437c46e12142f1a765c055",
+    "public/diagrams/interview/ae-081/model-harness.jpg.source.json": "9fc38aee5978f3583ae2d8e44b48e954303d0f6cdc578ad6fd015153a6bfb5fe",
+    "public/diagrams/interview/ae-081/model-harness.jpg": "14f11a358d59489292b8218bc5456acc4d2dc6cd42a680d790fd8bd617364771",
+    "public/diagrams/interview/ae-081/claude-plan.jpg.source.json": "5f37fd40b6b120390e5c49d291091e12fee41d098d22eca8a7c67872db04369f",
+    "public/diagrams/interview/ae-081/claude-plan.jpg": "a8959de16645838cabc6993968149e6d4314f3d37d90e7f322480a9c04a550de",
+    "public/diagrams/interview/ae-081/deliverable-dependencies.jpg.source.json": "f936c19548e6b813b4afc2662a3b336afe51a5d9ca6a1dff1d79934dbdcb4e9b",
+    "public/diagrams/interview/ae-081/deliverable-dependencies.jpg": "b6761e7245585dc512ba8443be02ef17a8becc61eb8b9feab38bec8dea98730f",
+    "public/diagrams/interview/ae-081/langgraph-nodes.jpg.source.json": "404c1320a78e04f075acf7a561fa75abb2bbbe641fe415e1d0f9be07a62db5b5",
+    "public/diagrams/interview/ae-081/langgraph-nodes.jpg": "4b8c1a2e1ac61dee1138560a3bee3c6e6b0abb9e1217fa0158de6e97602c5f8a",
+    "public/diagrams/interview/ae-081/rolling-research.jpg.source.json": "0727a30601bc32da0d6a2feeff3fba1db7791ecf248de657d2d6c3f907c16bae",
+    "public/diagrams/interview/ae-081/rolling-research.jpg": "56abf7555cc3c726fbc11cd40cd34cc959b39fc054964f62d3ab328ab06a7488",
+    "public/diagrams/interview/ae-081/local-replan.jpg.source.json": "38e2db7b3bf2e3f34451ad55e7c04677cf2228f95a5ce04a1e45579aafb9b0c1",
+    "public/diagrams/interview/ae-081/local-replan.jpg": "bf1b58263896031e969133ffea24abd1a1e79f300453bf09c0a686c32cd5cac5",
+    "public/diagrams/interview/ae-081/codex-feedback.jpg.source.json": "b6ebf55de5abfd7114589f70bffe3079667cef3f082261702a0a1616a5300130",
+    "public/diagrams/interview/ae-081/codex-feedback.jpg": "404e05070053dd72422c37df4cf0e3fabadf2e5d5550f1b7296f1890a6943592",
+    "public/diagrams/interview/ae-120/fc-loop.png.source.json": "460b9cb0fbc5b0f3d7ba2514acf2b8ece466a80616c2163fb720fd25515f8b51",
+    "public/diagrams/interview/ae-120/fc-loop.png": "a2089ab4061192f9fac1adab6f005a2c13b677de38cec157a1c5baa7961ec138",
+    "public/diagrams/interview/ae-120/mcp-roles.png.source.json": "593d40b9731bf4b50c1f422b2a9327f174fb90a9f279b0604d8ad6457f80c326",
+    "public/diagrams/interview/ae-120/mcp-roles.png": "e8a1c4dd312bb9a228732a9cb7f4085135a25aed05632291985fe2e1717cace0",
+    "public/diagrams/interview/ae-100/control-patterns.png.source.json": "3bf8e1003413fb89e731bfb6a855c54344d2eb590b38b446868713277b7a2955",
+    "public/diagrams/interview/ae-100/control-patterns.png": "8cfdda642f162a48a3bce3155bd0d7583ecf20ebda1060d2d2a09d33b42fd006",
+    "public/diagrams/interview/ae-100/bounded-exploration.png.source.json": "9d220b3ba686585c0326eb5800497d786a778e06d9af82898bf795ac0a257a9f",
+    "public/diagrams/interview/ae-100/bounded-exploration.png": "97ddde80657bc9da41779ac7c08bf4a286ff528e5f19c3cf0e1d0cb72f09e94b"
+  }
+}

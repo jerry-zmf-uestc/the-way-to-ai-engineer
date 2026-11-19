@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 660" role="img" aria-labelledby="title"><title id="title">SQL输出权限与ANN候选扫描分别判断</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="660" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">向量检索：输出范围正确，不代表候选已经填满</text>
+<text x="30" y="96" font-size="18">精确模式：限定合法集合后计算全部距离</text>
+<rect x="30" y="130" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="160" font-size="17">可信Scope</text>
+<text x="44" y="187" font-size="17">tenant / space / version</text>
+<rect x="420" y="130" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="160" font-size="17">范围内精确距离</text>
+<text x="434" y="187" font-size="17">全部可见行参与排序</text>
+<rect x="810" y="130" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="824" y="160" font-size="17">top-k</text>
+<text x="824" y="187" font-size="17">对照基线</text>
+<path d="M290 175H420" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="338" y="160" font-size="16">过滤</text>
+<path d="M680 175H810" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="726" y="160" font-size="16">排序</text>
+<text x="30" y="296" font-size="18">共享HNSW：物理候选扫描与SQL过滤可能分阶段执行</text>
+<rect x="30" y="335" width="260" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="365" font-size="17">ANN候选窗口</text>
+<text x="44" y="392" font-size="17">共享索引的近邻</text>
+<rect x="420" y="335" width="260" height="90" rx="9" fill="#fef3c7" stroke="#64748b"/>
+<text x="434" y="365" font-size="17">SQL范围过滤</text>
+<text x="434" y="392" font-size="17">未匹配的候选被删除</text>
+<rect x="810" y="335" width="260" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="824" y="365" font-size="17">范围匹配的命中</text>
+<text x="824" y="392" font-size="17">可能少于k条</text>
+<path d="M290 380H420" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="334" y="365" font-size="16">候选</text>
+<path d="M680 380H810" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="726" y="365" font-size="16">结果</text>
+<path d="M540 425V500H160V425" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="235" y="488" font-size="16">已配置迭代补扫，仍受扫描与请求限制</text>
+<text x="30" y="566" font-size="17">EXPLAIN确认实际路径；输出再核对Scope与大小，不能先交给模型再过滤。</text>
+<text x="30" y="613" font-size="17">相对精确Recall衡量近似索引损失；语义Recall与答案支持仍需独立任务标签。</text>
+</g></svg>

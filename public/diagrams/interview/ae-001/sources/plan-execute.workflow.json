@@ -1,0 +1,214 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Plan-and-Execute：规划、执行与重规划",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "output": "plan-execute.html",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "planning",
+      "label": "高层规划与验收"
+    },
+    {
+      "id": "execution",
+      "label": "步骤执行"
+    },
+    {
+      "id": "exit",
+      "label": "受控退出",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "goal",
+    "planner",
+    "executor",
+    "guard",
+    "tool",
+    "check",
+    "done"
+  ],
+  "nodes": [
+    {
+      "id": "goal",
+      "lane": "planning",
+      "col": 0,
+      "type": "external",
+      "label": "报告目标",
+      "sublabel": "产品 / 维度 / 来源",
+      "icon": "none"
+    },
+    {
+      "id": "planner",
+      "lane": "planning",
+      "col": 1,
+      "type": "backend",
+      "label": "Planner 规划",
+      "sublabel": "步骤与交付条件",
+      "icon": "none"
+    },
+    {
+      "id": "executor",
+      "lane": "execution",
+      "col": 1,
+      "type": "backend",
+      "label": "Executor 执行",
+      "sublabel": "步骤内可用 ReAct",
+      "icon": "none"
+    },
+    {
+      "id": "guard",
+      "lane": "execution",
+      "col": 2,
+      "type": "security",
+      "label": "执行前检查",
+      "sublabel": "参数 / 权限 / 预算",
+      "icon": "none"
+    },
+    {
+      "id": "tool",
+      "lane": "execution",
+      "col": 3,
+      "type": "messagebus",
+      "label": "工具与步骤结果",
+      "sublabel": "事实 / 缺失 / 错误",
+      "icon": "none"
+    },
+    {
+      "id": "check",
+      "lane": "planning",
+      "col": 3,
+      "type": "backend",
+      "label": "检查执行结果",
+      "sublabel": "目标、计划与预算",
+      "icon": "none"
+    },
+    {
+      "id": "done",
+      "lane": "planning",
+      "col": 5,
+      "type": "frontend",
+      "label": "交付报告",
+      "sublabel": "完成条件满足",
+      "icon": "none"
+    },
+    {
+      "id": "stop",
+      "lane": "exit",
+      "col": 3,
+      "type": "security",
+      "label": "停止并说明",
+      "sublabel": "保留已验证结果",
+      "icon": "none"
+    }
+  ],
+  "edges": [
+    {
+      "id": "intake",
+      "from": "goal",
+      "to": "planner",
+      "role": "main"
+    },
+    {
+      "id": "assign",
+      "from": "planner",
+      "to": "executor",
+      "role": "main",
+      "label": "分配"
+    },
+    {
+      "id": "request",
+      "from": "executor",
+      "to": "guard",
+      "role": "main",
+      "label": "动作"
+    },
+    {
+      "id": "execute",
+      "from": "guard",
+      "to": "tool",
+      "role": "main",
+      "label": "允许"
+    },
+    {
+      "id": "return-result",
+      "from": "tool",
+      "to": "check",
+      "role": "main",
+      "label": "返回"
+    },
+    {
+      "id": "next-step",
+      "from": "check",
+      "to": "executor",
+      "role": "return",
+      "label": "继续"
+    },
+    {
+      "id": "replan",
+      "from": "check",
+      "to": "planner",
+      "role": "return",
+      "label": "重规划",
+      "route": "up-channel",
+      "fromSide": "top",
+      "toSide": "top"
+    },
+    {
+      "id": "accepted",
+      "from": "check",
+      "to": "done",
+      "role": "main",
+      "label": "通过"
+    },
+    {
+      "id": "blocked",
+      "from": "guard",
+      "to": "stop",
+      "role": "error",
+      "label": "拒绝或超限",
+      "variant": "security"
+    },
+    {
+      "id": "exhausted",
+      "from": "check",
+      "to": "stop",
+      "role": "error",
+      "label": "无法补足",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "图示边界",
+      "items": [
+        "原创教学控制流，不是模型内部思维链或实测运行轨迹。",
+        "工具权限、参数校验与预算由执行层强制约束。"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "贯穿案例",
+      "items": [
+        "读取虚构产品 A/B/C 的资料，比较部署、权限与运维成本。",
+        "事实可追溯；缺失和矛盾要标明，不能用流畅文字代替验收。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "采用的教学版本",
+      "items": [
+        "Planner 组织大步骤；Executor 完成当前步骤。",
+        "检查结果决定继续执行、重规划、交付或停止。",
+        "本文采用带重规划版本；不把历史初版实现当通用定义。"
+      ]
+    }
+  ]
+}

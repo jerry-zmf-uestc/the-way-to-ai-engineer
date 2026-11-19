@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "模型与 Harness 的职责",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "14f11a358d59489292b8218bc5456acc4d2dc6cd42a680d790fd8bd617364771",
+  "rebuildable": false
+}

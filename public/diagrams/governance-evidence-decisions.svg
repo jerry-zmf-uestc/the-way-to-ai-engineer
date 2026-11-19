@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760" role="img" aria-labelledby="title desc">
+<title id="title">治理：同一运行证据，承担不同判断</title><desc id="desc">固定任务与资产后产生一次受控运行，保存执行证据。Testing检查契约，Evaluation按独立参照评价质量与消耗，Acceptance检查当前候选交付资格，可信发布策略综合判断。三类检查可独立组合，不代表已实现统一模拟或发布平台。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#23736b"/></marker></defs>
+<rect width="1120" height="760" fill="#ffffff"/><g font-family="system-ui,sans-serif" fill="#163f3a">
+<text x="32" y="45" font-size="27">治理：同一运行证据，承担不同判断</text>
+<text x="32" y="82" font-size="18">职责关系示意：检查可以组合，Simulation不是所有测试或Eval的前置步骤。</text>
+<rect x="32" y="120" width="300" height="120" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="150" font-size="21">任务与资产</text>
+<text x="48" y="179" font-size="17">目标 / 用途 / 场景 / 版本</text>
+<text x="48" y="206" font-size="17">允许能力与原预算</text>
+<rect x="410" y="120" width="300" height="120" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="426" y="150" font-size="21">一次受控运行</text>
+<text x="426" y="179" font-size="17">实际输入 → 提议 → 工具观察</text>
+<text x="426" y="206" font-size="17">状态、结果与已知/未知消耗</text>
+<rect x="788" y="120" width="300" height="120" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="804" y="150" font-size="21">运行证据</text>
+<text x="804" y="179" font-size="17">Case / Run / Call关联</text>
+<text x="804" y="206" font-size="17">原始输出、终态与资产版本</text>
+<path d="M332 180H410" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M710 180H788" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M938 240V300H182" fill="none" stroke="#23736b" stroke-width="2"/>
+<path d="M182 300V365" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M560 300V365" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M938 300V365" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="278" font-size="17">同一证据保持关联；评分标签和独立参照不进入被测模型输入。</text>
+<rect x="32" y="365" width="300" height="147" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="395" font-size="21">Testing：契约是否成立</text>
+<text x="48" y="424" font-size="17">参数、授权、状态与竞争窗口</text>
+<text x="48" y="451" font-size="17">正常和失败路径分别检查</text>
+<text x="48" y="478" font-size="17">通过不等于模型任务有效</text>
+<rect x="410" y="365" width="300" height="147" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="426" y="395" font-size="21">Evaluation：质量怎样</text>
+<text x="426" y="424" font-size="17">运行结果 + 独立标准/参照</text>
+<text x="426" y="451" font-size="17">支持、完整性、费用与不确定</text>
+<text x="426" y="478" font-size="17">评分器自身需要校准</text>
+<rect x="788" y="365" width="300" height="147" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="804" y="395" font-size="21">Acceptance：能否交付</text>
+<text x="804" y="424" font-size="17">当前目标 / 候选 / 政策版本</text>
+<text x="804" y="451" font-size="17">结果与判定绑定，失败不释放</text>
+<text x="804" y="478" font-size="17">当前通过不替代独立回归</text>
+<path d="M182 512V560H938V512M560 512V560" fill="none" stroke="#23736b" stroke-width="2"/>
+<path d="M560 560V605" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="32" y="605" width="1056" height="92" rx="10" fill="#f0f8f6" stroke="#60968e"/>
+<text x="48" y="635" font-size="21">可信发布与处置</text>
+<text x="48" y="664" font-size="17">综合质量、安全、兼容性与资源证据；按授权启用、拒绝、降级或回退，失败沉淀为有用途记录的回归案例</text>
+<text x="32" y="736" font-size="17">图示不表示本仓库已有统一用户模拟器、跨存储审计平台或自动发布服务。</text>
+</g></svg>

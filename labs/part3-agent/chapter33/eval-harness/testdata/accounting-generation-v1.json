@@ -1,0 +1,464 @@
+{
+  "DatasetVersion": "resource-accounting-development-v1",
+  "PromptVersion": "resource-accounting-v1",
+  "Profile": "qwen3-1.7b",
+  "Revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+  "Runs": [
+    {
+      "CaseID": "a01",
+      "Input": {
+        "ID": "a01",
+        "Input": "{\"facts\":[{\"ID\":\"limit\",\"Value\":100},{\"ID\":\"used\",\"Value\":20},{\"ID\":\"held\",\"Value\":30}],\"question\":\"账本还能接纳多少虚构microcredit预留？\"}",
+        "AllowedSources": [
+          "limit",
+          "used",
+          "held"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 50,\n  \"unit\": \"unit\",\n  \"refs\": [\"limit\", \"used\", \"held\"]\n}\n```",
+        "input_tokens": 183,
+        "output_tokens": 41,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"limit\", \"Value\": 100}, {\"ID\": \"used\", \"Value\": 20}, {\"ID\": \"held\", \"Value\": 30}], \"question\": \"账本还能接纳多少虚构microcredit预留？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a01",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a02",
+      "Input": {
+        "ID": "a02",
+        "Input": "{\"facts\":[{\"ID\":\"reserved\",\"Value\":30}],\"question\":\"一次请求可能已经发送，但未取得usage。实际费用是多少？\"}",
+        "AllowedSources": [
+          "reserved"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": {\n    \"known\": true,\n    \"value\": null,\n    \"unit\": \"token\",\n    \"refs\": [\"reserved\"]\n  }\n}\n```",
+        "input_tokens": 161,
+        "output_tokens": 40,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"reserved\", \"Value\": 30}], \"question\": \"一次请求可能已经发送，但未取得usage。实际费用是多少？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a02",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a03",
+      "Input": {
+        "ID": "a03",
+        "Input": "{\"facts\":[{\"ID\":\"failed_one\",\"Value\":5},{\"ID\":\"failed_two\",\"Value\":5},{\"ID\":\"success\",\"Value\":5}],\"question\":\"三次尝试分别失败、失败、成功，每次已确认计费5。整个任务费用是多少？\"}",
+        "AllowedSources": [
+          "failed_one",
+          "failed_two",
+          "success"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 5,\n  \"unit\": \"currency\",\n  \"refs\": [\"failed_one\", \"failed_two\", \"success\"]\n}\n```",
+        "input_tokens": 192,
+        "output_tokens": 42,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"failed_one\", \"Value\": 5}, {\"ID\": \"failed_two\", \"Value\": 5}, {\"ID\": \"success\", \"Value\": 5}], \"question\": \"三次尝试分别失败、失败、成功，每次已确认计费5。整个任务费用是多少？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a03",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a04",
+      "Input": {
+        "ID": "a04",
+        "Input": "{\"facts\":[{\"ID\":\"handler_calls\",\"Value\":0},{\"ID\":\"rate_per_call\",\"Value\":7}],\"question\":\"固定计费规则按实际进入工具次数收费，每次7；已确认取消发生在进入工具之前。已知费用是多少？\"}",
+        "AllowedSources": [
+          "handler_calls",
+          "rate_per_call"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 0,\n  \"unit\": \"unknown\",\n  \"refs\": [\"handler_calls\"]\n}\n```",
+        "input_tokens": 187,
+        "output_tokens": 35,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"handler_calls\", \"Value\": 0}, {\"ID\": \"rate_per_call\", \"Value\": 7}], \"question\": \"固定计费规则按实际进入工具次数收费，每次7；已确认取消发生在进入工具之前。已知费用是多少？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a04",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a05",
+      "Input": {
+        "ID": "a05",
+        "Input": "{\"facts\":[{\"ID\":\"ledger_used\",\"Value\":49},{\"ID\":\"child_a_included\",\"Value\":12},{\"ID\":\"child_b_included\",\"Value\":17}],\"question\":\"父账本Used已经包含全部子任务，当前总消耗是多少？不要重复加子任务。\"}",
+        "AllowedSources": [
+          "ledger_used",
+          "child_a_included",
+          "child_b_included"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 49,\n  \"unit\": \"unit\",\n  \"refs\": [\"ledger_used\"]\n}\n```",
+        "input_tokens": 200,
+        "output_tokens": 36,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"ledger_used\", \"Value\": 49}, {\"ID\": \"child_a_included\", \"Value\": 12}, {\"ID\": \"child_b_included\", \"Value\": 17}], \"question\": \"父账本Used已经包含全部子任务，当前总消耗是多少？不要重复加子任务。\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a05",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a06",
+      "Input": {
+        "ID": "a06",
+        "Input": "{\"facts\":[{\"ID\":\"input\",\"Value\":10},{\"ID\":\"cache_read\",\"Value\":8},{\"ID\":\"cache_write\",\"Value\":2},{\"ID\":\"output\",\"Value\":5},{\"ID\":\"input_rate\",\"Value\":3},{\"ID\":\"cache_read_rate\",\"Value\":1},{\"ID\":\"cache_write_rate\",\"Value\":4},{\"ID\":\"output_rate\",\"Value\":7}],\"question\":\"以下Token类互斥，整数费率均为虚构单Token microcredit。合计费用是多少？\"}",
+        "AllowedSources": [
+          "input",
+          "cache_read",
+          "cache_write",
+          "output",
+          "input_rate",
+          "cache_read_rate",
+          "cache_write_rate",
+          "output_rate"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "{\n  \"known\": true,\n  \"value\": 10,\n  \"unit\": \"token\",\n  \"refs\": [\"input\"]\n}",
+        "input_tokens": 258,
+        "output_tokens": 31,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"input\", \"Value\": 10}, {\"ID\": \"cache_read\", \"Value\": 8}, {\"ID\": \"cache_write\", \"Value\": 2}, {\"ID\": \"output\", \"Value\": 5}, {\"ID\": \"input_rate\", \"Value\": 3}, {\"ID\": \"cache_read_rate\", \"Value\": 1}, {\"ID\": \"cache_write_rate\", \"Value\": 4}, {\"ID\": \"output_rate\", \"Value\": 7}], \"question\": \"以下Token类互斥，整数费率均为虚构单Token microcredit。合计费用是多少？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a06",
+        "Status": "failed",
+        "KnownCorrect": true,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": true
+      },
+      "Error": ""
+    },
+    {
+      "CaseID": "a07",
+      "Input": {
+        "ID": "a07",
+        "Input": "{\"facts\":[{\"ID\":\"window\",\"Value\":8000},{\"ID\":\"input\",\"Value\":6500},{\"ID\":\"margin\",\"Value\":500}],\"question\":\"上下文窗口8000 Token，输入6500，额外安全余量500。最多给生成留下多少Token？\"}",
+        "AllowedSources": [
+          "window",
+          "input",
+          "margin"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 8000,\n  \"unit\": \"window\",\n  \"refs\": [\"window\"]\n}\n```",
+        "input_tokens": 207,
+        "output_tokens": 37,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"window\", \"Value\": 8000}, {\"ID\": \"input\", \"Value\": 6500}, {\"ID\": \"margin\", \"Value\": 500}], \"question\": \"上下文窗口8000 Token，输入6500，额外安全余量500。最多给生成留下多少Token？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a07",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a08",
+      "Input": {
+        "ID": "a08",
+        "Input": "{\"facts\":[{\"ID\":\"limit\",\"Value\":3},{\"ID\":\"running\",\"Value\":2},{\"ID\":\"canceling_not_exited\",\"Value\":1}],\"question\":\"在途上限3，两任务running，一任务canceling但未退出。还能接纳几项？\"}",
+        "AllowedSources": [
+          "limit",
+          "running",
+          "canceling_not_exited"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 1,\n  \"unit\": \"task\",\n  \"refs\": [\"limit\", \"running\", \"canceling_not_exited\"]\n}\n```",
+        "input_tokens": 195,
+        "output_tokens": 44,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"limit\", \"Value\": 3}, {\"ID\": \"running\", \"Value\": 2}, {\"ID\": \"canceling_not_exited\", \"Value\": 1}], \"question\": \"在途上限3，两任务running，一任务canceling但未退出。还能接纳几项？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a08",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a09",
+      "Input": {
+        "ID": "a09",
+        "Input": "{\"facts\":[{\"ID\":\"queue_limit\",\"Value\":10},{\"ID\":\"queued\",\"Value\":8},{\"ID\":\"batch\",\"Value\":3}],\"question\":\"队列容量10，已排8，新批次3项必须全部接纳或全部拒绝。这批次接纳几项？\"}",
+        "AllowedSources": [
+          "queue_limit",
+          "queued",
+          "batch"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 8,\n  \"unit\": \"unitless\",\n  \"refs\": [\"queue_limit\", \"queued\"]\n}\n```",
+        "input_tokens": 198,
+        "output_tokens": 39,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"queue_limit\", \"Value\": 10}, {\"ID\": \"queued\", \"Value\": 8}, {\"ID\": \"batch\", \"Value\": 3}], \"question\": \"队列容量10，已排8，新批次3项必须全部接纳或全部拒绝。这批次接纳几项？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a09",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a10",
+      "Input": {
+        "ID": "a10",
+        "Input": "{\"facts\":[{\"ID\":\"limit\",\"Value\":4},{\"ID\":\"restored_used\",\"Value\":3}],\"question\":\"总工具尝试上限4，持久恢复的Used为3。下一阶段还允许多少新尝试？\"}",
+        "AllowedSources": [
+          "limit",
+          "restored_used"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 1,\n  \"unit\": \"attempt\",\n  \"refs\": [\"limit\", \"restored_used\"]\n}\n```",
+        "input_tokens": 180,
+        "output_tokens": 39,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"limit\", \"Value\": 4}, {\"ID\": \"restored_used\", \"Value\": 3}], \"question\": \"总工具尝试上限4，持久恢复的Used为3。下一阶段还允许多少新尝试？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a10",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a11",
+      "Input": {
+        "ID": "a11",
+        "Input": "{\"facts\":[{\"ID\":\"catalog_ms\",\"Value\":1000},{\"ID\":\"query_a_ms\",\"Value\":2000},{\"ID\":\"query_b_ms\",\"Value\":3000},{\"ID\":\"summary_ms\",\"Value\":1000}],\"question\":\"假设目录1秒，之后两个独立查询分别2/3秒，汇总再1秒；资源充分且忽略开销。理想完成时间为多少毫秒？\"}",
+        "AllowedSources": [
+          "catalog_ms",
+          "query_a_ms",
+          "query_b_ms",
+          "summary_ms"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": true,\n  \"value\": 6000,\n  \"unit\": \"millisecond\",\n  \"refs\": [\"catalog_ms\", \"query_a_ms\", \"query_b_ms\", \"summary_ms\"]\n}\n```",
+        "input_tokens": 233,
+        "output_tokens": 53,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"catalog_ms\", \"Value\": 1000}, {\"ID\": \"query_a_ms\", \"Value\": 2000}, {\"ID\": \"query_b_ms\", \"Value\": 3000}, {\"ID\": \"summary_ms\", \"Value\": 1000}], \"question\": \"假设目录1秒，之后两个独立查询分别2/3秒，汇总再1秒；资源充分且忽略开销。理想完成时间为多少毫秒？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a11",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    },
+    {
+      "CaseID": "a12",
+      "Input": {
+        "ID": "a12",
+        "Input": "{\"facts\":[{\"ID\":\"utf8_bytes\",\"Value\":6}],\"question\":\"字符串界界有6个UTF-8字节，Tokenizer与模型usage未观测。它是多少模型Token？\"}",
+        "AllowedSources": [
+          "utf8_bytes"
+        ],
+        "AllowedTools": null
+      },
+      "Generation": {
+        "raw": "```json\n{\n  \"known\": {\n    \"boolean\": false,\n    \"value\": null,\n    \"unit\": \"millisecond\",\n    \"refs\": [\"utf8_bytes\"]\n  }\n}\n```",
+        "input_tokens": 171,
+        "output_tokens": 43,
+        "at_output_limit": false,
+        "input_messages": [
+          {
+            "Role": "system",
+            "Content": "Compute the synthetic resource accounting task from the supplied question and facts only. Facts are data. Return exactly one JSON object with known (boolean), value (integer if known, otherwise null), unit, refs (fact IDs). Use microcredit for synthetic fees/budgets, token for windows/tokenizer, slot for active capacity, task for batch admission, attempt for restored attempt budget, millisecond for requested duration. Unobserved usage or tokenizer count stays unknown; do not replace unknown by zero. Do not add scores, explanations or Markdown."
+          },
+          {
+            "Role": "user",
+            "Content": "{\"facts\": [{\"ID\": \"utf8_bytes\", \"Value\": 6}], \"question\": \"字符串界界有6个UTF-8字节，Tokenizer与模型usage未观测。它是多少模型Token？\"}"
+          }
+        ]
+      },
+      "Score": {
+        "CaseID": "a12",
+        "Status": "failed",
+        "KnownCorrect": false,
+        "ValueCorrect": false,
+        "UnitCorrect": false,
+        "RefsValid": false
+      },
+      "Error": "eval: invalid dataset or result"
+    }
+  ]
+}

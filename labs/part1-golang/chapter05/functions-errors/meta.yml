@@ -1,0 +1,19 @@
+---
+course:
+  part: 1
+  chapter: 5
+topic_slug: functions-errors
+kind: original
+status: validated
+entrypoints:
+- "."
+source: 
+validation:
+  offline: true
+  race: true
+  e2e_gate: 
+license: MIT
+references:
+- https://gobyexample.com/functions
+- https://gobyexample.com/multiple-return-values
+- https://gobyexample.com/errors

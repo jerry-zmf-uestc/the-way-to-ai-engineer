@@ -1,0 +1,12 @@
+{
+  "gitleaks": {
+    "module": "github.com/zricethezav/gitleaks/v8",
+    "package": "github.com/zricethezav/gitleaks/v8",
+    "version": "v8.30.1"
+  },
+  "govulncheck": {
+    "module": "golang.org/x/vuln",
+    "package": "golang.org/x/vuln/cmd/govulncheck",
+    "version": "v1.7.0"
+  }
+}

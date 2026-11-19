@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650" role="img" aria-labelledby="title"><title id="title">Safety Gate：执行前拒绝，返回后再次检查</title>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="650" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">Safety Gate：执行前拒绝，返回后再次检查</text>
+<rect x="30" y="110" width="290" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="140" font-size="17">计入尝试预算</text>
+<text x="44" y="167" font-size="17">工具、参数、Scope与分类</text>
+<rect x="430" y="110" width="290" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="444" y="140" font-size="17">执行Reader</text>
+<text x="444" y="167" font-size="17">不持有Gate锁</text>
+<rect x="825" y="110" width="240" height="90" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="839" y="140" font-size="17">返回后校验</text>
+<text x="839" y="167" font-size="17">取消 / 撤销 / 期限</text>
+<path d="M320 155H430" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="351" y="141" font-size="16">允许</text>
+<path d="M720 155H825" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="743" y="141" font-size="16">结果或错误</text>
+<rect x="60" y="385" width="420" height="90" rx="9" fill="#fee2e2" stroke="#64748b"/>
+<text x="74" y="415" font-size="17">拒绝或失败 → 空Evidence</text>
+<text x="74" y="442" font-size="17">私有错误不进入公开响应</text>
+<rect x="590" y="385" width="420" height="90" rx="9" fill="#dcfce7" stroke="#64748b"/>
+<text x="604" y="415" font-size="17">校验ID与大小 → untrusted证据</text>
+<text x="604" y="442" font-size="17">不是正确性或秘密检测证明</text>
+<path d="M175 200V385" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="190" y="278" font-size="16">执行前拒绝</text>
+<path d="M910 200V290H345V385" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="485" y="278" font-size="16">返回后停止 / 失败</text>
+<path d="M980 200V385" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="991" y="314" font-size="16">可释放</text>
+<text x="30" y="566" font-size="17">撤销禁止迟到结果释放，但不回滚已发生的读取；任意阻塞函数仍需下游协作。</text>
+<text x="30" y="605" font-size="17">审计按白名单字段记录；4次尝试与一次预算耗尽决定构成有界记录。</text>
+</g></svg>

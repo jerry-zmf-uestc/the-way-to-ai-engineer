@@ -1,0 +1,119 @@
+{
+  "version": "skills-development-v1",
+  "split": "development",
+  "cases": [
+    {
+      "id": "diagnosis",
+      "question": "Diagnose timeout failures using readonly evidence.",
+      "evidence": [
+        {
+          "id": "e1",
+          "text": "Request timeout is 30 seconds; elapsed time is 35 seconds; retry policy allows 2 attempts."
+        }
+      ],
+      "required_numbers": [
+        "30",
+        "35",
+        "2"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "incident-diagnosis"
+      ]
+    },
+    {
+      "id": "report",
+      "question": "Format a report with source references.",
+      "evidence": [
+        {
+          "id": "e2",
+          "text": "Service inventory: 4 workers and 2 queues; both are healthy."
+        }
+      ],
+      "required_numbers": [
+        "4",
+        "2"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "report-format"
+      ]
+    },
+    {
+      "id": "combined",
+      "question": "Diagnose timeout failures and format a report with source references.",
+      "evidence": [
+        {
+          "id": "e3",
+          "text": "Request timeout is 12 seconds; elapsed time is 18 seconds; retry policy allows 1 attempt."
+        }
+      ],
+      "required_numbers": [
+        "12",
+        "18",
+        "1"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "incident-diagnosis",
+        "report-format"
+      ]
+    },
+    {
+      "id": "missing-policy",
+      "question": "Diagnose timeout failures using readonly evidence; report missing retry policy.",
+      "evidence": [
+        {
+          "id": "e4",
+          "text": "Request timeout is 9 seconds; elapsed time is 14 seconds. Retry policy is not documented."
+        }
+      ],
+      "required_numbers": [
+        "9",
+        "14"
+      ],
+      "expected_missing": [
+        "retry_policy"
+      ],
+      "expected_selected": [
+        "incident-diagnosis"
+      ]
+    },
+    {
+      "id": "no-skill",
+      "question": "Explain the service inventory.",
+      "evidence": [
+        {
+          "id": "e5",
+          "text": "Service inventory: 3 workers and 5 queues."
+        }
+      ],
+      "required_numbers": [
+        "3",
+        "5"
+      ],
+      "expected_missing": [],
+      "expected_selected": []
+    },
+    {
+      "id": "overlap",
+      "question": "Format a report about timeout values with source references.",
+      "evidence": [
+        {
+          "id": "e6",
+          "text": "Timeout is 7 seconds. No elapsed time or retry policy is documented."
+        }
+      ],
+      "required_numbers": [
+        "7"
+      ],
+      "expected_missing": [
+        "elapsed_time",
+        "retry_policy"
+      ],
+      "expected_selected": [
+        "report-format"
+      ]
+    }
+  ]
+}

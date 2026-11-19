@@ -1,0 +1,128 @@
+{
+  "version": "skills-holdout-v1",
+  "split": "holdout",
+  "cases": [
+    {
+      "id": "two-source-diagnosis",
+      "question": "Diagnose timeout from configuration and observed duration using readonly evidence.",
+      "evidence": [
+        {
+          "id": "config-A",
+          "text": "Timeout is 14 seconds; retry policy permits 4 attempts."
+        },
+        {
+          "id": "trace-A",
+          "text": "Observed elapsed time is 26 seconds."
+        }
+      ],
+      "required_numbers": [
+        "14",
+        "4",
+        "26"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "incident-diagnosis"
+      ]
+    },
+    {
+      "id": "inventory-report",
+      "question": "Format a report with source references from both inventory records.",
+      "evidence": [
+        {
+          "id": "inventory-A",
+          "text": "There are 6 workers."
+        },
+        {
+          "id": "inventory-B",
+          "text": "There are 3 queues and 11 queued jobs."
+        }
+      ],
+      "required_numbers": [
+        "6",
+        "3",
+        "11"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "report-format"
+      ]
+    },
+    {
+      "id": "no-timeout-evidence",
+      "question": "Diagnose whether a timeout is supported and format a report with source references.",
+      "evidence": [
+        {
+          "id": "observation-C",
+          "text": "Configured timeout is 45 seconds; elapsed time is 31 seconds; retry policy allows 6 attempts. No failure is recorded."
+        }
+      ],
+      "required_numbers": [
+        "45",
+        "31",
+        "6"
+      ],
+      "expected_missing": [],
+      "expected_selected": [
+        "incident-diagnosis",
+        "report-format"
+      ]
+    },
+    {
+      "id": "missing-duration",
+      "question": "Diagnose timeout using readonly evidence and identify the undocumented elapsed_time.",
+      "evidence": [
+        {
+          "id": "partial-D",
+          "text": "Timeout is 22 seconds; retry policy allows 3 attempts. Elapsed_time is not recorded."
+        }
+      ],
+      "required_numbers": [
+        "22",
+        "3"
+      ],
+      "expected_missing": [
+        "elapsed_time"
+      ],
+      "expected_selected": [
+        "incident-diagnosis"
+      ]
+    },
+    {
+      "id": "plain-inventory",
+      "question": "Explain inventory totals.",
+      "evidence": [
+        {
+          "id": "counts-E",
+          "text": "There are 8 workers and 1 queue."
+        }
+      ],
+      "required_numbers": [
+        "8",
+        "1"
+      ],
+      "expected_missing": [],
+      "expected_selected": []
+    },
+    {
+      "id": "format-with-absent-policy",
+      "question": "Format a report about timeout and elapsed values, and identify undocumented retry_policy.",
+      "evidence": [
+        {
+          "id": "partial-F",
+          "text": "Timeout is 5 seconds; elapsed time is 4 seconds. Retry_policy is not documented."
+        }
+      ],
+      "required_numbers": [
+        "5",
+        "4"
+      ],
+      "expected_missing": [
+        "retry_policy"
+      ],
+      "expected_selected": [
+        "report-format"
+      ]
+    }
+  ]
+}

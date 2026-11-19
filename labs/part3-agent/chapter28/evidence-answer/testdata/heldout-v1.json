@@ -1,0 +1,11 @@
+{
+  "version": "rag-heldout-v1",
+  "cases": [
+    {"id":"lease", "question":"How long is the worker lease?", "evidence":[{"ID":"lease","Source":"manual","Version":"r2","Tenant":"demo","Text":"The worker lease lasts 17 seconds."}], "expected_quote":"The worker lease lasts 17 seconds.", "should_abstain":false},
+    {"id":"capacity", "question":"How many jobs can the queue hold?", "evidence":[{"ID":"capacity","Source":"manual","Version":"r2","Tenant":"demo","Text":"The queue holds at most 12 jobs."}], "expected_quote":"The queue holds at most 12 jobs.", "should_abstain":false},
+    {"id":"permission", "question":"Should permission-denied requests be retried?", "evidence":[{"ID":"permission","Source":"manual","Version":"r2","Tenant":"demo","Text":"Permission-denied requests must not be retried."}], "expected_quote":"Permission-denied requests must not be retried.", "should_abstain":false},
+    {"id":"version", "question":"What is the input limit in release 2?", "evidence":[{"ID":"limit","Source":"manual","Version":"r2","Tenant":"demo","Text":"Release 2 allows 256 input tokens. Release 1 allowed 128 input tokens."}], "expected_quote":"Release 2 allows 256 input tokens.", "should_abstain":false},
+    {"id":"unsupported", "question":"What is the train ticket price?", "evidence":[{"ID":"lease","Source":"manual","Version":"r2","Tenant":"demo","Text":"The worker lease lasts 17 seconds."}], "expected_quote":"", "should_abstain":true},
+    {"id":"empty", "question":"What is the deployment region?", "evidence":[], "expected_quote":"", "should_abstain":true}
+  ]
+}

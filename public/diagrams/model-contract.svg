@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="672" viewBox="0 0 900 672" role="img" aria-labelledby="title desc">
+<title id="title">Model：输入、协议与业务校验</title><desc id="desc">各层成功只证明本层契约，不能替后续判断。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="672" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Model：输入、协议与业务校验</text>
+<text x="30" y="72" font-size="16">各层成功只证明本层契约，不能替后续判断。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">应用输入 → Provider请求</text>
+<text x="80" y="158" font-size="16">消息与工具说明；context、大小与输出上限</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">HTTP响应 → 状态分类</text>
+<text x="80" y="268" font-size="16">请求失败 / 非成功状态 / 成功响应；错误体未必是JSON</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">协议响应 → 程序结果</text>
+<text x="80" y="378" font-size="16">解码、响应分支、空结果与截断检查；成功响应保留usage</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">业务消费 → 效果判断</text>
+<text x="80" y="488" font-size="16">字段校验 → 引用与事实校验 → 任务评估</text>
+<text x="30" y="558" font-size="16">文本生成与工具提议需要不同的响应分支。</text>
+<text x="30" y="586" font-size="16">失败或取消可能缺少usage，不能据此按零费用结算。</text>
+<text x="30" y="614" font-size="16">fake验证协议；真实模型任务集评估效果。</text>
+</g></svg>

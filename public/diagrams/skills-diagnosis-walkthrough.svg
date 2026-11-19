@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="660" viewBox="0 0 1080 660" role="img" aria-labelledby="title desc">
+<title id="title">超时诊断：先选流程，再补参考</title><desc id="desc">任务先匹配获准元信息，激活诊断正文，再按需读取参考。Context组合指导和真实观察；包文件不自行调用模型或授予执行权限。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#23736b"/></marker></defs>
+<rect width="1080" height="660" fill="#ffffff"/>
+<g font-family="system-ui,sans-serif" fill="#163f3a">
+<text x="32" y="44" font-size="26">超时诊断：先选流程，再补参考</text>
+<text x="32" y="82" font-size="18">任务：这次接口超时，应该先查什么？</text>
+<rect x="32" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="147" font-size="20">1 发现与选择</text>
+<text x="48" y="177" font-size="17">description匹配诊断任务</text>
+<text x="48" y="207" font-size="17">只在获准包中产生候选</text>
+<rect x="390" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="406" y="147" font-size="20">2 激活正文</text>
+<text x="406" y="177" font-size="17">incident-diagnosis / v1</text>
+<text x="406" y="207" font-size="17">读错误 → 比较证据 → 报告缺口</text>
+<rect x="748" y="116" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="764" y="147" font-size="20">3 按需读取</text>
+<text x="764" y="177" font-size="17">references/guide.md</text>
+<text x="764" y="207" font-size="17">核对资源摘要与剩余预算</text>
+<path d="M332 177H390" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M690 177H748" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="280" font-size="18">以下是应用后续组装；Load本身不调用模型，也不执行步骤。</text>
+<rect x="32" y="312" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="48" y="343" font-size="20">方法：来自Skill</text>
+<text x="48" y="373" font-size="17">正文与已读取参考</text>
+<text x="48" y="403" font-size="17">告诉模型怎样组织诊断</text>
+<rect x="390" y="312" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="406" y="343" font-size="20">事实：来自受控观察</text>
+<text x="406" y="373" font-size="17">错误描述、超时与重试记录</text>
+<text x="406" y="403" font-size="17">决定哪些结论有证据</text>
+<rect x="748" y="312" width="300" height="122" rx="10" fill="#e8f5f1" stroke="#60968e"/>
+<text x="764" y="343" font-size="20">Context组装请求</text>
+<text x="764" y="373" font-size="17">当前任务 + 指导 + 证据</text>
+<text x="764" y="403" font-size="17">保留来源，计算总输入预算</text>
+<path d="M332 405H360V463H898V434" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M690 373H748" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="374" y="453" font-size="16">实际取得的内容才进入请求</text>
+<rect x="390" y="512" width="658" height="92" rx="10" fill="#f0f8f6" stroke="#60968e"/>
+<text x="406" y="543" font-size="20">Runtime推进 → 工具执行器核对当前许可</text>
+<text x="406" y="573" font-size="17">模型提议run-command：应用仅批准read-doc，因此拒绝</text>
+<path d="M898 434V512" fill="none" stroke="#23736b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="32" y="640" font-size="18">记住：目录可见 ≠ 正文已加载 ≠ 规则已采用；Skill不提供缺失的事实。</text>
+</g></svg>

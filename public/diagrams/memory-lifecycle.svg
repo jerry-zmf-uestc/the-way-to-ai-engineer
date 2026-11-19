@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="690" viewBox="0 0 1000 690" role="img" aria-labelledby="title desc">
+<title id="title">Memory：读取与生命周期变更分开</title><desc id="desc">CAS写入有效事实；有效记录按需召回，到期不返回。删除需独立授权，清空值并保留修订；再确认基于墓碑修订写入。读取不会触发删除。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs>
+<rect width="1000" height="690" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="25">Memory：读取与生命周期变更分开</text>
+<text x="30" y="73" font-size="16">箭头标注操作或触发条件；召回不自动删除，也不自动延长信息期限。</text>
+<rect x="30" y="120" width="280" height="111" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="45" y="150" font-size="19">候选与具体授权</text>
+<text x="45" y="177" font-size="16">Scope / 值 / 操作 / 期限</text>
+<text x="45" y="204" font-size="16">字段检查 → CAS</text>
+<rect x="355" y="120" width="290" height="111" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="370" y="150" font-size="19">有效记录</text>
+<text x="370" y="177" font-size="16">Value / Source / Revision</text>
+<text x="370" y="204" font-size="16">ExpiresAt，Deleted=false</text>
+<path d="M310 168H355" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="312" y="109" font-size="15">写入</text>
+<rect x="690" y="120" width="280" height="111" rx="10" fill="#fef3c7" stroke="#64748b"/>
+<text x="705" y="150" font-size="19">到期记录</text>
+<text x="705" y="177" font-size="16">Recall / Resolve不返回</text>
+<text x="705" y="204" font-size="16">物理行未必已清理</text>
+<path d="M645 168H690" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="650" y="109" font-size="15">到期</text>
+<rect x="355" y="330" width="290" height="111" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="370" y="360" font-size="19">按需召回或候选回查</text>
+<text x="370" y="387" font-size="16">当前Scope / 期限 / 状态</text>
+<text x="370" y="414" font-size="16">返回快照，再由Context选择</text>
+<path d="M500 231V330" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="520" y="277" font-size="15">读取；不修改Revision</text>
+<rect x="30" y="500" width="280" height="111" rx="10" fill="#fee2e2" stroke="#64748b"/>
+<text x="45" y="530" font-size="19">删除墓碑</text>
+<text x="45" y="557" font-size="16">Value与Source清空</text>
+<text x="45" y="584" font-size="16">Deleted=true；Revision增加</text>
+<path d="M355 197H330V550H310" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="30" y="484" font-size="15">删除需独立授权与当前Revision</text>
+<path d="M310 565H685V203H645" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="350" y="594" font-size="15">重新确认 + 墓碑Revision → CAS写入</text>
+<text x="30" y="636" font-size="16">旧候选只定位；必须回查事实源。过期、删除与数据库失败不混成同一结果。</text>
+<text x="30" y="670" font-size="16">这不是全局原子授权；SQL行为、语义召回与长期任务收益分别验证。</text>
+</g></svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Retrieval：索引与查询分离</title><desc id="desc">知识结构总览；范围、版本与物理扫描顺序按各后端契约核对。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Retrieval：索引与查询分离</text>
+<text x="30" y="72" font-size="16">知识结构总览；范围、版本与物理扫描顺序按各后端契约核对。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">索引准备：解析 → 切分 → 向量化 → 发布版本</text>
+<text x="80" y="158" font-size="16">保存片段ID、来源、权限、Space与原文；更新版本不能悄悄复用ID</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">在线查询：可信范围与版本过滤</text>
+<text x="80" y="268" font-size="16">查询向量必须匹配文档空间；非法输入与空结果分别处理</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">两路召回：词法排名 + 向量排名</text>
+<text x="80" y="378" font-size="16">每路candidateK限制候选；原始分数尺度不直接相加</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">融合 → 可选重排 → 最终topK</text>
+<text x="80" y="488" font-size="16">保留路线排名与来源；输入长度还需由Context限制</text>
+<text x="30" y="558" font-size="16">基础Search先按Tenant过滤；版本选择与后端ANN扫描分别设计。</text>
+<text x="30" y="586" font-size="16">固定向量验证算法，真实编码另验效果；命中不证明回答被支持。</text>
+</g></svg>

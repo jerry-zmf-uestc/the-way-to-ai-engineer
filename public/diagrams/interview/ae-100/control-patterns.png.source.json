@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "单次调用、预设工作流与观察驱动循环",
+  "provenance": "原创确定性Pillow教学图，不是官方架构截图",
+  "original_sha256": "8cfdda642f162a48a3bce3155bd0d7583ecf20ebda1060d2d2a09d33b42fd006",
+  "rebuildable": false
+}

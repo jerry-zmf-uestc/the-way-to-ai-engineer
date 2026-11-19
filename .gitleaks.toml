@@ -1,0 +1,12 @@
+title = "the-way-to-ai-engineer security scan"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Private planning, local tool binaries and Git internals; release exporter rejects private tracked files"
+paths = [
+  '''(^|/)\.specs/''',
+  '''(^|/)\.tools/''',
+  '''(^|/)\.git/'''
+]

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="title desc">
+<title id="title">RAG：回答与拒答有不同验证出口</title>
+<desc id="desc">输入非法返回错误，无证据或结构化冲突由应用拒答；合法证据进入模型。草稿解析后，回答核对引用与支持，模型拒答核对互斥契约。任何关键失败不交付部分答案，任务效果另由Eval判断。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs>
+<rect width="1100" height="790" rx="16" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="25">RAG：回答与拒答有不同验证出口</text>
+<text x="30" y="73" font-size="16">图示对应给定证据的Run；追加检索由外层Loop与总预算另行管理。</text>
+<rect x="250" y="105" width="600" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="265" y="135" font-size="19">输入检查：Scope / 大小 / 来源 / 版本</text>
+<text x="265" y="162" font-size="16">证据先筛选；非法或越权不进入模型</text>
+<rect x="30" y="210" width="190" height="111" rx="10" fill="#fef3c7" stroke="#64748b"/>
+<text x="45" y="240" font-size="19">应用拒答</text>
+<text x="45" y="267" font-size="16">no_evidence</text>
+<text x="45" y="294" font-size="16">conflicting_evidence</text>
+<path d="M250 155H125V210" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="35" y="185" font-size="15">无证据 / 明确冲突</text>
+<rect x="250" y="250" width="600" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="265" y="280" font-size="19">Model：问题 + 合法证据 → 原始草稿</text>
+<text x="265" y="307" font-size="16">返回后检查取消；失败不释放残余文本</text>
+<path d="M550 189V250" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="570" y="219" font-size="15">合法且可用</text>
+<rect x="250" y="380" width="600" height="84" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="265" y="410" font-size="19">Parse：有界JSON与互斥分支</text>
+<text x="265" y="437" font-size="16">回答1–16个Claim；拒答只允许稳定原因</text>
+<path d="M550 334V380" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="570" y="359" font-size="15">完整草稿</text>
+<rect x="30" y="510" width="440" height="84" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="45" y="540" font-size="19">回答：出处 → 摘录归属 → 支持</text>
+<text x="45" y="567" font-size="16">unsupported拒绝；unknown待复核</text>
+<rect x="550" y="510" width="300" height="84" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="565" y="540" font-size="19">模型拒答</text>
+<text x="565" y="567" font-size="16">无Claim；原因契约通过</text>
+<path d="M430 464V487H250V510" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="265" y="504" font-size="15">Claims</text>
+<path d="M690 464V510" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="707" y="491" font-size="15">Abstained</text>
+<rect x="885" y="300" width="195" height="165" rx="10" fill="#fee2e2" stroke="#64748b"/>
+<text x="900" y="330" font-size="19">错误 / 待复核</text>
+<text x="900" y="357" font-size="16">越权、调用失败</text>
+<text x="900" y="384" font-size="16">协议、取消</text>
+<text x="900" y="411" font-size="16">不发布部分答案</text>
+<text x="900" y="438" font-size="16">不伪装成拒答</text>
+<path d="M850 148H980V300" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="867" y="227" font-size="15">非法输入</text>
+<path d="M850 292H865V360H885" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="865" y="279" font-size="15">失败</text>
+<path d="M850 423H885" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="0" y="0" font-size="15"></text>
+<rect x="250" y="660" width="600" height="84" rx="10" fill="#dcfce7" stroke="#64748b"/>
+<text x="265" y="690" font-size="19">返回：经验证回答 / 有来源性质的拒答</text>
+<text x="265" y="717" font-size="16">正确拒答、误拒答与任务完成度由Eval另查</text>
+<path d="M125 321H15V708H250" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="32" y="641" font-size="15">应用拒答，不调用Model</text>
+<path d="M250 594V660" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="269" y="631" font-size="15">通过</text>
+<path d="M700 594V660" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#a)"/>
+<text x="715" y="631" font-size="15">契约通过，不证明题目无解</text>
+<text x="30" y="773" font-size="16">应用拒答不调用Model；模型拒答不调用事实Judge。所有路径仍受取消与权限边界约束。</text>
+</g></svg>

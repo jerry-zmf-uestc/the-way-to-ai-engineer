@@ -1,0 +1,5 @@
+<script>
+  import { enhanceReading } from '../scripts/reading-tools.mjs';
+  const root = document.querySelector('.prose');
+  if (root) enhanceReading(root, navigator.clipboard, location.href, import.meta.env.BASE_URL.replace(/\/$/, ''));
+</script>

@@ -1,0 +1,36 @@
+{
+  "source": "采用的Hex V3草稿素材：一张AI生成概念头图、两张Hex官方演示截图；各自身份与权利说明分别登记。",
+  "assets": [
+    {
+      "file": "assets/hex-4/00-cover.png",
+      "kind": "generated_editorial_illustration",
+      "source": "native imagegen",
+      "purpose": "概念头图，非Hex产品界面",
+      "sha256": "84b75132ded3101706197947458001a0e780d8ea2a62aa90806a20f8b91c0516",
+      "rights": "AI生成概念配图；Hex名称与商标归相应权利人。",
+      "prompt": "Use case: editorial illustration-story.\nAsset type: WeChat article lead image and horizontal cover, approximately 2.35:1 wide.\nPrimary request: A sophisticated magazine illustration for a Chinese personal AI product observation column about Hex 4.0: turning AI conversations about data into a tangible, inspectable analytical app.\nScene: Off-white desk-like editorial space. A large beautiful translucent emerald dashboard panel with understated abstract bar charts and a small filter control, linked to a conversational bubble and a small magnifying lens revealing layered data lineage under the chart. These are abstract visual metaphors, not a reproduction of the real Hex interface. A small human hand adjusts a filter to show human agency. No robot mascot, no humanoid AI, no glowing brain, no fake screenshot.\nComposition: Strong central subject with restrained whitespace, safe central crop for 1:1 sharing, crisp silhouettes, wide cinematic editorial composition. The chart, lens, and hand form one cohesive scene rather than disconnected cards.\nStyle: Refined dimensional vector editorial illustration, subtle paper grain and soft tactile shading, clean tasteful technology publication aesthetic. Dark pine green, warm ivory, muted terracotta accents. Premium and calm, not a course diagram or promotional poster.\nExact typography: Only the small understated text \"Hex 4.0\", clean bold dark green sans-serif. No other text, no badge, no watermark, no company logo.\nConstraints: No factual numbers, no performance claims, no fabricated product controls. Visually distinguish concept art from product screenshot. Flat light ivory background. All important elements comfortably within the central 75 percent.\n",
+      "generated_on": "2026-11-11",
+      "transform": "none; original generated image"
+    },
+    {
+      "file": "assets/hex-4/01-sales-app.png",
+      "caption": "图1：对着眼前的销售页面，继续提修改要求。",
+      "source_page": "https://learn.hex.tech/docs/hex-4-0/what-is-hex-4-0",
+      "source_url": "https://learn.hex.tech/assets/img/follow-up-prompt@2x.45a2f45c.png",
+      "kind": "official_screenshot",
+      "transform": "unmodified official image",
+      "rights": "Hex 官方素材，权利归原权利人；本文用于产品介绍与评论，未取得独立转载许可。",
+      "sha256": "34faddfb325549e1522a9d7c49aba576aaa697a438eae6ee5f0ee5a4118947e3"
+    },
+    {
+      "file": "assets/hex-4/02-inspect.png",
+      "caption": "图2：Inspect 中的数据表与计算说明局部。",
+      "source_page": "https://learn.hex.tech/docs/hex-4-0/what-is-hex-4-0",
+      "source_url": "https://learn.hex.tech/assets/medias/inspect-agent-outputs-aba5ba0482934552431a0ae6c6b17bd3.mp4",
+      "kind": "official_screenshot",
+      "transform": "official video frame at 00:06; crop x=50,y=220,w=940,h=860; unmodified full frame retained in author workspace",
+      "rights": "Hex 官方素材，权利归原权利人；本文用于产品介绍与评论，未取得独立转载许可。",
+      "sha256": "48c176c9173a204c7f30d9e28829680571acb46f83371fd7027aaec5b3091e35"
+    }
+  ]
+}

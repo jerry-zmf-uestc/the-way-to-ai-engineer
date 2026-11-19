@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="644" viewBox="0 0 900 644" role="img" aria-labelledby="title desc">
+<title id="title">Context：构建本轮输入视图</title><desc id="desc">原始历史保持不变；估算、协议完整性与任务效果分别验证。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#475569"/></marker></defs>
+<rect width="900" height="644" rx="16" fill="#f8fafc"/>
+<g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="40" font-size="24">Context：构建本轮输入视图</text>
+<text x="30" y="72" font-size="16">原始历史保持不变；估算、协议完整性与任务效果分别验证。</text>
+<rect x="55" y="100" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="129" font-size="20">验证历史：角色与调用ID</text>
+<text x="80" y="158" font-size="16">下一轮模型输入需要完整的工具提议和观察组</text>
+<path d="M450 180 V204" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="210" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="239" font-size="20">保护必要输入：规则 + 当前用户轮</text>
+<text x="80" y="268" font-size="16">Window - OutputReserve是简化输入预算；不够则失败</text>
+<path d="M450 290 V314" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="320" width="790" height="80" rx="10" fill="#dbeafe" stroke="#64748b"/>
+<text x="80" y="349" font-size="20">选择旧轮：完整候选逐次计数</text>
+<text x="80" y="378" font-size="16">保留时间顺序，不拆开调用关联；省略不等于删除</text>
+<path d="M450 400 V424" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="55" y="430" width="790" height="80" rx="10" fill="#ffffff" stroke="#64748b"/>
+<text x="80" y="459" font-size="20">交付输入：消息快照 + 选择信息</text>
+<text x="80" y="488" font-size="16">真实计数核对容量，任务评估核对关键信息是否足够</text>
+<text x="30" y="558" font-size="16">旧约束可能比新文本重要，需显式保护并检查来源。</text>
+<text x="30" y="586" font-size="16">摘要与卸载另有信息损失、权限和生命周期，不在本选择器中实现。</text>
+</g></svg>

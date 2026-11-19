@@ -1,0 +1,211 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "ReAct：行动与反馈循环",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "output": "react.html",
+    "legend": {
+      "mode": "hidden"
+    }
+  },
+  "lanes": [
+    {
+      "id": "agent",
+      "label": "决策与验收"
+    },
+    {
+      "id": "execution",
+      "label": "工具执行"
+    },
+    {
+      "id": "exit",
+      "label": "受控退出",
+      "variant": "exception"
+    }
+  ],
+  "mainPath": [
+    "goal",
+    "decide",
+    "review",
+    "done"
+  ],
+  "nodes": [
+    {
+      "id": "goal",
+      "lane": "agent",
+      "col": 0,
+      "type": "external",
+      "label": "报告任务",
+      "sublabel": "目标与完成条件",
+      "icon": "none"
+    },
+    {
+      "id": "decide",
+      "lane": "agent",
+      "col": 1,
+      "type": "backend",
+      "label": "下一步决策",
+      "sublabel": "结合上下文与观察",
+      "icon": "none"
+    },
+    {
+      "id": "guard",
+      "lane": "execution",
+      "col": 1,
+      "type": "security",
+      "label": "执行前检查",
+      "sublabel": "参数 / 权限 / 预算",
+      "icon": "none"
+    },
+    {
+      "id": "tool",
+      "lane": "execution",
+      "col": 2,
+      "type": "messagebus",
+      "label": "执行只读工具",
+      "sublabel": "读取或补查资料",
+      "icon": "none"
+    },
+    {
+      "id": "observe",
+      "lane": "execution",
+      "col": 3,
+      "type": "database",
+      "label": "记录观察",
+      "sublabel": "事实 / 缺失 / 错误",
+      "icon": "none"
+    },
+    {
+      "id": "review",
+      "lane": "agent",
+      "col": 4,
+      "type": "backend",
+      "label": "独立结果检查",
+      "sublabel": "覆盖范围与证据",
+      "icon": "none"
+    },
+    {
+      "id": "done",
+      "lane": "agent",
+      "col": 5,
+      "type": "frontend",
+      "label": "交付报告",
+      "sublabel": "完成条件满足",
+      "icon": "none"
+    },
+    {
+      "id": "stop",
+      "lane": "exit",
+      "col": 4,
+      "type": "security",
+      "label": "停止并说明",
+      "sublabel": "缺失项与停止原因",
+      "icon": "none"
+    }
+  ],
+  "edges": [
+    {
+      "id": "intake",
+      "from": "goal",
+      "to": "decide",
+      "role": "main"
+    },
+    {
+      "id": "request",
+      "from": "decide",
+      "to": "guard",
+      "role": "main",
+      "label": "调用"
+    },
+    {
+      "id": "allow",
+      "from": "guard",
+      "to": "tool",
+      "role": "main",
+      "label": "允许"
+    },
+    {
+      "id": "result",
+      "from": "tool",
+      "to": "observe",
+      "role": "main",
+      "label": "返回"
+    },
+    {
+      "id": "feedback",
+      "from": "observe",
+      "to": "decide",
+      "role": "return",
+      "label": "新观察"
+    },
+    {
+      "id": "submit",
+      "from": "decide",
+      "to": "review",
+      "role": "main",
+      "label": "提交"
+    },
+    {
+      "id": "accepted",
+      "from": "review",
+      "to": "done",
+      "role": "main",
+      "label": "通过"
+    },
+    {
+      "id": "insufficient",
+      "from": "review",
+      "to": "decide",
+      "role": "return",
+      "label": "补查",
+      "route": "up-channel",
+      "fromSide": "top",
+      "toSide": "top"
+    },
+    {
+      "id": "blocked",
+      "from": "guard",
+      "to": "stop",
+      "role": "error",
+      "label": "拒绝或超限",
+      "variant": "security"
+    },
+    {
+      "id": "unresolved",
+      "from": "review",
+      "to": "stop",
+      "role": "error",
+      "label": "无法补足",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "图示边界",
+      "items": [
+        "原创教学控制流，不是模型内部思维链或实测运行轨迹。",
+        "工具权限、参数校验与预算由执行层强制约束。"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "贯穿案例",
+      "items": [
+        "读取虚构产品 A/B/C 的资料，比较部署、权限与运维成本。",
+        "事实可追溯；缺失和矛盾要标明，不能用流畅文字代替验收。"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "如何读这张图",
+      "items": [
+        "新观察返回决策环节，后续动作随已知信息调整。",
+        "ReAct 可以形成和修正计划；不是完全没有规划。",
+        "决策提出完成后，仍需按任务交付条件检查。"
+      ]
+    }
+  ]
+}

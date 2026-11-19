@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "Codex 反馈修复",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "404e05070053dd72422c37df4cf0e3fabadf2e5d5550f1b7296f1890a6943592",
+  "rebuildable": false
+}

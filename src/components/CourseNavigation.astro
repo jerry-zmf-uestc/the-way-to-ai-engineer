@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import { AGENT_NAVIGATION_PATHS } from '../../scripts/book-content.mjs';
+
+interface Props { currentId: string }
+const { currentId } = Astro.props;
+const pages = (await getCollection('chapters', ({ data }) => data.published))
+  .sort((a, b) => a.data.order - b.data.order);
+const parts = Map.groupBy(pages, (page) => page.data.part);
+const current = pages.find((page) => page.id === currentId);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const shortTitle = (title: string) => title.replace(/^Agent Harness · |^Agent治理 · /, '');
+const unitLabel = (page: (typeof pages)[number]) => `第 ${page.data.unitNumber} 单元 · ${shortTitle(page.data.title)}`;
+const agentEntries = (entries: typeof pages, group: string) => entries.filter((page) => page.data.navigationPath?.[0] === group);
+---
+
+<aside class="course-rail">
+  <details class="course-navigation" open>
+    <summary>课程导航</summary>
+    <nav aria-label="课程目录">
+      <a class="course-home" href={`${base}/`}>全书目录</a>
+      {[...parts].map(([part, entries]) => (
+        <details open={current?.data.part === part}>
+          <summary>{part}</summary>
+          {part === 'Part 3 · Golang Agent' ? (
+            <>
+              {AGENT_NAVIGATION_PATHS.map((path) => (
+                <details open={current?.data.navigationPath?.[0] === path[0]}>
+                  <summary>{path[0]}</summary>
+                  {agentEntries(entries, path[0]).map((page) => (
+                    <a href={`${base}/chapters/${page.id}/`} aria-current={page.id === currentId ? 'page' : undefined}>{unitLabel(page)}</a>
+                  ))}
+                </details>
+              ))}
+            </>
+          ) : entries.map((page) => (
+            <a href={`${base}/chapters/${page.id}/`} aria-current={page.id === currentId ? 'page' : undefined}>{page.data.title}</a>
+          ))}
+        </details>
+      ))}
+    </nav>
+  </details>
+</aside>

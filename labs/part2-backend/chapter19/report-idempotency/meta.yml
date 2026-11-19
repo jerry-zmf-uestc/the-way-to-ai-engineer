@@ -1,0 +1,13 @@
+---
+course:
+  part: 2
+  chapter: 19
+topic_slug: report-idempotency
+kind: original
+status: validated
+source: null
+license: MIT
+validation:
+  offline: true
+  race: true
+  e2e_gate: null

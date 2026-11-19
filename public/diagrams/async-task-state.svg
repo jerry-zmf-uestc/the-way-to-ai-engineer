@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" role="img" aria-labelledby="title desc"><title id="title">Async Tasks：确认未调用或已退出，再提交终态</title><desc id="desc">箭头是合法状态转换；版本冲突拒绝，更新不产生重叠attempt。</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#475569"/></marker></defs><rect width="1100" height="680" fill="#f8fafc"/><g font-family="system-ui,sans-serif" fill="#0f172a">
+<text x="30" y="42" font-size="25">Async Tasks：确认未调用或已退出，再提交终态</text>
+<rect x="30" y="110" width="225" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="44" y="139" font-size="17">Start通过接纳</text>
+<text x="44" y="165" font-size="17">running · v1</text>
+<rect x="420" y="110" width="235" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="139" font-size="17">Update通过 · v2</text>
+<text x="434" y="165" font-size="17">updating</text>
+<rect x="820" y="110" width="240" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="834" y="139" font-size="17">旧版本已停止</text>
+<text x="834" y="165" font-size="17">running · v2</text>
+<path d="M255 145H420" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="265" y="102" font-size="16">替换输入，取消旧attempt</text>
+<path d="M655 145H820" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="676" y="102" font-size="16">原名额内重跑</text>
+<rect x="50" y="370" width="225" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="64" y="399" font-size="17">canceling</text>
+<text x="64" y="425" font-size="17">仍占用在途名额</text>
+<rect x="420" y="370" width="235" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="434" y="399" font-size="17">canceled</text>
+<text x="434" y="425" font-size="17">丢弃迟到文本</text>
+<rect x="820" y="370" width="240" height="75" rx="9" fill="#dbeafe" stroke="#64748b"/>
+<text x="834" y="399" font-size="17">completed / failed</text>
+<text x="834" y="425" font-size="17">或canceled（当前版本）</text>
+<path d="M145 185V370" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="155" y="270" font-size="16">Cancel / Close</text>
+<path d="M535 185V275H260V370" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="310" y="260" font-size="16">Cancel</text>
+<path d="M845 185V225H170V370" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="675" y="214" font-size="16">Cancel v2</text>
+<path d="M275 407H420" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="294" y="395" font-size="16">确认停止</text>
+<path d="M940 185V370" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="950" y="278" font-size="16">当前版本返回</text>
+<path d="M50 185V315H885V370" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="530" y="305" font-size="16">未更新的v1也可完成或失败</text>
+<text x="30" y="540" font-size="17">所有提交在同一锁边界判断：取消 → 总超时 → 版本 → 错误 → 输出。</text>
+<text x="30" y="578" font-size="17">Update只允许一次；revision记录指令/取消变更，attempt记录实际执行。</text>
+<text x="30" y="616" font-size="17">入口已知取消/失效时跳过worker；v2可成为Attempt=1。</text>
+<text x="30" y="650" font-size="17">TTL仅删除终态记录；同进程状态不提供进程重启恢复。</text>
+</g></svg>

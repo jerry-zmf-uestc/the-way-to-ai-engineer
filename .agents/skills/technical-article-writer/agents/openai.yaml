@@ -1,0 +1,4 @@
+interface:
+  display_name: "技术文章写作"
+  short_description: "支持课程与公众号写作、样文学习与反馈编译，按证据维护作者偏好和共用方法"
+  default_prompt: "使用 $technical-article-writer 改进指定技术文章，按渠道读取作者偏好和共用方法；若有认可样文或改稿反馈，按学习流程记录并验证适用变化。"

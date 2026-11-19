@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "kind": "frozen-static",
+  "title": "LangGraph 客服节点",
+  "provenance": "迁移既有作者技术示意图；本轮未重绘、未核验当前公众号配图版本。",
+  "original_sha256": "4b8c1a2e1ac61dee1138560a3bee3c6e6b0abb9e1217fa0158de6e97602c5f8a",
+  "rebuildable": false
+}

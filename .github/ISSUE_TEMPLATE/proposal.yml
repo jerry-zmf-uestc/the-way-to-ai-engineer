@@ -1,0 +1,22 @@
+name: 内容或设计建议
+description: 讨论新主题、接口、目录或验证流程的变更
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: 要解决的问题和非目标
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: 方案与取舍
+      description: 说明涉及的章节、接口或目录，不要求取得维护者的私有规格。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 实施任务与验收方法
+    validations:
+      required: true
